@@ -10,4 +10,6 @@
 
 @interface MyScene : SKScene
 
+- (void)addShip:(CGPoint)position;
+
 @end
