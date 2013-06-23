@@ -13,7 +13,7 @@
 		0316D9D21775570600FF40CF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0316D9D11775570600FF40CF /* main.m */; };
 		0316D9D61775570600FF40CF /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 0316D9D41775570600FF40CF /* Credits.rtf */; };
 		0316D9D81775570600FF40CF /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0316D9D71775570600FF40CF /* MainMenu.xib */; };
-		0316D9DA1775570600FF40CF /* MyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 0316D9D91775570600FF40CF /* MyScene.m */; };
+		0316D9DA1775570600FF40CF /* WorldScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 0316D9D91775570600FF40CF /* WorldScene.m */; };
 		0316D9DD1775570600FF40CF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0316D9DC1775570600FF40CF /* AppDelegate.m */; };
 		0316D9E01775570600FF40CF /* Spaceship.png in Resources */ = {isa = PBXBuildFile; fileRef = 0316D9DF1775570600FF40CF /* Spaceship.png */; };
 		0316D9E21775570600FF40CF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0316D9E11775570600FF40CF /* Images.xcassets */; };
@@ -21,6 +21,8 @@
 		0316D9EA1775570600FF40CF /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0316D9C31775570600FF40CF /* Cocoa.framework */; };
 		0316D9F21775570600FF40CF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0316D9F01775570600FF40CF /* InfoPlist.strings */; };
 		0316D9F41775570600FF40CF /* flatlandTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0316D9F31775570600FF40CF /* flatlandTests.m */; };
+		0316DA0217767ED700FF40CF /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 0316DA0117767ED700FF40CF /* Player.m */; };
+		0316DA0517768A3100FF40CF /* NSArray+FP.m in Sources */ = {isa = PBXBuildFile; fileRef = 0316DA0417768A3100FF40CF /* NSArray+FP.m */; };
 		B89260BBFFA4476EAD0BB91A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 10914B562211409E8AB7E324 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -47,8 +49,8 @@
 		0316D9D31775570600FF40CF /* flatland-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "flatland-Prefix.pch"; sourceTree = "<group>"; };
 		0316D9D51775570600FF40CF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		0316D9D71775570600FF40CF /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
-		0316D9D91775570600FF40CF /* MyScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyScene.m; sourceTree = "<group>"; };
-		0316D9DB1775570600FF40CF /* MyScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyScene.h; sourceTree = "<group>"; };
+		0316D9D91775570600FF40CF /* WorldScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorldScene.m; sourceTree = "<group>"; };
+		0316D9DB1775570600FF40CF /* WorldScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorldScene.h; sourceTree = "<group>"; };
 		0316D9DC1775570600FF40CF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		0316D9DE1775570600FF40CF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0316D9DF1775570600FF40CF /* Spaceship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spaceship.png; sourceTree = "<group>"; };
@@ -58,6 +60,10 @@
 		0316D9EF1775570600FF40CF /* flatlandTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "flatlandTests-Info.plist"; sourceTree = "<group>"; };
 		0316D9F11775570600FF40CF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0316D9F31775570600FF40CF /* flatlandTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = flatlandTests.m; sourceTree = "<group>"; };
+		0316DA0017767ED700FF40CF /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
+		0316DA0117767ED700FF40CF /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
+		0316DA0317768A3100FF40CF /* NSArray+FP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+FP.h"; sourceTree = "<group>"; };
+		0316DA0417768A3100FF40CF /* NSArray+FP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+FP.m"; sourceTree = "<group>"; };
 		0FD58F96B82A403C9724C438 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		10914B562211409E8AB7E324 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -132,12 +138,16 @@
 			children = (
 				0316D9CC1775570600FF40CF /* Supporting Files */,
 				0316D9E11775570600FF40CF /* Images.xcassets */,
+				0316DA0317768A3100FF40CF /* NSArray+FP.h */,
+				0316DA0417768A3100FF40CF /* NSArray+FP.m */,
 				0316D9DE1775570600FF40CF /* AppDelegate.h */,
 				0316D9DC1775570600FF40CF /* AppDelegate.m */,
 				0316D9D71775570600FF40CF /* MainMenu.xib */,
-				0316D9DB1775570600FF40CF /* MyScene.h */,
-				0316D9D91775570600FF40CF /* MyScene.m */,
 				0316D9DF1775570600FF40CF /* Spaceship.png */,
+				0316DA0017767ED700FF40CF /* Player.h */,
+				0316DA0117767ED700FF40CF /* Player.m */,
+				0316D9DB1775570600FF40CF /* WorldScene.h */,
+				0316D9D91775570600FF40CF /* WorldScene.m */,
 			);
 			path = flatland;
 			sourceTree = "<group>";
@@ -303,7 +313,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0316D9DA1775570600FF40CF /* MyScene.m in Sources */,
+				0316DA0217767ED700FF40CF /* Player.m in Sources */,
+				0316DA0517768A3100FF40CF /* NSArray+FP.m in Sources */,
+				0316D9DA1775570600FF40CF /* WorldScene.m in Sources */,
 				0316D9D21775570600FF40CF /* main.m in Sources */,
 				0316D9DD1775570600FF40CF /* AppDelegate.m in Sources */,
 			);

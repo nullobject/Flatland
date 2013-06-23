@@ -8,8 +8,10 @@
 
 #import <SpriteKit/SpriteKit.h>
 
-@interface MyScene : SKScene
+@interface WorldScene : SKScene
 
 - (void)addShip:(CGPoint)position;
+- (NSDictionary *)asJSON;
+- (NSData *)toJSON;
 
 @end

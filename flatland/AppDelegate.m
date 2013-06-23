@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "RoutingHTTPServer.h"
-#import "MyScene.h"
+#import "WorldScene.h"
 
 #define RANDOM() (arc4random() / (float)(0xffffffffu))
 
@@ -19,12 +19,12 @@
 @synthesize window = _window;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-  MyScene *scene = [MyScene sceneWithSize:CGSizeMake(1024, 768)];
+  WorldScene *world = [WorldScene sceneWithSize:CGSizeMake(1024, 768)];
 
   // Set the scale mode to scale to fit the window.
-  scene.scaleMode = SKSceneScaleModeAspectFit;
+  world.scaleMode = SKSceneScaleModeAspectFit;
 
-  [self.skView presentScene:scene];
+  [self.skView presentScene:world];
 
   self.skView.showsFPS = YES;
   self.skView.showsNodeCount = YES;
@@ -34,9 +34,9 @@
   [httpServer setDefaultHeader:@"Server" value:@"Flatland/1.0"];
 
 	[httpServer get:@"/hello" withBlock:^(RouteRequest *request, RouteResponse *response) {
-    [scene addShip:CGPointMake(RANDOM() * 500, RANDOM() * 500)];
+    [world addShip:CGPointMake(RANDOM() * 500, RANDOM() * 500)];
     [response setHeader:@"Content-Type" value:@"application/json"];
-		[response respondWithString:@"{name:1}\n"];
+    [response respondWithData:[world toJSON]];
 	}];
 
 	[httpServer get:@"/hello/:name" withBlock:^(RouteRequest *request, RouteResponse *response) {
