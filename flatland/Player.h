@@ -28,8 +28,7 @@ typedef enum : uint8_t {
 // Commands.
 - (void)idle;
 - (void)spawn;
-- (void)forward;
-- (void)reverse;
+- (void)move;
 - (void)turn;
 
 @end

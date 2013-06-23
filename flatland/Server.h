@@ -16,8 +16,7 @@
 @optional
 - (NSData *)server:(Server *)server idlePlayerWithUUID:(NSUUID *)uuid;
 - (NSData *)server:(Server *)server spawnPlayerWithUUID:(NSUUID *)uuid;
-- (NSData *)server:(Server *)server forwardPlayerWithUUID:(NSUUID *)uuid;
-- (NSData *)server:(Server *)server reversePlayerWithUUID:(NSUUID *)uuid;
+- (NSData *)server:(Server *)server movePlayerWithUUID:(NSUUID *)uuid;
 - (NSData *)server:(Server *)server turnPlayerWithUUID:(NSUUID *)uuid;
 
 @end

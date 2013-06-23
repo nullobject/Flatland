@@ -19,10 +19,7 @@
 - (void)spawn:(NSUUID *)UUID;
 
 // Moves the player with the given UUID forwards.
-- (void)forward:(NSUUID *)UUID;
-
-// Moves the player with the given UUID backwards.
-- (void)reverse:(NSUUID *)UUID;
+- (void)move:(NSUUID *)UUID;
 
 // Turns the player with the given UUID.
 - (void)turn:(NSUUID *)UUID;

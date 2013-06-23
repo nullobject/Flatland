@@ -36,14 +36,9 @@
   _entity.position = CGPointMake(RANDOM() * 500, RANDOM() * 500);
 }
 
-- (void)forward {
+- (void)move {
   if (_state != PlayerStateAlive) return;
-  [_entity forward:1];
-}
-
-- (void)reverse {
-  if (_state != PlayerStateAlive) return;
-  [_entity reverse:1];
+  [_entity move:1];
 }
 
 - (void)turn {

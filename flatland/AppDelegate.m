@@ -57,13 +57,8 @@
   return [_world toJSON];
 }
 
-- (NSData *)server:(Server *)server forwardPlayerWithUUID:(NSUUID *)uuid {
-  [_world forward:uuid];
-  return [_world toJSON];
-}
-
-- (NSData *)server:(Server *)server reversePlayerWithUUID:(NSUUID *)uuid {
-  [_world reverse:uuid];
+- (NSData *)server:(Server *)server movePlayerWithUUID:(NSUUID *)uuid {
+  [_world move:uuid];
   return [_world toJSON];
 }
 

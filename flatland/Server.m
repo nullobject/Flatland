@@ -49,24 +49,12 @@ NSString *kServer      = @"Server";
     [response respondWithData:data];
 	}];
 
-	[self get:@"/forward" withBlock:^(RouteRequest *request, RouteResponse *response) {
+	[self get:@"/move" withBlock:^(RouteRequest *request, RouteResponse *response) {
     NSData *data = nil;
     NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:[request header:kXPlayer]];
 
-    if ([_delegate respondsToSelector:@selector(server:forwardPlayerWithUUID:)]) {
-      data = [_delegate server:self forwardPlayerWithUUID:uuid];
-    }
-
-    [response setHeader:kContentType value:@"application/json"];
-    [response respondWithData:data];
-	}];
-
-	[self get:@"/reverse" withBlock:^(RouteRequest *request, RouteResponse *response) {
-    NSData *data = nil;
-    NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:[request header:kXPlayer]];
-
-    if ([_delegate respondsToSelector:@selector(server:reversePlayerWithUUID:)]) {
-      data = [_delegate server:self reversePlayerWithUUID:uuid];
+    if ([_delegate respondsToSelector:@selector(server:movePlayerWithUUID:)]) {
+      data = [_delegate server:self movePlayerWithUUID:uuid];
     }
 
     [response setHeader:kContentType value:@"application/json"];

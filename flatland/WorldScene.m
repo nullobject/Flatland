@@ -70,14 +70,9 @@
   [self addChild:player.entity];
 }
 
-- (void)forward:(NSUUID *)UUID {
+- (void)move:(NSUUID *)UUID {
   Player *player = [self playerWithUUID:UUID];
-  [player forward];
-}
-
-- (void)reverse:(NSUUID *)UUID {
-  Player *player = [self playerWithUUID:UUID];
-  [player reverse];
+  [player move];
 }
 
 - (void)turn:(NSUUID *)UUID {

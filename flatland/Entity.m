@@ -32,15 +32,9 @@ const CGFloat kMovementSpeed = 100.0f;
   _state = EntityStateIdle;
 }
 
-- (void)forward:(NSTimeInterval)dt {
+- (void)move:(NSTimeInterval)dt {
   CGFloat x = -sinf(self.zRotation) * kMovementSpeed * dt,
           y =  cosf(self.zRotation) * kMovementSpeed * dt;
-  [self moveByX:x y:y duration:dt];
-}
-
-- (void)reverse:(NSTimeInterval)dt {
-  CGFloat x =  sinf(self.zRotation) * kMovementSpeed * dt,
-          y = -cosf(self.zRotation) * kMovementSpeed * dt;
   [self moveByX:x y:y duration:dt];
 }
 
