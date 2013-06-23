@@ -8,6 +8,8 @@
 
 #import <SpriteKit/SpriteKit.h>
 
+#import "Serializable.h"
+
 typedef enum : uint8_t {
   EntityStateIdle,
   EntityStateAttacking,
@@ -15,11 +17,11 @@ typedef enum : uint8_t {
   EntityStateTurning
 } EntityState;
 
-@interface Entity : SKSpriteNode
+@interface Entity : SKSpriteNode <Serializable>
 
 @property (nonatomic, assign) EntityState state;
+@property (nonatomic, assign) NSUInteger age;
 
 - (Entity *)init;
-- (NSDictionary *)asJSON;
 
 @end

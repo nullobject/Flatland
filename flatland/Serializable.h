@@ -10,6 +10,6 @@
 
 @protocol Serializable <NSObject>
 
-- (NSData *)asJSON;
+- (NSDictionary *)asJSON;
 
 @end

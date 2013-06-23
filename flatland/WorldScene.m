@@ -30,26 +30,26 @@
 }
 
 - (void)addWalls {
-  [self addCollisionWallAtWorldPoint:CGPointMake(0.0f, 0.0f) withWidth:self.frame.size.width height:1.0f];
-  [self addCollisionWallAtWorldPoint:CGPointMake(0.0f, 0.0f) withWidth:1.0f height:self.frame.size.height];
-  [self addCollisionWallAtWorldPoint:CGPointMake(0.0f, self.frame.size.height) withWidth:self.frame.size.width height:1.0f];
-  [self addCollisionWallAtWorldPoint:CGPointMake(self.frame.size.width, 0.0f) withWidth:1.0f height:self.frame.size.height];
+  [self addCollisionWallAtPoint:CGPointMake(0.0f, 0.0f) withWidth:self.frame.size.width height:1.0f];
+  [self addCollisionWallAtPoint:CGPointMake(0.0f, 0.0f) withWidth:1.0f height:self.frame.size.height];
+  [self addCollisionWallAtPoint:CGPointMake(0.0f, self.frame.size.height) withWidth:self.frame.size.width height:1.0f];
+  [self addCollisionWallAtPoint:CGPointMake(self.frame.size.width, 0.0f) withWidth:1.0f height:self.frame.size.height];
 }
 
-- (void)addCollisionWallAtWorldPoint:(CGPoint)worldPoint
-                           withWidth:(CGFloat)width height:(CGFloat)height {
+- (void)addCollisionWallAtPoint:(CGPoint)point
+                      withWidth:(CGFloat)width
+                         height:(CGFloat)height {
   CGRect rect = CGRectMake(0, 0, width, height);
   SKNode *wallNode = [SKNode node];
   wallNode.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:rect.size];
-  wallNode.position = CGPointMake(worldPoint.x + rect.size.width * 0.5,
-                                  worldPoint.y + rect.size.height * 0.5);
+  wallNode.position = CGPointMake(point.x + rect.size.width * 0.5, point.y + rect.size.height * 0.5);
   wallNode.physicsBody.dynamic = NO;
   wallNode.physicsBody.friction = 1.0f;
-
   [self addChild:wallNode];
 }
 
 - (void)spawn:(NSUUID *)UUID {
+  NSLog(@"Spawning player %@", [UUID UUIDString]);
   Player *player = [[Player alloc] initWithUUID:UUID];
   [_players addObject:player];
   [self addChild:player.entity];

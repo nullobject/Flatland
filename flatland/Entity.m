@@ -25,20 +25,24 @@
   return self;
 }
 
-- (NSString *)EntityStateAsString:(EntityState) state {
+- (NSString *)entityStateAsString:(EntityState) state {
   switch (state) {
-    case EntityStateMoving: return @"moving";
-    default:                return @"idle";
+    case EntityStateAttacking: return @"attacking";
+    case EntityStateMoving:    return @"moving";
+    case EntityStateTurning:   return @"turning";
+    default:                   return @"idle";
   }
 }
 
-- (NSDictionary *)asJSON {
-  NSDictionary *position = @{@"x": [NSNumber numberWithFloat:self.position.x],
-                             @"y": [NSNumber numberWithFloat:self.position.y]};
+- (NSDictionary *)pointAsDictionary:(CGPoint)point {
+  return @{@"x": [NSNumber numberWithFloat:point.x],
+           @"y": [NSNumber numberWithFloat:point.y]};
+}
 
+- (NSDictionary *)asJSON {
   return @{@"id":       self.name,
-           @"state":    [self EntityStateAsString:self.state],
-           @"position": position,
+           @"state":    [self entityStateAsString:self.state],
+           @"position": [self pointAsDictionary:self.position],
            @"rotation": [NSNumber numberWithFloat:self.zRotation]};
 }
 
