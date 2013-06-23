@@ -14,8 +14,9 @@ const CGFloat kMovementSpeed = 100.0f;
 
 - (Entity *)init {
   if (self = [super initWithImageNamed:@"Spaceship"]) {
+    _state = EntityStateIdle;
+    
     self.name = [[NSUUID UUID] UUIDString];
-    self.state = EntityStateIdle;
 
     self.scale = 0.25f;
 
@@ -25,6 +26,10 @@ const CGFloat kMovementSpeed = 100.0f;
   }
 
   return self;
+}
+
+- (void)idle:(NSTimeInterval)dt {
+  _state = EntityStateIdle;
 }
 
 - (void)forward:(NSTimeInterval)dt {
@@ -38,6 +43,15 @@ const CGFloat kMovementSpeed = 100.0f;
           y = -cosf(self.zRotation) * kMovementSpeed * dt;
   [self moveByX:x y:y duration:dt];
 }
+
+- (NSDictionary *)asJSON {
+  return @{@"id":       self.name,
+           @"state":    [self entityStateAsString:self.state],
+           @"position": [self pointAsDictionary:self.position],
+           @"rotation": [NSNumber numberWithFloat:self.zRotation]};
+}
+
+#pragma mark - Private methods
 
 - (NSString *)entityStateAsString:(EntityState) state {
   switch (state) {
@@ -53,16 +67,8 @@ const CGFloat kMovementSpeed = 100.0f;
            @"y": [NSNumber numberWithFloat:point.y]};
 }
 
-- (NSDictionary *)asJSON {
-  return @{@"id":       self.name,
-           @"state":    [self entityStateAsString:self.state],
-           @"position": [self pointAsDictionary:self.position],
-           @"rotation": [NSNumber numberWithFloat:self.zRotation]};
-}
-
-#pragma mark - Private methods
-
 - (void)moveByX:(CGFloat)x y:(CGFloat)y duration:(NSTimeInterval)dt {
+  _state = EntityStateMoving;
   SKAction *action = [SKAction moveByX:x y:y duration:dt];
   [self runAction:action];
 }

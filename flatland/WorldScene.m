@@ -59,6 +59,11 @@
   return player;
 }
 
+- (void)idle:(NSUUID *)UUID {
+  Player *player = [self playerWithUUID:UUID];
+  [player idle];
+}
+
 - (void)spawn:(NSUUID *)UUID {
   Player *player = [self playerWithUUID:UUID];
   [player spawn];

@@ -12,6 +12,9 @@
 
 @interface WorldScene : SKScene <Serializable>
 
+// Idles a player with the given UUID.
+- (void)idle:(NSUUID *)UUID;
+
 // Spawns a player with the given UUID.
 - (void)spawn:(NSUUID *)UUID;
 

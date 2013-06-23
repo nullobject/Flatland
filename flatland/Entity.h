@@ -23,6 +23,9 @@ typedef enum : uint8_t {
 @property (nonatomic, assign) NSUInteger age;
 
 - (Entity *)init;
+
+// Commands.
+- (void)idle:(NSTimeInterval)dt;
 - (void)forward:(NSTimeInterval)dt;
 - (void)reverse:(NSTimeInterval)dt;
 

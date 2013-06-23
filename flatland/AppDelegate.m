@@ -53,6 +53,13 @@ NSString *kServer      = @"Server";
   [server setPort:8000];
   [server setDefaultHeader:kServer value:@"Flatland/1.0"];
 
+	[server get:@"/idle" withBlock:^(RouteRequest *request, RouteResponse *response) {
+    NSUUID *UUID = [[NSUUID alloc] initWithUUIDString:[request header:kXPlayer]];
+    [_world idle:UUID];
+    [response setHeader:kContentType value:@"application/json"];
+    [response respondWithData:[_world toJSON]];
+	}];
+
 	[server get:@"/spawn" withBlock:^(RouteRequest *request, RouteResponse *response) {
     NSUUID *UUID = [[NSUUID alloc] initWithUUIDString:[request header:kXPlayer]];
     [_world spawn:UUID];

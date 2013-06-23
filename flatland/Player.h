@@ -25,13 +25,10 @@ typedef enum : uint8_t {
 
 - (Player *)initWithUUID:(NSUUID *)UUID;
 
-// Spawns the player.
+// Commands.
+- (void)idle;
 - (void)spawn;
-
-// Moves the player forwards.
 - (void)forward;
-
-// Moves the player backwards.
 - (void)reverse;
 
 @end

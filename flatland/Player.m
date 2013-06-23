@@ -20,6 +20,11 @@
   return self;
 }
 
+- (void)idle {
+  if (_state != PlayerStateAlive) return;
+  [_entity idle:1];
+}
+
 - (void)spawn {
   if (_state != PlayerStateDead) return;
 
@@ -43,9 +48,9 @@
 
 - (NSString *)playerStateAsString:(PlayerState) state {
   switch (state) {
-    case PlayerStateSpawning:  return @"spawning";
-    case PlayerStateAlive:     return @"alive";
-    default:                   return @"dead";
+    case PlayerStateSpawning: return @"spawning";
+    case PlayerStateAlive:    return @"alive";
+    default:                  return @"dead";
   }
 }
 
