@@ -44,6 +44,12 @@ const CGFloat kMovementSpeed = 100.0f;
   [self moveByX:x y:y duration:dt];
 }
 
+- (void)turn:(NSTimeInterval)dt {
+  _state = EntityStateTurning;
+  SKAction *action = [SKAction rotateByAngle:M_PI_2 duration:dt];
+  [self runAction:action];
+}
+
 - (NSDictionary *)asJSON {
   return @{@"id":       self.name,
            @"state":    [self entityStateAsString:self.state],

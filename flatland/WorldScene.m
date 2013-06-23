@@ -80,6 +80,11 @@
   [player reverse];
 }
 
+- (void)turn:(NSUUID *)UUID {
+  Player *player = [self playerWithUUID:UUID];
+  [player turn];
+}
+
 - (void)update:(CFTimeInterval)currentTime {
   /* Called before each frame is rendered */
 }

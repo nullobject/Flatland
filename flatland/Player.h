@@ -30,5 +30,6 @@ typedef enum : uint8_t {
 - (void)spawn;
 - (void)forward;
 - (void)reverse;
+- (void)turn;
 
 @end

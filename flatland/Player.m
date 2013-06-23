@@ -46,6 +46,11 @@
   [_entity reverse:1];
 }
 
+- (void)turn {
+  if (_state != PlayerStateAlive) return;
+  [_entity turn:1];
+}
+
 - (NSString *)playerStateAsString:(PlayerState) state {
   switch (state) {
     case PlayerStateSpawning: return @"spawning";

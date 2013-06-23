@@ -25,6 +25,7 @@
 		0316DA0517768A3100FF40CF /* NSArray+FP.m in Sources */ = {isa = PBXBuildFile; fileRef = 0316DA0417768A3100FF40CF /* NSArray+FP.m */; };
 		0316DA08177692E300FF40CF /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 0316DA07177692E300FF40CF /* Player.m */; };
 		0316DA0D1776A43200FF40CF /* SKColor+Relative.m in Sources */ = {isa = PBXBuildFile; fileRef = 0316DA0C1776A43200FF40CF /* SKColor+Relative.m */; };
+		03B24C4B1776CD0A00CF4BC2 /* Server.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B24C4A1776CD0A00CF4BC2 /* Server.m */; };
 		B89260BBFFA4476EAD0BB91A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 10914B562211409E8AB7E324 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +72,8 @@
 		0316DA0A1776A0B200FF40CF /* Serializable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Serializable.h; sourceTree = "<group>"; };
 		0316DA0B1776A43200FF40CF /* SKColor+Relative.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKColor+Relative.h"; sourceTree = "<group>"; };
 		0316DA0C1776A43200FF40CF /* SKColor+Relative.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKColor+Relative.m"; sourceTree = "<group>"; };
+		03B24C491776CD0A00CF4BC2 /* Server.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Server.h; sourceTree = "<group>"; };
+		03B24C4A1776CD0A00CF4BC2 /* Server.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Server.m; sourceTree = "<group>"; };
 		0FD58F96B82A403C9724C438 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		10914B562211409E8AB7E324 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -157,6 +160,8 @@
 				0316D9DF1775570600FF40CF /* Spaceship.png */,
 				0316D9DB1775570600FF40CF /* WorldScene.h */,
 				0316D9D91775570600FF40CF /* WorldScene.m */,
+				03B24C491776CD0A00CF4BC2 /* Server.h */,
+				03B24C4A1776CD0A00CF4BC2 /* Server.m */,
 			);
 			path = flatland;
 			sourceTree = "<group>";
@@ -339,6 +344,7 @@
 				0316DA0D1776A43200FF40CF /* SKColor+Relative.m in Sources */,
 				0316D9D21775570600FF40CF /* main.m in Sources */,
 				0316DA08177692E300FF40CF /* Player.m in Sources */,
+				03B24C4B1776CD0A00CF4BC2 /* Server.m in Sources */,
 				0316D9DD1775570600FF40CF /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

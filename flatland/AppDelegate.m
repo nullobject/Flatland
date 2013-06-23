@@ -7,26 +7,22 @@
 //
 
 #import "AppDelegate.h"
-#import "RoutingHTTPServer.h"
 #import "WorldScene.h"
-
-NSString *kXPlayer     = @"X-Player";
-NSString *kContentType = @"Content-Type";
-NSString *kServer      = @"Server";
 
 @implementation AppDelegate {
   WorldScene *_world;
-	RoutingHTTPServer *_server;
+	Server *_server;
 }
 
 @synthesize window = _window;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
   _world = [self world];
-  _server = [self HTTPServer];
+
+  _server = [[Server alloc] init];
+  _server.delegate = self;
 
   NSError *error;
-
 	if (![_server start:&error]) {
 		NSLog(@"Error starting HTTP server: %@", error);
 	}
@@ -47,45 +43,33 @@ NSString *kServer      = @"Server";
   return world;
 }
 
-- (RoutingHTTPServer *)HTTPServer {
-  RoutingHTTPServer *server = [[RoutingHTTPServer alloc] init];
-
-  [server setPort:8000];
-  [server setDefaultHeader:kServer value:@"Flatland/1.0"];
-
-	[server get:@"/idle" withBlock:^(RouteRequest *request, RouteResponse *response) {
-    NSUUID *UUID = [[NSUUID alloc] initWithUUIDString:[request header:kXPlayer]];
-    [_world idle:UUID];
-    [response setHeader:kContentType value:@"application/json"];
-    [response respondWithData:[_world toJSON]];
-	}];
-
-	[server get:@"/spawn" withBlock:^(RouteRequest *request, RouteResponse *response) {
-    NSUUID *UUID = [[NSUUID alloc] initWithUUIDString:[request header:kXPlayer]];
-    [_world spawn:UUID];
-    [response setHeader:kContentType value:@"application/json"];
-    [response respondWithData:[_world toJSON]];
-	}];
-
-	[server get:@"/forward" withBlock:^(RouteRequest *request, RouteResponse *response) {
-    NSUUID *UUID = [[NSUUID alloc] initWithUUIDString:[request header:kXPlayer]];
-    [_world forward:UUID];
-    [response setHeader:kContentType value:@"application/json"];
-    [response respondWithData:[_world toJSON]];
-	}];
-
-	[server get:@"/reverse" withBlock:^(RouteRequest *request, RouteResponse *response) {
-    NSUUID *UUID = [[NSUUID alloc] initWithUUIDString:[request header:kXPlayer]];
-    [_world reverse:UUID];
-    [response setHeader:kContentType value:@"application/json"];
-    [response respondWithData:[_world toJSON]];
-	}];
-
-  return server;
-}
-
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender {
   return YES;
+}
+
+- (NSData *)server:(Server *)server idlePlayerWithUUID:(NSUUID *)uuid {
+  [_world idle:uuid];
+  return [_world toJSON];
+}
+
+- (NSData *)server:(Server *)server spawnPlayerWithUUID:(NSUUID *)uuid {
+  [_world spawn:uuid];
+  return [_world toJSON];
+}
+
+- (NSData *)server:(Server *)server forwardPlayerWithUUID:(NSUUID *)uuid {
+  [_world forward:uuid];
+  return [_world toJSON];
+}
+
+- (NSData *)server:(Server *)server reversePlayerWithUUID:(NSUUID *)uuid {
+  [_world reverse:uuid];
+  return [_world toJSON];
+}
+
+- (NSData *)server:(Server *)server turnPlayerWithUUID:(NSUUID *)uuid {
+  [_world turn:uuid];
+  return [_world toJSON];
 }
 
 @end

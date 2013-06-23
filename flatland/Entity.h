@@ -28,5 +28,6 @@ typedef enum : uint8_t {
 - (void)idle:(NSTimeInterval)dt;
 - (void)forward:(NSTimeInterval)dt;
 - (void)reverse:(NSTimeInterval)dt;
+- (void)turn:(NSTimeInterval)dt;
 
 @end

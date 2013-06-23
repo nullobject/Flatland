@@ -24,6 +24,9 @@
 // Moves the player with the given UUID backwards.
 - (void)reverse:(NSUUID *)UUID;
 
+// Turns the player with the given UUID.
+- (void)turn:(NSUUID *)UUID;
+
 - (NSData *)toJSON;
 
 @end
