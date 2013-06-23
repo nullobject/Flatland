@@ -7,6 +7,8 @@
 //
 
 #import "NSArray+FP.h"
+#import "SKColor+Relative.h"
+#import "Entity.h"
 #import "Player.h"
 #import "WorldScene.h"
 
@@ -18,7 +20,7 @@
   if (self = [super initWithSize:size]) {
     _players = [[NSMutableArray alloc] init];
 
-    self.backgroundColor = [SKColor colorWithRed:0.15f green:0.15f blue:0.3f alpha:1.0f];
+    self.backgroundColor = [SKColor colorWithRGB:0xffa000];
     self.physicsWorld.gravity = CGPointMake(0.0f, -9.8f);
 
     [self addWalls];
@@ -47,21 +49,10 @@
   [self addChild:wallNode];
 }
 
-- (void)mouseDown:(NSEvent *)theEvent {
-  CGPoint position = [theEvent locationInNode:self];
-  [self addShip:position];
-}
-
-- (void)addShip:(CGPoint)position {
-  Player *player = [[Player alloc] init];
-
-  player.position = position;
-
-//  SKAction *action = [SKAction rotateByAngle:M_PI duration:1];
-//  [sprite runAction:[SKAction repeatActionForever:action]];
-
+- (void)spawn:(NSUUID *)UUID {
+  Player *player = [[Player alloc] initWithUUID:UUID];
   [_players addObject:player];
-  [self addChild:player];
+  [self addChild:player.entity];
 }
 
 - (void)update:(CFTimeInterval)currentTime {
@@ -69,9 +60,10 @@
 }
 
 - (NSDictionary *)asJSON {
-  NSArray *players = [_players map:^(Player *player) {
+  NSArray *players = [_players map:^(Entity *player) {
     return [player asJSON];
   }];
+
   return @{@"players": players};
 }
 

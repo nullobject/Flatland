@@ -6,18 +6,23 @@
 //  Copyright (c) 2013 Gamedogs. All rights reserved.
 //
 
-#import <SpriteKit/SpriteKit.h>
+#import <Foundation/Foundation.h>
+
+#import "Entity.h"
+#import "Serializable.h"
 
 typedef enum : uint8_t {
-  PlayerStateIdle,
-  PlayerStateMoving
+  PlayerStateDead,
+  PlayerStateSpawning,
+  PlayerStateAlive
 } PlayerState;
 
-@interface Player : SKSpriteNode
+@interface Player : NSObject <Serializable>
 
+@property (nonatomic, strong) NSUUID *UUID;
 @property (nonatomic, assign) PlayerState state;
+@property (nonatomic, strong) Entity *entity;
 
-- (Player *)init;
-- (NSDictionary *)asJSON;
+- (Player *)initWithUUID:(NSUUID *)UUID;
 
 @end

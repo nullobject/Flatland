@@ -10,8 +10,6 @@
 #import "RoutingHTTPServer.h"
 #import "WorldScene.h"
 
-#define RANDOM() (arc4random() / (float)(0xffffffffu))
-
 @implementation AppDelegate {
 	RoutingHTTPServer *httpServer;
 }
@@ -26,22 +24,20 @@
 
   [self.skView presentScene:world];
 
-  self.skView.showsFPS = YES;
+  self.skView.showsFPS       = YES;
   self.skView.showsNodeCount = YES;
+  self.skView.showsDrawCount = YES;
 
   httpServer = [[RoutingHTTPServer alloc] init];
   [httpServer setPort:8000];
   [httpServer setDefaultHeader:@"Server" value:@"Flatland/1.0"];
 
-	[httpServer get:@"/hello" withBlock:^(RouteRequest *request, RouteResponse *response) {
-    [world addShip:CGPointMake(RANDOM() * 500, RANDOM() * 500)];
+	[httpServer get:@"/spawn" withBlock:^(RouteRequest *request, RouteResponse *response) {
+    NSUUID *UUID = [[NSUUID alloc] initWithUUIDString:[request header:@"X-Player"]];
+    [world spawn:UUID];
+//    [world addShip:CGPointMake(RANDOM() * 500, RANDOM() * 500)];
     [response setHeader:@"Content-Type" value:@"application/json"];
     [response respondWithData:[world toJSON]];
-	}];
-
-	[httpServer get:@"/hello/:name" withBlock:^(RouteRequest *request, RouteResponse *response) {
-    [response setHeader:@"Content-Type" value:@"application/json"];
-		[response respondWithString:[NSString stringWithFormat:@"{name:\"%@\"}\n", [request param:@"name"]]];
 	}];
 
   NSError *error;

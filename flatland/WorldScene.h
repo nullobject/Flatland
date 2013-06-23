@@ -8,10 +8,13 @@
 
 #import <SpriteKit/SpriteKit.h>
 
-@interface WorldScene : SKScene
+#import "Serializable.h"
 
-- (void)addShip:(CGPoint)position;
-- (NSDictionary *)asJSON;
+@interface WorldScene : SKScene <Serializable>
+
+// Spawns a player with the given UUID.
+- (void)spawn:(NSUUID *)UUID;
+
 - (NSData *)toJSON;
 
 @end

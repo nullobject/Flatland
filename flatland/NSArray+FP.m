@@ -1,9 +1,9 @@
 //
 //  NSArray+FP.m
-//  johanna-ios
+//  flatland
 //
-//  Created by Josh Bassett on 08/05/13.
-//  Copyright (c) 2013 Ferocia. All rights reserved.
+//  Created by Josh Bassett on 22/06/2013.
+//  Copyright (c) 2013 Gamedogs. All rights reserved.
 //
 
 #import "NSArray+FP.h"
