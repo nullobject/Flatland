@@ -13,15 +13,15 @@
 #import "WorldScene.h"
 
 @implementation WorldScene {
-  NSMutableArray *_players;
+  NSMutableDictionary *_players;
 }
 
 - (id)initWithSize:(CGSize)size {
   if (self = [super initWithSize:size]) {
-    _players = [[NSMutableArray alloc] init];
+    _players = [[NSMutableDictionary alloc] init];
 
     self.backgroundColor = [SKColor colorWithRGB:0xffa000];
-    self.physicsWorld.gravity = CGPointMake(0.0f, -9.8f);
+    self.physicsWorld.gravity = CGPointMake(0.0f, 0.0f);
 
     [self addWalls];
   }
@@ -44,15 +44,35 @@
   wallNode.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:rect.size];
   wallNode.position = CGPointMake(point.x + rect.size.width * 0.5, point.y + rect.size.height * 0.5);
   wallNode.physicsBody.dynamic = NO;
-  wallNode.physicsBody.friction = 1.0f;
+  wallNode.physicsBody.friction = 0.2f;
   [self addChild:wallNode];
 }
 
+- (Player *)playerWithUUID:(NSUUID *)UUID {
+  Player *player = [_players objectForKey:UUID];
+
+  if (player == nil) {
+    player = [[Player alloc] initWithUUID:UUID];
+    [_players setObject:player forKey:player.UUID];
+  }
+
+  return player;
+}
+
 - (void)spawn:(NSUUID *)UUID {
-  NSLog(@"Spawning player %@", [UUID UUIDString]);
-  Player *player = [[Player alloc] initWithUUID:UUID];
-  [_players addObject:player];
+  Player *player = [self playerWithUUID:UUID];
+  [player spawn];
   [self addChild:player.entity];
+}
+
+- (void)forward:(NSUUID *)UUID {
+  Player *player = [self playerWithUUID:UUID];
+  [player forward];
+}
+
+- (void)reverse:(NSUUID *)UUID {
+  Player *player = [self playerWithUUID:UUID];
+  [player reverse];
 }
 
 - (void)update:(CFTimeInterval)currentTime {
@@ -60,7 +80,7 @@
 }
 
 - (NSDictionary *)asJSON {
-  NSArray *players = [_players map:^(Entity *player) {
+  NSArray *players = [_players.allValues map:^(Entity *player) {
     return [player asJSON];
   }];
 

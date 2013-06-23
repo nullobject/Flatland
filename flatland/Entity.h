@@ -1,4 +1,4 @@
-//
+
 //  Player.h
 //  flatland
 //
@@ -23,5 +23,7 @@ typedef enum : uint8_t {
 @property (nonatomic, assign) NSUInteger age;
 
 - (Entity *)init;
+- (void)forward:(NSTimeInterval)dt;
+- (void)reverse:(NSTimeInterval)dt;
 
 @end

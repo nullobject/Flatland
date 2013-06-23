@@ -60,6 +60,20 @@ NSString *kServer      = @"Server";
     [response respondWithData:[_world toJSON]];
 	}];
 
+	[server get:@"/forward" withBlock:^(RouteRequest *request, RouteResponse *response) {
+    NSUUID *UUID = [[NSUUID alloc] initWithUUIDString:[request header:kXPlayer]];
+    [_world forward:UUID];
+    [response setHeader:kContentType value:@"application/json"];
+    [response respondWithData:[_world toJSON]];
+	}];
+
+	[server get:@"/reverse" withBlock:^(RouteRequest *request, RouteResponse *response) {
+    NSUUID *UUID = [[NSUUID alloc] initWithUUIDString:[request header:kXPlayer]];
+    [_world reverse:UUID];
+    [response setHeader:kContentType value:@"application/json"];
+    [response respondWithData:[_world toJSON]];
+	}];
+
   return server;
 }
 

@@ -15,17 +15,49 @@
 - (Player *)initWithUUID:(NSUUID *)UUID {
   if (self = [super init]) {
     _UUID = UUID;
-    _entity = [[Entity alloc] init];
-    _entity.position = CGPointMake(RANDOM() * 500, RANDOM() * 500);
   }
 
   return self;
 }
 
+- (void)spawn {
+  if (_state != PlayerStateDead) return;
+
+  NSLog(@"Spawning player %@", [self.UUID UUIDString]);
+
+//  _state = PlayerStateSpawning;
+  _state = PlayerStateAlive;
+  _entity = [[Entity alloc] init];
+  _entity.position = CGPointMake(RANDOM() * 500, RANDOM() * 500);
+}
+
+- (void)forward {
+  if (_state != PlayerStateAlive) return;
+  [_entity forward:1];
+}
+
+- (void)reverse {
+  if (_state != PlayerStateAlive) return;
+  [_entity reverse:1];
+}
+
+- (NSString *)playerStateAsString:(PlayerState) state {
+  switch (state) {
+    case PlayerStateSpawning:  return @"spawning";
+    case PlayerStateAlive:     return @"alive";
+    default:                   return @"dead";
+  }
+}
+
 - (NSDictionary *)asJSON {
-  NSDictionary *entity = [self.entity asJSON];
+  id entity = [NSNull null];
+
+  if (self.entity) {
+    entity = [self.entity asJSON];
+  }
 
   return @{@"id":     [self.UUID UUIDString],
+           @"state":  [self playerStateAsString:self.state],
            @"entity": entity};
 }
 
