@@ -14,10 +14,10 @@
 
 @protocol ServerDelegate <NSObject>
 @optional
-- (NSData *)server:(Server *)server didIdlePlayer:(NSUUID *)uuid;
-- (NSData *)server:(Server *)server didSpawnPlayer:(NSUUID *)uuid;
-- (NSData *)server:(Server *)server didMovePlayer:(NSUUID *)uuid withOptions:(NSDictionary *)options;
-- (NSData *)server:(Server *)server didTurnPlayer:(NSUUID *)uuid withOptions:(NSDictionary *)options;
+- (NSDictionary *)server:(Server *)server didIdlePlayer:(NSUUID *)uuid;
+- (NSDictionary *)server:(Server *)server didSpawnPlayer:(NSUUID *)uuid;
+- (NSDictionary *)server:(Server *)server didMovePlayer:(NSUUID *)uuid withOptions:(NSDictionary *)options;
+- (NSDictionary *)server:(Server *)server didTurnPlayer:(NSUUID *)uuid withOptions:(NSDictionary *)options;
 
 @end
 

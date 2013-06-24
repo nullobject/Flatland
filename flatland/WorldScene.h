@@ -24,6 +24,4 @@
 // Turns the player with the given UUID.
 - (void)turnPlayer:(NSUUID *)uuid byAmount:(CGFloat)amount;
 
-- (NSData *)toJSON;
-
 @end

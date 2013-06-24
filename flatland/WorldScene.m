@@ -92,11 +92,4 @@
   return @{@"players": players};
 }
 
-- (NSData *)toJSON {
-  NSError *error;
-  return [NSJSONSerialization dataWithJSONObject:[self asJSON]
-                                         options:NSJSONWritingPrettyPrinted
-                                           error:&error];
-}
-
 @end

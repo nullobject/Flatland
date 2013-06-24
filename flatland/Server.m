@@ -6,11 +6,11 @@
 //  Copyright (c) 2013 Gamedogs. All rights reserved.
 //
 
+#import "RouteResponse+AsyncJSON.h"
 #import "Server.h"
 
-NSString *kXPlayer     = @"X-Player";
-NSString *kContentType = @"Content-Type";
-NSString *kServer      = @"Server";
+NSString *kXPlayer = @"X-Player";
+NSString *kServer  = @"Server";
 
 @implementation Server
 
@@ -18,47 +18,41 @@ NSString *kServer      = @"Server";
   if (self = [super init]) {
     [self setPort:8000];
     [self setDefaultHeader:kServer value:@"Flatland/1.0"];
-    [self addRoutes];
+    [self setupRoutes];
   }
 
   return self;
 }
 
-- (void)addRoutes {
+// TODO: Store the response objects in a queue and complete them all for every
+// game tick.
+- (void)setupRoutes {
 	[self put:@"/idle" withBlock:^(RouteRequest *request, RouteResponse *response) {
     NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:[request header:kXPlayer]];
-    NSData *data = [_delegate server:self didIdlePlayer:uuid];
-
-    [response setHeader:kContentType value:@"application/json"];
-    [response respondWithData:data];
+    NSDictionary *json = [_delegate server:self didIdlePlayer:uuid];
+    [response respondWithAsyncJSON:json];
 	}];
 
 	[self put:@"/spawn" withBlock:^(RouteRequest *request, RouteResponse *response) {
     NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:[request header:kXPlayer]];
-    NSData *data = [_delegate server:self didSpawnPlayer:uuid];
-
-    [response setHeader:kContentType value:@"application/json"];
-    [response respondWithData:data];
+    NSDictionary *json = [_delegate server:self didSpawnPlayer:uuid];
+    [response respondWithAsyncJSON:json];
 	}];
 
 	[self put:@"/move" withBlock:^(RouteRequest *request, RouteResponse *response) {
     NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:[request header:kXPlayer]];
     NSError *error;
     NSDictionary *options = [NSJSONSerialization JSONObjectWithData:request.body options:kNilOptions error:&error];
-    NSData *data = [_delegate server:self didMovePlayer:uuid withOptions:options];
-
-    [response setHeader:kContentType value:@"application/json"];
-    [response respondWithData:data];
+    NSDictionary *json = [_delegate server:self didMovePlayer:uuid withOptions:options];
+    [response respondWithAsyncJSON:json];
 	}];
 
 	[self put:@"/turn" withBlock:^(RouteRequest *request, RouteResponse *response) {
     NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:[request header:kXPlayer]];
     NSError *error;
     NSDictionary *options = [NSJSONSerialization JSONObjectWithData:request.body options:kNilOptions error:&error];
-    NSData *data = [_delegate server:self didTurnPlayer:uuid withOptions:options];
-
-    [response setHeader:kContentType value:@"application/json"];
-    [response respondWithData:data];
+    NSDictionary *json = [_delegate server:self didTurnPlayer:uuid withOptions:options];
+    [response respondWithAsyncJSON:json];
 	}];
 }
 

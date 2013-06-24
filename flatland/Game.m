@@ -19,28 +19,28 @@
   return self;
 }
 
-#pragma mark - ServerDelegate
+#pragma mark - ServerDelegate methods
 
-- (NSData *)server:(Server *)server didIdlePlayer:(NSUUID *)uuid {
+- (NSDictionary *)server:(Server *)server didIdlePlayer:(NSUUID *)uuid {
   [_world idlePlayer:uuid];
-  return [_world toJSON];
+  return [_world asJSON];
 }
 
-- (NSData *)server:(Server *)server didSpawnPlayer:(NSUUID *)uuid {
+- (NSDictionary *)server:(Server *)server didSpawnPlayer:(NSUUID *)uuid {
   [_world spawnPlayer:uuid];
-  return [_world toJSON];
+  return [_world asJSON];
 }
 
-- (NSData *)server:(Server *)server didMovePlayer:(NSUUID *)uuid withOptions:(NSDictionary *)options {
+- (NSDictionary *)server:(Server *)server didMovePlayer:(NSUUID *)uuid withOptions:(NSDictionary *)options {
   float amount = [(NSNumber *)[options objectForKey:@"amount"] floatValue];
   [_world movePlayer:uuid byAmount:amount];
-  return [_world toJSON];
+  return [_world asJSON];
 }
 
-- (NSData *)server:(Server *)server didTurnPlayer:(NSUUID *)uuid withOptions:(NSDictionary *)options {
+- (NSDictionary *)server:(Server *)server didTurnPlayer:(NSUUID *)uuid withOptions:(NSDictionary *)options {
   float amount = [(NSNumber *)[options objectForKey:@"amount"] floatValue];
   [_world turnPlayer:uuid byAmount:amount];
-  return [_world toJSON];
+  return [_world asJSON];
 }
 
 #pragma mark - Private methods
