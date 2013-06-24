@@ -12,6 +12,7 @@
 
 - (id)init {
   if (self = [super init]) {
+    [self setupServer];
     [self setupWorld];
 //    [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(update) userInfo:nil repeats:YES];
   }
@@ -44,6 +45,11 @@
 }
 
 #pragma mark - Private methods
+
+- (void)setupServer {
+  _server = [[Server alloc] init];
+  _server.delegate = self;
+}
 
 - (void)setupWorld {
   _world = [WorldScene sceneWithSize:CGSizeMake(1024, 768)];

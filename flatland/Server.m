@@ -24,8 +24,8 @@ NSString *kServer  = @"Server";
   return self;
 }
 
-// TODO: Store the response objects in a queue and complete them all for every
-// game tick.
+// TODO: Store the response in a queue and complete them for every game tick.
+// The responses should be completed with a world view for the player.
 - (void)setupRoutes {
 	[self put:@"/idle" withBlock:^(RouteRequest *request, RouteResponse *response) {
     NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:[request header:kXPlayer]];

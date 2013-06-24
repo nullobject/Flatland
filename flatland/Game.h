@@ -13,6 +13,7 @@
 
 @interface Game : NSObject <ServerDelegate>
 
+@property (nonatomic, strong, readonly) Server *server;
 @property (nonatomic, strong, readonly) WorldScene *world;
 
 @end
