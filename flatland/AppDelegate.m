@@ -47,23 +47,25 @@
   return YES;
 }
 
-- (NSData *)server:(Server *)server idlePlayerWithUUID:(NSUUID *)uuid {
-  [_world idle:uuid];
+- (NSData *)server:(Server *)server didIdlePlayer:(NSUUID *)uuid {
+  [_world idlePlayer:uuid];
   return [_world toJSON];
 }
 
-- (NSData *)server:(Server *)server spawnPlayerWithUUID:(NSUUID *)uuid {
-  [_world spawn:uuid];
+- (NSData *)server:(Server *)server didSpawnPlayer:(NSUUID *)uuid {
+  [_world spawnPlayer:uuid];
   return [_world toJSON];
 }
 
-- (NSData *)server:(Server *)server movePlayerWithUUID:(NSUUID *)uuid {
-  [_world move:uuid];
+- (NSData *)server:(Server *)server didMovePlayer:(NSUUID *)uuid withOptions:(NSDictionary *)options {
+  float amount = [(NSNumber *)[options objectForKey:@"amount"] floatValue];
+  [_world movePlayer:uuid byAmount:amount];
   return [_world toJSON];
 }
 
-- (NSData *)server:(Server *)server turnPlayerWithUUID:(NSUUID *)uuid {
-  [_world turn:uuid];
+- (NSData *)server:(Server *)server didTurnPlayer:(NSUUID *)uuid withOptions:(NSDictionary *)options {
+  float amount = [(NSNumber *)[options objectForKey:@"amount"] floatValue];
+  [_world turnPlayer:uuid byAmount:amount];
   return [_world toJSON];
 }
 

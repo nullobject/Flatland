@@ -48,36 +48,36 @@
   [self addChild:wallNode];
 }
 
-- (Player *)playerWithUUID:(NSUUID *)UUID {
-  Player *player = [_players objectForKey:UUID];
+- (Player *)playerWithUUID:(NSUUID *)uuid {
+  Player *player = [_players objectForKey:uuid];
 
   if (player == nil) {
-    player = [[Player alloc] initWithUUID:UUID];
-    [_players setObject:player forKey:player.UUID];
+    player = [[Player alloc] initWithUUID:uuid];
+    [_players setObject:player forKey:player.uuid];
   }
 
   return player;
 }
 
-- (void)idle:(NSUUID *)UUID {
-  Player *player = [self playerWithUUID:UUID];
+- (void)idlePlayer:(NSUUID *)uuid {
+  Player *player = [self playerWithUUID:uuid];
   [player idle];
 }
 
-- (void)spawn:(NSUUID *)UUID {
-  Player *player = [self playerWithUUID:UUID];
+- (void)spawnPlayer:(NSUUID *)uuid {
+  Player *player = [self playerWithUUID:uuid];
   [player spawn];
   [self addChild:player.entity];
 }
 
-- (void)move:(NSUUID *)UUID {
-  Player *player = [self playerWithUUID:UUID];
-  [player move];
+- (void)movePlayer:(NSUUID *)uuid byAmount:(CGFloat)amount {
+  Player *player = [self playerWithUUID:uuid];
+  [player moveBy:amount];
 }
 
-- (void)turn:(NSUUID *)UUID {
-  Player *player = [self playerWithUUID:UUID];
-  [player turn];
+- (void)turnPlayer:(NSUUID *)uuid byAmount:(CGFloat)amount {
+  Player *player = [self playerWithUUID:uuid];
+  [player turnBy:amount];
 }
 
 - (void)update:(CFTimeInterval)currentTime {

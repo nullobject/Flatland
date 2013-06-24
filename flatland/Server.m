@@ -25,49 +25,37 @@ NSString *kServer      = @"Server";
 }
 
 - (void)addRoutes {
-	[self get:@"/idle" withBlock:^(RouteRequest *request, RouteResponse *response) {
-    NSData *data = nil;
+	[self put:@"/idle" withBlock:^(RouteRequest *request, RouteResponse *response) {
     NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:[request header:kXPlayer]];
-
-    if ([_delegate respondsToSelector:@selector(server:idlePlayerWithUUID:)]) {
-      data = [_delegate server:self idlePlayerWithUUID:uuid];
-    }
+    NSData *data = [_delegate server:self didIdlePlayer:uuid];
 
     [response setHeader:kContentType value:@"application/json"];
     [response respondWithData:data];
 	}];
 
-	[self get:@"/spawn" withBlock:^(RouteRequest *request, RouteResponse *response) {
-    NSData *data = nil;
+	[self put:@"/spawn" withBlock:^(RouteRequest *request, RouteResponse *response) {
     NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:[request header:kXPlayer]];
-
-    if ([_delegate respondsToSelector:@selector(server:spawnPlayerWithUUID:)]) {
-      data = [_delegate server:self spawnPlayerWithUUID:uuid];
-    }
+    NSData *data = [_delegate server:self didSpawnPlayer:uuid];
 
     [response setHeader:kContentType value:@"application/json"];
     [response respondWithData:data];
 	}];
 
-	[self get:@"/move" withBlock:^(RouteRequest *request, RouteResponse *response) {
-    NSData *data = nil;
+	[self put:@"/move" withBlock:^(RouteRequest *request, RouteResponse *response) {
     NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:[request header:kXPlayer]];
-
-    if ([_delegate respondsToSelector:@selector(server:movePlayerWithUUID:)]) {
-      data = [_delegate server:self movePlayerWithUUID:uuid];
-    }
+    NSError *error;
+    NSDictionary *options = [NSJSONSerialization JSONObjectWithData:request.body options:kNilOptions error:&error];
+    NSData *data = [_delegate server:self didMovePlayer:uuid withOptions:options];
 
     [response setHeader:kContentType value:@"application/json"];
     [response respondWithData:data];
 	}];
 
-	[self get:@"/turn" withBlock:^(RouteRequest *request, RouteResponse *response) {
-    NSData *data = nil;
+	[self put:@"/turn" withBlock:^(RouteRequest *request, RouteResponse *response) {
     NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:[request header:kXPlayer]];
-
-    if ([_delegate respondsToSelector:@selector(server:turnPlayerWithUUID:)]) {
-      data = [_delegate server:self turnPlayerWithUUID:uuid];
-    }
+    NSError *error;
+    NSDictionary *options = [NSJSONSerialization JSONObjectWithData:request.body options:kNilOptions error:&error];
+    NSData *data = [_delegate server:self didTurnPlayer:uuid withOptions:options];
 
     [response setHeader:kContentType value:@"application/json"];
     [response respondWithData:data];

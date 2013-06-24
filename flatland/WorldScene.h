@@ -13,16 +13,16 @@
 @interface WorldScene : SKScene <Serializable>
 
 // Idles a player with the given UUID.
-- (void)idle:(NSUUID *)UUID;
+- (void)idlePlayer:(NSUUID *)uuid;
 
 // Spawns a player with the given UUID.
-- (void)spawn:(NSUUID *)UUID;
+- (void)spawnPlayer:(NSUUID *)uuid;
 
 // Moves the player with the given UUID forwards.
-- (void)move:(NSUUID *)UUID;
+- (void)movePlayer:(NSUUID *)uuid byAmount:(CGFloat)amount;
 
 // Turns the player with the given UUID.
-- (void)turn:(NSUUID *)UUID;
+- (void)turnPlayer:(NSUUID *)uuid byAmount:(CGFloat)amount;
 
 - (NSData *)toJSON;
 

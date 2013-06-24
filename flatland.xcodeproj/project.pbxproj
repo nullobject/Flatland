@@ -147,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				0316DA09177692ED00FF40CF /* Categories */,
+				03990F5317785A5300995DE2 /* Protocols */,
 				0316D9CC1775570600FF40CF /* Supporting Files */,
 				0316D9E11775570600FF40CF /* Images.xcassets */,
 				0316D9DE1775570600FF40CF /* AppDelegate.h */,
@@ -156,7 +157,6 @@
 				0316DA06177692E300FF40CF /* Player.h */,
 				0316DA07177692E300FF40CF /* Player.m */,
 				0316D9D71775570600FF40CF /* MainMenu.xib */,
-				0316DA0A1776A0B200FF40CF /* Serializable.h */,
 				0316D9DF1775570600FF40CF /* Spaceship.png */,
 				0316D9DB1775570600FF40CF /* WorldScene.h */,
 				0316D9D91775570600FF40CF /* WorldScene.m */,
@@ -205,6 +205,14 @@
 				0316DA0C1776A43200FF40CF /* SKColor+Relative.m */,
 			);
 			name = Categories;
+			sourceTree = "<group>";
+		};
+		03990F5317785A5300995DE2 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				0316DA0A1776A0B200FF40CF /* Serializable.h */,
+			);
+			name = Protocols;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

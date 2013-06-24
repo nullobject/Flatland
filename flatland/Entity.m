@@ -32,15 +32,15 @@ const CGFloat kMovementSpeed = 100.0f;
   _state = EntityStateIdle;
 }
 
-- (void)move:(NSTimeInterval)dt {
-  CGFloat x = -sinf(self.zRotation) * kMovementSpeed * dt,
-          y =  cosf(self.zRotation) * kMovementSpeed * dt;
+- (void)moveBy:(CGFloat)amount duration:(NSTimeInterval)dt {
+  CGFloat x = -sinf(self.zRotation) * kMovementSpeed * amount * dt,
+          y =  cosf(self.zRotation) * kMovementSpeed * amount * dt;
   [self moveByX:x y:y duration:dt];
 }
 
-- (void)turn:(NSTimeInterval)dt {
+- (void)turnBy:(CGFloat)amount duration:(NSTimeInterval)dt {
   _state = EntityStateTurning;
-  SKAction *action = [SKAction rotateByAngle:M_PI_2 duration:dt];
+  SKAction *action = [SKAction rotateByAngle:2.0f * M_PI * amount duration:dt];
   [self runAction:action];
 }
 

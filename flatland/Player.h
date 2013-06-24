@@ -19,16 +19,16 @@ typedef enum : uint8_t {
 
 @interface Player : NSObject <Serializable>
 
-@property (nonatomic, strong) NSUUID *UUID;
+@property (nonatomic, strong) NSUUID *uuid;
 @property (nonatomic, assign) PlayerState state;
 @property (nonatomic, strong) Entity *entity;
 
-- (Player *)initWithUUID:(NSUUID *)UUID;
+- (Player *)initWithUUID:(NSUUID *)uuid;
 
 // Commands.
 - (void)idle;
 - (void)spawn;
-- (void)move;
-- (void)turn;
+- (void)moveBy:(CGFloat)amount;
+- (void)turnBy:(CGFloat)amount;
 
 @end
