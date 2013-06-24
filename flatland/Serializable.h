@@ -10,6 +10,7 @@
 
 @protocol Serializable <NSObject>
 
+// Returns the object represented as a nested dictionary.
 - (NSDictionary *)asJSON;
 
 @end

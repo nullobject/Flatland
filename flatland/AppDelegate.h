@@ -9,9 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import <SpriteKit/SpriteKit.h>
 
-#import "Server.h"
-
-@interface AppDelegate : NSObject <NSApplicationDelegate, ServerDelegate>
+@interface AppDelegate : NSObject <NSApplicationDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
 @property (assign) IBOutlet SKView *skView;

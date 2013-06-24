@@ -7,66 +7,44 @@
 //
 
 #import "AppDelegate.h"
-#import "WorldScene.h"
+#import "Game.h"
 
 @implementation AppDelegate {
-  WorldScene *_world;
+  Game *_game;
 	Server *_server;
 }
 
 @synthesize window = _window;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-  _world = [self world];
-
-  _server = [[Server alloc] init];
-  _server.delegate = self;
-
-  NSError *error;
-	if (![_server start:&error]) {
-		NSLog(@"Error starting HTTP server: %@", error);
-	}
-}
-
-- (WorldScene *)world {
-  WorldScene *world = [WorldScene sceneWithSize:CGSizeMake(1024, 768)];
-
-  // Set the scale mode to scale to fit the window.
-  world.scaleMode = SKSceneScaleModeAspectFit;
-
-  [self.skView presentScene:world];
-
-  self.skView.showsFPS       = YES;
-  self.skView.showsNodeCount = YES;
-  self.skView.showsDrawCount = YES;
-
-  return world;
+  [self setupGame];
+  [self setupServer];
 }
 
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender {
   return YES;
 }
 
-- (NSData *)server:(Server *)server didIdlePlayer:(NSUUID *)uuid {
-  [_world idlePlayer:uuid];
-  return [_world toJSON];
+#pragma mark - Private methods
+
+- (void)setupGame {
+  _game = [[Game alloc] init];
+
+  self.skView.showsFPS       = YES;
+  self.skView.showsNodeCount = YES;
+  self.skView.showsDrawCount = YES;
+
+  [self.skView presentScene:_game.world];
 }
 
-- (NSData *)server:(Server *)server didSpawnPlayer:(NSUUID *)uuid {
-  [_world spawnPlayer:uuid];
-  return [_world toJSON];
-}
+- (void)setupServer {
+  _server = [[Server alloc] init];
+  _server.delegate = _game;
 
-- (NSData *)server:(Server *)server didMovePlayer:(NSUUID *)uuid withOptions:(NSDictionary *)options {
-  float amount = [(NSNumber *)[options objectForKey:@"amount"] floatValue];
-  [_world movePlayer:uuid byAmount:amount];
-  return [_world toJSON];
-}
-
-- (NSData *)server:(Server *)server didTurnPlayer:(NSUUID *)uuid withOptions:(NSDictionary *)options {
-  float amount = [(NSNumber *)[options objectForKey:@"amount"] floatValue];
-  [_world turnPlayer:uuid byAmount:amount];
-  return [_world toJSON];
+  NSError *error;
+	if (![_server start:&error]) {
+		NSLog(@"Error starting HTTP server: %@", error);
+	}
 }
 
 @end
