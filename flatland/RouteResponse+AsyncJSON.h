@@ -7,9 +7,12 @@
 //
 
 #import "RouteResponse.h"
+#import "Serializable.h"
 
 @interface RouteResponse (AsyncJSON)
 
-- (void)respondWithAsyncJSON:(NSDictionary *)json;
+- (void)respondWithAsyncJSON:(NSObject <Serializable> *)object;
+- (void)beginAsyncJSONResponse;
+- (void)endAsyncJSONResponse:(NSObject <Serializable> *)object;
 
 @end

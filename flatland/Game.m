@@ -14,7 +14,7 @@
   if (self = [super init]) {
     [self setupServer];
     [self setupWorld];
-//    [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(update) userInfo:nil repeats:YES];
+    [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(update) userInfo:nil repeats:YES];
   }
 
   return self;
@@ -22,26 +22,26 @@
 
 #pragma mark - ServerDelegate methods
 
-- (NSDictionary *)server:(Server *)server didIdlePlayer:(NSUUID *)uuid {
+- (NSObject <Serializable> *)server:(Server *)server didIdlePlayer:(NSUUID *)uuid {
   [_world idlePlayer:uuid];
-  return [_world asJSON];
+  return _world;
 }
 
-- (NSDictionary *)server:(Server *)server didSpawnPlayer:(NSUUID *)uuid {
+- (NSObject <Serializable> *)server:(Server *)server didSpawnPlayer:(NSUUID *)uuid {
   [_world spawnPlayer:uuid];
-  return [_world asJSON];
+  return _world;
 }
 
-- (NSDictionary *)server:(Server *)server didMovePlayer:(NSUUID *)uuid withOptions:(NSDictionary *)options {
+- (NSObject <Serializable> *)server:(Server *)server didMovePlayer:(NSUUID *)uuid withOptions:(NSDictionary *)options {
   float amount = [(NSNumber *)[options objectForKey:@"amount"] floatValue];
   [_world movePlayer:uuid byAmount:amount];
-  return [_world asJSON];
+  return _world;
 }
 
-- (NSDictionary *)server:(Server *)server didTurnPlayer:(NSUUID *)uuid withOptions:(NSDictionary *)options {
+- (NSObject <Serializable> *)server:(Server *)server didTurnPlayer:(NSUUID *)uuid withOptions:(NSDictionary *)options {
   float amount = [(NSNumber *)[options objectForKey:@"amount"] floatValue];
   [_world turnPlayer:uuid byAmount:amount];
-  return [_world asJSON];
+  return _world;
 }
 
 #pragma mark - Private methods
@@ -56,6 +56,11 @@
 
   // Set the scale mode to scale to fit the window.
   _world.scaleMode = SKSceneScaleModeAspectFit;
+}
+
+- (void)update {
+  NSLog(@"Update...");
+  [_server update];
 }
 
 @end

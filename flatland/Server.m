@@ -12,10 +12,13 @@
 NSString *kXPlayer = @"X-Player";
 NSString *kServer  = @"Server";
 
-@implementation Server
+@implementation Server {
+  NSMutableDictionary *_playerResponses;
+}
 
 - (Server *)init {
   if (self = [super init]) {
+    _playerResponses = [[NSMutableDictionary alloc] init];
     [self setPort:8000];
     [self setDefaultHeader:kServer value:@"Flatland/1.0"];
     [self setupRoutes];
@@ -24,35 +27,41 @@ NSString *kServer  = @"Server";
   return self;
 }
 
+- (void)update {
+  [_playerResponses enumerateKeysAndObjectsUsingBlock:^(NSUUID *uuid, RouteResponse *response, BOOL *stop) {
+    // TODO: Run the correct action.
+    [response endAsyncJSONResponse:[_delegate server:self didSpawnPlayer:uuid]];
+  }];
+  [_playerResponses removeAllObjects];
+}
+
 // TODO: Store the response in a queue and complete them for every game tick.
 // The responses should be completed with a world view for the player.
 - (void)setupRoutes {
 	[self put:@"/idle" withBlock:^(RouteRequest *request, RouteResponse *response) {
     NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:[request header:kXPlayer]];
-    NSDictionary *json = [_delegate server:self didIdlePlayer:uuid];
-    [response respondWithAsyncJSON:json];
+    [response respondWithAsyncJSON:[_delegate server:self didIdlePlayer:uuid]];
 	}];
 
 	[self put:@"/spawn" withBlock:^(RouteRequest *request, RouteResponse *response) {
     NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:[request header:kXPlayer]];
-    NSDictionary *json = [_delegate server:self didSpawnPlayer:uuid];
-    [response respondWithAsyncJSON:json];
+    [response beginAsyncJSONResponse];
+    [_playerResponses setObject:response forKey:uuid];
+//    [response respondWithAsyncJSON:[_delegate server:self didSpawnPlayer:uuid]];
 	}];
 
 	[self put:@"/move" withBlock:^(RouteRequest *request, RouteResponse *response) {
     NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:[request header:kXPlayer]];
     NSError *error;
     NSDictionary *options = [NSJSONSerialization JSONObjectWithData:request.body options:kNilOptions error:&error];
-    NSDictionary *json = [_delegate server:self didMovePlayer:uuid withOptions:options];
-    [response respondWithAsyncJSON:json];
+    [response respondWithAsyncJSON:[_delegate server:self didMovePlayer:uuid withOptions:options]];
 	}];
 
 	[self put:@"/turn" withBlock:^(RouteRequest *request, RouteResponse *response) {
     NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:[request header:kXPlayer]];
     NSError *error;
     NSDictionary *options = [NSJSONSerialization JSONObjectWithData:request.body options:kNilOptions error:&error];
-    NSDictionary *json = [_delegate server:self didTurnPlayer:uuid withOptions:options];
-    [response respondWithAsyncJSON:json];
+    [response respondWithAsyncJSON:[_delegate server:self didTurnPlayer:uuid withOptions:options]];
 	}];
 }
 

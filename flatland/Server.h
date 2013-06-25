@@ -9,20 +9,23 @@
 #import <Foundation/Foundation.h>
 
 #import "RoutingHTTPServer.h"
+#import "Serializable.h"
 
 @class Server;
 
 @protocol ServerDelegate <NSObject>
-@optional
-- (NSDictionary *)server:(Server *)server didIdlePlayer:(NSUUID *)uuid;
-- (NSDictionary *)server:(Server *)server didSpawnPlayer:(NSUUID *)uuid;
-- (NSDictionary *)server:(Server *)server didMovePlayer:(NSUUID *)uuid withOptions:(NSDictionary *)options;
-- (NSDictionary *)server:(Server *)server didTurnPlayer:(NSUUID *)uuid withOptions:(NSDictionary *)options;
+
+- (NSObject <Serializable> *)server:(Server *)server didIdlePlayer:(NSUUID *)uuid;
+- (NSObject <Serializable> *)server:(Server *)server didSpawnPlayer:(NSUUID *)uuid;
+- (NSObject <Serializable> *)server:(Server *)server didMovePlayer:(NSUUID *)uuid withOptions:(NSDictionary *)options;
+- (NSObject <Serializable> *)server:(Server *)server didTurnPlayer:(NSUUID *)uuid withOptions:(NSDictionary *)options;
 
 @end
 
 @interface Server : RoutingHTTPServer
 
 @property (nonatomic, weak) id <ServerDelegate> delegate;
+
+- (void)update;
 
 @end
