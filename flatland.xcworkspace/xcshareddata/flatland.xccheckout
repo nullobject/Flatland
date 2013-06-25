@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>78E8507D-9F19-4583-91D3-3E5D1CF28D31</string>
+	<key>IDESourceControlProjectName</key>
+	<string>flatland</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>D78F0A38-6CD0-4468-8945-1E1BCE1E1885</key>
+		<string>ssh://github.com/nullobject/flatland-cocoa.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>flatland.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>D78F0A38-6CD0-4468-8945-1E1BCE1E1885</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/nullobject/flatland-cocoa.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>D78F0A38-6CD0-4468-8945-1E1BCE1E1885</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>D78F0A38-6CD0-4468-8945-1E1BCE1E1885</string>
+			<key>IDESourceControlWCCName</key>
+			<string>flatland-cocoa</string>
+		</dict>
+	</array>
+</dict>
+</plist>
