@@ -17,8 +17,17 @@ typedef enum : uint8_t {
   PlayerStateAlive
 } PlayerState;
 
+@class Player;
+
+@protocol PlayerDelegate <NSObject>
+
+- (void)playerDidSpawn:(Player *)player;
+
+@end
+
 @interface Player : NSObject <Serializable>
 
+@property (nonatomic, weak) id <PlayerDelegate> delegate;
 @property (nonatomic, strong) NSUUID *uuid;
 @property (nonatomic, assign) PlayerState state;
 @property (nonatomic, strong) Entity *entity;

@@ -10,12 +10,13 @@
 #import "HTTPConnection.h"
 #import "RouteResponse+AsyncJSON.h"
 
-NSString *kContentType = @"Content-Type";
+NSString *kContentType     = @"Content-Type";
+NSString *kApplicationJSON = @"application/json";
 
 @implementation RouteResponse (AsyncJSON)
 
 - (void)beginAsyncJSONResponse {
-  [self setHeader:kContentType value:@"application/json"];
+  [self setHeader:kContentType value:kApplicationJSON];
   self.response = [[HTTPAsyncDataResponse alloc] init];;
 }
 

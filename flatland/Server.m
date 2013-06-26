@@ -9,8 +9,10 @@
 #import "RouteResponse+AsyncJSON.h"
 #import "Server.h"
 
-NSString *kXPlayer = @"X-Player";
-NSString *kServer  = @"Server";
+NSUInteger kDefaultPort = 8000;
+NSString *kXPlayer  = @"X-Player";
+NSString *kServer   = @"Server";
+NSString *kFlatland = @"Flatland/1.0";
 
 @implementation Server {
   NSMutableDictionary *_playerResponses;
@@ -19,8 +21,8 @@ NSString *kServer  = @"Server";
 - (Server *)init {
   if (self = [super init]) {
     _playerResponses = [[NSMutableDictionary alloc] init];
-    [self setPort:8000];
-    [self setDefaultHeader:kServer value:@"Flatland/1.0"];
+    [self setPort:kDefaultPort];
+    [self setDefaultHeader:kServer value:kFlatland];
     [self setupRoutes];
   }
 

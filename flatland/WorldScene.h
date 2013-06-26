@@ -8,9 +8,10 @@
 
 #import <SpriteKit/SpriteKit.h>
 
+#import "Player.h"
 #import "Serializable.h"
 
-@interface WorldScene : SKScene <Serializable>
+@interface WorldScene : SKScene <PlayerDelegate, Serializable>
 
 // Idles a player with the given UUID.
 - (void)idlePlayer:(NSUUID *)uuid;

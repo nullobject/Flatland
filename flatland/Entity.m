@@ -6,15 +6,14 @@
 //  Copyright (c) 2013 Gamedogs. All rights reserved.
 //
 
+#import "Core.h"
 #import "Entity.h"
 
-// Clamps X between A and B (where a <= n <= b).
-#define CLAMP(X, A, B) MAX(A, MIN(X, B))
+// Entity movement speed in metres per second.
+const CGFloat kMovementSpeed = 100.0f;
 
-#define NORMALIZE(X) CLAMP(X, -1.0, 1.0)
-
-const CGFloat kMovementSpeed = 100.0f; // Metres per second.
-const CGFloat kRotationSpeed = 2.0f * M_PI; // Radians per second.
+// Entity rotation speed in radians per second.
+const CGFloat kRotationSpeed = M_2PI;
 
 @implementation Entity
 
@@ -39,22 +38,26 @@ const CGFloat kRotationSpeed = 2.0f * M_PI; // Radians per second.
 }
 
 - (void)moveBy:(CGFloat)amount {
+  _state = EntityStateMoving;
+
   CGFloat clampedAmount = NORMALIZE(amount),
           x = -sinf(self.zRotation) * clampedAmount * kMovementSpeed,
           y =  cosf(self.zRotation) * clampedAmount * kMovementSpeed;
-  NSTimeInterval duration = (sqrt(pow(x, 2) + pow(y, 2))  * clampedAmount) / kMovementSpeed;
-  SKAction *action = [SKAction moveByX:x y:y duration:duration];
-  [self runAction:action];
-  _state = EntityStateMoving;
+
+  // Calculate the time it takes to move the given distance.
+  NSTimeInterval duration = (DISTANCE(x, y) * clampedAmount) / kMovementSpeed;
+
+  [self runAction:[SKAction moveByX:x y:y duration:duration]];
 }
 
 - (void)turnBy:(CGFloat)amount {
+  _state = EntityStateTurning;
+
   CGFloat clampedAmount = NORMALIZE(amount),
           angle = clampedAmount * kRotationSpeed;
-  NSTimeInterval duration = (2.0f * M_PI * clampedAmount) / kRotationSpeed;
-  SKAction *action = [SKAction rotateByAngle:angle duration:duration];
-  [self runAction:action];
-  _state = EntityStateTurning;
+  NSTimeInterval duration = (M_2PI * clampedAmount) / kRotationSpeed;
+
+  [self runAction:[SKAction rotateByAngle:angle duration:duration]];
 }
 
 - (NSDictionary *)asJSON {

@@ -75,6 +75,7 @@
 		0316DA0A1776A0B200FF40CF /* Serializable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Serializable.h; sourceTree = "<group>"; };
 		0316DA0B1776A43200FF40CF /* SKColor+Relative.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKColor+Relative.h"; sourceTree = "<group>"; };
 		0316DA0C1776A43200FF40CF /* SKColor+Relative.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKColor+Relative.m"; sourceTree = "<group>"; };
+		032531E0177BAD9F00420D3D /* Core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Core.h; sourceTree = "<group>"; };
 		03990F5417785B8100995DE2 /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
 		03990F5517785B8100995DE2 /* Game.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Game.m; sourceTree = "<group>"; };
 		03990F5B1778F9E300995DE2 /* RouteResponse+AsyncJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RouteResponse+AsyncJSON.h"; sourceTree = "<group>"; };
@@ -161,6 +162,7 @@
 				0316D9E11775570600FF40CF /* Images.xcassets */,
 				0316D9DE1775570600FF40CF /* AppDelegate.h */,
 				0316D9DC1775570600FF40CF /* AppDelegate.m */,
+				032531E0177BAD9F00420D3D /* Core.h */,
 				0316DA0017767ED700FF40CF /* Entity.h */,
 				0316DA0117767ED700FF40CF /* Entity.m */,
 				03990F5417785B8100995DE2 /* Game.h */,

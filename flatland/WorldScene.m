@@ -9,7 +9,6 @@
 #import "NSArray+FP.h"
 #import "SKColor+Relative.h"
 #import "Entity.h"
-#import "Player.h"
 #import "WorldScene.h"
 
 @implementation WorldScene {
@@ -28,6 +27,40 @@
 
   return self;
 }
+
+- (void)idlePlayer:(NSUUID *)uuid {
+  Player *player = [self playerWithUUID:uuid];
+  [player idle];
+}
+
+- (void)spawnPlayer:(NSUUID *)uuid {
+  Player *player = [self playerWithUUID:uuid];
+  [player spawn];
+}
+
+- (void)movePlayer:(NSUUID *)uuid byAmount:(CGFloat)amount {
+  Player *player = [self playerWithUUID:uuid];
+  [player moveBy:amount];
+}
+
+- (void)turnPlayer:(NSUUID *)uuid byAmount:(CGFloat)amount {
+  Player *player = [self playerWithUUID:uuid];
+  [player turnBy:amount];
+}
+
+- (NSDictionary *)asJSON {
+  NSArray *players = [_players.allValues map:^(Player *player) {
+    return [player asJSON];
+  }];
+
+  return @{@"players": players};
+}
+
+- (void)update:(CFTimeInterval)currentTime {
+  /* Called before each frame is rendered */
+}
+
+#pragma mark - Private methods
 
 - (void)addWalls {
   [self addCollisionWallAtPoint:CGPointMake(0.0f, 0.0f) withWidth:self.frame.size.width height:1.0f];
@@ -53,45 +86,17 @@
 
   if (player == nil) {
     player = [[Player alloc] initWithUUID:uuid];
+    player.delegate = self;
     [_players setObject:player forKey:player.uuid];
   }
 
   return player;
 }
 
-- (void)idlePlayer:(NSUUID *)uuid {
-  Player *player = [self playerWithUUID:uuid];
-  [player idle];
-}
+#pragma mark - PlayerDelegate methods
 
-- (void)spawnPlayer:(NSUUID *)uuid {
-  Player *player = [self playerWithUUID:uuid];
-  [player spawn];
-  if (![self.children containsObject:player.entity]) {
-    [self addChild:player.entity];
-  }
-}
-
-- (void)movePlayer:(NSUUID *)uuid byAmount:(CGFloat)amount {
-  Player *player = [self playerWithUUID:uuid];
-  [player moveBy:amount];
-}
-
-- (void)turnPlayer:(NSUUID *)uuid byAmount:(CGFloat)amount {
-  Player *player = [self playerWithUUID:uuid];
-  [player turnBy:amount];
-}
-
-- (NSDictionary *)asJSON {
-  NSArray *players = [_players.allValues map:^(Player *player) {
-    return [player asJSON];
-  }];
-
-  return @{@"players": players};
-}
-
-- (void)update:(CFTimeInterval)currentTime {
-  /* Called before each frame is rendered */
+- (void)playerDidSpawn:(Player *)player {
+  [self addChild:player.entity];
 }
 
 @end
