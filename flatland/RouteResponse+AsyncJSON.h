@@ -11,7 +11,6 @@
 
 @interface RouteResponse (AsyncJSON)
 
-- (void)respondWithAsyncJSON:(NSObject <Serializable> *)object;
 - (void)beginAsyncJSONResponse;
 - (void)endAsyncJSONResponse:(NSObject <Serializable> *)object;
 

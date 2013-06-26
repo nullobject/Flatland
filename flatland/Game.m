@@ -14,7 +14,7 @@
   if (self = [super init]) {
     [self setupServer];
     [self setupWorld];
-    [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(update) userInfo:nil repeats:YES];
+    [self startTimer];
   }
 
   return self;
@@ -22,12 +22,12 @@
 
 #pragma mark - ServerDelegate methods
 
-- (NSObject <Serializable> *)server:(Server *)server didIdlePlayer:(NSUUID *)uuid {
+- (NSObject <Serializable> *)server:(Server *)server didIdlePlayer:(NSUUID *)uuid withOptions:(NSDictionary *)options {
   [_world idlePlayer:uuid];
   return _world;
 }
 
-- (NSObject <Serializable> *)server:(Server *)server didSpawnPlayer:(NSUUID *)uuid {
+- (NSObject <Serializable> *)server:(Server *)server didSpawnPlayer:(NSUUID *)uuid withOptions:(NSDictionary *)options {
   [_world spawnPlayer:uuid];
   return _world;
 }
@@ -56,6 +56,10 @@
 
   // Set the scale mode to scale to fit the window.
   _world.scaleMode = SKSceneScaleModeAspectFit;
+}
+
+- (void)startTimer {
+  [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(update) userInfo:nil repeats:YES];
 }
 
 - (void)update {

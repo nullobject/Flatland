@@ -25,12 +25,6 @@ NSString *kContentType = @"Content-Type";
   [self.connection responseHasAvailableData:self.response];
 }
 
-- (void)respondWithAsyncJSON:(NSObject <Serializable> *)object {
-  [self setHeader:kContentType value:@"application/json"];
-  NSData *data = [self serialize:object];
-  [self respondWithData:data];
-}
-
 - (NSData *)serialize:(NSObject <Serializable> *)object {
   NSError *error;
   return [NSJSONSerialization dataWithJSONObject:[object asJSON]

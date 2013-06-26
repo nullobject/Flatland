@@ -67,7 +67,9 @@
 - (void)spawnPlayer:(NSUUID *)uuid {
   Player *player = [self playerWithUUID:uuid];
   [player spawn];
-  [self addChild:player.entity];
+  if (![self.children containsObject:player.entity]) {
+    [self addChild:player.entity];
+  }
 }
 
 - (void)movePlayer:(NSUUID *)uuid byAmount:(CGFloat)amount {
@@ -80,16 +82,16 @@
   [player turnBy:amount];
 }
 
-- (void)update:(CFTimeInterval)currentTime {
-  /* Called before each frame is rendered */
-}
-
 - (NSDictionary *)asJSON {
-  NSArray *players = [_players.allValues map:^(Entity *player) {
+  NSArray *players = [_players.allValues map:^(Player *player) {
     return [player asJSON];
   }];
 
   return @{@"players": players};
+}
+
+- (void)update:(CFTimeInterval)currentTime {
+  /* Called before each frame is rendered */
 }
 
 @end

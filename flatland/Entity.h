@@ -25,8 +25,8 @@ typedef enum : uint8_t {
 - (Entity *)init;
 
 // Commands.
-- (void)idle:(NSTimeInterval)dt;
-- (void)moveBy:(CGFloat)amount duration:(NSTimeInterval)dt;
-- (void)turnBy:(CGFloat)amount duration:(NSTimeInterval)dt;
+- (void)idle;
+- (void)moveBy:(CGFloat)amount;
+- (void)turnBy:(CGFloat)amount;
 
 @end

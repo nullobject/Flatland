@@ -15,8 +15,8 @@
 
 @protocol ServerDelegate <NSObject>
 
-- (NSObject <Serializable> *)server:(Server *)server didIdlePlayer:(NSUUID *)uuid;
-- (NSObject <Serializable> *)server:(Server *)server didSpawnPlayer:(NSUUID *)uuid;
+- (NSObject <Serializable> *)server:(Server *)server didIdlePlayer:(NSUUID *)uuid withOptions:(NSDictionary *)options;
+- (NSObject <Serializable> *)server:(Server *)server didSpawnPlayer:(NSUUID *)uuid withOptions:(NSDictionary *)options;
 - (NSObject <Serializable> *)server:(Server *)server didMovePlayer:(NSUUID *)uuid withOptions:(NSDictionary *)options;
 - (NSObject <Serializable> *)server:(Server *)server didTurnPlayer:(NSUUID *)uuid withOptions:(NSDictionary *)options;
 

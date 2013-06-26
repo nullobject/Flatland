@@ -8,7 +8,13 @@
 
 #import "Entity.h"
 
-const CGFloat kMovementSpeed = 100.0f;
+// Clamps X between A and B (where a <= n <= b).
+#define CLAMP(X, A, B) MAX(A, MIN(X, B))
+
+#define NORMALIZE(X) CLAMP(X, -1.0, 1.0)
+
+const CGFloat kMovementSpeed = 100.0f; // Metres per second.
+const CGFloat kRotationSpeed = 2.0f * M_PI; // Radians per second.
 
 @implementation Entity
 
@@ -28,20 +34,27 @@ const CGFloat kMovementSpeed = 100.0f;
   return self;
 }
 
-- (void)idle:(NSTimeInterval)dt {
+- (void)idle {
   _state = EntityStateIdle;
 }
 
-- (void)moveBy:(CGFloat)amount duration:(NSTimeInterval)dt {
-  CGFloat x = -sinf(self.zRotation) * kMovementSpeed * amount * dt,
-          y =  cosf(self.zRotation) * kMovementSpeed * amount * dt;
-  [self moveByX:x y:y duration:dt];
+- (void)moveBy:(CGFloat)amount {
+  CGFloat clampedAmount = NORMALIZE(amount),
+          x = -sinf(self.zRotation) * clampedAmount * kMovementSpeed,
+          y =  cosf(self.zRotation) * clampedAmount * kMovementSpeed;
+  NSTimeInterval duration = (sqrt(pow(x, 2) + pow(y, 2))  * clampedAmount) / kMovementSpeed;
+  SKAction *action = [SKAction moveByX:x y:y duration:duration];
+  [self runAction:action];
+  _state = EntityStateMoving;
 }
 
-- (void)turnBy:(CGFloat)amount duration:(NSTimeInterval)dt {
-  _state = EntityStateTurning;
-  SKAction *action = [SKAction rotateByAngle:2.0f * M_PI * amount duration:dt];
+- (void)turnBy:(CGFloat)amount {
+  CGFloat clampedAmount = NORMALIZE(amount),
+          angle = clampedAmount * kRotationSpeed;
+  NSTimeInterval duration = (2.0f * M_PI * clampedAmount) / kRotationSpeed;
+  SKAction *action = [SKAction rotateByAngle:angle duration:duration];
   [self runAction:action];
+  _state = EntityStateTurning;
 }
 
 - (NSDictionary *)asJSON {
@@ -65,12 +78,6 @@ const CGFloat kMovementSpeed = 100.0f;
 - (NSDictionary *)pointAsDictionary:(CGPoint)point {
   return @{@"x": [NSNumber numberWithFloat:point.x],
            @"y": [NSNumber numberWithFloat:point.y]};
-}
-
-- (void)moveByX:(CGFloat)x y:(CGFloat)y duration:(NSTimeInterval)dt {
-  _state = EntityStateMoving;
-  SKAction *action = [SKAction moveByX:x y:y duration:dt];
-  [self runAction:action];
 }
 
 @end

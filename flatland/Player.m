@@ -22,7 +22,7 @@
 
 - (void)idle {
   if (_state != PlayerStateAlive) return;
-  [_entity idle:1];
+  [_entity idle];
 }
 
 - (void)spawn {
@@ -30,20 +30,20 @@
 
   NSLog(@"Spawning player %@", [self.uuid UUIDString]);
 
-//  _state = PlayerStateSpawning;
-  _state = PlayerStateAlive;
   _entity = [[Entity alloc] init];
   _entity.position = CGPointMake(RANDOM() * 500, RANDOM() * 500);
+//  _state = PlayerStateSpawning;
+  _state = PlayerStateAlive;
 }
 
 - (void)moveBy:(CGFloat)amount {
   if (_state != PlayerStateAlive) return;
-  [_entity moveBy:amount duration:1];
+  [_entity moveBy:amount];
 }
 
 - (void)turnBy:(CGFloat)amount {
   if (_state != PlayerStateAlive) return;
-  [_entity turnBy:amount duration:1];
+  [_entity turnBy:amount];
 }
 
 - (NSString *)playerStateAsString:(PlayerState) state {
