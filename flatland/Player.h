@@ -11,6 +11,9 @@
 #import "Entity.h"
 #import "Serializable.h"
 
+// Player spawn delay in seconds.
+#define kSpawnDelay 3.0
+
 typedef enum : uint8_t {
   PlayerStateDead,
   PlayerStateSpawning,

@@ -9,12 +9,6 @@
 #import "Core.h"
 #import "Entity.h"
 
-// Entity movement speed in metres per second.
-const CGFloat kMovementSpeed = 100.0f;
-
-// Entity rotation speed in radians per second.
-const CGFloat kRotationSpeed = M_2PI;
-
 @implementation Entity
 
 - (Entity *)init {
@@ -33,8 +27,12 @@ const CGFloat kRotationSpeed = M_2PI;
   return self;
 }
 
+#pragma mark - Actions
+
 - (void)idle {
   _state = EntityStateIdle;
+  NSTimeInterval duration = 1;
+  [self runAction:[SKAction waitForDuration:duration]];
 }
 
 - (void)moveBy:(CGFloat)amount {
@@ -60,14 +58,21 @@ const CGFloat kRotationSpeed = M_2PI;
   [self runAction:[SKAction rotateByAngle:angle duration:duration]];
 }
 
+#pragma mark - Serializable
+
 - (NSDictionary *)asJSON {
-  return @{@"id":       self.name,
-           @"state":    [self entityStateAsString:self.state],
-           @"position": [self pointAsDictionary:self.position],
-           @"rotation": [NSNumber numberWithFloat:self.zRotation]};
+  return @{@"id":              self.name,
+           @"state":           [self entityStateAsString:self.state],
+           @"age":             [NSNumber numberWithUnsignedInteger:self.age],
+           @"energy":          [NSNumber numberWithUnsignedInteger:self.energy],
+           @"health":          [NSNumber numberWithUnsignedInteger:self.health],
+           @"position":        [self pointAsDictionary:self.position],
+           @"rotation":        [NSNumber numberWithFloat:self.zRotation],
+           @"velocity":        [self pointAsDictionary:self.physicsBody.velocity],
+           @"angularVelocity": [NSNumber numberWithFloat:self.physicsBody.angularVelocity]};
 }
 
-#pragma mark - Private methods
+#pragma mark - Private
 
 - (NSString *)entityStateAsString:(EntityState) state {
   switch (state) {

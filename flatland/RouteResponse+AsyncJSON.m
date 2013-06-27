@@ -29,7 +29,7 @@ NSString *kApplicationJSON = @"application/json";
 - (NSData *)serialize:(NSObject <Serializable> *)object {
   NSError *error;
   return [NSJSONSerialization dataWithJSONObject:[object asJSON]
-                                         options:NSJSONWritingPrettyPrinted
+                                         options:kNilOptions
                                            error:&error];
 }
 

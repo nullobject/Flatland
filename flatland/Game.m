@@ -20,7 +20,7 @@
   return self;
 }
 
-#pragma mark - ServerDelegate methods
+#pragma mark - ServerDelegate
 
 - (NSObject <Serializable> *)server:(Server *)server didIdlePlayer:(NSUUID *)uuid withOptions:(NSDictionary *)options {
   [_world idlePlayer:uuid];
@@ -44,7 +44,7 @@
   return _world;
 }
 
-#pragma mark - Private methods
+#pragma mark - Private
 
 - (void)setupServer {
   _server = [[Server alloc] init];
@@ -66,6 +66,10 @@
                                   repeats:YES];
 }
 
+// TODO: The update should be split into two phases: gather and settle. During
+// the gather phase, the server waits for players to submit their requests.
+// During the settle phase the server waits for players' actions to complete,
+// before returning a response.
 - (void)update {
   [_server update];
 }

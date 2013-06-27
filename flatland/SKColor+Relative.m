@@ -6,10 +6,8 @@
 //  Copyright (c) 2013 Gamedogs. All rights reserved.
 //
 
+#import "Core.h"
 #import "SKColor+Relative.h"
-
-// Clamps X between A and B (where a <= n <= b).
-#define CLAMP(X, A, B) MAX(A, MIN(X, B))
 
 @implementation SKColor (Relative)
 

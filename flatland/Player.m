@@ -9,9 +9,6 @@
 #import "Core.h"
 #import "Player.h"
 
-// Player spawn delay in seconds.
-const NSTimeInterval kSpawnDelay = 3.0;
-
 @implementation Player
 
 - (Player *)initWithUUID:(NSUUID *)uuid {
@@ -21,6 +18,8 @@ const NSTimeInterval kSpawnDelay = 3.0;
 
   return self;
 }
+
+#pragma mark - Actions
 
 - (void)idle {
   if (_state != PlayerStateAlive) return;
@@ -50,21 +49,17 @@ const NSTimeInterval kSpawnDelay = 3.0;
   [_entity turnBy:amount];
 }
 
-#pragma mark - Serializable methods
+#pragma mark - Serializable
 
 - (NSDictionary *)asJSON {
-  id entity = [NSNull null];
-
-  if (_entity) {
-    entity = [_entity asJSON];
-  }
+  id entity = _entity ? [_entity asJSON] : [NSNull null];
 
   return @{@"id":     [_uuid UUIDString],
            @"state":  [self playerStateAsString:self.state],
            @"entity": entity};
 }
 
-#pragma mark - Private methods
+#pragma mark - Private
 
 - (NSString *)playerStateAsString:(PlayerState) state {
   switch (state) {

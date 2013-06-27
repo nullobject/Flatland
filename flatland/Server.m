@@ -9,11 +9,6 @@
 #import "RouteResponse+AsyncJSON.h"
 #import "Server.h"
 
-NSUInteger kDefaultPort = 8000;
-NSString *kXPlayer  = @"X-Player";
-NSString *kServer   = @"Server";
-NSString *kFlatland = @"Flatland/1.0";
-
 @implementation Server {
   NSMutableDictionary *_playerResponses;
 }
@@ -39,7 +34,7 @@ NSString *kFlatland = @"Flatland/1.0";
   [_playerResponses removeAllObjects];
 }
 
-#pragma - Private methods
+#pragma - Private
 
 // TODO: The responses should be completed with a world view for the player.
 - (void)setupRoutes {

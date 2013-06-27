@@ -11,6 +11,11 @@
 #import "RoutingHTTPServer.h"
 #import "Serializable.h"
 
+#define kDefaultPort 8000
+#define kXPlayer     @"X-Player"
+#define kServer      @"Server"
+#define kFlatland    @"Flatland/1.0"
+
 @class Server;
 
 @protocol ServerDelegate <NSObject>

@@ -48,6 +48,12 @@
   [player turnBy:amount];
 }
 
+- (void)update:(CFTimeInterval)currentTime {
+  /* Called before each frame is rendered */
+}
+
+#pragma mark - Serializable
+
 - (NSDictionary *)asJSON {
   NSArray *players = [_players.allValues map:^(Player *player) {
     return [player asJSON];
@@ -56,11 +62,13 @@
   return @{@"players": players};
 }
 
-- (void)update:(CFTimeInterval)currentTime {
-  /* Called before each frame is rendered */
+#pragma mark - PlayerDelegate
+
+- (void)playerDidSpawn:(Player *)player {
+  [self addChild:player.entity];
 }
 
-#pragma mark - Private methods
+#pragma mark - Private
 
 - (void)addWalls {
   [self addCollisionWallAtPoint:CGPointMake(0.0f, 0.0f) withWidth:self.frame.size.width height:1.0f];
@@ -91,12 +99,6 @@
   }
 
   return player;
-}
-
-#pragma mark - PlayerDelegate methods
-
-- (void)playerDidSpawn:(Player *)player {
-  [self addChild:player.entity];
 }
 
 @end
