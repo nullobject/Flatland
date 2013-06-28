@@ -44,7 +44,8 @@
     return [player asJSON];
   }];
 
-  return @{@"players": players};
+  return @{@"age":     [NSNumber numberWithUnsignedInteger:self.age],
+           @"players": players};
 }
 
 #pragma mark - PlayerDelegate

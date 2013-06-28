@@ -31,12 +31,14 @@
 
 - (void)idle {
   _state = EntityStateIdle;
+  _age += 1;
   NSTimeInterval duration = 1;
   [self runAction:[SKAction waitForDuration:duration]];
 }
 
 - (void)moveBy:(CGFloat)amount {
   _state = EntityStateMoving;
+  _age += 1;
 
   CGFloat clampedAmount = NORMALIZE(amount),
           x = -sinf(self.zRotation) * clampedAmount * kMovementSpeed,
@@ -50,6 +52,7 @@
 
 - (void)turnBy:(CGFloat)amount {
   _state = EntityStateTurning;
+  _age += 1;
 
   CGFloat clampedAmount = NORMALIZE(amount),
           angle = clampedAmount * kRotationSpeed;

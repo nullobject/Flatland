@@ -14,6 +14,9 @@
 
 @interface WorldScene : SKScene <PlayerDelegate, Serializable>
 
+// The age of the world in simulation iterations.
+@property (nonatomic, assign) NSUInteger age;
+
 // Runs the action for the player with the given UUID.
 - (void)runAction:(Action *)action forPlayer:(NSUUID *)uuid;
 
