@@ -28,24 +28,9 @@
   return self;
 }
 
-- (void)idlePlayer:(NSUUID *)uuid {
+- (void)runAction:(Action *)action forPlayer:(NSUUID *)uuid {
   Player *player = [self playerWithUUID:uuid];
-  [player idle];
-}
-
-- (void)spawnPlayer:(NSUUID *)uuid {
-  Player *player = [self playerWithUUID:uuid];
-  [player spawn];
-}
-
-- (void)movePlayer:(NSUUID *)uuid byAmount:(CGFloat)amount {
-  Player *player = [self playerWithUUID:uuid];
-  [player moveBy:amount];
-}
-
-- (void)turnPlayer:(NSUUID *)uuid byAmount:(CGFloat)amount {
-  Player *player = [self playerWithUUID:uuid];
-  [player turnBy:amount];
+  [player runAction:action];
 }
 
 - (void)update:(CFTimeInterval)currentTime {

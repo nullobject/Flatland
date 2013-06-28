@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+#import "Action.h"
 #import "Entity.h"
 #import "Serializable.h"
 
@@ -37,9 +38,12 @@ typedef enum : uint8_t {
 
 - (Player *)initWithUUID:(NSUUID *)uuid;
 
-// Commands.
-- (void)idle;
+// Runs the given action for the player.
+- (void)runAction:(Action *)action;
+
+// Actions.
 - (void)spawn;
+- (void)idle;
 - (void)moveBy:(CGFloat)amount;
 - (void)turnBy:(CGFloat)amount;
 

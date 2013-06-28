@@ -6,12 +6,16 @@
 //  Copyright (c) 2013 Gamedogs. All rights reserved.
 //
 
+#import "Action.h"
 #import "Game.h"
 
-@implementation Game
+@implementation Game {
+  NSMutableDictionary *_playerActions;
+}
 
 - (id)init {
   if (self = [super init]) {
+    _playerActions = [[NSMutableDictionary alloc] init];
     [self setupServer];
     [self setupWorld];
     [self startTimer];
@@ -22,26 +26,8 @@
 
 #pragma mark - ServerDelegate
 
-- (NSObject <Serializable> *)server:(Server *)server didIdlePlayer:(NSUUID *)uuid withOptions:(NSDictionary *)options {
-  [_world idlePlayer:uuid];
-  return _world;
-}
-
-- (NSObject <Serializable> *)server:(Server *)server didSpawnPlayer:(NSUUID *)uuid withOptions:(NSDictionary *)options {
-  [_world spawnPlayer:uuid];
-  return _world;
-}
-
-- (NSObject <Serializable> *)server:(Server *)server didMovePlayer:(NSUUID *)uuid withOptions:(NSDictionary *)options {
-  float amount = [(NSNumber *)[options objectForKey:@"amount"] floatValue];
-  [_world movePlayer:uuid byAmount:amount];
-  return _world;
-}
-
-- (NSObject <Serializable> *)server:(Server *)server didTurnPlayer:(NSUUID *)uuid withOptions:(NSDictionary *)options {
-  float amount = [(NSNumber *)[options objectForKey:@"amount"] floatValue];
-  [_world turnPlayer:uuid byAmount:amount];
-  return _world;
+- (void)server:(Server *)server didReceiveAction:(Action *)action {
+  [self enqueueAction:action forPlayer:action.uuid];
 }
 
 #pragma mark - Private
@@ -66,12 +52,21 @@
                                   repeats:YES];
 }
 
+- (void)enqueueAction:(Action *)action forPlayer:(NSUUID *)uuid {
+  [_playerActions setObject:action forKey:uuid];
+}
+
 // TODO: The update should be split into two phases: gather and settle. During
 // the gather phase, the server waits for players to submit their requests.
 // During the settle phase the server waits for players' actions to complete,
 // before returning a response.
 - (void)update {
-  [_server update];
+  [_playerActions enumerateKeysAndObjectsUsingBlock:^(NSUUID *uuid, Action *action, BOOL *stop) {
+    [_world runAction:action forPlayer:uuid];
+    [_server respondToPlayer:uuid withWorld:_world];
+  }];
+
+  [_playerActions removeAllObjects];
 }
 
 @end

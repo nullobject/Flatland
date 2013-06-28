@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+#import "Action.h"
 #import "RoutingHTTPServer.h"
-#import "Serializable.h"
+#import "WorldScene.h"
 
 #define kDefaultPort 8000
 #define kXPlayer     @"X-Player"
@@ -20,10 +21,7 @@
 
 @protocol ServerDelegate <NSObject>
 
-- (NSObject <Serializable> *)server:(Server *)server didIdlePlayer:(NSUUID *)uuid withOptions:(NSDictionary *)options;
-- (NSObject <Serializable> *)server:(Server *)server didSpawnPlayer:(NSUUID *)uuid withOptions:(NSDictionary *)options;
-- (NSObject <Serializable> *)server:(Server *)server didMovePlayer:(NSUUID *)uuid withOptions:(NSDictionary *)options;
-- (NSObject <Serializable> *)server:(Server *)server didTurnPlayer:(NSUUID *)uuid withOptions:(NSDictionary *)options;
+- (void)server:(Server *)server didReceiveAction:(Action *)action;
 
 @end
 
@@ -31,6 +29,6 @@
 
 @property (nonatomic, weak) id <ServerDelegate> delegate;
 
-- (void)update;
+- (void)respondToPlayer:(NSUUID *)uuid withWorld:(WorldScene *)world;
 
 @end

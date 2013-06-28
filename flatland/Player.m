@@ -19,12 +19,19 @@
   return self;
 }
 
-#pragma mark - Actions
-
-- (void)idle {
-  if (_state != PlayerStateAlive) return;
-  [_entity idle];
+- (void)runAction:(Action *)action {
+  if ([action isMemberOfClass:SpawnAction.class]) {
+    [self spawn];
+  } else if ([action isMemberOfClass:IdleAction.class]) {
+    [self idle];
+  } else if ([action isMemberOfClass:MoveAction.class]) {
+    [self moveBy:((MoveAction *)action).amount];
+  } else if ([action isMemberOfClass:TurnAction.class]) {
+    [self turnBy:((TurnAction *)action).amount];
+  }
 }
+
+#pragma mark - Actions
 
 - (void)spawn {
   if (_state != PlayerStateDead) return;
@@ -35,6 +42,11 @@
                                  selector:@selector(didSpawn)
                                  userInfo:nil
                                   repeats:NO];
+}
+
+- (void)idle {
+  if (_state != PlayerStateAlive) return;
+  [_entity idle];
 }
 
 - (void)moveBy:(CGFloat)amount {

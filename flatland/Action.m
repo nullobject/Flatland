@@ -20,6 +20,12 @@
 
 @end
 
+@implementation SpawnAction
+@end
+
+@implementation IdleAction
+@end
+
 @implementation MoveAction
 
 - (id)initWithPlayer:(NSUUID *)uuid andAmount:(CGFloat)amount {

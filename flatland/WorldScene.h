@@ -8,21 +8,13 @@
 
 #import <SpriteKit/SpriteKit.h>
 
+#import "Action.h"
 #import "Player.h"
 #import "Serializable.h"
 
 @interface WorldScene : SKScene <PlayerDelegate, Serializable>
 
-// Idles a player with the given UUID.
-- (void)idlePlayer:(NSUUID *)uuid;
-
-// Spawns a player with the given UUID.
-- (void)spawnPlayer:(NSUUID *)uuid;
-
-// Moves the player with the given UUID forwards.
-- (void)movePlayer:(NSUUID *)uuid byAmount:(CGFloat)amount;
-
-// Turns the player with the given UUID.
-- (void)turnPlayer:(NSUUID *)uuid byAmount:(CGFloat)amount;
+// Runs the action for the player with the given UUID.
+- (void)runAction:(Action *)action forPlayer:(NSUUID *)uuid;
 
 @end

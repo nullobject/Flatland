@@ -24,62 +24,59 @@
   return self;
 }
 
-- (void)update {
-  // Call the player response blocks.
-  [_playerResponses enumerateKeysAndObjectsUsingBlock:^(NSUUID *uuid, void (^block)(void), BOOL *stop) {
-    block();
-  }];
-
-  // Remove all the player responses.
-  [_playerResponses removeAllObjects];
+- (void)respondToPlayer:(NSUUID *)uuid withWorld:(WorldScene *)world {
+  RouteResponse *response = [_playerResponses objectForKey:uuid];
+  [_playerResponses removeObjectForKey:uuid];
+  [response endAsyncJSONResponse:world];
 }
 
 #pragma - Private
 
-// TODO: The responses should be completed with a world view for the player.
+- (void)enqueueResponse:(RouteResponse *)response forPlayer:(NSUUID *)uuid {
+  [_playerResponses setObject:response forKey:uuid];
+}
+
 - (void)setupRoutes {
 	[self put:@"/action/idle" withBlock:^(RouteRequest *request, RouteResponse *response) {
     NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:[request header:kXPlayer]];
-    NSError *error;
-    NSDictionary *options = [NSJSONSerialization JSONObjectWithData:request.body options:kNilOptions error:&error];
+    Action *action = [[SpawnAction alloc] initWithPlayer:uuid];
+
+    [_delegate server:self didReceiveAction:action];
     [response beginAsyncJSONResponse];
-    void (^block)(void) = ^{
-      [response endAsyncJSONResponse:[_delegate server:self didIdlePlayer:uuid withOptions:options]];
-    };
-    [_playerResponses setObject:block forKey:uuid];
+    [self enqueueResponse:response forPlayer:uuid];
 	}];
 
 	[self put:@"/action/spawn" withBlock:^(RouteRequest *request, RouteResponse *response) {
     NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:[request header:kXPlayer]];
-    NSError *error;
-    NSDictionary *options = [NSJSONSerialization JSONObjectWithData:request.body options:kNilOptions error:&error];
+    Action *action = [[SpawnAction alloc] initWithPlayer:uuid];
+
+    [_delegate server:self didReceiveAction:action];
     [response beginAsyncJSONResponse];
-    void (^block)(void) = ^{
-      [response endAsyncJSONResponse:[_delegate server:self didSpawnPlayer:uuid withOptions:options]];
-    };
-    [_playerResponses setObject:block forKey:uuid];
+    [self enqueueResponse:response forPlayer:uuid];
 	}];
 
 	[self put:@"/action/move" withBlock:^(RouteRequest *request, RouteResponse *response) {
     NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:[request header:kXPlayer]];
     NSError *error;
     NSDictionary *options = [NSJSONSerialization JSONObjectWithData:request.body options:kNilOptions error:&error];
+    CGFloat amount = [(NSNumber *)[options objectForKey:@"amount"] floatValue];
+    Action *action = [[MoveAction alloc] initWithPlayer:uuid andAmount:amount];
+
+    [_delegate server:self didReceiveAction:action];
     [response beginAsyncJSONResponse];
-    void (^block)(void) = ^{
-      [response endAsyncJSONResponse:[_delegate server:self didMovePlayer:uuid withOptions:options]];
-    };
-    [_playerResponses setObject:block forKey:uuid];
+    [self enqueueResponse:response forPlayer:uuid];
 	}];
 
 	[self put:@"/action/turn" withBlock:^(RouteRequest *request, RouteResponse *response) {
     NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:[request header:kXPlayer]];
     NSError *error;
     NSDictionary *options = [NSJSONSerialization JSONObjectWithData:request.body options:kNilOptions error:&error];
+    CGFloat amount = [(NSNumber *)[options objectForKey:@"amount"] floatValue];
+    Action *action = [[TurnAction alloc] initWithPlayer:uuid andAmount:amount];
+
+    [_delegate server:self didReceiveAction:action];
     [response beginAsyncJSONResponse];
-    void (^block)(void) = ^{
-      [response endAsyncJSONResponse:[_delegate server:self didTurnPlayer:uuid withOptions:options]];
-    };
-    [_playerResponses setObject:block forKey:uuid];
+    [self enqueueResponse:response forPlayer:uuid];
 	}];
 }
 
