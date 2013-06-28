@@ -43,7 +43,7 @@
           y =  cosf(self.zRotation) * clampedAmount * kMovementSpeed;
 
   // Calculate the time it takes to move the given distance.
-  NSTimeInterval duration = (DISTANCE(x, y) * clampedAmount) / kMovementSpeed;
+  NSTimeInterval duration = (DISTANCE(x, y) * ABS(clampedAmount)) / kMovementSpeed;
 
   [self runAction:[SKAction moveByX:x y:y duration:duration]];
 }
@@ -53,7 +53,7 @@
 
   CGFloat clampedAmount = NORMALIZE(amount),
           angle = clampedAmount * kRotationSpeed;
-  NSTimeInterval duration = (M_2PI * clampedAmount) / kRotationSpeed;
+  NSTimeInterval duration = (M_2PI * ABS(clampedAmount)) / kRotationSpeed;
 
   [self runAction:[SKAction rotateByAngle:angle duration:duration]];
 }
