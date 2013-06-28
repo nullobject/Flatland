@@ -38,7 +38,7 @@
 
 // TODO: The responses should be completed with a world view for the player.
 - (void)setupRoutes {
-	[self put:@"/idle" withBlock:^(RouteRequest *request, RouteResponse *response) {
+	[self put:@"/action/idle" withBlock:^(RouteRequest *request, RouteResponse *response) {
     NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:[request header:kXPlayer]];
     NSError *error;
     NSDictionary *options = [NSJSONSerialization JSONObjectWithData:request.body options:kNilOptions error:&error];
@@ -49,7 +49,7 @@
     [_playerResponses setObject:block forKey:uuid];
 	}];
 
-	[self put:@"/spawn" withBlock:^(RouteRequest *request, RouteResponse *response) {
+	[self put:@"/action/spawn" withBlock:^(RouteRequest *request, RouteResponse *response) {
     NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:[request header:kXPlayer]];
     NSError *error;
     NSDictionary *options = [NSJSONSerialization JSONObjectWithData:request.body options:kNilOptions error:&error];
@@ -60,7 +60,7 @@
     [_playerResponses setObject:block forKey:uuid];
 	}];
 
-	[self put:@"/move" withBlock:^(RouteRequest *request, RouteResponse *response) {
+	[self put:@"/action/move" withBlock:^(RouteRequest *request, RouteResponse *response) {
     NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:[request header:kXPlayer]];
     NSError *error;
     NSDictionary *options = [NSJSONSerialization JSONObjectWithData:request.body options:kNilOptions error:&error];
@@ -71,7 +71,7 @@
     [_playerResponses setObject:block forKey:uuid];
 	}];
 
-	[self put:@"/turn" withBlock:^(RouteRequest *request, RouteResponse *response) {
+	[self put:@"/action/turn" withBlock:^(RouteRequest *request, RouteResponse *response) {
     NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:[request header:kXPlayer]];
     NSError *error;
     NSDictionary *options = [NSJSONSerialization JSONObjectWithData:request.body options:kNilOptions error:&error];
