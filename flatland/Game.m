@@ -26,8 +26,8 @@
 
 #pragma mark - ServerDelegate
 
-- (void)server:(Server *)server didReceiveAction:(Action *)action {
-  [self enqueueAction:action forPlayer:action.uuid];
+- (void)server:(Server *)server didReceiveAction:(Action *)action forPlayer:(NSUUID *)uuid {
+  [self enqueueAction:action forPlayer:uuid];
 }
 
 #pragma mark - Private

@@ -21,7 +21,7 @@
 
 @protocol ServerDelegate <NSObject>
 
-- (void)server:(Server *)server didReceiveAction:(Action *)action;
+- (void)server:(Server *)server didReceiveAction:(Action *)action forPlayer:(NSUUID *)uuid;
 
 @end
 

@@ -10,11 +10,6 @@
 
 // Represents a player action.
 @interface Action : NSObject
-
-@property (nonatomic, strong) NSUUID *uuid;
-
-- (id)initWithPlayer:(NSUUID *)uuid;
-
 @end
 
 // Spawns a player.
@@ -30,7 +25,7 @@
 
 @property (nonatomic, assign) CGFloat amount;
 
-- (id)initWithPlayer:(NSUUID *)uuid andAmount:(CGFloat)amount;
+- (id)initWithAmount:(CGFloat)amount;
 
 @end
 
@@ -39,6 +34,6 @@
 
 @property (nonatomic, assign) CGFloat amount;
 
-- (id)initWithPlayer:(NSUUID *)uuid andAmount:(CGFloat)amount;
+- (id)initWithAmount:(CGFloat)amount;
 
 @end

@@ -9,15 +9,6 @@
 #import "Action.h"
 
 @implementation Action
-
-- (id)initWithPlayer:(NSUUID *)uuid {
-  if (self = [super init]) {
-    _uuid = uuid;
-  }
-
-  return self;
-}
-
 @end
 
 @implementation SpawnAction
@@ -28,8 +19,8 @@
 
 @implementation MoveAction
 
-- (id)initWithPlayer:(NSUUID *)uuid andAmount:(CGFloat)amount {
-  if (self = [super initWithPlayer:uuid]) {
+- (id)initWithAmount:(CGFloat)amount {
+  if (self = [super init]) {
     _amount = amount;
   }
 
@@ -40,8 +31,8 @@
 
 @implementation TurnAction
 
-- (id)initWithPlayer:(NSUUID *)uuid andAmount:(CGFloat)amount {
-  if (self = [super initWithPlayer:uuid]) {
+- (id)initWithAmount:(CGFloat)amount {
+  if (self = [super init]) {
     _amount = amount;
   }
 

@@ -39,18 +39,18 @@
 - (void)setupRoutes {
 	[self put:@"/action/idle" withBlock:^(RouteRequest *request, RouteResponse *response) {
     NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:[request header:kXPlayer]];
-    Action *action = [[SpawnAction alloc] initWithPlayer:uuid];
+    Action *action = [[SpawnAction alloc] init];
 
-    [_delegate server:self didReceiveAction:action];
+    [_delegate server:self didReceiveAction:action forPlayer:uuid];
     [response beginAsyncJSONResponse];
     [self enqueueResponse:response forPlayer:uuid];
 	}];
 
 	[self put:@"/action/spawn" withBlock:^(RouteRequest *request, RouteResponse *response) {
     NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:[request header:kXPlayer]];
-    Action *action = [[SpawnAction alloc] initWithPlayer:uuid];
+    Action *action = [[SpawnAction alloc] init];
 
-    [_delegate server:self didReceiveAction:action];
+    [_delegate server:self didReceiveAction:action forPlayer:uuid];
     [response beginAsyncJSONResponse];
     [self enqueueResponse:response forPlayer:uuid];
 	}];
@@ -60,9 +60,9 @@
     NSError *error;
     NSDictionary *options = [NSJSONSerialization JSONObjectWithData:request.body options:kNilOptions error:&error];
     CGFloat amount = [(NSNumber *)[options objectForKey:@"amount"] floatValue];
-    Action *action = [[MoveAction alloc] initWithPlayer:uuid andAmount:amount];
+    Action *action = [[MoveAction alloc] initWithAmount:amount];
 
-    [_delegate server:self didReceiveAction:action];
+    [_delegate server:self didReceiveAction:action forPlayer:uuid];
     [response beginAsyncJSONResponse];
     [self enqueueResponse:response forPlayer:uuid];
 	}];
@@ -72,9 +72,9 @@
     NSError *error;
     NSDictionary *options = [NSJSONSerialization JSONObjectWithData:request.body options:kNilOptions error:&error];
     CGFloat amount = [(NSNumber *)[options objectForKey:@"amount"] floatValue];
-    Action *action = [[TurnAction alloc] initWithPlayer:uuid andAmount:amount];
+    Action *action = [[TurnAction alloc] initWithAmount:amount];
 
-    [_delegate server:self didReceiveAction:action];
+    [_delegate server:self didReceiveAction:action forPlayer:uuid];
     [response beginAsyncJSONResponse];
     [self enqueueResponse:response forPlayer:uuid];
 	}];
