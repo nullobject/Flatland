@@ -1,0 +1,12 @@
+/* 
+  Localizable.strings
+  flatland
+
+  Created by Josh Bassett on 30/06/2013.
+  Copyright (c) 2013 Gamedogs. All rights reserved.
+*/
+
+"RequestErrorPlayerUUIDMissing" = "Missing player UUID";
+"RequestErrorPlayerUUIDInvalid" = "Invalid player UUID";
+"RequestErrorJSONMalformed"     = "Malformed JSON payload";
+"RequestErrorOptionsInvalid"    = "Invalid options";

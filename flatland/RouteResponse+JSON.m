@@ -1,5 +1,5 @@
 //
-//  RouteResponse+AsyncJSON.m
+//  RouteResponse+JSON.m
 //  flatland
 //
 //  Created by Josh Bassett on 25/06/2013.
@@ -8,12 +8,18 @@
 
 #import "HTTPAsyncDataResponse.h"
 #import "HTTPConnection.h"
-#import "RouteResponse+AsyncJSON.h"
+#import "RouteResponse+JSON.h"
 
 NSString *kContentType     = @"Content-Type";
 NSString *kApplicationJSON = @"application/json";
 
-@implementation RouteResponse (AsyncJSON)
+@implementation RouteResponse (JSON)
+
+- (void)respondWithJSON:(NSObject <Serializable> *)object {
+  NSData *data = [self serialize:object];
+  [self setHeader:kContentType value:kApplicationJSON];
+  [self respondWithData:data];
+}
 
 - (void)beginAsyncJSONResponse {
   [self setHeader:kContentType value:kApplicationJSON];

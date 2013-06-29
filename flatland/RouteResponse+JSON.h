@@ -1,5 +1,5 @@
 //
-//  RouteResponse+AsyncJSON.h
+//  RouteResponse+JSON.h
 //  flatland
 //
 //  Created by Josh Bassett on 25/06/2013.
@@ -9,8 +9,9 @@
 #import "RouteResponse.h"
 #import "Serializable.h"
 
-@interface RouteResponse (AsyncJSON)
+@interface RouteResponse (JSON)
 
+- (void)respondWithJSON:(NSObject <Serializable> *)object;
 - (void)beginAsyncJSONResponse;
 - (void)endAsyncJSONResponse:(NSObject <Serializable> *)object;
 

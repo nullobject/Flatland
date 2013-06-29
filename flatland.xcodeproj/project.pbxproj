@@ -25,10 +25,12 @@
 		0316DA0517768A3100FF40CF /* NSArray+FP.m in Sources */ = {isa = PBXBuildFile; fileRef = 0316DA0417768A3100FF40CF /* NSArray+FP.m */; };
 		0316DA08177692E300FF40CF /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 0316DA07177692E300FF40CF /* Player.m */; };
 		0316DA0D1776A43200FF40CF /* SKColor+Relative.m in Sources */ = {isa = PBXBuildFile; fileRef = 0316DA0C1776A43200FF40CF /* SKColor+Relative.m */; };
+		0396253D177F9C2800EC9912 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0396253F177F9C2800EC9912 /* Localizable.strings */; };
 		03990F5617785B8100995DE2 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 03990F5517785B8100995DE2 /* Game.m */; };
-		03990F5D1778F9E300995DE2 /* RouteResponse+AsyncJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 03990F5C1778F9E300995DE2 /* RouteResponse+AsyncJSON.m */; };
+		03990F5D1778F9E300995DE2 /* RouteResponse+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 03990F5C1778F9E300995DE2 /* RouteResponse+JSON.m */; };
 		03B24C4B1776CD0A00CF4BC2 /* Server.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B24C4A1776CD0A00CF4BC2 /* Server.m */; };
 		03B2CA58177E43DE00B0647C /* Action.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B2CA57177E43DE00B0647C /* Action.m */; };
+		03B2CA5B177E628E00B0647C /* RequestError.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B2CA5A177E628E00B0647C /* RequestError.m */; };
 		03BC5D5A1779BBB20082ED48 /* HTTPAsyncDataResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 03BC5D591779BBB20082ED48 /* HTTPAsyncDataResponse.m */; };
 		B89260BBFFA4476EAD0BB91A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 10914B562211409E8AB7E324 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -77,14 +79,17 @@
 		0316DA0B1776A43200FF40CF /* SKColor+Relative.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKColor+Relative.h"; sourceTree = "<group>"; };
 		0316DA0C1776A43200FF40CF /* SKColor+Relative.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKColor+Relative.m"; sourceTree = "<group>"; };
 		032531E0177BAD9F00420D3D /* Core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Core.h; sourceTree = "<group>"; };
+		0396253E177F9C2800EC9912 /* en */ = {isa = PBXFileReference; lastKnownFileType = file; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		03990F5417785B8100995DE2 /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
 		03990F5517785B8100995DE2 /* Game.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Game.m; sourceTree = "<group>"; };
-		03990F5B1778F9E300995DE2 /* RouteResponse+AsyncJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RouteResponse+AsyncJSON.h"; sourceTree = "<group>"; };
-		03990F5C1778F9E300995DE2 /* RouteResponse+AsyncJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RouteResponse+AsyncJSON.m"; sourceTree = "<group>"; };
+		03990F5B1778F9E300995DE2 /* RouteResponse+JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RouteResponse+JSON.h"; sourceTree = "<group>"; };
+		03990F5C1778F9E300995DE2 /* RouteResponse+JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RouteResponse+JSON.m"; sourceTree = "<group>"; };
 		03B24C491776CD0A00CF4BC2 /* Server.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Server.h; sourceTree = "<group>"; };
 		03B24C4A1776CD0A00CF4BC2 /* Server.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Server.m; sourceTree = "<group>"; };
 		03B2CA56177E43DE00B0647C /* Action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Action.h; sourceTree = "<group>"; };
 		03B2CA57177E43DE00B0647C /* Action.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Action.m; sourceTree = "<group>"; };
+		03B2CA59177E628E00B0647C /* RequestError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestError.h; sourceTree = "<group>"; };
+		03B2CA5A177E628E00B0647C /* RequestError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestError.m; sourceTree = "<group>"; };
 		03BC5D581779BBB20082ED48 /* HTTPAsyncDataResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPAsyncDataResponse.h; sourceTree = "<group>"; };
 		03BC5D591779BBB20082ED48 /* HTTPAsyncDataResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPAsyncDataResponse.m; sourceTree = "<group>"; };
 		0FD58F96B82A403C9724C438 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
@@ -176,6 +181,8 @@
 				03BC5D591779BBB20082ED48 /* HTTPAsyncDataResponse.m */,
 				0316DA06177692E300FF40CF /* Player.h */,
 				0316DA07177692E300FF40CF /* Player.m */,
+				03B2CA59177E628E00B0647C /* RequestError.h */,
+				03B2CA5A177E628E00B0647C /* RequestError.m */,
 				0316D9D71775570600FF40CF /* MainMenu.xib */,
 				0316D9DF1775570600FF40CF /* Spaceship.png */,
 				0316D9DB1775570600FF40CF /* WorldScene.h */,
@@ -194,6 +201,7 @@
 				0316D9D11775570600FF40CF /* main.m */,
 				0316D9D31775570600FF40CF /* flatland-Prefix.pch */,
 				0316D9D41775570600FF40CF /* Credits.rtf */,
+				0396253F177F9C2800EC9912 /* Localizable.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -221,8 +229,8 @@
 			children = (
 				0316DA0317768A3100FF40CF /* NSArray+FP.h */,
 				0316DA0417768A3100FF40CF /* NSArray+FP.m */,
-				03990F5B1778F9E300995DE2 /* RouteResponse+AsyncJSON.h */,
-				03990F5C1778F9E300995DE2 /* RouteResponse+AsyncJSON.m */,
+				03990F5B1778F9E300995DE2 /* RouteResponse+JSON.h */,
+				03990F5C1778F9E300995DE2 /* RouteResponse+JSON.m */,
 				0316DA0B1776A43200FF40CF /* SKColor+Relative.h */,
 				0316DA0C1776A43200FF40CF /* SKColor+Relative.m */,
 			);
@@ -316,6 +324,7 @@
 			files = (
 				0316D9E01775570600FF40CF /* Spaceship.png in Resources */,
 				0316D9E21775570600FF40CF /* Images.xcassets in Resources */,
+				0396253D177F9C2800EC9912 /* Localizable.strings in Resources */,
 				0316D9D01775570600FF40CF /* InfoPlist.strings in Resources */,
 				0316D9D61775570600FF40CF /* Credits.rtf in Resources */,
 				0316D9D81775570600FF40CF /* MainMenu.xib in Resources */,
@@ -371,7 +380,7 @@
 				03990F5617785B8100995DE2 /* Game.m in Sources */,
 				0316DA0217767ED700FF40CF /* Entity.m in Sources */,
 				0316DA0517768A3100FF40CF /* NSArray+FP.m in Sources */,
-				03990F5D1778F9E300995DE2 /* RouteResponse+AsyncJSON.m in Sources */,
+				03990F5D1778F9E300995DE2 /* RouteResponse+JSON.m in Sources */,
 				0316D9DA1775570600FF40CF /* WorldScene.m in Sources */,
 				0316DA0D1776A43200FF40CF /* SKColor+Relative.m in Sources */,
 				0316D9D21775570600FF40CF /* main.m in Sources */,
@@ -380,6 +389,7 @@
 				03B2CA58177E43DE00B0647C /* Action.m in Sources */,
 				03B24C4B1776CD0A00CF4BC2 /* Server.m in Sources */,
 				0316D9DD1775570600FF40CF /* AppDelegate.m in Sources */,
+				03B2CA5B177E628E00B0647C /* RequestError.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -424,6 +434,14 @@
 				0316D9F11775570600FF40CF /* en */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		0396253F177F9C2800EC9912 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0396253E177F9C2800EC9912 /* en */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

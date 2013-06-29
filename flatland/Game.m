@@ -8,6 +8,7 @@
 
 #import "Action.h"
 #import "Game.h"
+#import "RequestError.h"
 
 @implementation Game {
   NSMutableDictionary *_playerActions;
@@ -26,8 +27,14 @@
 
 #pragma mark - ServerDelegate
 
+// TODO: Validate the action before enqueueing it (e.g. player entity has enough energy).
 - (void)server:(Server *)server didReceiveAction:(Action *)action forPlayer:(NSUUID *)uuid {
-  [self enqueueAction:action forPlayer:uuid];
+  if (YES) {
+    [self enqueueAction:action forPlayer:uuid];
+  } else {
+    RequestError *error = [RequestError errorWithDomain:RequestErrorDomain code:0 userInfo:nil];
+    [_server respondToPlayer:uuid withError:error];
+  }
 }
 
 #pragma mark - Private

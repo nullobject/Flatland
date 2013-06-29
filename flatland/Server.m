@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Gamedogs. All rights reserved.
 //
 
-#import "RouteResponse+AsyncJSON.h"
+#import "RouteResponse+JSON.h"
 #import "Server.h"
 
 @implementation Server {
@@ -30,53 +30,124 @@
   [response endAsyncJSONResponse:world];
 }
 
+- (void)respondToPlayer:(NSUUID *)uuid withError:(RequestError *)error {
+  RouteResponse *response = [_playerResponses objectForKey:uuid];
+  response.statusCode = kUnprocessableEntity;
+  [_playerResponses removeObjectForKey:uuid];
+  [response endAsyncJSONResponse:error];
+}
+
 #pragma - Private
 
 - (void)enqueueResponse:(RouteResponse *)response forPlayer:(NSUUID *)uuid {
   [_playerResponses setObject:response forKey:uuid];
 }
 
+- (NSUUID *)parsePlayer:(RouteRequest *)request error:(RequestError **)error {
+  NSString *header = [request header:kXPlayer];
+  
+  if (!header) {
+    *error = [RequestError errorWithDomain:RequestErrorDomain
+                                      code:RequestErrorPlayerUUIDMissing
+                                  userInfo:nil];
+    return nil;
+  }
+
+  NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:header];
+  
+  if (!uuid) {
+    *error = [RequestError errorWithDomain:RequestErrorDomain
+                                      code:RequestErrorPlayerUUIDInvalid
+                                  userInfo:nil];
+    return nil;
+  }
+
+  return uuid;
+}
+
+- (NSDictionary *)parseOptions:(RouteRequest *)request error:(RequestError **)error {
+  NSError *jsonError;
+  id options = [NSJSONSerialization JSONObjectWithData:request.body
+                                               options:kNilOptions
+                                                 error:&jsonError];
+  
+  if (jsonError) {
+    *error = [RequestError errorWithDomain:RequestErrorDomain
+                                      code:RequestErrorJSONMalformed
+                                  userInfo:@{NSUnderlyingErrorKey: jsonError}];
+    return nil;
+  }
+
+  if (![options isKindOfClass:NSDictionary.class]) {
+    *error = [RequestError errorWithDomain:RequestErrorDomain
+                                      code:RequestErrorOptionsInvalid
+                                  userInfo:nil];
+    return nil;
+  }
+
+
+  return options;
+}
+
 - (void)setupRoutes {
 	[self put:@"/action/idle" withBlock:^(RouteRequest *request, RouteResponse *response) {
-    NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:[request header:kXPlayer]];
+    RequestError *error;
+
+    NSUUID *uuid = [self parsePlayer:request error:&error];
+    if (error) return [response respondWithJSON:error];
+
     Action *action = [[SpawnAction alloc] init];
 
-    [_delegate server:self didReceiveAction:action forPlayer:uuid];
     [response beginAsyncJSONResponse];
     [self enqueueResponse:response forPlayer:uuid];
+    [_delegate server:self didReceiveAction:action forPlayer:uuid];
 	}];
 
 	[self put:@"/action/spawn" withBlock:^(RouteRequest *request, RouteResponse *response) {
-    NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:[request header:kXPlayer]];
+    RequestError *error;
+
+    NSUUID *uuid = [self parsePlayer:request error:&error];
+    if (error) return [response respondWithJSON:error];
+
     Action *action = [[SpawnAction alloc] init];
 
-    [_delegate server:self didReceiveAction:action forPlayer:uuid];
     [response beginAsyncJSONResponse];
     [self enqueueResponse:response forPlayer:uuid];
+    [_delegate server:self didReceiveAction:action forPlayer:uuid];
 	}];
 
 	[self put:@"/action/move" withBlock:^(RouteRequest *request, RouteResponse *response) {
-    NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:[request header:kXPlayer]];
-    NSError *error;
-    NSDictionary *options = [NSJSONSerialization JSONObjectWithData:request.body options:kNilOptions error:&error];
+    RequestError *error;
+
+    NSUUID *uuid = [self parsePlayer:request error:&error];
+    if (error) return [response respondWithJSON:error];
+
+    NSDictionary *options = [self parseOptions:request error:&error];
+    if (error) return [response respondWithJSON:error];
+
     CGFloat amount = [(NSNumber *)[options objectForKey:@"amount"] floatValue];
     Action *action = [[MoveAction alloc] initWithAmount:amount];
 
-    [_delegate server:self didReceiveAction:action forPlayer:uuid];
     [response beginAsyncJSONResponse];
     [self enqueueResponse:response forPlayer:uuid];
+    [_delegate server:self didReceiveAction:action forPlayer:uuid];
 	}];
 
 	[self put:@"/action/turn" withBlock:^(RouteRequest *request, RouteResponse *response) {
-    NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:[request header:kXPlayer]];
-    NSError *error;
-    NSDictionary *options = [NSJSONSerialization JSONObjectWithData:request.body options:kNilOptions error:&error];
+    RequestError *error;
+
+    NSUUID *uuid = [self parsePlayer:request error:&error];
+    if (error) return [response respondWithJSON:error];
+
+    NSDictionary *options = [self parseOptions:request error:&error];
+    if (error) return [response respondWithJSON:error];
+
     CGFloat amount = [(NSNumber *)[options objectForKey:@"amount"] floatValue];
     Action *action = [[TurnAction alloc] initWithAmount:amount];
 
-    [_delegate server:self didReceiveAction:action forPlayer:uuid];
     [response beginAsyncJSONResponse];
     [self enqueueResponse:response forPlayer:uuid];
+    [_delegate server:self didReceiveAction:action forPlayer:uuid];
 	}];
 }
 
