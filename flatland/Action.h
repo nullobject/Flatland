@@ -10,6 +10,10 @@
 
 // Represents a player action.
 @interface Action : NSObject
+
+// The cost of the action in energy units.
+@property (nonatomic, readonly) NSInteger cost;
+
 @end
 
 // Spawns a player.

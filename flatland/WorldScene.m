@@ -75,6 +75,8 @@
   [self addChild:wallNode];
 }
 
+// Returns the player with the given UUID, if the player doesn't exist then one
+// is created.
 - (Player *)playerWithUUID:(NSUUID *)uuid {
   Player *player = [_players objectForKey:uuid];
 

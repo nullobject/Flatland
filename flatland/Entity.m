@@ -31,20 +31,18 @@
 
 - (void)idle {
   _state = EntityStateIdle;
-  _age += 1;
   NSTimeInterval duration = 1;
   [self runAction:[SKAction waitForDuration:duration]];
 }
 
 - (void)moveBy:(CGFloat)amount {
   _state = EntityStateMoving;
-  _age += 1;
 
   CGFloat clampedAmount = NORMALIZE(amount),
           x = -sinf(self.zRotation) * clampedAmount * kMovementSpeed,
           y =  cosf(self.zRotation) * clampedAmount * kMovementSpeed;
 
-  // Calculate the time it takes to move the given distance.
+  // Calculate the time it takes to move the given amount.
   NSTimeInterval duration = (DISTANCE(x, y) * ABS(clampedAmount)) / kMovementSpeed;
 
   [self runAction:[SKAction moveByX:x y:y duration:duration]];
@@ -52,10 +50,11 @@
 
 - (void)turnBy:(CGFloat)amount {
   _state = EntityStateTurning;
-  _age += 1;
 
   CGFloat clampedAmount = NORMALIZE(amount),
           angle = clampedAmount * kRotationSpeed;
+
+  // Calculate the time it takes to turn the given amount.
   NSTimeInterval duration = (M_2PI * ABS(clampedAmount)) / kRotationSpeed;
 
   [self runAction:[SKAction rotateByAngle:angle duration:duration]];

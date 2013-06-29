@@ -9,12 +9,22 @@
 #import "Action.h"
 
 @implementation Action
+
+- (NSInteger)cost {
+  return 0;
+}
+
 @end
 
 @implementation SpawnAction
 @end
 
 @implementation IdleAction
+
+- (NSInteger)cost {
+  return 10;
+}
+
 @end
 
 @implementation MoveAction
@@ -27,6 +37,10 @@
   return self;
 }
 
+- (NSInteger)cost {
+  return -20;
+}
+
 @end
 
 @implementation TurnAction
@@ -37,6 +51,10 @@
   }
 
   return self;
+}
+
+- (NSInteger)cost {
+  return -20;
 }
 
 @end
