@@ -19,7 +19,7 @@
   if (self = [super initWithSize:size]) {
     _players = [[NSMutableDictionary alloc] init];
 
-    self.backgroundColor = [SKColor colorWithRGB:0xffa000];
+    self.backgroundColor = [SKColor colorWithRGB:0x000000];
     self.physicsWorld.gravity = CGPointMake(0.0f, 0.0f);
 
     [self addWalls];

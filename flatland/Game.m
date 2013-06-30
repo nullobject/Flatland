@@ -31,8 +31,10 @@
 - (void)server:(Server *)server didReceiveAction:(Action *)action forPlayer:(NSUUID *)uuid {
   if (YES) {
     [self enqueueAction:action forPlayer:uuid];
-  } else {
-    GameError *error = [GameError errorWithDomain:GameErrorDomain code:GameErrorPlayerInsufficientEnergy userInfo:nil];
+} else {
+    GameError *error = [GameError errorWithDomain:GameErrorDomain
+                                             code:GameErrorPlayerInsufficientEnergy
+                                         userInfo:nil];
     [_server respondToPlayer:uuid withError:error];
   }
 }
