@@ -6,7 +6,8 @@
   Copyright (c) 2013 Gamedogs. All rights reserved.
 */
 
-"RequestErrorPlayerUUIDMissing" = "Missing player UUID";
-"RequestErrorPlayerUUIDInvalid" = "Invalid player UUID";
-"RequestErrorJSONMalformed"     = "Malformed JSON payload";
-"RequestErrorOptionsInvalid"    = "Invalid options";
+"GameErrorPlayerUUIDMissing"        = "Missing player UUID";
+"GameErrorPlayerUUIDInvalid"        = "Invalid player UUID";
+"GameErrorJSONMalformed"            = "Malformed JSON payload";
+"GameErrorOptionsInvalid"           = "Invalid options";
+"GameErrorPlayerInsufficientEnergy" = "Player has insufficient energy";

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "Action.h"
-#import "RequestError.h"
+#import "GameError.h"
 #import "RoutingHTTPServer.h"
 #import "WorldScene.h"
 
@@ -34,6 +34,6 @@
 @property (nonatomic, weak) id <ServerDelegate> delegate;
 
 - (void)respondToPlayer:(NSUUID *)uuid withWorld:(WorldScene *)world;
-- (void)respondToPlayer:(NSUUID *)uuid withError:(RequestError *)error;
+- (void)respondToPlayer:(NSUUID *)uuid withError:(GameError *)error;
 
 @end

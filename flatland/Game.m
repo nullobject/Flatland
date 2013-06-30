@@ -8,7 +8,7 @@
 
 #import "Action.h"
 #import "Game.h"
-#import "RequestError.h"
+#import "GameError.h"
 
 @implementation Game {
   NSMutableDictionary *_playerActions;
@@ -32,7 +32,7 @@
   if (YES) {
     [self enqueueAction:action forPlayer:uuid];
   } else {
-    RequestError *error = [RequestError errorWithDomain:RequestErrorDomain code:0 userInfo:nil];
+    GameError *error = [GameError errorWithDomain:GameErrorDomain code:GameErrorPlayerInsufficientEnergy userInfo:nil];
     [_server respondToPlayer:uuid withError:error];
   }
 }

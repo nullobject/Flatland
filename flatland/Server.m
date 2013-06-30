@@ -30,7 +30,7 @@
   [response endAsyncJSONResponse:world];
 }
 
-- (void)respondToPlayer:(NSUUID *)uuid withError:(RequestError *)error {
+- (void)respondToPlayer:(NSUUID *)uuid withError:(GameError *)error {
   RouteResponse *response = [_playerResponses objectForKey:uuid];
   response.statusCode = kUnprocessableEntity;
   [_playerResponses removeObjectForKey:uuid];
@@ -43,45 +43,45 @@
   [_playerResponses setObject:response forKey:uuid];
 }
 
-- (NSUUID *)parsePlayer:(RouteRequest *)request error:(RequestError **)error {
+- (NSUUID *)parsePlayer:(RouteRequest *)request error:(GameError **)error {
   NSString *header = [request header:kXPlayer];
   
   if (!header) {
-    *error = [RequestError errorWithDomain:RequestErrorDomain
-                                      code:RequestErrorPlayerUUIDMissing
-                                  userInfo:nil];
+    *error = [GameError errorWithDomain:GameErrorDomain
+                                   code:GameErrorPlayerUUIDMissing
+                               userInfo:nil];
     return nil;
   }
 
   NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:header];
   
   if (!uuid) {
-    *error = [RequestError errorWithDomain:RequestErrorDomain
-                                      code:RequestErrorPlayerUUIDInvalid
-                                  userInfo:nil];
+    *error = [GameError errorWithDomain:GameErrorDomain
+                                   code:GameErrorPlayerUUIDInvalid
+                               userInfo:nil];
     return nil;
   }
 
   return uuid;
 }
 
-- (NSDictionary *)parseOptions:(RouteRequest *)request error:(RequestError **)error {
+- (NSDictionary *)parseOptions:(RouteRequest *)request error:(GameError **)error {
   NSError *jsonError;
   id options = [NSJSONSerialization JSONObjectWithData:request.body
                                                options:kNilOptions
                                                  error:&jsonError];
   
   if (jsonError) {
-    *error = [RequestError errorWithDomain:RequestErrorDomain
-                                      code:RequestErrorJSONMalformed
-                                  userInfo:@{NSUnderlyingErrorKey: jsonError}];
+    *error = [GameError errorWithDomain:GameErrorDomain
+                                   code:GameErrorJSONMalformed
+                               userInfo:@{NSUnderlyingErrorKey: jsonError}];
     return nil;
   }
 
   if (![options isKindOfClass:NSDictionary.class]) {
-    *error = [RequestError errorWithDomain:RequestErrorDomain
-                                      code:RequestErrorOptionsInvalid
-                                  userInfo:nil];
+    *error = [GameError errorWithDomain:GameErrorDomain
+                                   code:GameErrorOptionsInvalid
+                               userInfo:nil];
     return nil;
   }
 
@@ -91,7 +91,7 @@
 
 - (void)setupRoutes {
 	[self put:@"/action/idle" withBlock:^(RouteRequest *request, RouteResponse *response) {
-    RequestError *error;
+    GameError *error;
 
     NSUUID *uuid = [self parsePlayer:request error:&error];
     if (error) return [response respondWithJSON:error];
@@ -104,7 +104,7 @@
 	}];
 
 	[self put:@"/action/spawn" withBlock:^(RouteRequest *request, RouteResponse *response) {
-    RequestError *error;
+    GameError *error;
 
     NSUUID *uuid = [self parsePlayer:request error:&error];
     if (error) return [response respondWithJSON:error];
@@ -117,7 +117,7 @@
 	}];
 
 	[self put:@"/action/move" withBlock:^(RouteRequest *request, RouteResponse *response) {
-    RequestError *error;
+    GameError *error;
 
     NSUUID *uuid = [self parsePlayer:request error:&error];
     if (error) return [response respondWithJSON:error];
@@ -134,7 +134,7 @@
 	}];
 
 	[self put:@"/action/turn" withBlock:^(RouteRequest *request, RouteResponse *response) {
-    RequestError *error;
+    GameError *error;
 
     NSUUID *uuid = [self parsePlayer:request error:&error];
     if (error) return [response respondWithJSON:error];
