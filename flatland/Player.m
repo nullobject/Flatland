@@ -19,6 +19,18 @@
   return self;
 }
 
+- (void)validateAction:(Action *)action error:(GameError **)error {
+  if (_state != PlayerStateAlive && ![action isMemberOfClass:SpawnAction.class]) {
+    *error = [[GameError alloc] initWithDomain:GameErrorDomain
+                                          code:GameErrorPlayerNotSpawned
+                                      userInfo:nil];
+  } else if (action.cost > self.entity.energy) {
+    *error = [[GameError alloc] initWithDomain:GameErrorDomain
+                                          code:GameErrorPlayerInsufficientEnergy
+                                      userInfo:nil];
+  }
+}
+
 - (void)runAction:(Action *)action {
   if ([action isMemberOfClass:SpawnAction.class]) {
     [self spawn];
@@ -45,18 +57,16 @@
 }
 
 - (void)idle {
-  if (_state != PlayerStateAlive) return;
+  NSLog(@"Idling player %@.", [self.uuid UUIDString]);
   [_entity idle];
 }
 
 - (void)moveBy:(CGFloat)amount {
-  if (_state != PlayerStateAlive) return;
   NSLog(@"Moving player %@ by %f.", [self.uuid UUIDString], amount);
   [_entity moveBy:amount];
 }
 
 - (void)turnBy:(CGFloat)amount {
-  if (_state != PlayerStateAlive) return;
   NSLog(@"Turning player %@ by %f.", [self.uuid UUIDString], amount);
   [_entity turnBy:amount];
 }

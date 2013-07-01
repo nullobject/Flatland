@@ -29,12 +29,10 @@
 
 // TODO: Validate the action before enqueueing it (e.g. player entity has enough energy).
 - (void)server:(Server *)server didReceiveAction:(Action *)action forPlayer:(NSUUID *)uuid {
-  if (YES) {
-    [self enqueueAction:action forPlayer:uuid];
-} else {
-    GameError *error = [GameError errorWithDomain:GameErrorDomain
-                                             code:GameErrorPlayerInsufficientEnergy
-                                         userInfo:nil];
+  GameError *error;
+  [self enqueueAction:action forPlayer:uuid error:&error];
+
+  if (error) {
     [_server respondToPlayer:uuid withError:error];
   }
 }
@@ -61,8 +59,12 @@
                                   repeats:YES];
 }
 
-- (void)enqueueAction:(Action *)action forPlayer:(NSUUID *)uuid {
-  [_playerActions setObject:action forKey:uuid];
+- (void)enqueueAction:(Action *)action forPlayer:(NSUUID *)uuid error:(GameError **)error {
+  [_world validateAction:action forPlayer:uuid error:error];
+
+  if (!*error) {
+    [_playerActions setObject:action forKey:uuid];
+  }
 }
 
 // TODO: The update should be split into two phases: gather and settle. During

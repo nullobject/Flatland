@@ -28,13 +28,13 @@ typedef enum : uint8_t {
 @property (nonatomic, assign) EntityState state;
 
 // The age of the entity in simulation iterations.
-@property (nonatomic, assign) NSUInteger age;
+@property (nonatomic, assign) NSInteger age;
 
 // The energy of the entity. It costs the entity energy to perform actions.
-@property (nonatomic, assign) NSUInteger energy;
+@property (nonatomic, assign) NSInteger energy;
 
 // The health of the entity. When health reaches zero, then the entity is dead.
-@property (nonatomic, assign) NSUInteger health;
+@property (nonatomic, assign) NSInteger health;
 
 // Initializes a new entity.
 - (Entity *)init;

@@ -9,6 +9,7 @@
 #import <SpriteKit/SpriteKit.h>
 
 #import "Action.h"
+#import "GameError.h"
 #import "Player.h"
 #import "Serializable.h"
 
@@ -16,6 +17,9 @@
 
 // The age of the world in simulation iterations.
 @property (nonatomic, assign) NSUInteger age;
+
+// Validates the action for the given player, returning any errors.
+- (void)validateAction:(Action *)action forPlayer:(NSUUID *)uuid error:(GameError **)error;
 
 // Runs the action for the player with the given UUID.
 - (void)runAction:(Action *)action forPlayer:(NSUUID *)uuid;

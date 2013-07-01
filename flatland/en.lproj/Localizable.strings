@@ -11,3 +11,4 @@
 "GameErrorJSONMalformed"            = "Malformed JSON payload";
 "GameErrorOptionsInvalid"           = "Invalid options";
 "GameErrorPlayerInsufficientEnergy" = "Player has insufficient energy";
+"GameErrorPlayerNotSpawned"         = "Player has not spawned";

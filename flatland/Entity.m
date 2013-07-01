@@ -13,8 +13,11 @@
 
 - (Entity *)init {
   if (self = [super initWithImageNamed:@"Spaceship"]) {
-    _state = EntityStateIdle;
-    
+    _state  = EntityStateIdle;
+    _age    = 0;
+    _energy = 100;
+    _health = 100;
+
     self.name = [[NSUUID UUID] UUIDString];
 
     self.scale = 0.25f;

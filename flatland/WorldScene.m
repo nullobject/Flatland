@@ -6,9 +6,10 @@
 //  Copyright (c) 2013 Gamedogs. All rights reserved.
 //
 
+#import "Entity.h"
+#import "GameError.h"
 #import "NSArray+FP.h"
 #import "SKColor+Relative.h"
-#import "Entity.h"
 #import "WorldScene.h"
 
 @implementation WorldScene {
@@ -26,6 +27,11 @@
   }
 
   return self;
+}
+
+- (void)validateAction:(Action *)action forPlayer:(NSUUID *)uuid error:(GameError **)error {
+  Player *player = [self playerWithUUID:uuid];
+  [player validateAction:action error:error];
 }
 
 - (void)runAction:(Action *)action forPlayer:(NSUUID *)uuid {

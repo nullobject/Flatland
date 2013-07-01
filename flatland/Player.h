@@ -10,6 +10,7 @@
 
 #import "Action.h"
 #import "Entity.h"
+#import "GameError.h"
 #import "Serializable.h"
 
 // Player spawn delay in seconds.
@@ -37,6 +38,9 @@ typedef enum : uint8_t {
 @property (nonatomic, strong) Entity *entity;
 
 - (Player *)initWithUUID:(NSUUID *)uuid;
+
+// Validates the given action for the player.
+- (void)validateAction:(Action *)action error:(GameError **)error;
 
 // Runs the given action for the player.
 - (void)runAction:(Action *)action;
