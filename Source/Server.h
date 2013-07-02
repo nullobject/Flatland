@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-#import "Action.h"
 #import "GameError.h"
+#import "Player.h"
 #import "RoutingHTTPServer.h"
 #import "WorldScene.h"
 
@@ -25,7 +25,7 @@
 
 @protocol ServerDelegate <NSObject>
 
-- (void)server:(Server *)server didReceiveAction:(Action *)action forPlayer:(NSUUID *)uuid ;
+- (void)server:(Server *)server didReceiveAction:(PlayerAction *)action forPlayer:(NSUUID *)uuid;
 
 @end
 

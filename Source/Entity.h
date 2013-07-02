@@ -29,6 +29,8 @@ typedef enum : uint8_t {
 
 @interface Entity : SKSpriteNode <Serializable>
 
+@property (nonatomic, readonly) NSUUID *uuid;
+
 @property (nonatomic, assign) EntityState state;
 
 // The age of the entity in simulation iterations.
@@ -41,7 +43,7 @@ typedef enum : uint8_t {
 @property (nonatomic, assign) CGFloat health;
 
 // Initializes a new entity.
-- (Entity *)init;
+- (Entity *)initWithUUID:(NSUUID *)uuid;
 
 // Commands.
 - (void)idle;

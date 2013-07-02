@@ -11,14 +11,15 @@
 
 @implementation Entity
 
-- (Entity *)init {
+- (Entity *)initWithUUID:(NSUUID *)uuid {
   if (self = [super initWithImageNamed:@"Spaceship"]) {
+    _uuid   = uuid;
     _state  = EntityStateIdle;
     _age    = 0;
     _energy = 100.0f;
     _health = 100.0f;
 
-    self.name = [[NSUUID UUID] UUIDString];
+    self.name = [uuid UUIDString];
 
     self.scale = 0.25f;
 

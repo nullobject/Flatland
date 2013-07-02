@@ -6,17 +6,14 @@
 //  Copyright (c) 2013 Gamedogs. All rights reserved.
 //
 
-#import "Action.h"
 #import "Game.h"
 #import "GameError.h"
+#import "Player.h"
 
-@implementation Game {
-  NSMutableDictionary *_playerActions;
-}
+@implementation Game
 
 - (id)init {
   if (self = [super init]) {
-    _playerActions = [[NSMutableDictionary alloc] init];
     [self setupServer];
     [self setupWorld];
     [self startTimer];
@@ -25,16 +22,22 @@
   return self;
 }
 
+- (void)tick {
+  [_world tick];
+
+  [_world.players enumerateKeysAndObjectsUsingBlock:^(NSUUID *uuid, Player *player, BOOL *stop) {
+    [_server respondToPlayer:uuid withWorld:_world];
+  }];
+}
+
 #pragma mark - ServerDelegate
 
-// TODO: Validate the action before enqueueing it (e.g. player entity has enough energy).
-- (void)server:(Server *)server didReceiveAction:(Action *)action forPlayer:(NSUUID *)uuid {
+- (void)server:(Server *)server didReceiveAction:(PlayerAction *)action forPlayer:(NSUUID *)uuid {
   GameError *error;
-  [self enqueueAction:action forPlayer:uuid error:&error];
 
-  if (error) {
-    [_server respondToPlayer:uuid withError:error];
-  }
+  [_world enqueueAction:action forPlayer:uuid error:&error];
+
+  if (error) return [_server respondToPlayer:uuid withError:error];
 }
 
 #pragma mark - Private
@@ -54,31 +57,9 @@
 - (void)startTimer {
   [NSTimer scheduledTimerWithTimeInterval:1
                                    target:self
-                                 selector:@selector(update)
+                                 selector:@selector(tick)
                                  userInfo:nil
                                   repeats:YES];
-}
-
-// Enqueues the action if it is valid, otherwise it sets the error parameter.
-- (void)enqueueAction:(Action *)action forPlayer:(NSUUID *)uuid error:(GameError **)error {
-  [_world validateAction:action forPlayer:uuid error:error];
-
-  if (!*error) {
-    [_playerActions setObject:action forKey:uuid];
-  }
-}
-
-// TODO: The update should be split into two phases: gather and settle. During
-// the gather phase, the server waits for players to submit their requests.
-// During the settle phase the server waits for players' actions to complete,
-// before returning a response.
-- (void)update {
-  [_playerActions enumerateKeysAndObjectsUsingBlock:^(NSUUID *uuid, Action *action, BOOL *stop) {
-    [_world runAction:action forPlayer:uuid];
-    [_server respondToPlayer:uuid withWorld:_world];
-  }];
-
-  [_playerActions removeAllObjects];
 }
 
 @end

@@ -16,4 +16,7 @@
 @property (nonatomic, strong, readonly) Server *server;
 @property (nonatomic, strong, readonly) WorldScene *world;
 
+// Ticks the world.
+- (void)tick;
+
 @end

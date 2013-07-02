@@ -9,7 +9,26 @@
 #import "Core.h"
 #import "Player.h"
 
-@implementation Player
+@implementation PlayerAction
+
+- (id)initWithType:(PlayerActionType)type andOptions:(NSDictionary *)options {
+  if (self = [super init]) {
+    _type = type;
+    _options = options;
+  }
+
+  return self;
+}
+
++ (id)playerActionWithType:(PlayerActionType)type andOptions:(NSDictionary *)options {
+  return [[self alloc] initWithType:type andOptions:options];
+}
+
+@end
+
+@implementation Player {
+  PlayerAction *_action;
+}
 
 - (Player *)initWithUUID:(NSUUID *)uuid {
   if (self = [super init]) {
@@ -19,28 +38,42 @@
   return self;
 }
 
-- (void)validateAction:(Action *)action error:(GameError **)error {
-  if (_state != PlayerStateAlive && ![action isMemberOfClass:SpawnAction.class]) {
+- (void)enqueueAction:(PlayerAction *)action error:(GameError **)error {
+  if (_state != PlayerStateAlive && action.type != PlayerActionTypeSpawn) {
     *error = [[GameError alloc] initWithDomain:GameErrorDomain
                                           code:GameErrorPlayerNotSpawned
                                       userInfo:nil];
-  } else if (action.cost > self.entity.energy) {
-    *error = [[GameError alloc] initWithDomain:GameErrorDomain
-                                          code:GameErrorPlayerInsufficientEnergy
-                                      userInfo:nil];
+    return;
+//  } else if (action.cost > self.entity.energy) {
+//    *error = [[GameError alloc] initWithDomain:GameErrorDomain
+//                                          code:GameErrorPlayerInsufficientEnergy
+//                                      userInfo:nil];
   }
+
+  _action = action;
 }
 
-- (void)runAction:(Action *)action {
-  if ([action isMemberOfClass:SpawnAction.class]) {
-    [self spawn];
-  } else if ([action isMemberOfClass:IdleAction.class]) {
-    [self idle];
-  } else if ([action isMemberOfClass:MoveAction.class]) {
-    [self moveBy:((MoveAction *)action).amount];
-  } else if ([action isMemberOfClass:TurnAction.class]) {
-    [self turnBy:((TurnAction *)action).amount];
+- (void)tick {
+  if (!_action) return;
+
+  CGFloat amount = [(NSNumber *)[_action.options objectForKey:@"amount"] floatValue];
+
+  switch (_action.type) {
+    case PlayerActionTypeSpawn:
+      [self spawn];
+      break;
+    case PlayerActionTypeIdle:
+      [self idle];
+      break;
+    case PlayerActionTypeMove:
+      [self moveBy:amount];
+      break;
+    case PlayerActionTypeTurn:
+      [self turnBy:amount];
+      break;
   }
+
+  _action = nil;
 }
 
 #pragma mark - Actions
@@ -95,7 +128,7 @@
 }
 
 - (void)didSpawn {
-  _entity = [[Entity alloc] init];
+  _entity = [[Entity alloc] initWithUUID:[NSUUID UUID]];
   _entity.position = CGPointMake(RANDOM() * 500, RANDOM() * 500);
 
   _state = PlayerStateAlive;

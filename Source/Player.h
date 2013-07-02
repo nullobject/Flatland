@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-#import "Action.h"
 #import "Entity.h"
 #import "GameError.h"
 #import "Serializable.h"
@@ -22,11 +21,29 @@ typedef enum : uint8_t {
   PlayerStateAlive
 } PlayerState;
 
+typedef enum : uint8_t {
+  PlayerActionTypeSpawn,
+  PlayerActionTypeIdle,
+  PlayerActionTypeMove,
+  PlayerActionTypeTurn
+} PlayerActionType;
+
 @class Player;
 
 @protocol PlayerDelegate <NSObject>
 
 - (void)playerDidSpawn:(Player *)player;
+
+@end
+
+@interface PlayerAction : NSObject
+
+@property (nonatomic, assign) PlayerActionType type;
+@property (nonatomic, strong) NSDictionary *options;
+
+- (id)initWithType:(PlayerActionType)type andOptions:(NSDictionary *)options;
+
++ (id)playerActionWithType:(PlayerActionType)type andOptions:(NSDictionary *)options;
 
 @end
 
@@ -37,13 +54,14 @@ typedef enum : uint8_t {
 @property (nonatomic, assign) PlayerState state;
 @property (nonatomic, strong) Entity *entity;
 
+// Initializes the player with the given UUID.
 - (Player *)initWithUUID:(NSUUID *)uuid;
 
-// Validates the given action for the player.
-- (void)validateAction:(Action *)action error:(GameError **)error;
+// Enqueues the given action for the player.
+- (void)enqueueAction:(PlayerAction *)action error:(GameError **)error;
 
-// Runs the given action for the player.
-- (void)runAction:(Action *)action;
+// Ticks the player.
+- (void)tick;
 
 // Actions.
 - (void)spawn;

@@ -29,18 +29,19 @@
   return self;
 }
 
-- (void)validateAction:(Action *)action forPlayer:(NSUUID *)uuid error:(GameError **)error {
+- (void)enqueueAction:(PlayerAction *)action forPlayer:(NSUUID *)uuid error:(GameError **)error {
   Player *player = [self playerWithUUID:uuid];
-  [player validateAction:action error:error];
-}
-
-- (void)runAction:(Action *)action forPlayer:(NSUUID *)uuid {
-  Player *player = [self playerWithUUID:uuid];
-  [player runAction:action];
+  [player enqueueAction:action error:error];
 }
 
 - (void)update:(CFTimeInterval)currentTime {
   /* Called before each frame is rendered */
+}
+
+- (void)tick {
+  [_players enumerateKeysAndObjectsUsingBlock:^(NSUUID *uuid, Player *player, BOOL *stop) {
+    [player tick];
+  }];
 }
 
 #pragma mark - Serializable

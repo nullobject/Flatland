@@ -67,6 +67,9 @@
 
 - (NSDictionary *)parseOptions:(RouteRequest *)request error:(GameError **)error {
   NSError *jsonError;
+  if (request.body.length == 0)
+    return @{};
+
   id options = [NSJSONSerialization JSONObjectWithData:request.body
                                                options:kNilOptions
                                                  error:&jsonError];
@@ -90,26 +93,32 @@
 }
 
 - (void)setupRoutes {
-	[self put:@"/action/idle" withBlock:^(RouteRequest *request, RouteResponse *response) {
-    GameError *error;
-
-    NSUUID *uuid = [self parsePlayer:request error:&error];
-    if (error) return [response respondWithJSON:error];
-
-    Action *action = [[SpawnAction alloc] init];
-
-    [response beginAsyncJSONResponse];
-    [self enqueueResponse:response forPlayer:uuid];
-    [_delegate server:self didReceiveAction:action forPlayer:uuid];
-	}];
-
 	[self put:@"/action/spawn" withBlock:^(RouteRequest *request, RouteResponse *response) {
     GameError *error;
 
     NSUUID *uuid = [self parsePlayer:request error:&error];
     if (error) return [response respondWithJSON:error];
 
-    Action *action = [[SpawnAction alloc] init];
+    NSDictionary *options = [self parseOptions:request error:&error];
+    if (error) return [response respondWithJSON:error];
+
+    PlayerAction *action = [PlayerAction playerActionWithType:PlayerActionTypeSpawn andOptions:options];
+
+    [response beginAsyncJSONResponse];
+    [self enqueueResponse:response forPlayer:uuid];
+    [_delegate server:self didReceiveAction:action forPlayer:uuid];
+	}];
+
+	[self put:@"/action/idle" withBlock:^(RouteRequest *request, RouteResponse *response) {
+    GameError *error;
+
+    NSUUID *uuid = [self parsePlayer:request error:&error];
+    if (error) return [response respondWithJSON:error];
+
+    NSDictionary *options = [self parseOptions:request error:&error];
+    if (error) return [response respondWithJSON:error];
+
+    PlayerAction *action = [PlayerAction playerActionWithType:PlayerActionTypeIdle andOptions:options];
 
     [response beginAsyncJSONResponse];
     [self enqueueResponse:response forPlayer:uuid];
@@ -125,8 +134,7 @@
     NSDictionary *options = [self parseOptions:request error:&error];
     if (error) return [response respondWithJSON:error];
 
-    CGFloat amount = [(NSNumber *)[options objectForKey:@"amount"] floatValue];
-    Action *action = [[MoveAction alloc] initWithAmount:amount];
+    PlayerAction *action = [PlayerAction playerActionWithType:PlayerActionTypeMove andOptions:options];
 
     [response beginAsyncJSONResponse];
     [self enqueueResponse:response forPlayer:uuid];
@@ -142,8 +150,7 @@
     NSDictionary *options = [self parseOptions:request error:&error];
     if (error) return [response respondWithJSON:error];
 
-    CGFloat amount = [(NSNumber *)[options objectForKey:@"amount"] floatValue];
-    Action *action = [[TurnAction alloc] initWithAmount:amount];
+    PlayerAction *action = [PlayerAction playerActionWithType:PlayerActionTypeTurn andOptions:options];
 
     [response beginAsyncJSONResponse];
     [self enqueueResponse:response forPlayer:uuid];

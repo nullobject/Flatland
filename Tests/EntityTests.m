@@ -19,7 +19,7 @@
 
 - (void)setUp {
   [super setUp];
-  _entity = [[Entity alloc] init];
+  _entity = [[Entity alloc] initWithUUID:[NSUUID UUID]];
 }
 
 - (void)tearDown {

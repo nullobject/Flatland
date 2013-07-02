@@ -29,7 +29,6 @@
 		03990F5617785B8100995DE2 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 03990F5517785B8100995DE2 /* Game.m */; };
 		03990F5D1778F9E300995DE2 /* RouteResponse+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 03990F5C1778F9E300995DE2 /* RouteResponse+JSON.m */; };
 		03B24C4B1776CD0A00CF4BC2 /* Server.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B24C4A1776CD0A00CF4BC2 /* Server.m */; };
-		03B2CA58177E43DE00B0647C /* Action.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B2CA57177E43DE00B0647C /* Action.m */; };
 		03B2CA5B177E628E00B0647C /* GameError.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B2CA5A177E628E00B0647C /* GameError.m */; };
 		03BC5D5A1779BBB20082ED48 /* HTTPAsyncDataResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 03BC5D591779BBB20082ED48 /* HTTPAsyncDataResponse.m */; };
 		B89260BBFFA4476EAD0BB91A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 10914B562211409E8AB7E324 /* libPods.a */; };
@@ -86,8 +85,6 @@
 		03990F5C1778F9E300995DE2 /* RouteResponse+JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RouteResponse+JSON.m"; sourceTree = "<group>"; };
 		03B24C491776CD0A00CF4BC2 /* Server.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Server.h; sourceTree = "<group>"; };
 		03B24C4A1776CD0A00CF4BC2 /* Server.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Server.m; sourceTree = "<group>"; };
-		03B2CA56177E43DE00B0647C /* Action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Action.h; sourceTree = "<group>"; };
-		03B2CA57177E43DE00B0647C /* Action.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Action.m; sourceTree = "<group>"; };
 		03B2CA59177E628E00B0647C /* GameError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameError.h; sourceTree = "<group>"; };
 		03B2CA5A177E628E00B0647C /* GameError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameError.m; sourceTree = "<group>"; };
 		03BC5D581779BBB20082ED48 /* HTTPAsyncDataResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPAsyncDataResponse.h; sourceTree = "<group>"; };
@@ -168,8 +165,6 @@
 				03990F5317785A5300995DE2 /* Protocols */,
 				0316D9CC1775570600FF40CF /* Supporting Files */,
 				0316D9E11775570600FF40CF /* Images.xcassets */,
-				03B2CA56177E43DE00B0647C /* Action.h */,
-				03B2CA57177E43DE00B0647C /* Action.m */,
 				0316D9DE1775570600FF40CF /* AppDelegate.h */,
 				0316D9DC1775570600FF40CF /* AppDelegate.m */,
 				032531E0177BAD9F00420D3D /* Core.h */,
@@ -386,7 +381,6 @@
 				0316D9D21775570600FF40CF /* main.m in Sources */,
 				03BC5D5A1779BBB20082ED48 /* HTTPAsyncDataResponse.m in Sources */,
 				0316DA08177692E300FF40CF /* Player.m in Sources */,
-				03B2CA58177E43DE00B0647C /* Action.m in Sources */,
 				03B24C4B1776CD0A00CF4BC2 /* Server.m in Sources */,
 				0316D9DD1775570600FF40CF /* AppDelegate.m in Sources */,
 				03B2CA5B177E628E00B0647C /* GameError.m in Sources */,
