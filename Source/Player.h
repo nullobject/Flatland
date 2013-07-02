@@ -10,6 +10,7 @@
 
 #import "Entity.h"
 #import "GameError.h"
+#import "PlayerAction.h"
 #import "Serializable.h"
 
 // Player spawn delay in seconds.
@@ -21,29 +22,11 @@ typedef enum : uint8_t {
   PlayerStateAlive
 } PlayerState;
 
-typedef enum : uint8_t {
-  PlayerActionTypeSpawn,
-  PlayerActionTypeIdle,
-  PlayerActionTypeMove,
-  PlayerActionTypeTurn
-} PlayerActionType;
-
 @class Player;
 
 @protocol PlayerDelegate <NSObject>
 
 - (void)playerDidSpawn:(Player *)player;
-
-@end
-
-@interface PlayerAction : NSObject
-
-@property (nonatomic, assign) PlayerActionType type;
-@property (nonatomic, strong) NSDictionary *options;
-
-- (id)initWithType:(PlayerActionType)type andOptions:(NSDictionary *)options;
-
-+ (id)playerActionWithType:(PlayerActionType)type andOptions:(NSDictionary *)options;
 
 @end
 

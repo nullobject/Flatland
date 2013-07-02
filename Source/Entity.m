@@ -41,7 +41,6 @@
   NSTimeInterval duration = 1;
 
   _state = EntityStateIdle;
-  self.energy -= kIdleCost;
 
   [self runAction:[SKAction waitForDuration:duration]];
 }
@@ -55,7 +54,6 @@
   NSTimeInterval duration = (DISTANCE(x, y) * ABS(clampedAmount)) / kMovementSpeed;
 
   _state = EntityStateMoving;
-  self.energy -= kMoveCost * ABS(clampedAmount);
 
   [self runAction:[SKAction moveByX:x y:y duration:duration]];
 }
@@ -68,7 +66,6 @@
   NSTimeInterval duration = (M_2PI * ABS(clampedAmount)) / kRotationSpeed;
 
   _state = EntityStateTurning;
-  self.energy -= kTurnCost * ABS(clampedAmount);
 
   [self runAction:[SKAction rotateByAngle:angle duration:duration]];
 }

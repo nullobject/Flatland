@@ -25,6 +25,7 @@
 		0316DA0517768A3100FF40CF /* NSArray+FP.m in Sources */ = {isa = PBXBuildFile; fileRef = 0316DA0417768A3100FF40CF /* NSArray+FP.m */; };
 		0316DA08177692E300FF40CF /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 0316DA07177692E300FF40CF /* Player.m */; };
 		0316DA0D1776A43200FF40CF /* SKColor+Relative.m in Sources */ = {isa = PBXBuildFile; fileRef = 0316DA0C1776A43200FF40CF /* SKColor+Relative.m */; };
+		036A136F1782EE9E00D3431F /* PlayerAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 036A136E1782EE9E00D3431F /* PlayerAction.m */; };
 		0396253D177F9C2800EC9912 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0396253F177F9C2800EC9912 /* Localizable.strings */; };
 		03990F5617785B8100995DE2 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 03990F5517785B8100995DE2 /* Game.m */; };
 		03990F5D1778F9E300995DE2 /* RouteResponse+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 03990F5C1778F9E300995DE2 /* RouteResponse+JSON.m */; };
@@ -78,6 +79,8 @@
 		0316DA0B1776A43200FF40CF /* SKColor+Relative.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKColor+Relative.h"; sourceTree = "<group>"; };
 		0316DA0C1776A43200FF40CF /* SKColor+Relative.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKColor+Relative.m"; sourceTree = "<group>"; };
 		032531E0177BAD9F00420D3D /* Core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Core.h; sourceTree = "<group>"; };
+		036A136D1782EE9E00D3431F /* PlayerAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerAction.h; sourceTree = "<group>"; };
+		036A136E1782EE9E00D3431F /* PlayerAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerAction.m; sourceTree = "<group>"; };
 		0396253E177F9C2800EC9912 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		03990F5417785B8100995DE2 /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
 		03990F5517785B8100995DE2 /* Game.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Game.m; sourceTree = "<group>"; };
@@ -176,14 +179,15 @@
 				03B2CA5A177E628E00B0647C /* GameError.m */,
 				03BC5D581779BBB20082ED48 /* HTTPAsyncDataResponse.h */,
 				03BC5D591779BBB20082ED48 /* HTTPAsyncDataResponse.m */,
+				0316D9D71775570600FF40CF /* MainMenu.xib */,
 				0316DA06177692E300FF40CF /* Player.h */,
 				0316DA07177692E300FF40CF /* Player.m */,
-				0316D9D71775570600FF40CF /* MainMenu.xib */,
-				0316D9DF1775570600FF40CF /* Spaceship.png */,
-				0316D9DB1775570600FF40CF /* WorldScene.h */,
-				0316D9D91775570600FF40CF /* WorldScene.m */,
+				036A136D1782EE9E00D3431F /* PlayerAction.h */,
+				036A136E1782EE9E00D3431F /* PlayerAction.m */,
 				03B24C491776CD0A00CF4BC2 /* Server.h */,
 				03B24C4A1776CD0A00CF4BC2 /* Server.m */,
+				0316D9DB1775570600FF40CF /* WorldScene.h */,
+				0316D9D91775570600FF40CF /* WorldScene.m */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -197,6 +201,7 @@
 				0316D9D31775570600FF40CF /* Flatland-Prefix.pch */,
 				0316D9D41775570600FF40CF /* Credits.rtf */,
 				0396253F177F9C2800EC9912 /* Localizable.strings */,
+				0316D9DF1775570600FF40CF /* Spaceship.png */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -380,6 +385,7 @@
 				0316DA0D1776A43200FF40CF /* SKColor+Relative.m in Sources */,
 				0316D9D21775570600FF40CF /* main.m in Sources */,
 				03BC5D5A1779BBB20082ED48 /* HTTPAsyncDataResponse.m in Sources */,
+				036A136F1782EE9E00D3431F /* PlayerAction.m in Sources */,
 				0316DA08177692E300FF40CF /* Player.m in Sources */,
 				03B24C4B1776CD0A00CF4BC2 /* Server.m in Sources */,
 				0316D9DD1775570600FF40CF /* AppDelegate.m in Sources */,

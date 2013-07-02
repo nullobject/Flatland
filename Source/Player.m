@@ -9,23 +9,6 @@
 #import "Core.h"
 #import "Player.h"
 
-@implementation PlayerAction
-
-- (id)initWithType:(PlayerActionType)type andOptions:(NSDictionary *)options {
-  if (self = [super init]) {
-    _type = type;
-    _options = options;
-  }
-
-  return self;
-}
-
-+ (id)playerActionWithType:(PlayerActionType)type andOptions:(NSDictionary *)options {
-  return [[self alloc] initWithType:type andOptions:options];
-}
-
-@end
-
 @implementation Player {
   PlayerAction *_action;
 }
@@ -44,17 +27,22 @@
                                           code:GameErrorPlayerNotSpawned
                                       userInfo:nil];
     return;
-//  } else if (action.cost > self.entity.energy) {
-//    *error = [[GameError alloc] initWithDomain:GameErrorDomain
-//                                          code:GameErrorPlayerInsufficientEnergy
-//                                      userInfo:nil];
+  } else if (_state == PlayerStateAlive && action.cost + self.entity.energy < 0) {
+    *error = [[GameError alloc] initWithDomain:GameErrorDomain
+                                          code:GameErrorPlayerInsufficientEnergy
+                                      userInfo:nil];
+    return;
   }
 
   _action = action;
 }
 
 - (void)tick {
-  if (!_action) return;
+  if (_state != PlayerStateAlive && !_action) {
+    return;
+  } else if (!_action) {
+    _action = [PlayerAction playerActionWithType:PlayerActionTypeIdle andOptions:nil];
+  }
 
   CGFloat amount = [(NSNumber *)[_action.options objectForKey:@"amount"] floatValue];
 
@@ -73,6 +61,13 @@
       break;
   }
 
+  // Update the entity energy.
+  _entity.energy += _action.cost;
+
+  // Increment the entity age.
+  _entity.age += 1;
+
+  // Clear the current action.
   _action = nil;
 }
 

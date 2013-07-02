@@ -16,10 +16,6 @@
 // Entity rotation speed in radians per second.
 #define kRotationSpeed M_2PI
 
-#define kIdleCost -10.0f
-#define kMoveCost  20.0f
-#define kTurnCost  20.0f
-
 typedef enum : uint8_t {
   EntityStateIdle,
   EntityStateAttacking,
