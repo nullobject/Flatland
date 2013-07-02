@@ -28,10 +28,10 @@
         </customObject>
         <menu title="AMainMenu" systemMenu="main" id="29">
             <items>
-                <menuItem title="flatland" id="56">
-                    <menu key="submenu" title="flatland" systemMenu="apple" id="57">
+                <menuItem title="Flatland" id="56">
+                    <menu key="submenu" title="Flatland" systemMenu="apple" id="57">
                         <items>
-                            <menuItem title="About flatland" id="58">
+                            <menuItem title="About Flatland" id="58">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="236">
@@ -47,7 +47,7 @@
                             <menuItem isSeparatorItem="YES" id="144">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="Hide flatland" keyEquivalent="h" id="134"/>
+                            <menuItem title="Hide Flatland" keyEquivalent="h" id="134"/>
                             <menuItem title="Hide Others" keyEquivalent="h" id="145">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                             </menuItem>
@@ -55,7 +55,7 @@
                             <menuItem isSeparatorItem="YES" id="149">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="Quit flatland" keyEquivalent="q" id="136"/>
+                            <menuItem title="Quit Flatland" keyEquivalent="q" id="136"/>
                         </items>
                     </menu>
                 </menuItem>
@@ -81,7 +81,7 @@
                 </menuItem>
             </items>
         </menu>
-        <window title="flatland" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="371">
+        <window title="Flatland" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="371">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenPrimary="YES"/>
             <rect key="contentRect" x="0.0" y="0.0" width="800" height="600"/>

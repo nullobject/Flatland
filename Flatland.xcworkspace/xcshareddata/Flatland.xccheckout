@@ -3,23 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>78E8507D-9F19-4583-91D3-3E5D1CF28D31</string>
+	<string>C0790014-5D37-45AD-A071-6A396B76BBF3</string>
 	<key>IDESourceControlProjectName</key>
-	<string>flatland</string>
+	<string>Flatland</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>D78F0A38-6CD0-4468-8945-1E1BCE1E1885</key>
-		<string>ssh://github.com/nullobject/flatland-cocoa.git</string>
+		<string>ssh://github.com/nullobject/Flatland.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>flatland.xcworkspace</string>
+	<string>Flatland.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>D78F0A38-6CD0-4468-8945-1E1BCE1E1885</key>
 		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://github.com/nullobject/flatland-cocoa.git</string>
+	<string>ssh://github.com/nullobject/Flatland.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
@@ -32,7 +32,7 @@
 			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>D78F0A38-6CD0-4468-8945-1E1BCE1E1885</string>
 			<key>IDESourceControlWCCName</key>
-			<string>flatland-cocoa</string>
+			<string>Flatland</string>
 		</dict>
 	</array>
 </dict>

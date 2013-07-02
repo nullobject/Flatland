@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0316D9BF1775570600FF40CF"
-               BuildableName = "flatland.app"
-               BlueprintName = "flatland"
-               ReferencedContainer = "container:flatland.xcodeproj">
+               BuildableName = "Flatland.app"
+               BlueprintName = "Flatland"
+               ReferencedContainer = "container:Flatland.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0316D9E61775570600FF40CF"
-               BuildableName = "flatlandTests.xctest"
-               BlueprintName = "flatlandTests"
-               ReferencedContainer = "container:flatland.xcodeproj">
+               BuildableName = "tests.xctest"
+               BlueprintName = "tests"
+               ReferencedContainer = "container:Flatland.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -43,9 +43,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0316D9BF1775570600FF40CF"
-            BuildableName = "flatland.app"
-            BlueprintName = "flatland"
-            ReferencedContainer = "container:flatland.xcodeproj">
+            BuildableName = "Flatland.app"
+            BlueprintName = "Flatland"
+            ReferencedContainer = "container:Flatland.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0316D9BF1775570600FF40CF"
-            BuildableName = "flatland.app"
-            BlueprintName = "flatland"
-            ReferencedContainer = "container:flatland.xcodeproj">
+            BuildableName = "Flatland.app"
+            BlueprintName = "Flatland"
+            ReferencedContainer = "container:Flatland.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -80,9 +80,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0316D9BF1775570600FF40CF"
-            BuildableName = "flatland.app"
-            BlueprintName = "flatland"
-            ReferencedContainer = "container:flatland.xcodeproj">
+            BuildableName = "Flatland.app"
+            BlueprintName = "Flatland"
+            ReferencedContainer = "container:Flatland.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
