@@ -76,37 +76,6 @@
   _action = nil;
 }
 
-#pragma mark - Actions
-
-- (void)spawn {
-  NSAssert(_state == PlayerStateDead, @"Player is already alive");
-  _state = PlayerStateSpawning;
-  NSLog(@"Spawning player %@ in %f seconds.", [self.uuid UUIDString], kSpawnDelay);
-  [NSTimer scheduledTimerWithTimeInterval:kSpawnDelay
-                                   target:self
-                                 selector:@selector(didSpawn)
-                                 userInfo:nil
-                                  repeats:NO];
-}
-
-- (void)idle {
-  NSAssert(_state == PlayerStateAlive, @"Player is not alive");
-  NSLog(@"Idling player %@.", [self.uuid UUIDString]);
-  [_entity idle];
-}
-
-- (void)moveBy:(CGFloat)amount {
-  NSAssert(_state == PlayerStateAlive, @"Player is not alive");
-  NSLog(@"Moving player %@ by %f.", [self.uuid UUIDString], amount);
-  [_entity moveBy:amount];
-}
-
-- (void)turnBy:(CGFloat)amount {
-  NSAssert(_state == PlayerStateAlive, @"Player is not alive");
-  NSLog(@"Turning player %@ by %f.", [self.uuid UUIDString], amount);
-  [_entity turnBy:amount];
-}
-
 #pragma mark - Serializable
 
 - (NSDictionary *)asJSON {
@@ -138,6 +107,37 @@
   if ([_delegate respondsToSelector:@selector(playerDidSpawn:)]) {
     [_delegate playerDidSpawn:self];
   }
+}
+
+#pragma mark - Actions
+
+- (void)spawn {
+  NSAssert(_state == PlayerStateDead, @"Player is already alive");
+  _state = PlayerStateSpawning;
+  NSLog(@"Spawning player %@ in %f seconds.", [self.uuid UUIDString], kSpawnDelay);
+  [NSTimer scheduledTimerWithTimeInterval:kSpawnDelay
+                                   target:self
+                                 selector:@selector(didSpawn)
+                                 userInfo:nil
+                                  repeats:NO];
+}
+
+- (void)idle {
+  NSAssert(_state == PlayerStateAlive, @"Player is not alive");
+  NSLog(@"Idling player %@.", [self.uuid UUIDString]);
+  [_entity idle];
+}
+
+- (void)moveBy:(CGFloat)amount {
+  NSAssert(_state == PlayerStateAlive, @"Player is not alive");
+  NSLog(@"Moving player %@ by %f.", [self.uuid UUIDString], amount);
+  [_entity moveBy:amount];
+}
+
+- (void)turnBy:(CGFloat)amount {
+  NSAssert(_state == PlayerStateAlive, @"Player is not alive");
+  NSLog(@"Turning player %@ by %f.", [self.uuid UUIDString], amount);
+  [_entity turnBy:amount];
 }
 
 @end

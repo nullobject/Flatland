@@ -92,70 +92,29 @@
   return options;
 }
 
+- (RequestHandler)requestHandlerForPlayerActionType:(PlayerActionType)playerActionType {
+  return ^(RouteRequest *request, RouteResponse *response) {
+    GameError *error;
+
+    NSUUID *uuid = [self parsePlayer:request error:&error];
+    if (error) return [response respondWithJSON:error];
+
+    NSDictionary *options = [self parseOptions:request error:&error];
+    if (error) return [response respondWithJSON:error];
+
+    PlayerAction *action = [PlayerAction playerActionWithType:playerActionType andOptions:options];
+
+    [response beginAsyncJSONResponse];
+    [self enqueueResponse:response forPlayer:uuid];
+    [_delegate server:self didReceiveAction:action forPlayer:uuid];
+  };
+}
+
 - (void)setupRoutes {
-	[self put:@"/action/spawn" withBlock:^(RouteRequest *request, RouteResponse *response) {
-    GameError *error;
-
-    NSUUID *uuid = [self parsePlayer:request error:&error];
-    if (error) return [response respondWithJSON:error];
-
-    NSDictionary *options = [self parseOptions:request error:&error];
-    if (error) return [response respondWithJSON:error];
-
-    PlayerAction *action = [PlayerAction playerActionWithType:PlayerActionTypeSpawn andOptions:options];
-
-    [response beginAsyncJSONResponse];
-    [self enqueueResponse:response forPlayer:uuid];
-    [_delegate server:self didReceiveAction:action forPlayer:uuid];
-	}];
-
-	[self put:@"/action/idle" withBlock:^(RouteRequest *request, RouteResponse *response) {
-    GameError *error;
-
-    NSUUID *uuid = [self parsePlayer:request error:&error];
-    if (error) return [response respondWithJSON:error];
-
-    NSDictionary *options = [self parseOptions:request error:&error];
-    if (error) return [response respondWithJSON:error];
-
-    PlayerAction *action = [PlayerAction playerActionWithType:PlayerActionTypeIdle andOptions:options];
-
-    [response beginAsyncJSONResponse];
-    [self enqueueResponse:response forPlayer:uuid];
-    [_delegate server:self didReceiveAction:action forPlayer:uuid];
-	}];
-
-	[self put:@"/action/move" withBlock:^(RouteRequest *request, RouteResponse *response) {
-    GameError *error;
-
-    NSUUID *uuid = [self parsePlayer:request error:&error];
-    if (error) return [response respondWithJSON:error];
-
-    NSDictionary *options = [self parseOptions:request error:&error];
-    if (error) return [response respondWithJSON:error];
-
-    PlayerAction *action = [PlayerAction playerActionWithType:PlayerActionTypeMove andOptions:options];
-
-    [response beginAsyncJSONResponse];
-    [self enqueueResponse:response forPlayer:uuid];
-    [_delegate server:self didReceiveAction:action forPlayer:uuid];
-	}];
-
-	[self put:@"/action/turn" withBlock:^(RouteRequest *request, RouteResponse *response) {
-    GameError *error;
-
-    NSUUID *uuid = [self parsePlayer:request error:&error];
-    if (error) return [response respondWithJSON:error];
-
-    NSDictionary *options = [self parseOptions:request error:&error];
-    if (error) return [response respondWithJSON:error];
-
-    PlayerAction *action = [PlayerAction playerActionWithType:PlayerActionTypeTurn andOptions:options];
-
-    [response beginAsyncJSONResponse];
-    [self enqueueResponse:response forPlayer:uuid];
-    [_delegate server:self didReceiveAction:action forPlayer:uuid];
-	}];
+  [self put:@"/action/spawn" withBlock:[self requestHandlerForPlayerActionType:PlayerActionTypeSpawn]];
+  [self put:@"/action/idle"  withBlock:[self requestHandlerForPlayerActionType:PlayerActionTypeIdle]];
+  [self put:@"/action/move"  withBlock:[self requestHandlerForPlayerActionType:PlayerActionTypeMove]];
+  [self put:@"/action/turn"  withBlock:[self requestHandlerForPlayerActionType:PlayerActionTypeTurn]];
 }
 
 @end
