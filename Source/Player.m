@@ -38,37 +38,50 @@
 }
 
 - (void)tick {
-  if (_state != PlayerStateAlive && !_action) {
-    return;
-  } else if (!_action) {
+  // Default to the idle action (if the player is alive).
+  if (_state == PlayerStateAlive && !_action) {
     _action = [PlayerAction playerActionWithType:PlayerActionTypeIdle andOptions:nil];
   }
 
-  CGFloat amount = [(NSNumber *)[_action.options objectForKey:@"amount"] floatValue];
-
-  switch (_action.type) {
-    case PlayerActionTypeSpawn:
-      [self spawn];
-      break;
-    case PlayerActionTypeIdle:
-      [self idle];
-      break;
-    case PlayerActionTypeMove:
-      [self moveBy:amount];
-      break;
-    case PlayerActionTypeTurn:
-      [self turnBy:amount];
-      break;
-  }
-
-  // Update the entity energy.
-  _entity.energy += _action.cost;
-
-  // Increment the entity age.
-  _entity.age += 1;
+  // Apply the action.
+  [_action applyToPlayer:self];
 
   // Clear the current action.
   _action = nil;
+
+  // Increment the entity age.
+  _entity.age += 1;
+}
+
+#pragma mark - Actions
+
+- (void)spawn {
+  NSAssert(_state == PlayerStateDead, @"Player is already alive");
+  _state = PlayerStateSpawning;
+  NSLog(@"Spawning player %@ in %f seconds.", [self.uuid UUIDString], kSpawnDelay);
+  [NSTimer scheduledTimerWithTimeInterval:kSpawnDelay
+                                   target:self
+                                 selector:@selector(didSpawn)
+                                 userInfo:nil
+                                  repeats:NO];
+}
+
+- (void)idle {
+  NSAssert(_state == PlayerStateAlive, @"Player is not alive");
+  NSLog(@"Idling player %@.", [self.uuid UUIDString]);
+  [_entity idle];
+}
+
+- (void)moveBy:(CGFloat)amount {
+  NSAssert(_state == PlayerStateAlive, @"Player is not alive");
+  NSLog(@"Moving player %@ by %f.", [self.uuid UUIDString], amount);
+  [_entity moveBy:amount];
+}
+
+- (void)turnBy:(CGFloat)amount {
+  NSAssert(_state == PlayerStateAlive, @"Player is not alive");
+  NSLog(@"Turning player %@ by %f.", [self.uuid UUIDString], amount);
+  [_entity turnBy:amount];
 }
 
 #pragma mark - Serializable
@@ -102,37 +115,6 @@
   if ([_delegate respondsToSelector:@selector(playerDidSpawn:)]) {
     [_delegate playerDidSpawn:self];
   }
-}
-
-#pragma mark - Actions
-
-- (void)spawn {
-  NSAssert(_state == PlayerStateDead, @"Player is already alive");
-  _state = PlayerStateSpawning;
-  NSLog(@"Spawning player %@ in %f seconds.", [self.uuid UUIDString], kSpawnDelay);
-  [NSTimer scheduledTimerWithTimeInterval:kSpawnDelay
-                                   target:self
-                                 selector:@selector(didSpawn)
-                                 userInfo:nil
-                                  repeats:NO];
-}
-
-- (void)idle {
-  NSAssert(_state == PlayerStateAlive, @"Player is not alive");
-  NSLog(@"Idling player %@.", [self.uuid UUIDString]);
-  [_entity idle];
-}
-
-- (void)moveBy:(CGFloat)amount {
-  NSAssert(_state == PlayerStateAlive, @"Player is not alive");
-  NSLog(@"Moving player %@ by %f.", [self.uuid UUIDString], amount);
-  [_entity moveBy:amount];
-}
-
-- (void)turnBy:(CGFloat)amount {
-  NSAssert(_state == PlayerStateAlive, @"Player is not alive");
-  NSLog(@"Turning player %@ by %f.", [self.uuid UUIDString], amount);
-  [_entity turnBy:amount];
 }
 
 @end

@@ -42,6 +42,8 @@
   [_players enumerateKeysAndObjectsUsingBlock:^(NSUUID *uuid, Player *player, BOOL *stop) {
     [player tick];
   }];
+
+  _age += 1;
 }
 
 #pragma mark - Serializable

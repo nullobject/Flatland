@@ -46,4 +46,10 @@ typedef enum : uint8_t {
 // Ticks the player.
 - (void)tick;
 
+// Actions.
+- (void)spawn;
+- (void)idle;
+- (void)moveBy:(CGFloat)amount;
+- (void)turnBy:(CGFloat)amount;
+
 @end
