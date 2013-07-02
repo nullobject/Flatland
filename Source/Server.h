@@ -33,7 +33,10 @@
 
 @property (nonatomic, weak) id <ServerDelegate> delegate;
 
+// Responds to the player with the given world.
 - (void)respondToPlayer:(NSUUID *)uuid withWorld:(WorldScene *)world;
+
+// Responds to the player with the given error.
 - (void)respondToPlayer:(NSUUID *)uuid withError:(GameError *)error;
 
 @end

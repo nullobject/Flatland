@@ -16,6 +16,10 @@
 // Entity rotation speed in radians per second.
 #define kRotationSpeed M_2PI
 
+#define kIdleCost -10.0f
+#define kMoveCost  20.0f
+#define kTurnCost  20.0f
+
 typedef enum : uint8_t {
   EntityStateIdle,
   EntityStateAttacking,
@@ -28,13 +32,13 @@ typedef enum : uint8_t {
 @property (nonatomic, assign) EntityState state;
 
 // The age of the entity in simulation iterations.
-@property (nonatomic, assign) NSInteger age;
+@property (nonatomic, assign) NSUInteger age;
 
 // The energy of the entity. It costs the entity energy to perform actions.
-@property (nonatomic, assign) NSInteger energy;
+@property (nonatomic, assign) CGFloat energy;
 
 // The health of the entity. When health reaches zero, then the entity is dead.
-@property (nonatomic, assign) NSInteger health;
+@property (nonatomic, assign) CGFloat health;
 
 // Initializes a new entity.
 - (Entity *)init;

@@ -46,7 +46,7 @@
 #pragma mark - Actions
 
 - (void)spawn {
-  if (_state != PlayerStateDead) return;
+  NSAssert(_state == PlayerStateDead, @"Player is already alive");
   _state = PlayerStateSpawning;
   NSLog(@"Spawning player %@ in %f seconds.", [self.uuid UUIDString], kSpawnDelay);
   [NSTimer scheduledTimerWithTimeInterval:kSpawnDelay
@@ -57,16 +57,19 @@
 }
 
 - (void)idle {
+  NSAssert(_state == PlayerStateAlive, @"Player is not alive");
   NSLog(@"Idling player %@.", [self.uuid UUIDString]);
   [_entity idle];
 }
 
 - (void)moveBy:(CGFloat)amount {
+  NSAssert(_state == PlayerStateAlive, @"Player is not alive");
   NSLog(@"Moving player %@ by %f.", [self.uuid UUIDString], amount);
   [_entity moveBy:amount];
 }
 
 - (void)turnBy:(CGFloat)amount {
+  NSAssert(_state == PlayerStateAlive, @"Player is not alive");
   NSLog(@"Turning player %@ by %f.", [self.uuid UUIDString], amount);
   [_entity turnBy:amount];
 }

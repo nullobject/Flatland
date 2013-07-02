@@ -15,8 +15,8 @@
   if (self = [super initWithImageNamed:@"Spaceship"]) {
     _state  = EntityStateIdle;
     _age    = 0;
-    _energy = 100;
-    _health = 100;
+    _energy = 100.0f;
+    _health = 100.0f;
 
     self.name = [[NSUUID UUID] UUIDString];
 
@@ -30,22 +30,22 @@
   return self;
 }
 
-- (void)setEnergy:(NSInteger)energy {
-  _energy = CLAMP(energy, 0, 100);
+- (void)setEnergy:(CGFloat)energy {
+  _energy = CLAMP(energy, 0.0f, 100.0f);
 }
 
 #pragma mark - Actions
 
 - (void)idle {
-  _state = EntityStateIdle;
-  self.energy += 10;
   NSTimeInterval duration = 1;
+
+  _state = EntityStateIdle;
+  self.energy -= kIdleCost;
+
   [self runAction:[SKAction waitForDuration:duration]];
 }
 
 - (void)moveBy:(CGFloat)amount {
-  _state = EntityStateMoving;
-
   CGFloat clampedAmount = NORMALIZE(amount),
           x = -sinf(self.zRotation) * clampedAmount * kMovementSpeed,
           y =  cosf(self.zRotation) * clampedAmount * kMovementSpeed;
@@ -53,17 +53,21 @@
   // Calculate the time it takes to move the given amount.
   NSTimeInterval duration = (DISTANCE(x, y) * ABS(clampedAmount)) / kMovementSpeed;
 
+  _state = EntityStateMoving;
+  self.energy -= kMoveCost * ABS(clampedAmount);
+
   [self runAction:[SKAction moveByX:x y:y duration:duration]];
 }
 
 - (void)turnBy:(CGFloat)amount {
-  _state = EntityStateTurning;
-
   CGFloat clampedAmount = NORMALIZE(amount),
           angle = clampedAmount * kRotationSpeed;
 
   // Calculate the time it takes to turn the given amount.
   NSTimeInterval duration = (M_2PI * ABS(clampedAmount)) / kRotationSpeed;
+
+  _state = EntityStateTurning;
+  self.energy -= kTurnCost * ABS(clampedAmount);
 
   [self runAction:[SKAction rotateByAngle:angle duration:duration]];
 }
@@ -74,8 +78,8 @@
   return @{@"id":              self.name,
            @"state":           [self entityStateAsString:self.state],
            @"age":             [NSNumber numberWithUnsignedInteger:self.age],
-           @"energy":          [NSNumber numberWithUnsignedInteger:self.energy],
-           @"health":          [NSNumber numberWithUnsignedInteger:self.health],
+           @"energy":          [NSNumber numberWithFloat:self.energy],
+           @"health":          [NSNumber numberWithFloat:self.health],
            @"position":        [self pointAsDictionary:self.position],
            @"rotation":        [NSNumber numberWithFloat:self.zRotation],
            @"velocity":        [self pointAsDictionary:self.physicsBody.velocity],

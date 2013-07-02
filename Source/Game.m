@@ -59,6 +59,7 @@
                                   repeats:YES];
 }
 
+// Enqueues the action if it is valid, otherwise it sets the error parameter.
 - (void)enqueueAction:(Action *)action forPlayer:(NSUUID *)uuid error:(GameError **)error {
   [_world validateAction:action forPlayer:uuid error:error];
 

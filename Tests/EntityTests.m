@@ -32,12 +32,44 @@
   XCTAssertEquals(_entity.state, EntityStateIdle);
 }
 
-- (void)testIdleRestoresEnergy {
-  _entity.energy = 90;
+- (void)testIdleIncreasesEnergy {
+  _entity.energy = 0;
   [_entity idle];
-  XCTAssertEquals(_entity.energy, (NSInteger)100);
-  [_entity idle];
-  XCTAssertEquals(_entity.energy, (NSInteger)100);
+  XCTAssertEquals(_entity.energy, (CGFloat)10);
+}
+
+- (void)testEnergyIsClamped {
+  _entity.energy = -10;
+  XCTAssertEquals(_entity.energy, (CGFloat)0);
+
+  _entity.energy = 110;
+  XCTAssertEquals(_entity.energy, (CGFloat)100);
+}
+
+- (void)testMoveSetsState {
+  [_entity moveBy:1];
+  XCTAssertEquals(_entity.state, EntityStateMoving);
+}
+
+- (void)testMoveDecreasesEnergy {
+  [_entity moveBy:1.0];
+  XCTAssertEquals(_entity.energy, (CGFloat)80);
+
+  [_entity moveBy:-0.5];
+  XCTAssertEquals(_entity.energy, (CGFloat)70);
+}
+
+- (void)testTurnSetsState {
+  [_entity turnBy:1.0];
+  XCTAssertEquals(_entity.state, EntityStateTurning);
+}
+
+- (void)testTurnDecreasesEnergy {
+  [_entity turnBy:1.0];
+  XCTAssertEquals(_entity.energy, (CGFloat)80);
+
+  [_entity turnBy:-0.5];
+  XCTAssertEquals(_entity.energy, (CGFloat)70);
 }
 
 @end
