@@ -13,8 +13,8 @@
 
 @interface Game : NSObject <ServerDelegate>
 
-@property (nonatomic, strong, readonly) Server *server;
-@property (nonatomic, strong, readonly) WorldScene *world;
+@property (nonatomic, readonly, strong) Server *server;
+@property (nonatomic, readonly, strong) WorldScene *world;
 
 // Ticks the world.
 - (void)tick;

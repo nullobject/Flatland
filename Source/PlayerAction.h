@@ -19,8 +19,8 @@ typedef enum : uint8_t {
 
 @interface PlayerAction : NSObject
 
-@property (nonatomic, assign) PlayerActionType type;
-@property (nonatomic, strong) NSDictionary *options;
+@property (nonatomic, readonly) PlayerActionType type;
+@property (nonatomic, readonly, strong) NSDictionary *options;
 @property (nonatomic, readonly) CGFloat cost;
 
 - (id)initWithType:(PlayerActionType)type andOptions:(NSDictionary *)options;

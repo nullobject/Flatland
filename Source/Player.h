@@ -33,9 +33,9 @@ typedef enum : uint8_t {
 @interface Player : NSObject <Serializable>
 
 @property (nonatomic, weak) id <PlayerDelegate> delegate;
-@property (nonatomic, strong) NSUUID *uuid;
-@property (nonatomic, assign) PlayerState state;
-@property (nonatomic, strong) Entity *entity;
+@property (nonatomic, readonly, strong) NSUUID *uuid;
+@property (nonatomic, readonly) PlayerState state;
+@property (nonatomic, readonly, strong) Entity *entity;
 
 // Initializes the player with the given UUID.
 - (Player *)initWithUUID:(NSUUID *)uuid;
