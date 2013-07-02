@@ -30,10 +30,15 @@
   return self;
 }
 
+- (void)setEnergy:(NSInteger)energy {
+  _energy = CLAMP(energy, 0, 100);
+}
+
 #pragma mark - Actions
 
 - (void)idle {
   _state = EntityStateIdle;
+  self.energy += 10;
   NSTimeInterval duration = 1;
   [self runAction:[SKAction waitForDuration:duration]];
 }

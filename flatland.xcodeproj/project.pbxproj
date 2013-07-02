@@ -20,7 +20,7 @@
 		0316D9E91775570600FF40CF /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0316D9E81775570600FF40CF /* XCTest.framework */; };
 		0316D9EA1775570600FF40CF /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0316D9C31775570600FF40CF /* Cocoa.framework */; };
 		0316D9F21775570600FF40CF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0316D9F01775570600FF40CF /* InfoPlist.strings */; };
-		0316D9F41775570600FF40CF /* flatlandTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0316D9F31775570600FF40CF /* flatlandTests.m */; };
+		0316D9F41775570600FF40CF /* EntityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0316D9F31775570600FF40CF /* EntityTests.m */; };
 		0316DA0217767ED700FF40CF /* Entity.m in Sources */ = {isa = PBXBuildFile; fileRef = 0316DA0117767ED700FF40CF /* Entity.m */; };
 		0316DA0517768A3100FF40CF /* NSArray+FP.m in Sources */ = {isa = PBXBuildFile; fileRef = 0316DA0417768A3100FF40CF /* NSArray+FP.m */; };
 		0316DA08177692E300FF40CF /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 0316DA07177692E300FF40CF /* Player.m */; };
@@ -68,7 +68,7 @@
 		0316D9E81775570600FF40CF /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		0316D9EF1775570600FF40CF /* flatlandTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "flatlandTests-Info.plist"; sourceTree = "<group>"; };
 		0316D9F11775570600FF40CF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		0316D9F31775570600FF40CF /* flatlandTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = flatlandTests.m; sourceTree = "<group>"; };
+		0316D9F31775570600FF40CF /* EntityTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EntityTests.m; sourceTree = "<group>"; };
 		0316DA0017767ED700FF40CF /* Entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Entity.h; sourceTree = "<group>"; };
 		0316DA0117767ED700FF40CF /* Entity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Entity.m; sourceTree = "<group>"; };
 		0316DA0317768A3100FF40CF /* NSArray+FP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+FP.h"; sourceTree = "<group>"; };
@@ -209,7 +209,7 @@
 		0316D9ED1775570600FF40CF /* flatlandTests */ = {
 			isa = PBXGroup;
 			children = (
-				0316D9F31775570600FF40CF /* flatlandTests.m */,
+				0316D9F31775570600FF40CF /* EntityTests.m */,
 				0316D9EE1775570600FF40CF /* Supporting Files */,
 			);
 			path = flatlandTests;
@@ -397,7 +397,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0316D9F41775570600FF40CF /* flatlandTests.m in Sources */,
+				0316D9F41775570600FF40CF /* EntityTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
