@@ -26,7 +26,8 @@ typedef enum : uint8_t {
 
 @protocol PlayerDelegate <NSObject>
 
-- (void)playerDidSpawn:(Player *)player;
+- (void)entityDidSpawn:(Entity *)entity;
+- (void)entityDidDie:(Entity *)entity;
 
 @end
 
@@ -48,6 +49,7 @@ typedef enum : uint8_t {
 
 // Actions.
 - (void)spawn;
+- (void)suicide;
 - (void)idle;
 - (void)moveBy:(CGFloat)amount;
 - (void)turnBy:(CGFloat)amount;

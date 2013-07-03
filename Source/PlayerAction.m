@@ -40,6 +40,9 @@
     case PlayerActionTypeSpawn:
       [player spawn];
       break;
+    case PlayerActionTypeSuicide:
+      [player suicide];
+      break;
     case PlayerActionTypeIdle:
       [player idle];
       break;

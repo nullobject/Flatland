@@ -57,13 +57,21 @@
 
 - (void)spawn {
   NSAssert(_state == PlayerStateDead, @"Player is already alive");
-  _state = PlayerStateSpawning;
   NSLog(@"Spawning player %@ in %f seconds.", [self.uuid UUIDString], kSpawnDelay);
+  _state = PlayerStateSpawning;
   [NSTimer scheduledTimerWithTimeInterval:kSpawnDelay
                                    target:self
                                  selector:@selector(didSpawn)
                                  userInfo:nil
                                   repeats:NO];
+}
+
+- (void)suicide {
+  NSAssert(_state == PlayerStateAlive, @"Player is not alive");
+  NSLog(@"Killing player %@.", [self.uuid UUIDString]);
+  _state = PlayerStateDead;
+  [self didDie];
+  _entity = nil;
 }
 
 - (void)idle {
@@ -108,12 +116,18 @@
   _entity = [[Entity alloc] initWithUUID:[NSUUID UUID]];
   _entity.position = CGPointMake(RANDOM() * 500, RANDOM() * 500);
 
-  _state = PlayerStateAlive;
-
   NSLog(@"Player %@ spawned at (%f, %f).", [self.uuid UUIDString], _entity.position.x, _entity.position.y);
 
-  if ([_delegate respondsToSelector:@selector(playerDidSpawn:)]) {
-    [_delegate playerDidSpawn:self];
+  _state = PlayerStateAlive;
+
+  if ([_delegate respondsToSelector:@selector(entityDidSpawn:)]) {
+    [_delegate entityDidSpawn:_entity];
+  }
+}
+
+- (void)didDie {
+  if ([_delegate respondsToSelector:@selector(entityDidDie:)]) {
+    [_delegate entityDidDie:_entity];
   }
 }
 

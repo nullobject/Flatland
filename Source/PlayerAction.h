@@ -10,6 +10,7 @@
 
 typedef enum : uint8_t {
   PlayerActionTypeSpawn,
+  PlayerActionTypeSuicide,
   PlayerActionTypeIdle,
   PlayerActionTypeMove,
   PlayerActionTypeTurn
@@ -17,6 +18,7 @@ typedef enum : uint8_t {
 
 @class Player;
 
+// Represents an action submitted by a player.
 @interface PlayerAction : NSObject
 
 @property (nonatomic, readonly) PlayerActionType type;

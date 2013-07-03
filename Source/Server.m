@@ -111,10 +111,11 @@
 }
 
 - (void)setupRoutes {
-  [self put:@"/action/spawn" withBlock:[self requestHandlerForPlayerActionType:PlayerActionTypeSpawn]];
-  [self put:@"/action/idle"  withBlock:[self requestHandlerForPlayerActionType:PlayerActionTypeIdle]];
-  [self put:@"/action/move"  withBlock:[self requestHandlerForPlayerActionType:PlayerActionTypeMove]];
-  [self put:@"/action/turn"  withBlock:[self requestHandlerForPlayerActionType:PlayerActionTypeTurn]];
+  [self put:@"/action/spawn"   withBlock:[self requestHandlerForPlayerActionType:PlayerActionTypeSpawn]];
+  [self put:@"/action/suicide" withBlock:[self requestHandlerForPlayerActionType:PlayerActionTypeSuicide]];
+  [self put:@"/action/idle"    withBlock:[self requestHandlerForPlayerActionType:PlayerActionTypeIdle]];
+  [self put:@"/action/move"    withBlock:[self requestHandlerForPlayerActionType:PlayerActionTypeMove]];
+  [self put:@"/action/turn"    withBlock:[self requestHandlerForPlayerActionType:PlayerActionTypeTurn]];
 }
 
 @end

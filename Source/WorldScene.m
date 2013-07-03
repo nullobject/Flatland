@@ -59,8 +59,12 @@
 
 #pragma mark - PlayerDelegate
 
-- (void)playerDidSpawn:(Player *)player {
-  [self addChild:player.entity];
+- (void)entityDidSpawn:(Entity *)entity {
+  [self addChild:entity];
+}
+
+- (void)entityDidDie:(Entity *)entity {
+  [entity removeFromParent];
 }
 
 #pragma mark - Private
