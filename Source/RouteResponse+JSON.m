@@ -27,9 +27,16 @@ NSString *kApplicationJSON = @"application/json";
 }
 
 - (void)endAsyncJSONResponse:(NSObject <Serializable> *)object {
+  NSAssert([self.response isMemberOfClass:HTTPAsyncDataResponse.class], @"No async JSON response has been started");
+
   NSData *data = [self serialize:object];
-  [(HTTPAsyncDataResponse *)self.response setData:data];
-  [self.connection responseHasAvailableData:self.response];
+  HTTPAsyncDataResponse *httpAsyncDataResponse = (HTTPAsyncDataResponse *)self.response;
+
+  [httpAsyncDataResponse setData:data];
+
+  if (!httpAsyncDataResponse.closed) {
+    [self.connection responseHasAvailableData:self.response];
+  }
 }
 
 - (NSData *)serialize:(NSObject <Serializable> *)object {

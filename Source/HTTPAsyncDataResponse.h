@@ -12,6 +12,8 @@
 
 @interface HTTPAsyncDataResponse : HTTPDataResponse
 
+@property (nonatomic, readonly) BOOL closed;
+
 - (void)setData:(NSData *)data;
 
 @end

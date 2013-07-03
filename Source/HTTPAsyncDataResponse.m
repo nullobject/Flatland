@@ -32,4 +32,8 @@
   return YES;
 }
 
+- (void)connectionDidClose {
+  _closed = YES;
+}
+
 @end
