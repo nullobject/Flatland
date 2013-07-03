@@ -32,6 +32,7 @@ NSString * const GameErrorDomain = @"co.gamedogs.flatland";
     case GameErrorJSONMalformed:            return @"GameErrorJSONMalformed";
     case GameErrorOptionsInvalid:           return @"GameErrorOptionsInvalid";
     case GameErrorPlayerNotSpawned:         return @"GameErrorPlayerNotSpawned";
+    case GameErrorPlayerAlreadySpawned:     return @"GameErrorPlayerAlreadySpawned";
     case GameErrorPlayerInsufficientEnergy: return @"GameErrorPlayerInsufficientEnergy";
     default:                                return nil;
   }

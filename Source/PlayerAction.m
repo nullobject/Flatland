@@ -17,10 +17,11 @@
   CGFloat absAmount = ABS(NORMALIZE(amount));
 
   switch (_type) {
-    case PlayerActionTypeIdle: return  10;
-    case PlayerActionTypeMove: return -20 * absAmount;
-    case PlayerActionTypeTurn: return -20 * absAmount;
-    default:                   return   0;
+    case PlayerActionTypeIdle:   return  10;
+    case PlayerActionTypeMove:   return -20 * absAmount;
+    case PlayerActionTypeTurn:   return -20 * absAmount;
+    case PlayerActionTypeAttack: return -20;
+    default:                     return   0;
   }
 }
 
@@ -51,6 +52,9 @@
       break;
     case PlayerActionTypeTurn:
       [player turnBy:amount];
+      break;
+    case PlayerActionTypeAttack:
+      [player attack];
       break;
   }
 

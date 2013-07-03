@@ -19,6 +19,7 @@ enum {
   GameErrorJSONMalformed,
   GameErrorOptionsInvalid,
   GameErrorPlayerNotSpawned,
+  GameErrorPlayerAlreadySpawned,
   GameErrorPlayerInsufficientEnergy
 };
 

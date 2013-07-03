@@ -6,13 +6,14 @@
 //  Copyright (c) 2013 Gamedogs. All rights reserved.
 //
 
+#import "Bullet.h"
 #import "Core.h"
 #import "Entity.h"
 
 @implementation Entity
 
 - (Entity *)initWithUUID:(NSUUID *)uuid {
-  if (self = [super initWithImageNamed:@"Spaceship"]) {
+  if (self = [super initWithImageNamed:@"player"]) {
     _uuid   = uuid;
     _state  = EntityStateIdle;
     _age    = 0;
@@ -20,8 +21,7 @@
     _health = 100.0f;
 
     self.name = [uuid UUIDString];
-
-    self.scale = 0.25f;
+    self.scale = 2.0f;
 
     self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.size];
     self.physicsBody.mass = 1.0f;
@@ -68,6 +68,20 @@
   _state = EntityStateTurning;
 
   [self runAction:[SKAction rotateByAngle:angle duration:duration]];
+}
+
+- (void)attack {
+  Bullet *bullet = [[Bullet alloc] initWithEntity:_uuid];
+
+  CGFloat x = -sinf(self.zRotation), y = cosf(self.zRotation);
+
+  bullet.position  = CGPointMake(self.position.x + (x * 10.0f), self.position.y + (y * 10.0f));
+  bullet.zRotation = self.zRotation;
+  bullet.physicsBody.velocity = CGPointMake(x * 1000.0f, y * 1000.0f);
+
+  _state = EntityStateAttacking;
+
+  [self.scene addChild:bullet];
 }
 
 #pragma mark - Serializable

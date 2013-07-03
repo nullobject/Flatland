@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 Gamedogs. All rights reserved.
 //
 
+#import "Bullet.h"
 #import "Entity.h"
 #import "GameError.h"
 #import "NSArray+FP.h"

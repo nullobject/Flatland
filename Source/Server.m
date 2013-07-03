@@ -116,6 +116,7 @@
   [self put:@"/action/idle"    withBlock:[self requestHandlerForPlayerActionType:PlayerActionTypeIdle]];
   [self put:@"/action/move"    withBlock:[self requestHandlerForPlayerActionType:PlayerActionTypeMove]];
   [self put:@"/action/turn"    withBlock:[self requestHandlerForPlayerActionType:PlayerActionTypeTurn]];
+  [self put:@"/action/attack"  withBlock:[self requestHandlerForPlayerActionType:PlayerActionTypeAttack]];
 }
 
 @end

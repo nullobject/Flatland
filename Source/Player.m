@@ -27,6 +27,11 @@
                                           code:GameErrorPlayerNotSpawned
                                       userInfo:nil];
     return;
+  } else if (_state == PlayerStateAlive && action.type == PlayerActionTypeSpawn) {
+    *error = [[GameError alloc] initWithDomain:GameErrorDomain
+                                          code:GameErrorPlayerAlreadySpawned
+                                      userInfo:nil];
+    return;
   } else if (_state == PlayerStateAlive && action.cost + self.entity.energy < 0) {
     *error = [[GameError alloc] initWithDomain:GameErrorDomain
                                           code:GameErrorPlayerInsufficientEnergy
@@ -56,7 +61,7 @@
 #pragma mark - Actions
 
 - (void)spawn {
-  NSAssert(_state == PlayerStateDead, @"Player is already alive");
+  NSAssert(_state == PlayerStateDead, @"Player has already spawned");
   NSLog(@"Spawning player %@ in %f seconds.", [self.uuid UUIDString], kSpawnDelay);
   _state = PlayerStateSpawning;
   [NSTimer scheduledTimerWithTimeInterval:kSpawnDelay
@@ -67,7 +72,7 @@
 }
 
 - (void)suicide {
-  NSAssert(_state == PlayerStateAlive, @"Player is not alive");
+  NSAssert(_state == PlayerStateAlive, @"Player has not spawned");
   NSLog(@"Killing player %@.", [self.uuid UUIDString]);
   _state = PlayerStateDead;
   [self didDie];
@@ -75,21 +80,27 @@
 }
 
 - (void)idle {
-  NSAssert(_state == PlayerStateAlive, @"Player is not alive");
+  NSAssert(_state == PlayerStateAlive, @"Player has not spawned");
   NSLog(@"Idling player %@.", [self.uuid UUIDString]);
   [_entity idle];
 }
 
 - (void)moveBy:(CGFloat)amount {
-  NSAssert(_state == PlayerStateAlive, @"Player is not alive");
+  NSAssert(_state == PlayerStateAlive, @"Player has not spawned");
   NSLog(@"Moving player %@ by %f.", [self.uuid UUIDString], amount);
   [_entity moveBy:amount];
 }
 
 - (void)turnBy:(CGFloat)amount {
-  NSAssert(_state == PlayerStateAlive, @"Player is not alive");
+  NSAssert(_state == PlayerStateAlive, @"Player has not spawned");
   NSLog(@"Turning player %@ by %f.", [self.uuid UUIDString], amount);
   [_entity turnBy:amount];
+}
+
+- (void)attack {
+  NSAssert(_state == PlayerStateAlive, @"Player has not spawned");
+  NSLog(@"Player attacking %@ .", [self.uuid UUIDString]);
+  [_entity attack];
 }
 
 #pragma mark - Serializable

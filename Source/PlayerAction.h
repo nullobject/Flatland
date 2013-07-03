@@ -13,7 +13,8 @@ typedef enum : uint8_t {
   PlayerActionTypeSuicide,
   PlayerActionTypeIdle,
   PlayerActionTypeMove,
-  PlayerActionTypeTurn
+  PlayerActionTypeTurn,
+  PlayerActionTypeAttack
 } PlayerActionType;
 
 @class Player;

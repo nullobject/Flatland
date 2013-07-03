@@ -53,5 +53,6 @@ typedef enum : uint8_t {
 - (void)idle;
 - (void)moveBy:(CGFloat)amount;
 - (void)turnBy:(CGFloat)amount;
+- (void)attack;
 
 @end
