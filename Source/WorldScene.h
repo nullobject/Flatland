@@ -8,11 +8,12 @@
 
 #import <SpriteKit/SpriteKit.h>
 
+#import "Core.h"
 #import "GameError.h"
 #import "Player.h"
 #import "Serializable.h"
 
-@interface WorldScene : SKScene <PlayerDelegate, Serializable>
+@interface WorldScene : SKScene <PlayerDelegate, Serializable, SKPhysicsContactDelegate>
 
 // The players in the simulation.
 @property (nonatomic, readonly) NSDictionary *players;

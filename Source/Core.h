@@ -19,3 +19,9 @@
 #define RANDOM() (arc4random() / (float)(0xffffffffu))
 
 #define M_2PI 6.28318530717959 // 2*pi
+
+typedef enum : uint8_t {
+  ColliderTypeWall   = 1,
+  ColliderTypeEntity = 2,
+  ColliderTypeBullet = 4
+} ColliderType;

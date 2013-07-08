@@ -7,6 +7,7 @@
 //
 
 #import "Bullet.h"
+#import "Collidable.h"
 #import "Entity.h"
 #import "GameError.h"
 #import "NSArray+FP.h"
@@ -22,6 +23,7 @@
     _players = [[NSMutableDictionary alloc] init];
 
     self.backgroundColor = [SKColor colorWithRGB:0x000000];
+    self.physicsWorld.contactDelegate = self;
     self.physicsWorld.gravity = CGPointMake(0.0f, 0.0f);
 
     [self addWalls];
@@ -82,10 +84,14 @@
                          height:(CGFloat)height {
   CGRect rect = CGRectMake(0, 0, width, height);
   SKNode *wallNode = [SKNode node];
+  wallNode.name = @"wall";
   wallNode.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:rect.size];
   wallNode.position = CGPointMake(point.x + rect.size.width * 0.5, point.y + rect.size.height * 0.5);
   wallNode.physicsBody.dynamic = NO;
   wallNode.physicsBody.friction = 0.2f;
+  wallNode.physicsBody.categoryBitMask = ColliderTypeWall;
+  wallNode.physicsBody.collisionBitMask = ColliderTypeEntity | ColliderTypeBullet;
+  wallNode.physicsBody.collisionBitMask = ColliderTypeBullet;
   [self addChild:wallNode];
 }
 
@@ -101,6 +107,22 @@
   }
 
   return player;
+}
+
+#pragma mark - SKPhysicsContactDelegate
+
+- (void)didBeginContact:(SKPhysicsContact *)contact {
+  SKNode *node = contact.bodyA.node;
+
+  if ([node respondsToSelector:@selector(didCollideWith:)]) {
+    [(id <Collidable>)node didCollideWith:contact.bodyB];
+  }
+
+  node = contact.bodyB.node;
+
+  if ([node respondsToSelector:@selector(didCollideWith:)]) {
+    [(id <Collidable>)node didCollideWith:contact.bodyA];
+  }
 }
 
 @end

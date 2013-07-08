@@ -8,13 +8,9 @@
 
 #import <SpriteKit/SpriteKit.h>
 
+#import "Collidable.h"
+#import "Core.h"
 #import "Serializable.h"
-
-// Entity movement speed in metres per second.
-#define kMovementSpeed 100.0
-
-// Entity rotation speed in radians per second.
-#define kRotationSpeed M_2PI
 
 typedef enum : uint8_t {
   EntityStateIdle,
@@ -23,7 +19,7 @@ typedef enum : uint8_t {
   EntityStateTurning
 } EntityState;
 
-@interface Entity : SKSpriteNode <Serializable>
+@interface Entity : SKSpriteNode <Collidable, Serializable>
 
 @property (nonatomic, readonly, strong) NSUUID *uuid;
 

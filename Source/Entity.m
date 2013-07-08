@@ -10,6 +10,12 @@
 #import "Core.h"
 #import "Entity.h"
 
+// Movement speed in metres per second.
+#define kMovementSpeed 100.0
+
+// Rotation speed in radians per second.
+#define kRotationSpeed M_2PI
+
 @implementation Entity
 
 - (Entity *)initWithUUID:(NSUUID *)uuid {
@@ -24,8 +30,15 @@
     self.scale = 2.0f;
 
     self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.size];
+
+    // Set the physical properties.
     self.physicsBody.mass = 1.0f;
     self.physicsBody.restitution = 0.2f;
+
+    // Set the collision bit masks.
+    self.physicsBody.categoryBitMask    = ColliderTypeEntity;
+    self.physicsBody.collisionBitMask   = ColliderTypeWall | ColliderTypeEntity;
+    self.physicsBody.contactTestBitMask = ColliderTypeBullet;
   }
 
   return self;
@@ -33,6 +46,10 @@
 
 - (void)setEnergy:(CGFloat)energy {
   _energy = CLAMP(energy, 0.0f, 100.0f);
+}
+
+- (void)setHealth:(CGFloat)health {
+  _health = CLAMP(health, 0.0f, 100.0f);
 }
 
 #pragma mark - Actions
@@ -71,17 +88,20 @@
 }
 
 - (void)attack {
-  Bullet *bullet = [[Bullet alloc] initWithEntity:_uuid];
-
-  CGFloat x = -sinf(self.zRotation), y = cosf(self.zRotation);
-
-  bullet.position  = CGPointMake(self.position.x + (x * 10.0f), self.position.y + (y * 10.0f));
-  bullet.zRotation = self.zRotation;
-  bullet.physicsBody.velocity = CGPointMake(x * 1000.0f, y * 1000.0f);
+  Bullet *bullet = [[Bullet alloc] initWithEntity:self];
 
   _state = EntityStateAttacking;
 
   [self.scene addChild:bullet];
+}
+
+#pragma mark - Collidable
+
+- (void)didCollideWith:(SKPhysicsBody *)body {
+  NSLog(@"Entity#didCollideWith %@", body);
+  if ([body.node isMemberOfClass:Bullet.class]) {
+    [self shotWithBullet:(Bullet *)body.node];
+  }
 }
 
 #pragma mark - Serializable
@@ -112,6 +132,19 @@
 - (NSDictionary *)pointAsDictionary:(CGPoint)point {
   return @{@"x": [NSNumber numberWithFloat:point.x],
            @"y": [NSNumber numberWithFloat:point.y]};
+}
+
+- (void)shotWithBullet:(Bullet *)bullet {
+  if (self != bullet.owner) {
+    self.health -= 10.0f;
+
+    if (_health == 0.0f) {
+      // TODO: Reward bullet owner (shooter) with a point and remove the dead
+      // entity from the scene.
+      //
+      // Need to notify player with: entity:wasKilled:by:
+    }
+  }
 }
 
 @end

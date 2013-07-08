@@ -8,11 +8,15 @@
 
 #import <SpriteKit/SpriteKit.h>
 
-@interface Bullet : SKSpriteNode
+#import "Collidable.h"
+#import "Core.h"
+#import "Entity.h"
 
-@property (nonatomic, readonly, strong) NSUUID *uuid;
+@interface Bullet : SKSpriteNode <Collidable>
 
-// Initializes a new bullet.
-- (Bullet *)initWithEntity:(NSUUID *)uuid;
+@property (nonatomic, readonly, weak) Entity *owner;
+
+// Initializes a new bullet for the given entity.
+- (Bullet *)initWithEntity:(Entity *)entity;
 
 @end
