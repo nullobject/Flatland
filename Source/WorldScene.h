@@ -13,6 +13,7 @@
 #import "Player.h"
 #import "Serializable.h"
 
+// TODO: Refactor to a SKNode subclass.
 @interface WorldScene : SKScene <PlayerDelegate, Serializable, SKPhysicsContactDelegate>
 
 // The players in the simulation.

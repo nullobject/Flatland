@@ -15,7 +15,9 @@
 
 - (Player *)initWithUUID:(NSUUID *)uuid {
   if (self = [super init]) {
-    _uuid = uuid;
+    _uuid   = uuid;
+    _deaths = 0;
+    _kills  = 0;
   }
 
   return self;
@@ -103,8 +105,12 @@
 
 #pragma mark - EntityDelegate
 
-- (void)entity:(Entity *)entity wasKilledBy:(Entity *)killer {
-  [_delegate player:self wasKilledBy:(Player *)killer.delegate];
+- (void)entity:(Entity *)entity didKill:(Entity *)other {
+  _kills += 1;
+}
+
+- (void)entity:(Entity *)entity wasKilledBy:(Entity *)other {
+  [_delegate player:self wasKilledBy:(Player *)other.delegate];
   [self didDie];
 }
 
@@ -115,7 +121,9 @@
 
   return @{@"id":     [_uuid UUIDString],
            @"state":  [self playerStateAsString:self.state],
-           @"entity": entity};
+           @"entity": entity,
+           @"deaths": [NSNumber numberWithUnsignedInteger:self.deaths],
+           @"kills":  [NSNumber numberWithUnsignedInteger:self.kills]};
 }
 
 #pragma mark - Private
@@ -143,6 +151,7 @@
 
 - (void)didDie {
   _state = PlayerStateDead;
+  _deaths += 1;
 
   if ([_delegate respondsToSelector:@selector(playerDidDie:)]) {
     [_delegate playerDidDie:self];

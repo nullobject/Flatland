@@ -28,7 +28,7 @@ typedef enum : uint8_t {
 
 - (void)playerDidSpawn:(Player *)player;
 - (void)playerDidDie:(Player *)player;
-- (void)player:(Player *)player wasKilledBy:(Player *)killer;
+- (void)player:(Player *)player wasKilledBy:(Player *)player;
 
 @end
 
@@ -38,6 +38,8 @@ typedef enum : uint8_t {
 @property (nonatomic, readonly, strong) NSUUID *uuid;
 @property (nonatomic, readonly) PlayerState state;
 @property (nonatomic, readonly, strong) Entity *entity;
+@property (nonatomic, readonly) NSUInteger deaths;
+@property (nonatomic, readonly) NSUInteger kills;
 
 // Initializes the player with the given UUID.
 - (Player *)initWithUUID:(NSUUID *)uuid;

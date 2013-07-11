@@ -23,7 +23,8 @@ typedef enum : uint8_t {
 
 @protocol EntityDelegate <NSObject>
 
-- (void)entity:(Entity *)entity wasKilledBy:(Entity *)killer;
+- (void)entity:(Entity *)entity didKill:(Entity *)other;
+- (void)entity:(Entity *)entity wasKilledBy:(Entity *)other;
 
 @end
 
