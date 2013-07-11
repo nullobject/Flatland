@@ -14,7 +14,7 @@
 #define kMovementSpeed 100.0
 
 // Rotation speed in radians per second.
-#define kRotationSpeed M_2PI
+#define kRotationSpeed M_TAU
 
 @implementation Entity
 
@@ -80,7 +80,7 @@
           angle = clampedAmount * kRotationSpeed;
 
   // Calculate the time it takes to turn the given amount.
-  NSTimeInterval duration = (M_2PI * ABS(clampedAmount)) / kRotationSpeed;
+  NSTimeInterval duration = (M_TAU * ABS(clampedAmount)) / kRotationSpeed;
 
   _state = EntityStateTurning;
 

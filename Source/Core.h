@@ -18,7 +18,7 @@
 // Returns a random floating point value.
 #define RANDOM() (arc4random() / (float)(0xffffffffu))
 
-#define M_2PI 6.28318530717959 // 2*pi
+#define M_TAU 6.28318530717959 // 2*pi
 
 typedef enum : uint8_t {
   ColliderTypeWall   = 1,
