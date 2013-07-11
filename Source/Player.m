@@ -74,9 +74,7 @@
 - (void)suicide {
   NSAssert(_state == PlayerStateAlive, @"Player has not spawned");
   NSLog(@"Killing player %@.", [self.uuid UUIDString]);
-  _state = PlayerStateDead;
   [self didDie];
-  _entity = nil;
 }
 
 - (void)idle {
@@ -101,6 +99,13 @@
   NSAssert(_state == PlayerStateAlive, @"Player has not spawned");
   NSLog(@"Player attacking %@ .", [self.uuid UUIDString]);
   [_entity attack];
+}
+
+#pragma mark - EntityDelegate
+
+- (void)entity:(Entity *)entity wasKilledBy:(Entity *)killer {
+  [_delegate player:self wasKilledBy:(Player *)killer.delegate];
+  [self didDie];
 }
 
 #pragma mark - Serializable
@@ -131,15 +136,19 @@
 
   _state = PlayerStateAlive;
 
-  if ([_delegate respondsToSelector:@selector(entityDidSpawn:)]) {
-    [_delegate entityDidSpawn:_entity];
+  if ([_delegate respondsToSelector:@selector(playerDidSpawn:)]) {
+    [_delegate playerDidSpawn:self];
   }
 }
 
 - (void)didDie {
-  if ([_delegate respondsToSelector:@selector(entityDidDie:)]) {
-    [_delegate entityDidDie:_entity];
+  _state = PlayerStateDead;
+
+  if ([_delegate respondsToSelector:@selector(playerDidDie:)]) {
+    [_delegate playerDidDie:self];
   }
+
+  _entity = nil;
 }
 
 @end

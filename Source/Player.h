@@ -26,12 +26,13 @@ typedef enum : uint8_t {
 
 @protocol PlayerDelegate <NSObject>
 
-- (void)entityDidSpawn:(Entity *)entity;
-- (void)entityDidDie:(Entity *)entity;
+- (void)playerDidSpawn:(Player *)player;
+- (void)playerDidDie:(Player *)player;
+- (void)player:(Player *)player wasKilledBy:(Player *)killer;
 
 @end
 
-@interface Player : NSObject <Serializable>
+@interface Player : NSObject <EntityDelegate, Serializable>
 
 @property (nonatomic, weak) id <PlayerDelegate> delegate;
 @property (nonatomic, readonly, strong) NSUUID *uuid;

@@ -19,10 +19,18 @@ typedef enum : uint8_t {
   EntityStateTurning
 } EntityState;
 
+@class Entity;
+
+@protocol EntityDelegate <NSObject>
+
+- (void)entity:(Entity *)entity wasKilledBy:(Entity *)killer;
+
+@end
+
 @interface Entity : SKSpriteNode <Collidable, Serializable>
 
+@property (nonatomic, weak) id <EntityDelegate> delegate;
 @property (nonatomic, readonly, strong) NSUUID *uuid;
-
 @property (nonatomic, readonly) EntityState state;
 
 // The age of the entity in simulation iterations.

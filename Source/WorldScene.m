@@ -62,12 +62,18 @@
 
 #pragma mark - PlayerDelegate
 
-- (void)entityDidSpawn:(Entity *)entity {
-  [self addChild:entity];
+- (void)playerDidSpawn:(Player *)player {
+  [self addChild:player.entity];
 }
 
-- (void)entityDidDie:(Entity *)entity {
-  [entity removeFromParent];
+- (void)playerDidDie:(Player *)player {
+  [player.entity removeFromParent];
+}
+
+// TODO: Reward bullet owner (shooter) with a point and remove the dead entity
+// from the scene.
+- (void)player:(Player *)player wasKilledBy:(Player *)killer {
+  [player.entity removeFromParent];
 }
 
 #pragma mark - Private

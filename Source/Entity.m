@@ -100,7 +100,7 @@
 - (void)didCollideWith:(SKPhysicsBody *)body {
   NSLog(@"Entity#didCollideWith %@", body);
   if ([body.node isMemberOfClass:Bullet.class]) {
-    [self shotWithBullet:(Bullet *)body.node];
+    [self shotByBullet:(Bullet *)body.node];
   }
 }
 
@@ -134,16 +134,14 @@
            @"y": [NSNumber numberWithFloat:point.y]};
 }
 
-- (void)shotWithBullet:(Bullet *)bullet {
-  if (self != bullet.owner) {
-    self.health -= 10.0f;
+- (void)shotByBullet:(Bullet *)bullet {
+  // An entity can't shoot themselves.
+  if (self == bullet.owner) return;
 
-    if (_health == 0.0f) {
-      // TODO: Reward bullet owner (shooter) with a point and remove the dead
-      // entity from the scene.
-      //
-      // Need to notify player with: entity:wasKilled:by:
-    }
+  self.health -= 10.0f;
+
+  if (_health == 0.0f) {
+    [_delegate entity:self wasKilledBy:bullet.owner];
   }
 }
 
