@@ -24,19 +24,9 @@
 
     self.position = CGPointMake(x, y);
     self.zRotation = entity.zRotation;
-
-    self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.size];
+    self.physicsBody = [self setupPhysicsBody:self.size];
     self.physicsBody.velocity = CGPointMake(-sinf(entity.zRotation) * kMovementSpeed,
                                             cosf(entity.zRotation) * kMovementSpeed);
-
-    // Set the physical properties.
-    self.physicsBody.mass = 0.1f;
-    self.physicsBody.restitution = 0.8f;
-
-    // Set the collision bit masks.
-    self.physicsBody.categoryBitMask    = ColliderTypeBullet;
-    self.physicsBody.collisionBitMask   = ColliderTypeWall | ColliderTypeEntity;
-    self.physicsBody.contactTestBitMask = ColliderTypeWall | ColliderTypeEntity;
   }
 
   return self;
@@ -47,6 +37,23 @@
 - (void)didCollideWith:(SKPhysicsBody *)body {
   NSLog(@"Bullet#didCollideWith %@", body);
   [self removeFromParent];
+}
+
+#pragma mark - Private
+
+- (SKPhysicsBody *)setupPhysicsBody:(CGSize)size {
+  SKPhysicsBody *physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:size];
+
+  // Set the physical properties.
+  physicsBody.mass = 0.1f;
+  physicsBody.restitution = 0.8f;
+
+  // Set the collision bit masks.
+  physicsBody.categoryBitMask    = ColliderTypeBullet;
+  physicsBody.collisionBitMask   = ColliderTypeWall | ColliderTypeEntity;
+  physicsBody.contactTestBitMask = ColliderTypeWall | ColliderTypeEntity;
+
+  return physicsBody;
 }
 
 @end
