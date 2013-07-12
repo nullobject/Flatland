@@ -50,4 +50,9 @@
   XCTAssertEquals(_entity.state, EntityStateTurning);
 }
 
+- (void)testAttackSetsState {
+  [_entity attack];
+  XCTAssertEquals(_entity.state, EntityStateAttacking);
+}
+
 @end
