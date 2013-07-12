@@ -9,12 +9,12 @@
 #import <Foundation/Foundation.h>
 
 #import "Server.h"
-#import "WorldScene.h"
+#import "World.h"
 
 @interface Game : NSObject <ServerDelegate>
 
 @property (nonatomic, readonly, strong) Server *server;
-@property (nonatomic, readonly, strong) WorldScene *world;
+@property (nonatomic, readonly, strong) World *world;
 
 // Ticks the world.
 - (void)tick;

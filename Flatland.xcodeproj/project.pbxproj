@@ -13,7 +13,7 @@
 		0316D9D21775570600FF40CF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0316D9D11775570600FF40CF /* main.m */; };
 		0316D9D61775570600FF40CF /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 0316D9D41775570600FF40CF /* Credits.rtf */; };
 		0316D9D81775570600FF40CF /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0316D9D71775570600FF40CF /* MainMenu.xib */; };
-		0316D9DA1775570600FF40CF /* WorldScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 0316D9D91775570600FF40CF /* WorldScene.m */; };
+		0316D9DA1775570600FF40CF /* World.m in Sources */ = {isa = PBXBuildFile; fileRef = 0316D9D91775570600FF40CF /* World.m */; };
 		0316D9DD1775570600FF40CF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0316D9DC1775570600FF40CF /* AppDelegate.m */; };
 		0316D9E21775570600FF40CF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0316D9E11775570600FF40CF /* Images.xcassets */; };
 		0316D9E91775570600FF40CF /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0316D9E81775570600FF40CF /* XCTest.framework */; };
@@ -60,8 +60,8 @@
 		0316D9D31775570600FF40CF /* Flatland-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Flatland-Prefix.pch"; sourceTree = "<group>"; };
 		0316D9D51775570600FF40CF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		0316D9D71775570600FF40CF /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
-		0316D9D91775570600FF40CF /* WorldScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorldScene.m; sourceTree = "<group>"; };
-		0316D9DB1775570600FF40CF /* WorldScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorldScene.h; sourceTree = "<group>"; };
+		0316D9D91775570600FF40CF /* World.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = World.m; sourceTree = "<group>"; };
+		0316D9DB1775570600FF40CF /* World.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = World.h; sourceTree = "<group>"; };
 		0316D9DC1775570600FF40CF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		0316D9DE1775570600FF40CF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0316D9E11775570600FF40CF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -194,8 +194,8 @@
 				036A136E1782EE9E00D3431F /* PlayerAction.m */,
 				03B24C491776CD0A00CF4BC2 /* Server.h */,
 				03B24C4A1776CD0A00CF4BC2 /* Server.m */,
-				0316D9DB1775570600FF40CF /* WorldScene.h */,
-				0316D9D91775570600FF40CF /* WorldScene.m */,
+				0316D9DB1775570600FF40CF /* World.h */,
+				0316D9D91775570600FF40CF /* World.m */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -392,7 +392,7 @@
 				0316DA0217767ED700FF40CF /* Entity.m in Sources */,
 				0316DA0517768A3100FF40CF /* NSArray+FP.m in Sources */,
 				03990F5D1778F9E300995DE2 /* RouteResponse+JSON.m in Sources */,
-				0316D9DA1775570600FF40CF /* WorldScene.m in Sources */,
+				0316D9DA1775570600FF40CF /* World.m in Sources */,
 				0316DA0D1776A43200FF40CF /* SKColor+Relative.m in Sources */,
 				0316D9D21775570600FF40CF /* main.m in Sources */,
 				03222ABA1784D220007478AA /* Bullet.m in Sources */,

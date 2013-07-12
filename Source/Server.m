@@ -24,7 +24,7 @@
   return self;
 }
 
-- (void)respondToPlayer:(NSUUID *)uuid withWorld:(WorldScene *)world {
+- (void)respondToPlayer:(NSUUID *)uuid withWorld:(World *)world {
   RouteResponse *response = [_playerResponses objectForKey:uuid];
   [_playerResponses removeObjectForKey:uuid];
   [response endAsyncJSONResponse:world];

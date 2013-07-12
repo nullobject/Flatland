@@ -1,8 +1,8 @@
 //
-//  MyScene.h
+//  World.h
 //  flatland
 //
-
+//  Created by Josh Bassett on 22/06/2013.
 //  Copyright (c) 2013 Gamedogs. All rights reserved.
 //
 
@@ -14,7 +14,7 @@
 #import "Serializable.h"
 
 // TODO: Refactor to a SKNode subclass.
-@interface WorldScene : SKScene <PlayerDelegate, Serializable, SKPhysicsContactDelegate>
+@interface World : SKScene <PlayerDelegate, Serializable, SKPhysicsContactDelegate>
 
 // The players in the simulation.
 @property (nonatomic, readonly) NSDictionary *players;

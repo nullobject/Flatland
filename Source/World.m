@@ -1,5 +1,5 @@
 //
-//  MyScene.m
+//  World.m
 //  flatland
 //
 //  Created by Josh Bassett on 22/06/2013.
@@ -12,9 +12,9 @@
 #import "GameError.h"
 #import "NSArray+FP.h"
 #import "SKColor+Relative.h"
-#import "WorldScene.h"
+#import "World.h"
 
-@implementation WorldScene {
+@implementation World {
   NSMutableDictionary *_players;
 }
 

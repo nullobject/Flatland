@@ -48,7 +48,7 @@
 }
 
 - (void)setupWorld {
-  _world = [WorldScene sceneWithSize:CGSizeMake(1024, 768)];
+  _world = [World sceneWithSize:CGSizeMake(1024, 768)];
 
   // Set the scale mode to scale to fit the window.
   _world.scaleMode = SKSceneScaleModeAspectFit;

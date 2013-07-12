@@ -11,7 +11,7 @@
 #import "GameError.h"
 #import "Player.h"
 #import "RoutingHTTPServer.h"
-#import "WorldScene.h"
+#import "World.h"
 
 #define kDefaultPort 8000
 
@@ -34,7 +34,7 @@
 @property (nonatomic, weak) id <ServerDelegate> delegate;
 
 // Responds to the player with the given world.
-- (void)respondToPlayer:(NSUUID *)uuid withWorld:(WorldScene *)world;
+- (void)respondToPlayer:(NSUUID *)uuid withWorld:(World *)world;
 
 // Responds to the player with the given error.
 - (void)respondToPlayer:(NSUUID *)uuid withError:(GameError *)error;
