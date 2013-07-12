@@ -28,17 +28,7 @@
 
     self.name = [uuid UUIDString];
     self.scale = 2.0f;
-
-    self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.size];
-
-    // Set the physical properties.
-    self.physicsBody.mass = 1.0f;
-    self.physicsBody.restitution = 0.2f;
-
-    // Set the collision bit masks.
-    self.physicsBody.categoryBitMask    = ColliderTypeEntity;
-    self.physicsBody.collisionBitMask   = ColliderTypeWall | ColliderTypeEntity;
-    self.physicsBody.contactTestBitMask = ColliderTypeBullet;
+    self.physicsBody = [self setupPhysicsBody:self.size];
   }
 
   return self;
@@ -119,6 +109,21 @@
 }
 
 #pragma mark - Private
+
+- (SKPhysicsBody *)setupPhysicsBody:(CGSize)size {
+  SKPhysicsBody *physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:size];
+
+  // Set the physical properties.
+  physicsBody.mass = 1.0f;
+  physicsBody.restitution = 0.2f;
+
+  // Set the collision bit masks.
+  physicsBody.categoryBitMask    = ColliderTypeEntity;
+  physicsBody.collisionBitMask   = ColliderTypeWall | ColliderTypeEntity;
+  physicsBody.contactTestBitMask = ColliderTypeBullet;
+
+  return physicsBody;
+}
 
 - (NSString *)entityStateAsString:(EntityState) state {
   switch (state) {
