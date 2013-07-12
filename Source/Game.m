@@ -10,7 +10,9 @@
 #import "GameError.h"
 #import "Player.h"
 
-@implementation Game
+@implementation Game {
+  Server *_server;
+}
 
 - (id)init {
   if (self = [super init]) {
@@ -20,6 +22,13 @@
   }
 
   return self;
+}
+
+- (void)startServer {
+  NSError *error;
+	if (![_server start:&error]) {
+		NSLog(@"Error starting server: %@", error);
+	}
 }
 
 - (void)tick {

@@ -106,11 +106,10 @@
 #pragma mark - EntityDelegate
 
 - (void)entity:(Entity *)entity didKill:(Entity *)other {
-  _kills += 1;
+  [self didKill];
 }
 
 - (void)entity:(Entity *)entity wasKilledBy:(Entity *)other {
-  [_delegate player:self wasKilledBy:(Player *)other.delegate];
   [self didDie];
 }
 
@@ -152,12 +151,12 @@
 - (void)didDie {
   _state = PlayerStateDead;
   _deaths += 1;
-
-  if ([_delegate respondsToSelector:@selector(playerDidDie:)]) {
-    [_delegate playerDidDie:self];
-  }
-
+  [_entity removeFromParent];
   _entity = nil;
+}
+
+- (void)didKill {
+  _kills += 1;
 }
 
 @end

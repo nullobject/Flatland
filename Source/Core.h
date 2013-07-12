@@ -21,6 +21,7 @@
 #define M_TAU 6.28318530717959 // 2*pi
 
 typedef enum : uint8_t {
+  ColliderTypeNone   = 0,
   ColliderTypeWall   = 1,
   ColliderTypeEntity = 2,
   ColliderTypeBullet = 4

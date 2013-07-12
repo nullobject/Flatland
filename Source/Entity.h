@@ -23,11 +23,15 @@ typedef enum : uint8_t {
 
 @protocol EntityDelegate <NSObject>
 
+// Called when an entity kills another entity.
 - (void)entity:(Entity *)entity didKill:(Entity *)other;
+
+// Called when an entity was killed by another entity.
 - (void)entity:(Entity *)entity wasKilledBy:(Entity *)other;
 
 @end
 
+// Represents an entity in the world, controlled by a player.
 @interface Entity : SKSpriteNode <Collidable, Serializable>
 
 @property (nonatomic, weak) id <EntityDelegate> delegate;

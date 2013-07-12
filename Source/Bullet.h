@@ -12,6 +12,7 @@
 #import "Core.h"
 #import "Entity.h"
 
+// Represents a projectile fired by an entity.
 @interface Bullet : SKSpriteNode <Collidable>
 
 @property (nonatomic, readonly, weak) Entity *owner;

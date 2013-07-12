@@ -16,6 +16,7 @@
 // Player spawn delay in seconds.
 #define kSpawnDelay 3.0
 
+// TODO: Rename player states to reflect what is actually happening.
 typedef enum : uint8_t {
   PlayerStateDead,
   PlayerStateSpawning,
@@ -26,9 +27,8 @@ typedef enum : uint8_t {
 
 @protocol PlayerDelegate <NSObject>
 
+// Called when a player spawns.
 - (void)playerDidSpawn:(Player *)player;
-- (void)playerDidDie:(Player *)player;
-- (void)player:(Player *)player wasKilledBy:(Player *)player;
 
 @end
 

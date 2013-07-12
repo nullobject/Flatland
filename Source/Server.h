@@ -25,6 +25,7 @@
 
 @protocol ServerDelegate <NSObject>
 
+// Called when the server received an action for a player.
 - (void)server:(Server *)server didReceiveAction:(PlayerAction *)action forPlayer:(NSUUID *)uuid;
 
 @end

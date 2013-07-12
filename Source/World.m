@@ -49,6 +49,28 @@
   _age += 1;
 }
 
+#pragma mark - PlayerDelegate
+
+- (void)playerDidSpawn:(Player *)player {
+  [self addChild:player.entity];
+}
+
+#pragma mark - SKPhysicsContactDelegate
+
+- (void)didBeginContact:(SKPhysicsContact *)contact {
+  SKNode *node = contact.bodyA.node;
+
+  if ([node respondsToSelector:@selector(didCollideWith:)]) {
+    [(id <Collidable>)node didCollideWith:contact.bodyB];
+  }
+
+  node = contact.bodyB.node;
+
+  if ([node respondsToSelector:@selector(didCollideWith:)]) {
+    [(id <Collidable>)node didCollideWith:contact.bodyA];
+  }
+}
+
 #pragma mark - Serializable
 
 - (NSDictionary *)asJSON {
@@ -58,22 +80,6 @@
 
   return @{@"age":     [NSNumber numberWithUnsignedInteger:self.age],
            @"players": players};
-}
-
-#pragma mark - PlayerDelegate
-
-- (void)playerDidSpawn:(Player *)player {
-  [self addChild:player.entity];
-}
-
-- (void)playerDidDie:(Player *)player {
-  [player.entity removeFromParent];
-}
-
-// TODO: Reward bullet owner (shooter) with a point and remove the dead entity
-// from the scene.
-- (void)player:(Player *)player wasKilledBy:(Player *)killer {
-  [player.entity removeFromParent];
 }
 
 #pragma mark - Private
@@ -113,22 +119,6 @@
   }
 
   return player;
-}
-
-#pragma mark - SKPhysicsContactDelegate
-
-- (void)didBeginContact:(SKPhysicsContact *)contact {
-  SKNode *node = contact.bodyA.node;
-
-  if ([node respondsToSelector:@selector(didCollideWith:)]) {
-    [(id <Collidable>)node didCollideWith:contact.bodyB];
-  }
-
-  node = contact.bodyB.node;
-
-  if ([node respondsToSelector:@selector(didCollideWith:)]) {
-    [(id <Collidable>)node didCollideWith:contact.bodyA];
-  }
 }
 
 @end
