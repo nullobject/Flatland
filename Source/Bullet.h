@@ -15,7 +15,8 @@
 // Represents a projectile fired by an entity.
 @interface Bullet : SKSpriteNode <Collidable>
 
-@property (nonatomic, readonly, weak) Entity *owner;
+// The entity who shot the bullet.
+@property (nonatomic, readonly, weak) Entity *shooter;
 
 // Initializes a new bullet for the given entity.
 - (Bullet *)initWithEntity:(Entity *)entity;

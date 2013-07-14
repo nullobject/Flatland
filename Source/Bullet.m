@@ -15,7 +15,7 @@
 
 - (Bullet *)initWithEntity:(Entity *)entity {
   if (self = [super initWithImageNamed:@"bullet"]) {
-    _owner = entity;
+    _shooter = entity;
 
     self.scale = 2.0f;
 

@@ -141,13 +141,15 @@
 
 - (void)shotByBullet:(Bullet *)bullet {
   // An entity can't shoot themselves.
-  if (self == bullet.owner) return;
+  if (self == bullet.shooter) return;
 
+  // Apply damage.
   self.health -= 10.0f;
 
+  // If the entity was killed then notify both the deceased and the shooter.
   if (_health == 0.0f) {
-    [bullet.owner.delegate didKill:self];
-    [_delegate wasKilledBy:bullet.owner];
+    [bullet.shooter.delegate didKill:self];
+    [_delegate wasKilledBy:bullet.shooter];
   }
 }
 
