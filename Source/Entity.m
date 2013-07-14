@@ -9,6 +9,7 @@
 #import "Bullet.h"
 #import "Core.h"
 #import "Entity.h"
+#import "NSDictionary+Point.h"
 
 // Movement speed in metres per second.
 #define kMovementSpeed 100.0
@@ -98,13 +99,13 @@
 
 - (NSDictionary *)asJSON {
   return @{@"id":              self.name,
-           @"state":           [self entityStateAsString:self.state],
+           @"state":           [Entity stateAsString:self.state],
            @"age":             [NSNumber numberWithUnsignedInteger:self.age],
            @"energy":          [NSNumber numberWithFloat:self.energy],
            @"health":          [NSNumber numberWithFloat:self.health],
-           @"position":        [self pointAsDictionary:self.position],
+           @"position":        [NSDictionary dictionaryWithPoint:self.position],
            @"rotation":        [NSNumber numberWithFloat:self.zRotation],
-           @"velocity":        [self pointAsDictionary:self.physicsBody.velocity],
+           @"velocity":        [NSDictionary dictionaryWithPoint:self.physicsBody.velocity],
            @"angularVelocity": [NSNumber numberWithFloat:self.physicsBody.angularVelocity]};
 }
 
@@ -125,18 +126,13 @@
   return physicsBody;
 }
 
-- (NSString *)entityStateAsString:(EntityState) state {
++ (NSString *)stateAsString:(EntityState) state {
   switch (state) {
     case EntityStateAttacking: return @"attacking";
     case EntityStateMoving:    return @"moving";
     case EntityStateTurning:   return @"turning";
     default:                   return @"idle";
   }
-}
-
-- (NSDictionary *)pointAsDictionary:(CGPoint)point {
-  return @{@"x": [NSNumber numberWithFloat:point.x],
-           @"y": [NSNumber numberWithFloat:point.y]};
 }
 
 - (void)shotByBullet:(Bullet *)bullet {

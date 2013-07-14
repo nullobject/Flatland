@@ -119,7 +119,7 @@
   id entity = _entity ? [_entity asJSON] : [NSNull null];
 
   return @{@"id":     [_uuid UUIDString],
-           @"state":  [self playerStateAsString:self.state],
+           @"state":  [Player playerStateAsString:self.state],
            @"entity": entity,
            @"deaths": [NSNumber numberWithUnsignedInteger:self.deaths],
            @"kills":  [NSNumber numberWithUnsignedInteger:self.kills]};
@@ -127,7 +127,7 @@
 
 #pragma mark - Private
 
-- (NSString *)playerStateAsString:(PlayerState) state {
++ (NSString *)playerStateAsString:(PlayerState) state {
   switch (state) {
     case PlayerStateSpawning: return @"spawning";
     case PlayerStateAlive:    return @"alive";

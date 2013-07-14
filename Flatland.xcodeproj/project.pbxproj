@@ -31,6 +31,7 @@
 		0396253D177F9C2800EC9912 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0396253F177F9C2800EC9912 /* Localizable.strings */; };
 		03990F5617785B8100995DE2 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 03990F5517785B8100995DE2 /* Game.m */; };
 		03990F5D1778F9E300995DE2 /* RouteResponse+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 03990F5C1778F9E300995DE2 /* RouteResponse+JSON.m */; };
+		03A7F00A1793558800BFBDC3 /* NSDictionary+Point.m in Sources */ = {isa = PBXBuildFile; fileRef = 03A7F0091793558800BFBDC3 /* NSDictionary+Point.m */; };
 		03B24C4B1776CD0A00CF4BC2 /* Server.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B24C4A1776CD0A00CF4BC2 /* Server.m */; };
 		03B2CA5B177E628E00B0647C /* GameError.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B2CA5A177E628E00B0647C /* GameError.m */; };
 		03BC5D5A1779BBB20082ED48 /* HTTPAsyncDataResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 03BC5D591779BBB20082ED48 /* HTTPAsyncDataResponse.m */; };
@@ -91,6 +92,8 @@
 		03990F5517785B8100995DE2 /* Game.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Game.m; sourceTree = "<group>"; };
 		03990F5B1778F9E300995DE2 /* RouteResponse+JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RouteResponse+JSON.h"; sourceTree = "<group>"; };
 		03990F5C1778F9E300995DE2 /* RouteResponse+JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RouteResponse+JSON.m"; sourceTree = "<group>"; };
+		03A7F0081793558800BFBDC3 /* NSDictionary+Point.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Point.h"; sourceTree = "<group>"; };
+		03A7F0091793558800BFBDC3 /* NSDictionary+Point.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Point.m"; sourceTree = "<group>"; };
 		03B24C491776CD0A00CF4BC2 /* Server.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Server.h; sourceTree = "<group>"; };
 		03B24C4A1776CD0A00CF4BC2 /* Server.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Server.m; sourceTree = "<group>"; };
 		03B2CA59177E628E00B0647C /* GameError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameError.h; sourceTree = "<group>"; };
@@ -238,6 +241,8 @@
 			children = (
 				0316DA0317768A3100FF40CF /* NSArray+FP.h */,
 				0316DA0417768A3100FF40CF /* NSArray+FP.m */,
+				03A7F0081793558800BFBDC3 /* NSDictionary+Point.h */,
+				03A7F0091793558800BFBDC3 /* NSDictionary+Point.m */,
 				03990F5B1778F9E300995DE2 /* RouteResponse+JSON.h */,
 				03990F5C1778F9E300995DE2 /* RouteResponse+JSON.m */,
 				0316DA0B1776A43200FF40CF /* SKColor+Relative.h */,
@@ -394,6 +399,7 @@
 				03990F5D1778F9E300995DE2 /* RouteResponse+JSON.m in Sources */,
 				0316D9DA1775570600FF40CF /* World.m in Sources */,
 				0316DA0D1776A43200FF40CF /* SKColor+Relative.m in Sources */,
+				03A7F00A1793558800BFBDC3 /* NSDictionary+Point.m in Sources */,
 				0316D9D21775570600FF40CF /* main.m in Sources */,
 				03222ABA1784D220007478AA /* Bullet.m in Sources */,
 				03BC5D5A1779BBB20082ED48 /* HTTPAsyncDataResponse.m in Sources */,
