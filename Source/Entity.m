@@ -28,7 +28,6 @@
     _health = 100.0f;
 
     self.name = [uuid UUIDString];
-    self.scale = 2.0f;
     self.physicsBody = [self setupPhysicsBody:self.size];
   }
 

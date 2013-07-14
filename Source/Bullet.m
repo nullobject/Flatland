@@ -17,8 +17,6 @@
   if (self = [super initWithImageNamed:@"bullet"]) {
     _shooter = entity;
 
-    self.scale = 2.0f;
-
     CGFloat x = entity.position.x + (-sinf(entity.zRotation) * entity.size.width),
             y = entity.position.y + (cosf(entity.zRotation) * entity.size.height);
 

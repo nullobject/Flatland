@@ -22,9 +22,9 @@
   if (self = [super initWithSize:size]) {
     _players = [[NSMutableDictionary alloc] init];
 
-    self.backgroundColor = [SKColor colorWithRGB:0x000000];
+    self.backgroundColor = [SKColor colorWithRGB:0x123456];
     self.physicsWorld.contactDelegate = self;
-    self.physicsWorld.gravity = CGPointMake(0.0f, 0.0f);
+    self.physicsWorld.gravity = CGPointZero;
 
     [self addWalls];
   }
