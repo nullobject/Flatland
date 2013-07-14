@@ -146,8 +146,8 @@
   self.health -= 10.0f;
 
   if (_health == 0.0f) {
-    [_delegate entity:bullet.owner didKill:self];
-    [_delegate entity:self wasKilledBy:bullet.owner];
+    [bullet.owner.delegate didKill:self];
+    [_delegate wasKilledBy:bullet.owner];
   }
 }
 

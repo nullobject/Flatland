@@ -23,11 +23,11 @@ typedef enum : uint8_t {
 
 @protocol EntityDelegate <NSObject>
 
-// Called when an entity kills another entity.
-- (void)entity:(Entity *)entity didKill:(Entity *)other;
+// Called when the entity kills another entity.
+- (void)didKill:(Entity *)entity;
 
-// Called when an entity was killed by another entity.
-- (void)entity:(Entity *)entity wasKilledBy:(Entity *)other;
+// Called when the entity was killed by another entity.
+- (void)wasKilledBy:(Entity *)entity;
 
 @end
 

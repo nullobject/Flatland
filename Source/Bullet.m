@@ -35,7 +35,7 @@
 #pragma mark - Collidable
 
 - (void)didCollideWith:(SKPhysicsBody *)body {
-  NSLog(@"Bullet#didCollideWith %@", body);
+  // Remove the bullet when it contacts something.
   [self removeFromParent];
 }
 

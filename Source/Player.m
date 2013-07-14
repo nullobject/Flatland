@@ -105,11 +105,11 @@
 
 #pragma mark - EntityDelegate
 
-- (void)entity:(Entity *)entity didKill:(Entity *)other {
+- (void)didKill:(Entity *)entity {
   [self didKill];
 }
 
-- (void)entity:(Entity *)entity wasKilledBy:(Entity *)other {
+- (void)wasKilledBy:(Entity *)entity {
   [self didDie];
 }
 
@@ -137,6 +137,8 @@
 
 - (void)didSpawn {
   _entity = [[Entity alloc] initWithUUID:[NSUUID UUID]];
+
+  _entity.delegate = self;
   _entity.position = CGPointMake(RANDOM() * 500, RANDOM() * 500);
 
   NSLog(@"Player %@ spawned at (%f, %f).", [self.uuid UUIDString], _entity.position.x, _entity.position.y);
