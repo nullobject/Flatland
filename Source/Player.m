@@ -18,6 +18,17 @@
 // Rotation speed in radians per second.
 #define kRotationSpeed M_TAU
 
+@interface Player ()
+
+@property (nonatomic, readonly) BOOL isAlive;
+@property (nonatomic, readonly) BOOL isDead;
+@property (nonatomic, readonly) CGPoint position;
+@property (nonatomic, readonly) CGFloat rotation;
+@property (nonatomic, readonly) CGPoint velocity;
+@property (nonatomic, readonly) CGFloat angularVelocity;
+
+@end
+
 @implementation Player {
   // The enqueued player action.
   PlayerAction *_action;
@@ -38,17 +49,17 @@
 }
 
 - (void)enqueueAction:(PlayerAction *)action error:(GameError **)error {
-  if ([self isDead] && action.type != PlayerActionTypeSpawn) {
+  if (self.isDead && action.type != PlayerActionTypeSpawn) {
     *error = [[GameError alloc] initWithDomain:GameErrorDomain
                                           code:GameErrorPlayerNotSpawned
                                       userInfo:nil];
     return;
-  } else if ([self isAlive] && action.type == PlayerActionTypeSpawn) {
+  } else if (self.isAlive && action.type == PlayerActionTypeSpawn) {
     *error = [[GameError alloc] initWithDomain:GameErrorDomain
                                           code:GameErrorPlayerAlreadySpawned
                                       userInfo:nil];
     return;
-  } else if ([self isAlive] && action.cost + _energy < 0) {
+  } else if (self.isAlive && action.cost + _energy < 0) {
     *error = [[GameError alloc] initWithDomain:GameErrorDomain
                                           code:GameErrorPlayerInsufficientEnergy
                                       userInfo:nil];
@@ -60,7 +71,7 @@
 
 - (void)tick {
   // Default to the idle action (if the player is alive).
-  if ([self isAlive] && !_action) {
+  if (self.isAlive && !_action) {
     _action = [PlayerAction playerActionWithType:PlayerActionTypeIdle andOptions:nil];
   }
 
@@ -85,7 +96,7 @@
 #pragma mark - Actions
 
 - (void)spawn {
-  NSAssert([self isDead], @"Player has already spawned");
+  NSAssert(self.isDead, @"Player has already spawned");
   NSLog(@"Spawning player %@ in %f seconds.", [self.uuid UUIDString], kSpawnDelay);
   _state = PlayerStateSpawning;
   [NSTimer scheduledTimerWithTimeInterval:kSpawnDelay
@@ -96,23 +107,23 @@
 }
 
 - (void)suicide {
-  NSAssert([self isAlive], @"Player has not spawned");
+  NSAssert(self.isAlive, @"Player has not spawned");
   NSLog(@"Killing player %@.", [self.uuid UUIDString]);
   [self didDie];
 }
 
 - (void)idle {
-  NSAssert([self isAlive], @"Player has not spawned");
+  NSAssert(self.isAlive, @"Player has not spawned");
   NSLog(@"Idling player %@.", [self.uuid UUIDString]);
 }
 
 - (void)moveBy:(CGFloat)amount {
-  NSAssert([self isAlive], @"Player has not spawned");
+  NSAssert(self.isAlive, @"Player has not spawned");
   NSLog(@"Moving player %@ by %f.", [self.uuid UUIDString], amount);
 
   CGFloat clampedAmount = NORMALIZE(amount),
-          x = -sinf(_playerNode.zRotation) * clampedAmount * kMovementSpeed,
-          y =  cosf(_playerNode.zRotation) * clampedAmount * kMovementSpeed;
+          x = -sinf(self.rotation) * clampedAmount * kMovementSpeed,
+          y =  cosf(self.rotation) * clampedAmount * kMovementSpeed;
 
   // Calculate the time it takes to move the given amount.
   NSTimeInterval duration = (DISTANCE(x, y) * ABS(clampedAmount)) / kMovementSpeed;
@@ -123,7 +134,7 @@
 }
 
 - (void)turnBy:(CGFloat)amount {
-  NSAssert([self isAlive], @"Player has not spawned");
+  NSAssert(self.isAlive, @"Player has not spawned");
   NSLog(@"Turning player %@ by %f.", [self.uuid UUIDString], amount);
 
   CGFloat clampedAmount = NORMALIZE(amount),
@@ -138,7 +149,7 @@
 }
 
 - (void)attack {
-  NSAssert([self isAlive], @"Player has not spawned");
+  NSAssert(self.isAlive, @"Player has not spawned");
   NSLog(@"Player attacking %@ .", [self.uuid UUIDString]);
 
   BulletNode *bullet = [[BulletNode alloc] initWithPlayer:self];
@@ -177,17 +188,17 @@
 - (NSDictionary *)asJSON {
 //  id entity = _playerNode ? [_playerNode asJSON] : [NSNull null];
 
-  return @{@"id":     [_uuid UUIDString],
-           @"state":  [Player playerStateAsString:_state],
-           @"deaths": [NSNumber numberWithUnsignedInteger:_deaths],
-           @"kills":  [NSNumber numberWithUnsignedInteger:_kills],
+  return @{@"id":              [_uuid UUIDString],
+           @"state":           [Player playerStateAsString:_state],
+           @"deaths":          [NSNumber numberWithUnsignedInteger:_deaths],
+           @"kills":           [NSNumber numberWithUnsignedInteger:_kills],
            @"age":             [NSNumber numberWithUnsignedInteger:_age],
            @"energy":          [NSNumber numberWithFloat:_energy],
            @"health":          [NSNumber numberWithFloat:_health],
-           @"position":        [NSDictionary dictionaryWithPoint:_playerNode.position],
-           @"rotation":        [NSNumber numberWithFloat:_playerNode.zRotation],
-           @"velocity":        [NSDictionary dictionaryWithPoint:_playerNode.physicsBody.velocity],
-           @"angularVelocity": [NSNumber numberWithFloat:_playerNode.physicsBody.angularVelocity]};
+           @"position":        [NSDictionary dictionaryWithPoint:self.position],
+           @"rotation":        [NSNumber numberWithFloat:self.rotation],
+           @"velocity":        [NSDictionary dictionaryWithPoint:self.velocity],
+           @"angularVelocity": [NSNumber numberWithFloat:self.angularVelocity]};
 }
 
 #pragma mark - Private
@@ -198,6 +209,22 @@
 
 - (BOOL)isDead {
   return (_state == PlayerStateDead);
+}
+
+- (CGPoint)position {
+  return _playerNode.position;
+}
+
+- (CGFloat)rotation {
+  return _playerNode.zRotation;
+}
+
+- (CGPoint)velocity {
+  return _playerNode.physicsBody.velocity;
+}
+
+- (CGFloat)angularVelocity {
+  return _playerNode.physicsBody.angularVelocity;
 }
 
 + (NSString *)playerStateAsString:(PlayerState) state {

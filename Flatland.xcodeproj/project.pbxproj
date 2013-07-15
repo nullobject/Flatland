@@ -68,7 +68,7 @@
 		0316D9DC1775570600FF40CF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		0316D9DE1775570600FF40CF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0316D9E11775570600FF40CF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		0316D9E71775570600FF40CF /* tests.xctest */ = {isa = PBXFileReference; explicitFileType = folder; includeInIndex = 0; path = tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0316D9E71775570600FF40CF /* FlatlandTests.xctest */ = {isa = PBXFileReference; explicitFileType = folder; includeInIndex = 0; path = FlatlandTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0316D9E81775570600FF40CF /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		0316D9EF1775570600FF40CF /* FlatlandTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FlatlandTests-Info.plist"; sourceTree = "<group>"; };
 		0316D9F11775570600FF40CF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -149,7 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				0316D9C01775570600FF40CF /* Flatland.app */,
-				0316D9E71775570600FF40CF /* tests.xctest */,
+				0316D9E71775570600FF40CF /* FlatlandTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -323,7 +323,7 @@
 			);
 			name = FlatlandTests;
 			productName = FlatlandTests;
-			productReference = 0316D9E71775570600FF40CF /* tests.xctest */;
+			productReference = 0316D9E71775570600FF40CF /* FlatlandTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
