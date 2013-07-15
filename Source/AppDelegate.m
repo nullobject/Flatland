@@ -1,6 +1,6 @@
 //
 //  AppDelegate.m
-//  flatland
+//  Flatland
 //
 //  Created by Josh Bassett on 22/06/2013.
 //  Copyright (c) 2013 Gamedogs. All rights reserved.
@@ -20,7 +20,7 @@
   _skView.showsNodeCount = YES;
   _skView.showsDrawCount = YES;
 
-  [_skView presentScene:_game.world];
+  [_skView presentScene:_game.battleScene];
 
   [_game startServer];
 }

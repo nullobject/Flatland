@@ -1,6 +1,6 @@
 //
-//  EntityTests.m
-//  flatlandTests
+//  PlayerTests.m
+//  FlatlandTests
 //
 //  Created by Josh Bassett on 22/06/2013.
 //  Copyright (c) 2013 Gamedogs. All rights reserved.
@@ -8,18 +8,18 @@
 
 #import <XCTest/XCTest.h>
 
-#import "Entity.h"
+#import "Player.h"
 
-@interface EntityTests : XCTestCase
+@interface PlayerTests : XCTestCase
 @end
 
-@implementation EntityTests {
-  Entity *_entity;
+@implementation PlayerTests {
+  Player *_entity;
 }
 
 - (void)setUp {
   [super setUp];
-  _entity = [[Entity alloc] initWithUUID:[NSUUID UUID]];
+  _entity = [[Player alloc] initWithUUID:[NSUUID UUID]];
 }
 
 - (void)tearDown {
@@ -37,22 +37,22 @@
 
 - (void)testIdleSetsState {
   [_entity idle];
-  XCTAssertEquals(_entity.state, EntityStateIdle);
+  XCTAssertEquals(_entity.state, PlayerStateIdle);
 }
 
 - (void)testMoveSetsState {
   [_entity moveBy:1];
-  XCTAssertEquals(_entity.state, EntityStateMoving);
+  XCTAssertEquals(_entity.state, PlayerStateMoving);
 }
 
 - (void)testTurnSetsState {
   [_entity turnBy:1.0];
-  XCTAssertEquals(_entity.state, EntityStateTurning);
+  XCTAssertEquals(_entity.state, PlayerStateTurning);
 }
 
 - (void)testAttackSetsState {
   [_entity attack];
-  XCTAssertEquals(_entity.state, EntityStateAttacking);
+  XCTAssertEquals(_entity.state, PlayerStateAttacking);
 }
 
 @end

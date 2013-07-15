@@ -1,6 +1,6 @@
 //
 //  Core.h
-//  flatland
+//  Flatland
 //
 //  Created by Josh Bassett on 27/06/2013.
 //  Copyright (c) 2013 Gamedogs. All rights reserved.

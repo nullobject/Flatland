@@ -59,7 +59,7 @@
   }
 
   // Update the entity energy.
-  player.entity.energy += self.cost;
+  player.energy += self.cost;
 }
 
 + (id)playerActionWithType:(PlayerActionType)type andOptions:(NSDictionary *)options {

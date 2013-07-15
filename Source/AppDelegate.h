@@ -1,6 +1,6 @@
 //
 //  AppDelegate.h
-//  flatland
+//  Flatland
 //
 //  Created by Josh Bassett on 23/06/2013.
 //  Copyright (c) 2013 Gamedogs. All rights reserved.

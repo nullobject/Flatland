@@ -1,32 +1,25 @@
 //
 //  World.m
-//  flatland
+//  Flatland
 //
-//  Created by Josh Bassett on 22/06/2013.
+//  Created by Josh Bassett on 15/07/2013.
 //  Copyright (c) 2013 Gamedogs. All rights reserved.
 //
 
-#import "Bullet.h"
-#import "Collidable.h"
-#import "Entity.h"
 #import "GameError.h"
 #import "NSArray+FP.h"
-#import "SKColor+Relative.h"
+#import "Player.h"
+#import "PlayerAction.h"
 #import "World.h"
 
 @implementation World {
   NSMutableDictionary *_players;
 }
 
-- (id)initWithSize:(CGSize)size {
-  if (self = [super initWithSize:size]) {
+- (id)init {
+  if (self = [super init]) {
     _players = [[NSMutableDictionary alloc] init];
-
-    self.backgroundColor = [SKColor colorWithRGB:0x123456];
-    self.physicsWorld.contactDelegate = self;
-    self.physicsWorld.gravity = CGPointZero;
-
-    [self addWalls];
+    _worldNode = [[WorldNode alloc] initWithWorld:self];
   }
 
   return self;
@@ -37,10 +30,6 @@
   [player enqueueAction:action error:error];
 }
 
-- (void)update:(CFTimeInterval)currentTime {
-  /* Called before each frame is rendered */
-}
-
 - (void)tick {
   [_players enumerateKeysAndObjectsUsingBlock:^(NSUUID *uuid, Player *player, BOOL *stop) {
     [player tick];
@@ -49,26 +38,8 @@
   _age += 1;
 }
 
-#pragma mark - PlayerDelegate
-
-- (void)playerDidSpawn:(Player *)player {
-  [self addChild:player.entity];
-}
-
-#pragma mark - SKPhysicsContactDelegate
-
-- (void)didBeginContact:(SKPhysicsContact *)contact {
-  SKNode *node = contact.bodyA.node;
-
-  if ([node respondsToSelector:@selector(didCollideWith:)]) {
-    [(id <Collidable>)node didCollideWith:contact.bodyB];
-  }
-
-  node = contact.bodyB.node;
-
-  if ([node respondsToSelector:@selector(didCollideWith:)]) {
-    [(id <Collidable>)node didCollideWith:contact.bodyA];
-  }
+- (void)didSpawnPlayer:(Player *)player {
+  [_worldNode addChild:player.playerNode];
 }
 
 #pragma mark - Serializable
@@ -84,29 +55,6 @@
 
 #pragma mark - Private
 
-- (void)addWalls {
-  [self addCollisionWallAtPoint:CGPointMake(0.0f, 0.0f) withWidth:self.frame.size.width height:1.0f];
-  [self addCollisionWallAtPoint:CGPointMake(0.0f, 0.0f) withWidth:1.0f height:self.frame.size.height];
-  [self addCollisionWallAtPoint:CGPointMake(0.0f, self.frame.size.height) withWidth:self.frame.size.width height:1.0f];
-  [self addCollisionWallAtPoint:CGPointMake(self.frame.size.width, 0.0f) withWidth:1.0f height:self.frame.size.height];
-}
-
-- (void)addCollisionWallAtPoint:(CGPoint)point
-                      withWidth:(CGFloat)width
-                         height:(CGFloat)height {
-  CGRect rect = CGRectMake(0, 0, width, height);
-  SKNode *wallNode = [SKNode node];
-  wallNode.name = @"wall";
-  wallNode.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:rect.size];
-  wallNode.position = CGPointMake(point.x + rect.size.width * 0.5, point.y + rect.size.height * 0.5);
-  wallNode.physicsBody.dynamic = NO;
-  wallNode.physicsBody.friction = 0.2f;
-  wallNode.physicsBody.categoryBitMask = ColliderTypeWall;
-  wallNode.physicsBody.collisionBitMask = ColliderTypeEntity | ColliderTypeBullet;
-  wallNode.physicsBody.collisionBitMask = ColliderTypeBullet;
-  [self addChild:wallNode];
-}
-
 // Returns the player with the given UUID, if the player doesn't exist then one
 // is created.
 - (Player *)playerWithUUID:(NSUUID *)uuid {
@@ -114,7 +62,7 @@
 
   if (player == nil) {
     player = [[Player alloc] initWithUUID:uuid];
-    player.delegate = self;
+    player.world = self;
     [_players setObject:player forKey:player.uuid];
   }
 

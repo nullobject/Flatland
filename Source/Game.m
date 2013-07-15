@@ -1,6 +1,6 @@
 //
 //  Game.m
-//  flatland
+//  Flatland
 //
 //  Created by Josh Bassett on 24/06/2013.
 //  Copyright (c) 2013 Gamedogs. All rights reserved.
@@ -18,6 +18,7 @@
   if (self = [super init]) {
     [self setupServer];
     [self setupWorld];
+    [self setupBattleScene];
     [self startTimer];
   }
 
@@ -43,9 +44,7 @@
 
 - (void)server:(Server *)server didReceiveAction:(PlayerAction *)action forPlayer:(NSUUID *)uuid {
   GameError *error;
-
   [_world enqueueAction:action forPlayer:uuid error:&error];
-
   if (error) return [_server respondToPlayer:uuid withError:error];
 }
 
@@ -57,10 +56,17 @@
 }
 
 - (void)setupWorld {
-  _world = [World sceneWithSize:CGSizeMake(1024, 768)];
+  _world = [[World alloc] init];
+}
+
+- (void)setupBattleScene {
+  _battleScene = [BattleScene sceneWithSize:CGSizeMake(1024, 768)];
 
   // Set the scale mode to scale to fit the window.
-  _world.scaleMode = SKSceneScaleModeAspectFit;
+  _battleScene.scaleMode = SKSceneScaleModeAspectFit;
+
+  // Added the world node to the battle scene.
+  [_battleScene addChild:_world.worldNode];
 }
 
 - (void)startTimer {

@@ -1,20 +1,17 @@
 //
 //  World.h
-//  flatland
+//  Flatland
 //
-//  Created by Josh Bassett on 22/06/2013.
+//  Created by Josh Bassett on 15/07/2013.
 //  Copyright (c) 2013 Gamedogs. All rights reserved.
 //
 
-#import <SpriteKit/SpriteKit.h>
+#import <Foundation/Foundation.h>
 
-#import "Core.h"
-#import "GameError.h"
-#import "Player.h"
 #import "Serializable.h"
+#import "WorldNode.h"
 
-// TODO: Refactor to a SKNode subclass.
-@interface World : SKScene <PlayerDelegate, Serializable, SKPhysicsContactDelegate>
+@interface World : NSObject <Serializable>
 
 // The players in the simulation.
 @property (nonatomic, readonly) NSDictionary *players;
@@ -22,10 +19,16 @@
 // The age of the world in simulation iterations.
 @property (nonatomic, assign) NSUInteger age;
 
+// The Sprite Kit node which represents the world.
+@property (nonatomic, readonly, strong) WorldNode *worldNode;
+
 // Enqueues the action for the player with the given UUID.
 - (void)enqueueAction:(PlayerAction *)action forPlayer:(NSUUID *)uuid error:(GameError **)error;
 
 // Ticks the world.
 - (void)tick;
+
+// Called when a player spawned.
+- (void)didSpawnPlayer:(Player *)player;
 
 @end

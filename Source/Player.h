@@ -1,6 +1,6 @@
 //
 //  Player.h
-//  flatland
+//  Flatland
 //
 //  Created by Josh Bassett on 23/06/2013.
 //  Copyright (c) 2013 Gamedogs. All rights reserved.
@@ -8,38 +8,53 @@
 
 #import <Foundation/Foundation.h>
 
-#import "Entity.h"
 #import "GameError.h"
 #import "PlayerAction.h"
+#import "PlayerNode.h"
 #import "Serializable.h"
 
 // Player spawn delay in seconds.
 #define kSpawnDelay 3.0
 
-// TODO: Rename player states to reflect what is actually happening.
 typedef enum : uint8_t {
   PlayerStateDead,
   PlayerStateSpawning,
-  PlayerStateAlive
+  PlayerStateIdle,
+  PlayerStateAttacking,
+  PlayerStateMoving,
+  PlayerStateTurning
 } PlayerState;
 
-@class Player;
+@class World;
 
-@protocol PlayerDelegate <NSObject>
+@interface Player : NSObject <Serializable>
 
-// Called when a player spawns.
-- (void)playerDidSpawn:(Player *)player;
+// A reference to the world.
+@property (nonatomic, weak) World *world;
 
-@end
-
-@interface Player : NSObject <EntityDelegate, Serializable>
-
-@property (nonatomic, weak) id <PlayerDelegate> delegate;
+// The player UUID.
 @property (nonatomic, readonly, strong) NSUUID *uuid;
+
+// The player state.
 @property (nonatomic, readonly) PlayerState state;
-@property (nonatomic, readonly, strong) Entity *entity;
+
+// The Sprite Kit node which represents the player.
+@property (nonatomic, readonly, strong) PlayerNode *playerNode;
+
+// The number of times the player has died.
 @property (nonatomic, readonly) NSUInteger deaths;
+
+// The number of times the player has killed another player.
 @property (nonatomic, readonly) NSUInteger kills;
+
+// The age of the entity in simulation iterations.
+@property (nonatomic, assign) NSUInteger age;
+
+// The energy of the entity. It costs the entity energy to perform actions.
+@property (nonatomic, assign) CGFloat energy;
+
+// The health of the entity. When health reaches zero, then the entity is dead.
+@property (nonatomic, assign) CGFloat health;
 
 // Initializes the player with the given UUID.
 - (Player *)initWithUUID:(NSUUID *)uuid;
@@ -49,6 +64,15 @@ typedef enum : uint8_t {
 
 // Ticks the player.
 - (void)tick;
+
+// Called when the player was shot by another player.
+- (void)wasShotByPlayer:(Player *)player;
+
+// Called when the player kills another player.
+- (void)didKillPlayer:(Player *)player;
+
+// Called when the player was killed by another player.
+- (void)wasKilledByPlayer:(Player *)player;
 
 // Actions.
 - (void)spawn;

@@ -1,30 +1,31 @@
 //
-//  Bullet.m
+//  BulletNode.m
 //  Flatland
 //
 //  Created by Josh Bassett on 4/07/2013.
 //  Copyright (c) 2013 Gamedogs. All rights reserved.
 //
 
-#import "Bullet.h"
+#import "BulletNode.h"
+#import "Player.h"
 
 // Movement speed in metres per second.
 #define kMovementSpeed 500.0
 
-@implementation Bullet
+@implementation BulletNode
 
-- (Bullet *)initWithEntity:(Entity *)entity {
+- (BulletNode *)initWithPlayer:(Player *)player {
   if (self = [super initWithImageNamed:@"bullet"]) {
-    _shooter = entity;
+    _player = player;
 
-    CGFloat x = entity.position.x + (-sinf(entity.zRotation) * entity.size.width),
-            y = entity.position.y + (cosf(entity.zRotation) * entity.size.height);
+    CGFloat x = player.playerNode.position.x + (-sinf(player.playerNode.zRotation) * player.playerNode.size.width),
+            y = player.playerNode.position.y + (cosf(player.playerNode.zRotation) * player.playerNode.size.height);
 
     self.position = CGPointMake(x, y);
-    self.zRotation = entity.zRotation;
+    self.zRotation = player.playerNode.zRotation;
     self.physicsBody = [self setupPhysicsBody:self.size];
-    self.physicsBody.velocity = CGPointMake(-sinf(entity.zRotation) * kMovementSpeed,
-                                            cosf(entity.zRotation) * kMovementSpeed);
+    self.physicsBody.velocity = CGPointMake(-sinf(player.playerNode.zRotation) * kMovementSpeed,
+                                            cosf(player.playerNode.zRotation) * kMovementSpeed);
   }
 
   return self;
