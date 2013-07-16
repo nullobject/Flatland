@@ -6,28 +6,11 @@
 //  Copyright (c) 2013 Gamedogs. All rights reserved.
 //
 
-#import "BulletNode.h"
 #import "Core.h"
 #import "NSDictionary+Point.h"
 #import "Player.h"
+#import "PlayerAction.h"
 #import "World.h"
-
-// Movement speed in metres per second.
-#define kMovementSpeed 100.0
-
-// Rotation speed in radians per second.
-#define kRotationSpeed M_TAU
-
-@interface Player ()
-
-@property (nonatomic, readonly) BOOL isAlive;
-@property (nonatomic, readonly) BOOL isDead;
-@property (nonatomic, readonly) CGPoint position;
-@property (nonatomic, readonly) CGFloat rotation;
-@property (nonatomic, readonly) CGPoint velocity;
-@property (nonatomic, readonly) CGFloat angularVelocity;
-
-@end
 
 @implementation Player {
   // The enqueued player action.
@@ -37,7 +20,7 @@
 - (Player *)initWithUUID:(NSUUID *)uuid {
   if (self = [super init]) {
     _uuid   = uuid;
-    _state = PlayerStateDead;
+    _state  = PlayerStateDead;
     _deaths = 0;
     _kills  = 0;
     _age    = 0;
@@ -49,12 +32,12 @@
 }
 
 - (void)enqueueAction:(PlayerAction *)action error:(GameError **)error {
-  if (self.isDead && action.type != PlayerActionTypeSpawn) {
+  if (self.isDead && [action isMemberOfClass:PlayerSpawnAction.class]) {
     *error = [[GameError alloc] initWithDomain:GameErrorDomain
                                           code:GameErrorPlayerNotSpawned
                                       userInfo:nil];
     return;
-  } else if (self.isAlive && action.type == PlayerActionTypeSpawn) {
+  } else if (self.isAlive && [action isMemberOfClass:PlayerSpawnAction.class]) {
     *error = [[GameError alloc] initWithDomain:GameErrorDomain
                                           code:GameErrorPlayerAlreadySpawned
                                       userInfo:nil];
@@ -71,8 +54,8 @@
 
 - (void)tick {
   // Default to the idle action (if the player is alive).
-  if (self.isAlive && !_action) {
-    _action = [PlayerAction playerActionWithType:PlayerActionTypeIdle andOptions:nil];
+  if (!_action && self.isAlive) {
+    _action = [[PlayerIdleAction alloc] init];
   }
 
   // Apply the action.
@@ -91,72 +74,6 @@
 
 - (void)setHealth:(CGFloat)health {
   _health = CLAMP(health, 0.0f, 100.0f);
-}
-
-#pragma mark - Actions
-
-- (void)spawn {
-  NSAssert(self.isDead, @"Player has already spawned");
-  NSLog(@"Spawning player %@ in %f seconds.", [self.uuid UUIDString], kSpawnDelay);
-  _state = PlayerStateSpawning;
-  [NSTimer scheduledTimerWithTimeInterval:kSpawnDelay
-                                   target:self
-                                 selector:@selector(didSpawn)
-                                 userInfo:nil
-                                  repeats:NO];
-}
-
-- (void)suicide {
-  NSAssert(self.isAlive, @"Player has not spawned");
-  NSLog(@"Killing player %@.", [self.uuid UUIDString]);
-  [self didDie];
-}
-
-- (void)idle {
-  NSAssert(self.isAlive, @"Player has not spawned");
-  NSLog(@"Idling player %@.", [self.uuid UUIDString]);
-}
-
-- (void)moveBy:(CGFloat)amount {
-  NSAssert(self.isAlive, @"Player has not spawned");
-  NSLog(@"Moving player %@ by %f.", [self.uuid UUIDString], amount);
-
-  CGFloat clampedAmount = NORMALIZE(amount),
-          x = -sinf(self.rotation) * clampedAmount * kMovementSpeed,
-          y =  cosf(self.rotation) * clampedAmount * kMovementSpeed;
-
-  // Calculate the time it takes to move the given amount.
-  NSTimeInterval duration = (DISTANCE(x, y) * ABS(clampedAmount)) / kMovementSpeed;
-
-  _state = PlayerStateMoving;
-
-  [_playerNode runAction:[SKAction moveByX:x y:y duration:duration]];
-}
-
-- (void)turnBy:(CGFloat)amount {
-  NSAssert(self.isAlive, @"Player has not spawned");
-  NSLog(@"Turning player %@ by %f.", [self.uuid UUIDString], amount);
-
-  CGFloat clampedAmount = NORMALIZE(amount),
-          angle = clampedAmount * kRotationSpeed;
-
-  // Calculate the time it takes to turn the given amount.
-  NSTimeInterval duration = (M_TAU * ABS(clampedAmount)) / kRotationSpeed;
-
-  _state = PlayerStateTurning;
-
-  [_playerNode runAction:[SKAction rotateByAngle:angle duration:duration]];
-}
-
-- (void)attack {
-  NSAssert(self.isAlive, @"Player has not spawned");
-  NSLog(@"Player attacking %@ .", [self.uuid UUIDString]);
-
-  BulletNode *bullet = [[BulletNode alloc] initWithPlayer:self];
-
-  _state = PlayerStateAttacking;
-
-  [_playerNode.scene addChild:bullet];
 }
 
 #pragma mark - EntityDelegate
@@ -181,6 +98,25 @@
 
 - (void)wasKilledByPlayer:(Player *)entity {
   [self didDie];
+}
+
+- (void)didSpawn {
+  _playerNode = [[PlayerNode alloc] initWithPlayer:self];
+  _playerNode.position = CGPointMake(RANDOM() * 500, RANDOM() * 500);
+
+  NSLog(@"Player %@ spawned at (%f, %f).", [self.uuid UUIDString], _playerNode.position.x, _playerNode.position.y);
+
+  _state = PlayerStateIdle;
+
+  // Notify the world that the player spawned.
+  [_world didSpawnPlayer:self];
+}
+
+- (void)didDie {
+  _state = PlayerStateDead;
+  _deaths += 1;
+  [_playerNode removeFromParent];
+  _playerNode = nil;
 }
 
 #pragma mark - Serializable
@@ -236,25 +172,6 @@
     case PlayerStateTurning:   return @"turning";
     default:                   return @"dead";
   }
-}
-
-- (void)didSpawn {
-  _playerNode = [[PlayerNode alloc] initWithPlayer:self];
-  _playerNode.position = CGPointMake(RANDOM() * 500, RANDOM() * 500);
-
-  NSLog(@"Player %@ spawned at (%f, %f).", [self.uuid UUIDString], _playerNode.position.x, _playerNode.position.y);
-
-  _state = PlayerStateIdle;
-
-  // Notify the world that the player spawned.
-  [_world didSpawnPlayer:self];
-}
-
-- (void)didDie {
-  _state = PlayerStateDead;
-  _deaths += 1;
-  [_playerNode removeFromParent];
-  _playerNode = nil;
 }
 
 @end

@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 Gamedogs. All rights reserved.
 //
 
+#import "PlayerAction.h"
 #import "RouteResponse+JSON.h"
 #import "Server.h"
 
@@ -92,7 +93,7 @@
   return options;
 }
 
-- (RequestHandler)requestHandlerForPlayerActionType:(PlayerActionType)playerActionType {
+- (RequestHandler)requestHandlerForPlayerActionType:(Class)playerActionClass {
   return ^(RouteRequest *request, RouteResponse *response) {
     GameError *error;
 
@@ -102,7 +103,7 @@
     NSDictionary *options = [self parseOptions:request error:&error];
     if (error) return [response respondWithJSON:error];
 
-    PlayerAction *action = [PlayerAction playerActionWithType:playerActionType andOptions:options];
+    PlayerAction *action = [(PlayerAction *)[playerActionClass alloc] initWithOptions:options];
 
     [response beginAsyncJSONResponse];
     [self enqueueResponse:response forPlayer:uuid];
@@ -111,12 +112,12 @@
 }
 
 - (void)setupRoutes {
-  [self put:@"/action/spawn"   withBlock:[self requestHandlerForPlayerActionType:PlayerActionTypeSpawn]];
-  [self put:@"/action/suicide" withBlock:[self requestHandlerForPlayerActionType:PlayerActionTypeSuicide]];
-  [self put:@"/action/idle"    withBlock:[self requestHandlerForPlayerActionType:PlayerActionTypeIdle]];
-  [self put:@"/action/move"    withBlock:[self requestHandlerForPlayerActionType:PlayerActionTypeMove]];
-  [self put:@"/action/turn"    withBlock:[self requestHandlerForPlayerActionType:PlayerActionTypeTurn]];
-  [self put:@"/action/attack"  withBlock:[self requestHandlerForPlayerActionType:PlayerActionTypeAttack]];
+  [self put:@"/action/spawn"   withBlock:[self requestHandlerForPlayerActionType:PlayerSpawnAction.class]];
+  [self put:@"/action/suicide" withBlock:[self requestHandlerForPlayerActionType:PlayerSuicideAction.class]];
+  [self put:@"/action/idle"    withBlock:[self requestHandlerForPlayerActionType:PlayerIdleAction.class]];
+  [self put:@"/action/move"    withBlock:[self requestHandlerForPlayerActionType:PlayerMoveAction.class]];
+  [self put:@"/action/turn"    withBlock:[self requestHandlerForPlayerActionType:PlayerTurnAction.class]];
+  [self put:@"/action/attack"  withBlock:[self requestHandlerForPlayerActionType:PlayerAttackAction.class]];
 }
 
 @end

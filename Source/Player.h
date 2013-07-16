@@ -36,10 +36,17 @@ typedef enum : uint8_t {
 @property (nonatomic, readonly, strong) NSUUID *uuid;
 
 // The player state.
-@property (nonatomic, readonly) PlayerState state;
+@property (nonatomic, assign) PlayerState state;
 
 // The Sprite Kit node which represents the player.
 @property (nonatomic, readonly, strong) PlayerNode *playerNode;
+
+@property (nonatomic, readonly) BOOL isAlive;
+@property (nonatomic, readonly) BOOL isDead;
+@property (nonatomic, readonly) CGPoint position;
+@property (nonatomic, readonly) CGFloat rotation;
+@property (nonatomic, readonly) CGPoint velocity;
+@property (nonatomic, readonly) CGFloat angularVelocity;
 
 // The number of times the player has died.
 @property (nonatomic, readonly) NSUInteger deaths;
@@ -65,6 +72,9 @@ typedef enum : uint8_t {
 // Ticks the player.
 - (void)tick;
 
+- (void)didSpawn;
+- (void)didDie;
+
 // Called when the player was shot by another player.
 - (void)wasShotByPlayer:(Player *)player;
 
@@ -73,13 +83,5 @@ typedef enum : uint8_t {
 
 // Called when the player was killed by another player.
 - (void)wasKilledByPlayer:(Player *)player;
-
-// Actions.
-- (void)spawn;
-- (void)suicide;
-- (void)idle;
-- (void)moveBy:(CGFloat)amount;
-- (void)turnBy:(CGFloat)amount;
-- (void)attack;
 
 @end
