@@ -13,9 +13,6 @@
 #import "PlayerNode.h"
 #import "Serializable.h"
 
-// Player spawn delay in seconds.
-#define kSpawnDelay 3.0
-
 typedef enum : uint8_t {
   PlayerStateDead,
   PlayerStateSpawning,
@@ -72,8 +69,11 @@ typedef enum : uint8_t {
 // Ticks the player.
 - (void)tick;
 
-- (void)didSpawn;
-- (void)didDie;
+// Spawns the player.
+- (void)spawn;
+
+// Kills the playher.
+- (void)die;
 
 // Called when the player was shot by another player.
 - (void)wasShotByPlayer:(Player *)player;

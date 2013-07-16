@@ -9,5 +9,4 @@
 #import <SpriteKit/SpriteKit.h>
 
 @interface BattleScene : SKScene <SKPhysicsContactDelegate>
-
 @end

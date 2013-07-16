@@ -9,7 +9,8 @@
 #import "Core.h"
 #import "NSDictionary+Point.h"
 #import "Player.h"
-#import "PlayerAction.h"
+#import "PlayerIdleAction.h"
+#import "PlayerSpawnAction.h"
 #import "World.h"
 
 @implementation Player {
@@ -32,7 +33,7 @@
 }
 
 - (void)enqueueAction:(PlayerAction *)action error:(GameError **)error {
-  if (self.isDead && [action isMemberOfClass:PlayerSpawnAction.class]) {
+  if (self.isDead && ![action isMemberOfClass:PlayerSpawnAction.class]) {
     *error = [[GameError alloc] initWithDomain:GameErrorDomain
                                           code:GameErrorPlayerNotSpawned
                                       userInfo:nil];
@@ -76,6 +77,18 @@
   _health = CLAMP(health, 0.0f, 100.0f);
 }
 
+- (void)spawn {
+  _playerNode = [[PlayerNode alloc] initWithPlayer:self];
+  _playerNode.position = CGPointMake(RANDOM() * 500, RANDOM() * 500);
+
+  NSLog(@"Player %@ spawned at (%f, %f).", [self.uuid UUIDString], _playerNode.position.x, _playerNode.position.y);
+
+  _state = PlayerStateIdle;
+
+  // Notify the world that the player spawned.
+  [_world didSpawnPlayer:self];
+}
+
 #pragma mark - EntityDelegate
 
 - (void)wasShotByPlayer:(Player *)player {
@@ -97,22 +110,10 @@
 }
 
 - (void)wasKilledByPlayer:(Player *)entity {
-  [self didDie];
+  [self die];
 }
 
-- (void)didSpawn {
-  _playerNode = [[PlayerNode alloc] initWithPlayer:self];
-  _playerNode.position = CGPointMake(RANDOM() * 500, RANDOM() * 500);
-
-  NSLog(@"Player %@ spawned at (%f, %f).", [self.uuid UUIDString], _playerNode.position.x, _playerNode.position.y);
-
-  _state = PlayerStateIdle;
-
-  // Notify the world that the player spawned.
-  [_world didSpawnPlayer:self];
-}
-
-- (void)didDie {
+- (void)die {
   _state = PlayerStateDead;
   _deaths += 1;
   [_playerNode removeFromParent];
