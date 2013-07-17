@@ -8,7 +8,9 @@
 
 #import <XCTest/XCTest.h>
 
+#import "OCMock.h"
 #import "Player.h"
+#import "World.h"
 
 @interface PlayerTests : XCTestCase
 @end
@@ -83,11 +85,15 @@
 }
 
 - (void)testDieRemovesPlayerNode {
+  id world = [OCMockObject mockForClass:World.class];
+  [[world expect] didSpawnPlayer:[OCMArg any]];
+  _player.world = world;
   _player.state = PlayerStateSpawning;
   [_player spawn];
   XCTAssertNotNil(_player.playerNode);
   [_player die];
   XCTAssertNil(_player.playerNode);
+  [world verify];
 }
 
 @end
