@@ -14,45 +14,80 @@
 @end
 
 @implementation PlayerTests {
-  Player *_entity;
+  Player *_player;
 }
 
 - (void)setUp {
   [super setUp];
-  _entity = [[Player alloc] initWithUUID:[NSUUID UUID]];
+  _player = [[Player alloc] initWithUUID:[NSUUID UUID]];
 }
 
 - (void)tearDown {
-  _entity = nil;
+  _player = nil;
   [super tearDown];
 }
 
+- (void)testHealthIsClamped {
+  _player.health = -10;
+  XCTAssertEquals(_player.health, (CGFloat)0);
+
+  _player.health = 110;
+  XCTAssertEquals(_player.health, (CGFloat)100);
+}
+
 - (void)testEnergyIsClamped {
-  _entity.energy = -10;
-  XCTAssertEquals(_entity.energy, (CGFloat)0);
+  _player.energy = -10;
+  XCTAssertEquals(_player.energy, (CGFloat)0);
 
-  _entity.energy = 110;
-  XCTAssertEquals(_entity.energy, (CGFloat)100);
+  _player.energy = 110;
+  XCTAssertEquals(_player.energy, (CGFloat)100);
 }
 
-- (void)testIdleSetsState {
-  [_entity idle];
-  XCTAssertEquals(_entity.state, PlayerStateIdle);
+- (void)testTickIncrementsAge {
+  XCTAssertEquals(_player.age, (NSUInteger)0);
+  [_player tick];
+  XCTAssertEquals(_player.age, (NSUInteger)1);
 }
 
-- (void)testMoveSetsState {
-  [_entity moveBy:1];
-  XCTAssertEquals(_entity.state, PlayerStateMoving);
+- (void)testSpawnThrowsErrorWhenNotSpawning {
+  _player.state = PlayerStateDead;
+  XCTAssertThrows([_player spawn]);
+
+  _player.state = PlayerStateSpawning;
+  XCTAssertNoThrow([_player spawn]);
 }
 
-- (void)testTurnSetsState {
-  [_entity turnBy:1.0];
-  XCTAssertEquals(_entity.state, PlayerStateTurning);
+- (void)testSpawnSetsState {
+  _player.state = PlayerStateSpawning;
+  [_player spawn];
+  XCTAssertEquals(_player.state, PlayerStateIdle);
 }
 
-- (void)testAttackSetsState {
-  [_entity attack];
-  XCTAssertEquals(_entity.state, PlayerStateAttacking);
+- (void)testSpawnAddsPlayerNode {
+  _player.state = PlayerStateSpawning;
+  XCTAssertNil(_player.playerNode);
+  [_player spawn];
+  XCTAssertNotNil(_player.playerNode);
+}
+
+- (void)testDieSetsState {
+  _player.state = PlayerStateIdle;
+  [_player die];
+  XCTAssertEquals(_player.state, PlayerStateDead);
+}
+
+- (void)testDieIncrementsDeaths {
+  XCTAssertEquals(_player.deaths, (NSUInteger)0);
+  [_player die];
+  XCTAssertEquals(_player.deaths, (NSUInteger)1);
+}
+
+- (void)testDieRemovesPlayerNode {
+  _player.state = PlayerStateSpawning;
+  [_player spawn];
+  XCTAssertNotNil(_player.playerNode);
+  [_player die];
+  XCTAssertNil(_player.playerNode);
 }
 
 @end

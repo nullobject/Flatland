@@ -78,6 +78,8 @@
 }
 
 - (void)spawn {
+  NSAssert(_state == PlayerStateSpawning, @"Player has not spawned");
+
   _playerNode = [[PlayerNode alloc] initWithPlayer:self];
   _playerNode.position = CGPointMake(RANDOM() * 500, RANDOM() * 500);
 
@@ -87,6 +89,13 @@
 
   // Notify the world that the player spawned.
   [_world didSpawnPlayer:self];
+}
+
+- (void)die {
+  _state = PlayerStateDead;
+  _deaths += 1;
+  [_playerNode removeFromParent];
+  _playerNode = nil;
 }
 
 #pragma mark - EntityDelegate
@@ -111,13 +120,6 @@
 
 - (void)wasKilledByPlayer:(Player *)entity {
   [self die];
-}
-
-- (void)die {
-  _state = PlayerStateDead;
-  _deaths += 1;
-  [_playerNode removeFromParent];
-  _playerNode = nil;
 }
 
 #pragma mark - Serializable
