@@ -158,11 +158,37 @@
   XCTAssertThrows([_player moveByX:1 y:2 duration:3]);
 }
 
+- (void)testMoveSetsState {
+  [_player moveByX:1 y:2 duration:3];
+  XCTAssertEquals(_player.state, PlayerStateMoving);
+}
+
+- (void)testMoveRunsActionOnPlayerNode {
+  id playerNode = [OCMockObject mockForClass:PlayerNode.class];
+  [[playerNode expect] runAction:[OCMArg any]];
+  _player.playerNode = playerNode;
+  [_player moveByX:1 y:2 duration:3];
+  [playerNode verify];
+}
+
 #pragma mark - Rotate
 
 - (void)testRotateThrowsErrorWhenNotAlive {
   _player.state = PlayerStateDead;
   XCTAssertThrows([_player rotateByAngle:1 duration:2]);
+}
+
+- (void)testRotateSetsState {
+  [_player rotateByAngle:1 duration:2];
+  XCTAssertEquals(_player.state, PlayerStateTurning);
+}
+
+- (void)testRotateRunsActionOnPlayerNode {
+  id playerNode = [OCMockObject mockForClass:PlayerNode.class];
+  [[playerNode expect] runAction:[OCMArg any]];
+  _player.playerNode = playerNode;
+  [_player rotateByAngle:1 duration:2];
+  [playerNode verify];
 }
 
 #pragma mark - PlayerDelegate
