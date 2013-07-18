@@ -1,3 +1,5 @@
+inhibit_all_warnings!
+
 pod 'CocoaHTTPServer'
 pod 'RoutingHTTPServer'
 
