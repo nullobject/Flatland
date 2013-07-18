@@ -29,6 +29,8 @@
 - (void)tick;
 
 // Called when a player spawned.
-- (void)didSpawnPlayer:(Player *)player;
+- (void)playerDidSpawn:(Player *)player;
+
+- (void)playerDidDie:(Player *)player;
 
 @end

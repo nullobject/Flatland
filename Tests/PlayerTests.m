@@ -17,14 +17,19 @@
 
 @implementation PlayerTests {
   Player *_player;
+  id _world;
 }
 
 - (void)setUp {
   [super setUp];
+  _world = [OCMockObject mockForClass:World.class];
   _player = [[Player alloc] initWithUUID:[NSUUID UUID]];
+  _player.world = _world;
 }
 
 - (void)tearDown {
+  [_world verify];
+  _world = nil;
   _player = nil;
   [super tearDown];
 }
@@ -52,6 +57,8 @@
 }
 
 - (void)testSpawnThrowsErrorWhenNotSpawning {
+  [[_world stub] playerDidSpawn:_player];
+
   _player.state = PlayerStateDead;
   XCTAssertThrows([_player spawn]);
 
@@ -60,12 +67,28 @@
 }
 
 - (void)testSpawnSetsState {
+  [[_world stub] playerDidSpawn:_player];
   _player.state = PlayerStateSpawning;
   [_player spawn];
   XCTAssertEquals(_player.state, PlayerStateIdle);
 }
 
+- (void)testSpawnSetsHealth {
+  [[_world stub] playerDidSpawn:_player];
+  _player.state = PlayerStateSpawning;
+  [_player spawn];
+  XCTAssertEquals(_player.health, (CGFloat)100);
+}
+
+- (void)testSpawnSetsEnergy {
+  [[_world stub] playerDidSpawn:_player];
+  _player.state = PlayerStateSpawning;
+  [_player spawn];
+  XCTAssertEquals(_player.energy, (CGFloat)100);
+}
+
 - (void)testSpawnAddsPlayerNode {
+  [[_world stub] playerDidSpawn:_player];
   _player.state = PlayerStateSpawning;
   XCTAssertNil(_player.playerNode);
   [_player spawn];
@@ -73,27 +96,30 @@
 }
 
 - (void)testDieSetsState {
+  [[_world stub] playerDidDie:_player];
   _player.state = PlayerStateIdle;
   [_player die];
   XCTAssertEquals(_player.state, PlayerStateDead);
 }
 
 - (void)testDieIncrementsDeaths {
+  [[_world stub] playerDidDie:_player];
+  _player.state = PlayerStateIdle;
   XCTAssertEquals(_player.deaths, (NSUInteger)0);
   [_player die];
   XCTAssertEquals(_player.deaths, (NSUInteger)1);
 }
 
 - (void)testDieRemovesPlayerNode {
-  id world = [OCMockObject mockForClass:World.class];
-  [[world expect] didSpawnPlayer:[OCMArg any]];
-  _player.world = world;
+  [[_world stub] playerDidSpawn:_player];
+  [[_world expect] playerDidDie:_player];
+
   _player.state = PlayerStateSpawning;
   [_player spawn];
+
   XCTAssertNotNil(_player.playerNode);
   [_player die];
   XCTAssertNil(_player.playerNode);
-  [world verify];
 }
 
 @end

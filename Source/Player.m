@@ -25,8 +25,8 @@
     _deaths = 0;
     _kills  = 0;
     _age    = 0;
-    _energy = 100.0f;
-    _health = 100.0f;
+    _energy = 0;
+    _health = 0;
   }
 
   return self;
@@ -77,25 +77,46 @@
   _health = CLAMP(health, 0.0f, 100.0f);
 }
 
+- (BOOL)isAlive {
+  return (_state != PlayerStateDead && _state != PlayerStateSpawning);
+}
+
+- (BOOL)isDead {
+  return (_state == PlayerStateDead);
+}
+
+- (BOOL)isSpawning {
+  return (_state == PlayerStateSpawning);
+}
+
 - (void)spawn {
-  NSAssert(_state == PlayerStateSpawning, @"Player has not spawned");
+  NSAssert(self.isSpawning, @"Player has not spawned");
 
   _playerNode = [[PlayerNode alloc] initWithPlayer:self];
   _playerNode.position = CGPointMake(RANDOM() * 500, RANDOM() * 500);
 
-  NSLog(@"Player %@ spawned at (%f, %f).", [self.uuid UUIDString], _playerNode.position.x, _playerNode.position.y);
-
-  _state = PlayerStateIdle;
+  self.state  = PlayerStateIdle;
+  self.health = 100.0f;
+  self.energy = 100.0f;
 
   // Notify the world that the player spawned.
-  [_world didSpawnPlayer:self];
+  [_world playerDidSpawn:self];
+
+  NSLog(@"Player %@ spawned at (%f, %f).", [self.uuid UUIDString], _playerNode.position.x, _playerNode.position.y);
 }
 
 - (void)die {
-  _state = PlayerStateDead;
+  NSAssert(self.isAlive, @"Player is not alive");
+
   _deaths += 1;
-  [_playerNode removeFromParent];
+  _state = PlayerStateDead;
+
+  // Notify the world that the player died.
+  [_world playerDidDie:self];
+
   _playerNode = nil;
+
+  NSLog(@"Player %@ died.", [self.uuid UUIDString]);
 }
 
 #pragma mark - EntityDelegate
@@ -125,8 +146,6 @@
 #pragma mark - Serializable
 
 - (NSDictionary *)asJSON {
-//  id entity = _playerNode ? [_playerNode asJSON] : [NSNull null];
-
   return @{@"id":              [_uuid UUIDString],
            @"state":           [Player playerStateAsString:_state],
            @"deaths":          [NSNumber numberWithUnsignedInteger:_deaths],
@@ -141,14 +160,6 @@
 }
 
 #pragma mark - Private
-
-- (BOOL)isAlive {
-  return (_state != PlayerStateDead && _state != PlayerStateSpawning);
-}
-
-- (BOOL)isDead {
-  return (_state == PlayerStateDead);
-}
 
 - (CGPoint)position {
   return _playerNode.position;

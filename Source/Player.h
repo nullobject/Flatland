@@ -40,6 +40,8 @@ typedef enum : uint8_t {
 
 @property (nonatomic, readonly) BOOL isAlive;
 @property (nonatomic, readonly) BOOL isDead;
+@property (nonatomic, readonly) BOOL isSpawning;
+
 @property (nonatomic, readonly) CGPoint position;
 @property (nonatomic, readonly) CGFloat rotation;
 @property (nonatomic, readonly) CGPoint velocity;

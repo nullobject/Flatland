@@ -38,8 +38,12 @@
   _age += 1;
 }
 
-- (void)didSpawnPlayer:(Player *)player {
+- (void)playerDidSpawn:(Player *)player {
   [_worldNode addChild:player.playerNode];
+}
+
+- (void)playerDidDie:(Player *)player {
+  [player.playerNode removeFromParent];
 }
 
 #pragma mark - Serializable
