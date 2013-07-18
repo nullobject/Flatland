@@ -204,17 +204,17 @@
   [playerNode verify];
 }
 
-#pragma mark - PlayerDelegate
+#pragma mark - Callbacks
 
-- (void)testWasShotByPlayerDecrementsHealth {
+- (void)testWasShotByPlayerAppliesDamage {
   _player.health = 100;
   Player *shooter = [[Player alloc] initWithUUID:[NSUUID UUID]];
   [_player wasShotByPlayer:shooter];
   XCTAssertEquals(_player.health, (CGFloat)90);
 }
 
-- (void)testWasShotByPlayerIncrementsKills {
-  [[_world expect] playerDidDie:_player];
+- (void)testWasShotByPlayerIncrementsKillsIfPlayerDies {
+  [[_world stub] playerDidDie:_player];
 
   _player.state = PlayerStateIdle;
   _player.health = 10;

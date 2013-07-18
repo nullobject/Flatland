@@ -16,6 +16,9 @@
 // Player spawn delay in seconds.
 #define kSpawnDelay 3.0
 
+// The damage applied when a player is shot (in energy units).
+#define kBulletDamage 10.0
+
 @interface Player ()
 
 @property (nonatomic) PlayerNode  *playerNode;
@@ -99,6 +102,8 @@
   return (_state == PlayerStateSpawning);
 }
 
+#pragma mark - Actions
+
 - (void)idle {
   NSAssert(self.isAlive, @"Player is dead");
   _state = PlayerStateIdle;
@@ -153,20 +158,20 @@
   NSLog(@"Player turning %@ by %f.", [_uuid UUIDString], angle);
 }
 
-#pragma mark - PlayerDelegate
+#pragma mark - Callbacks
 
 - (void)wasShotByPlayer:(Player *)player {
   // An entity can't shoot themselves.
   if (player == self) return;
 
   // Apply damage.
-  _health = MAX(_health - 10.0f, 0.0f);
+  _health = MAX(_health - kBulletDamage, 0.0f);
 
   // Check if the player died.
   if (_health == 0.0f) {
     [self die];
 
-    // Increment the kills for the killer.
+    // Increment the kills for the shooter.
     player.kills += 1;
   }
 }
