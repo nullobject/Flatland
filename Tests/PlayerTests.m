@@ -64,6 +64,19 @@
   XCTAssertEquals(_player.energy, (CGFloat)100);
 }
 
+#pragma mark - Idle
+
+- (void)testIdleThrowsErrorWhenNotAlive {
+  _player.state = PlayerStateDead;
+  XCTAssertThrows([_player idle]);
+}
+
+- (void)testIdleSetsState {
+  _player.state = PlayerStateAttacking;
+  [_player idle];
+  XCTAssertEquals(_player.state, PlayerStateIdle);
+}
+
 #pragma mark - Spawn
 
 - (void)testSpawnThrowsErrorWhenNotDead {

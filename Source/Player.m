@@ -100,6 +100,7 @@
 }
 
 - (void)idle {
+  NSAssert(self.isAlive, @"Player is dead");
   _state = PlayerStateIdle;
   NSLog(@"Player idling %@.", [_uuid UUIDString]);
 }
