@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 Gamedogs. All rights reserved.
 //
 
+#import "BulletNode.h"
 #import "GameError.h"
 #import "NSArray+FP.h"
 #import "Player.h"
@@ -39,14 +40,17 @@
 }
 
 - (void)playerDidSpawn:(Player *)player {
+  NSLog(@"Added player node %@", player.playerNode.name);
   [_worldNode addChild:player.playerNode];
 }
 
 - (void)playerDidDie:(Player *)player {
+  NSLog(@"Remove player node %@", player.playerNode.name);
   [player.playerNode removeFromParent];
 }
 
 - (void)player:(Player *)player didShootBullet:(BulletNode *)bulletNode {
+  NSLog(@"Added bullet node %@", bulletNode.name);
   [_worldNode.scene addChild:bulletNode];
 }
 

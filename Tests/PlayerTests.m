@@ -225,4 +225,8 @@
   XCTAssertEquals(shooter.kills, (NSUInteger)1);
 }
 
+#pragma mark - Callbacks
+
+
+
 @end
