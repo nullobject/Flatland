@@ -12,6 +12,16 @@
 #import "Player.h"
 #import "World.h"
 
+@interface Player (Test)
+
+@property (nonatomic) PlayerState state;
+@property (nonatomic) CGFloat health;
+@property (nonatomic) CGFloat energy;
+
+- (void)didSpawn;
+
+@end
+
 @interface PlayerTests : XCTestCase
 @end
 
@@ -34,64 +44,44 @@
   [super tearDown];
 }
 
-- (void)testHealthIsClamped {
-  _player.health = -10;
-  XCTAssertEquals(_player.health, (CGFloat)0);
-
-  _player.health = 110;
-  XCTAssertEquals(_player.health, (CGFloat)100);
-}
-
-- (void)testEnergyIsClamped {
-  _player.energy = -10;
-  XCTAssertEquals(_player.energy, (CGFloat)0);
-
-  _player.energy = 110;
-  XCTAssertEquals(_player.energy, (CGFloat)100);
-}
-
 - (void)testTickIncrementsAge {
   XCTAssertEquals(_player.age, (NSUInteger)0);
   [_player tick];
   XCTAssertEquals(_player.age, (NSUInteger)1);
 }
 
-- (void)testSpawnThrowsErrorWhenNotSpawning {
-  [[_world stub] playerDidSpawn:_player];
-
-  _player.state = PlayerStateDead;
+- (void)testSpawnThrowsErrorWhenNotDead {
+  _player.state = PlayerStateIdle;
   XCTAssertThrows([_player spawn]);
-
-  _player.state = PlayerStateSpawning;
-  XCTAssertNoThrow([_player spawn]);
 }
 
 - (void)testSpawnSetsState {
-  [[_world stub] playerDidSpawn:_player];
-  _player.state = PlayerStateSpawning;
   [_player spawn];
+  XCTAssertEquals(_player.state, PlayerStateSpawning);
+}
+
+- (void)testDidSpawnSetsState {
+  [[_world stub] playerDidSpawn:_player];
+  [_player didSpawn];
   XCTAssertEquals(_player.state, PlayerStateIdle);
 }
 
-- (void)testSpawnSetsHealth {
+- (void)testDidSpawnSetsHealth {
   [[_world stub] playerDidSpawn:_player];
-  _player.state = PlayerStateSpawning;
-  [_player spawn];
+  [_player didSpawn];
   XCTAssertEquals(_player.health, (CGFloat)100);
 }
 
-- (void)testSpawnSetsEnergy {
+- (void)testDidSpawnSetsEnergy {
   [[_world stub] playerDidSpawn:_player];
-  _player.state = PlayerStateSpawning;
-  [_player spawn];
+  [_player didSpawn];
   XCTAssertEquals(_player.energy, (CGFloat)100);
 }
 
-- (void)testSpawnAddsPlayerNode {
+- (void)testDidSpawnAddsPlayerNode {
   [[_world stub] playerDidSpawn:_player];
-  _player.state = PlayerStateSpawning;
   XCTAssertNil(_player.playerNode);
-  [_player spawn];
+  [_player didSpawn];
   XCTAssertNotNil(_player.playerNode);
 }
 
@@ -114,12 +104,36 @@
   [[_world stub] playerDidSpawn:_player];
   [[_world expect] playerDidDie:_player];
 
-  _player.state = PlayerStateSpawning;
-  [_player spawn];
+  [_player didSpawn];
 
   XCTAssertNotNil(_player.playerNode);
   [_player die];
   XCTAssertNil(_player.playerNode);
+}
+
+- (void)testDieThrowsErrorWhenNotAlive {
+  [[_world stub] playerDidDie:_player];
+  _player.state = PlayerStateDead;
+  XCTAssertThrows([_player die]);
+}
+
+- (void)testWasShotByPlayerDecrementsHealth {
+  _player.health = 100;
+  Player *shooter = [[Player alloc] initWithUUID:[NSUUID UUID]];
+  [_player wasShotByPlayer:shooter];
+  XCTAssertEquals(_player.health, (CGFloat)90);
+}
+
+- (void)testWasShotByPlayerIncrementsKills {
+  [[_world expect] playerDidDie:_player];
+
+  _player.state = PlayerStateIdle;
+  _player.health = 10;
+
+  Player *shooter = [[Player alloc] initWithUUID:[NSUUID UUID]];
+  [_player wasShotByPlayer:shooter];
+
+  XCTAssertEquals(shooter.kills, (NSUInteger)1);
 }
 
 @end

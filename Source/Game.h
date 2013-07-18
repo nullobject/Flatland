@@ -14,8 +14,8 @@
 
 @interface Game : NSObject <ServerDelegate>
 
-@property (nonatomic, readonly, strong) BattleScene *battleScene;
-@property (nonatomic, readonly, strong) World *world;
+@property (nonatomic, readonly) BattleScene *battleScene;
+@property (nonatomic, readonly) World *world;
 
 // Starts the server.
 - (void)startServer;

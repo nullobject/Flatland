@@ -8,6 +8,7 @@
 
 #import "Player.h"
 #import "PlayerAction.h"
+#import "PlayerSpawnAction.h"
 
 @implementation PlayerAction
 
@@ -24,8 +25,26 @@
 }
 
 - (void)applyToPlayer:(Player *)player {
-  // Update the entity energy.
-  player.energy += self.cost;
+}
+
+- (BOOL)validateForPlayer:(Player *)player error:(GameError **)error {
+  // Ensure the player is alive (unless it's a spawn action).
+  if (player.isDead && ![self isMemberOfClass:PlayerSpawnAction.class]) {
+    *error = [[GameError alloc] initWithDomain:GameErrorDomain
+                                          code:GameErrorPlayerNotSpawned
+                                      userInfo:nil];
+    return NO;
+  }
+
+  // Ensure the player has enough energy to perform the action.
+  if (player.isAlive && player.energy < self.cost) {
+    *error = [[GameError alloc] initWithDomain:GameErrorDomain
+                                          code:GameErrorPlayerInsufficientEnergy
+                                      userInfo:nil];
+    return NO;
+  }
+
+  return YES;
 }
 
 @end

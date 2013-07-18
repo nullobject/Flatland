@@ -12,10 +12,7 @@
 @implementation PlayerSuicideAction
 
 - (void)applyToPlayer:(Player *)player {
-  NSAssert(player.isAlive, @"Player has not spawned");
-  NSLog(@"Killing player %@.", [player.uuid UUIDString]);
   [player die];
-  [super applyToPlayer:player];
 }
 
 @end

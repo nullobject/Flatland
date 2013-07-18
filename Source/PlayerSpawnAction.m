@@ -9,21 +9,21 @@
 #import "Player.h"
 #import "PlayerSpawnAction.h"
 
-// Player spawn delay in seconds.
-#define kSpawnDelay 3.0
-
 @implementation PlayerSpawnAction
 
 - (void)applyToPlayer:(Player *)player {
-  NSAssert(player.isDead, @"Player has already spawned");
-  NSLog(@"Spawning player %@ in %f seconds.", [player.uuid UUIDString], kSpawnDelay);
-  player.state = PlayerStateSpawning;
-  [NSTimer scheduledTimerWithTimeInterval:kSpawnDelay
-                                   target:player
-                                 selector:@selector(spawn)
-                                 userInfo:nil
-                                  repeats:NO];
-  [super applyToPlayer:player];
+  [player spawn];
+}
+
+- (BOOL)validateForPlayer:(Player *)player error:(GameError **)error {
+  if (player.isAlive) {
+    *error = [[GameError alloc] initWithDomain:GameErrorDomain
+                                          code:GameErrorPlayerAlreadySpawned
+                                      userInfo:nil];
+    return NO;
+  }
+
+  return [super validateForPlayer:player error:error];
 }
 
 @end

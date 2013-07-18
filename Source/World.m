@@ -25,9 +25,9 @@
   return self;
 }
 
-- (void)enqueueAction:(PlayerAction *)action forPlayer:(NSUUID *)uuid error:(GameError **)error {
+- (BOOL)enqueueAction:(PlayerAction *)action forPlayer:(NSUUID *)uuid error:(GameError **)error {
   Player *player = [self playerWithUUID:uuid];
-  [player enqueueAction:action error:error];
+  return [player enqueueAction:action error:error];
 }
 
 - (void)tick {

@@ -44,8 +44,9 @@
 
 - (void)server:(Server *)server didReceiveAction:(PlayerAction *)action forPlayer:(NSUUID *)uuid {
   GameError *error;
-  [_world enqueueAction:action forPlayer:uuid error:&error];
-  if (error) return [_server respondToPlayer:uuid withError:error];
+  if (![_world enqueueAction:action forPlayer:uuid error:&error]) {
+    [_server respondToPlayer:uuid withError:error];
+  }
 }
 
 #pragma mark - Private

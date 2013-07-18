@@ -22,10 +22,7 @@
 }
 
 - (void)applyToPlayer:(Player *)player {
-  NSAssert(player.isAlive, @"Player has not spawned");
-
   CGFloat amount = [(NSNumber *)[self.options objectForKey:@"amount"] floatValue];
-  NSLog(@"Moving player %@ by %f.", [player.uuid UUIDString], amount);
 
   CGFloat clampedAmount = NORMALIZE(amount),
           x = -sinf(player.rotation) * clampedAmount * kMovementSpeed,
@@ -34,11 +31,7 @@
   // Calculate the time it takes to move the given amount.
   NSTimeInterval duration = (DISTANCE(x, y) * ABS(clampedAmount)) / kMovementSpeed;
 
-  player.state = PlayerStateMoving;
-
-  SKAction *action = [SKAction moveByX:x y:y duration:duration];
-  [player.playerNode runAction:action];
-  [super applyToPlayer:player];
+  [player moveByX:x y:y duration:duration];
 }
 
 @end

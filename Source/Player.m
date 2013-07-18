@@ -6,12 +6,24 @@
 //  Copyright (c) 2013 Gamedogs. All rights reserved.
 //
 
+#import "BulletNode.h"
 #import "Core.h"
 #import "NSDictionary+Point.h"
 #import "Player.h"
 #import "PlayerIdleAction.h"
-#import "PlayerSpawnAction.h"
 #import "World.h"
+
+// Player spawn delay in seconds.
+#define kSpawnDelay 3.0
+
+@interface Player ()
+
+@property (nonatomic) PlayerState state;
+@property (nonatomic) CGFloat     health;
+@property (nonatomic) CGFloat     energy;
+@property (nonatomic) NSUInteger  kills;
+
+@end
 
 @implementation Player {
   // The enqueued player action.
@@ -32,25 +44,14 @@
   return self;
 }
 
-- (void)enqueueAction:(PlayerAction *)action error:(GameError **)error {
-  if (self.isDead && ![action isMemberOfClass:PlayerSpawnAction.class]) {
-    *error = [[GameError alloc] initWithDomain:GameErrorDomain
-                                          code:GameErrorPlayerNotSpawned
-                                      userInfo:nil];
-    return;
-  } else if (self.isAlive && [action isMemberOfClass:PlayerSpawnAction.class]) {
-    *error = [[GameError alloc] initWithDomain:GameErrorDomain
-                                          code:GameErrorPlayerAlreadySpawned
-                                      userInfo:nil];
-    return;
-  } else if (self.isAlive && action.cost + _energy < 0) {
-    *error = [[GameError alloc] initWithDomain:GameErrorDomain
-                                          code:GameErrorPlayerInsufficientEnergy
-                                      userInfo:nil];
-    return;
+- (BOOL)enqueueAction:(PlayerAction *)action error:(GameError **)error {
+  BOOL result = ([action validateForPlayer:self error:error]);
+
+  if (result) {
+    _action = action;
   }
 
-  _action = action;
+  return result;
 }
 
 - (void)tick {
@@ -62,6 +63,9 @@
   // Apply the action.
   [_action applyToPlayer:self];
 
+  // Subtract the action cost.
+  _energy = CLAMP(_energy - _action.cost, 0.0f, 100.0f);
+
   // Clear the current action.
   _action = nil;
 
@@ -69,12 +73,20 @@
   _age += 1;
 }
 
-- (void)setEnergy:(CGFloat)energy {
-  _energy = CLAMP(energy, 0.0f, 100.0f);
+- (CGPoint)position {
+  return _playerNode.position;
 }
 
-- (void)setHealth:(CGFloat)health {
-  _health = CLAMP(health, 0.0f, 100.0f);
+- (CGFloat)rotation {
+  return _playerNode.zRotation;
+}
+
+- (CGPoint)velocity {
+  return _playerNode.physicsBody.velocity;
+}
+
+- (CGFloat)angularVelocity {
+  return _playerNode.physicsBody.angularVelocity;
 }
 
 - (BOOL)isAlive {
@@ -89,24 +101,23 @@
   return (_state == PlayerStateSpawning);
 }
 
+- (void)idle {
+  _state = PlayerStateIdle;
+  NSLog(@"Player idling %@.", [_uuid UUIDString]);
+}
+
 - (void)spawn {
-  NSAssert(self.isSpawning, @"Player has not spawned");
-
-  _playerNode = [[PlayerNode alloc] initWithPlayer:self];
-  _playerNode.position = CGPointMake(RANDOM() * 500, RANDOM() * 500);
-
-  self.state  = PlayerStateIdle;
-  self.health = 100.0f;
-  self.energy = 100.0f;
-
-  // Notify the world that the player spawned.
-  [_world playerDidSpawn:self];
-
-  NSLog(@"Player %@ spawned at (%f, %f).", [self.uuid UUIDString], _playerNode.position.x, _playerNode.position.y);
+  NSAssert(self.isDead, @"Player is alive");
+  _state = PlayerStateSpawning;
+  [NSTimer scheduledTimerWithTimeInterval:kSpawnDelay
+                                   target:self
+                                 selector:@selector(didSpawn)
+                                 userInfo:nil
+                                  repeats:NO];
 }
 
 - (void)die {
-  NSAssert(self.isAlive, @"Player is not alive");
+  NSAssert(self.isAlive, @"Player is dead");
 
   _deaths += 1;
   _state = PlayerStateDead;
@@ -116,31 +127,49 @@
 
   _playerNode = nil;
 
-  NSLog(@"Player %@ died.", [self.uuid UUIDString]);
+  NSLog(@"Player died %@.", [_uuid UUIDString]);
 }
 
-#pragma mark - EntityDelegate
+- (void)attack {
+  NSAssert(self.isAlive, @"Player is dead");
+  _state = PlayerStateAttacking;
+  BulletNode *bullet = [[BulletNode alloc] initWithPlayer:self];
+  [_playerNode.scene addChild:bullet];
+  NSLog(@"Player attacking %@ .", [_uuid UUIDString]);
+}
+
+- (void)moveByX:(CGFloat)x y:(CGFloat)y duration:(NSTimeInterval)duration {
+  NSAssert(self.isAlive, @"Player is dead");
+  _state = PlayerStateMoving;
+  SKAction *action = [SKAction moveByX:x y:y duration:duration];
+  [_playerNode runAction:action];
+  NSLog(@"Player moving %@ to (%f, %f).", [_uuid UUIDString], x, y);
+}
+
+- (void)rotateByAngle:(CGFloat)angle duration:(NSTimeInterval)duration {
+  NSAssert(self.isAlive, @"Player is dead");
+  _state = PlayerStateTurning;
+  SKAction *action = [SKAction rotateByAngle:angle duration:duration];
+  [_playerNode runAction:action];
+  NSLog(@"Player turning %@ by %f.", [_uuid UUIDString], angle);
+}
+
+#pragma mark - PlayerDelegate
 
 - (void)wasShotByPlayer:(Player *)player {
   // An entity can't shoot themselves.
   if (player == self) return;
 
   // Apply damage.
-  self.health -= 10.0f;
+  _health = MAX(_health - 10.0f, 0.0f);
 
-  // If the entity was killed then notify both the deceased and the shooter.
+  // Check if the player died.
   if (_health == 0.0f) {
-    [player didKillPlayer:self];
-    [self wasKilledByPlayer:player];
+    [self die];
+
+    // Increment the kills for the killer.
+    player.kills += 1;
   }
-}
-
-- (void)didKillPlayer:(Player *)entity {
-  _kills += 1;
-}
-
-- (void)wasKilledByPlayer:(Player *)entity {
-  [self die];
 }
 
 #pragma mark - Serializable
@@ -161,22 +190,6 @@
 
 #pragma mark - Private
 
-- (CGPoint)position {
-  return _playerNode.position;
-}
-
-- (CGFloat)rotation {
-  return _playerNode.zRotation;
-}
-
-- (CGPoint)velocity {
-  return _playerNode.physicsBody.velocity;
-}
-
-- (CGFloat)angularVelocity {
-  return _playerNode.physicsBody.angularVelocity;
-}
-
 + (NSString *)playerStateAsString:(PlayerState) state {
   switch (state) {
     case PlayerStateSpawning:  return @"spawning";
@@ -186,6 +199,20 @@
     case PlayerStateTurning:   return @"turning";
     default:                   return @"dead";
   }
+}
+
+- (void)didSpawn {
+  _playerNode = [[PlayerNode alloc] initWithPlayer:self];
+  _playerNode.position = CGPointMake(RANDOM() * 500, RANDOM() * 500);
+
+  _state  = PlayerStateIdle;
+  _health = 100.0f;
+  _energy = 100.0f;
+
+  // Notify the world that the player spawned.
+  [_world playerDidSpawn:self];
+
+  NSLog(@"Player %@ spawned at (%f, %f).", [self.uuid UUIDString], self.position.x, self.position.y);
 }
 
 @end

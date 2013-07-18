@@ -13,24 +13,25 @@
 
 @interface World : NSObject <Serializable>
 
+// The Sprite Kit node which represents the world.
+@property (nonatomic, readonly) WorldNode *worldNode;
+
 // The players in the simulation.
 @property (nonatomic, readonly) NSDictionary *players;
 
 // The age of the world in simulation iterations.
-@property (nonatomic, assign) NSUInteger age;
-
-// The Sprite Kit node which represents the world.
-@property (nonatomic, readonly, strong) WorldNode *worldNode;
+@property (nonatomic) NSUInteger age;
 
 // Enqueues the action for the player with the given UUID.
-- (void)enqueueAction:(PlayerAction *)action forPlayer:(NSUUID *)uuid error:(GameError **)error;
+- (BOOL)enqueueAction:(PlayerAction *)action forPlayer:(NSUUID *)uuid error:(GameError **)error;
 
 // Ticks the world.
 - (void)tick;
 
-// Called when a player spawned.
+// Called when a player spawns.
 - (void)playerDidSpawn:(Player *)player;
 
+// Called when a plyer dies.
 - (void)playerDidDie:(Player *)player;
 
 @end

@@ -29,47 +29,38 @@ typedef enum : uint8_t {
 // A reference to the world.
 @property (nonatomic, weak) World *world;
 
-// The player UUID.
-@property (nonatomic, readonly, strong) NSUUID *uuid;
-
-// The player state.
-@property (nonatomic, assign) PlayerState state;
-
 // The Sprite Kit node which represents the player.
-@property (nonatomic, readonly, strong) PlayerNode *playerNode;
+@property (nonatomic, readonly) PlayerNode *playerNode;
+
+// The unique identifier for the player.
+@property (nonatomic, readonly) NSUUID *uuid;
+
+@property (nonatomic, readonly) PlayerState state;
+@property (nonatomic, readonly) NSUInteger  age;
+@property (nonatomic, readonly) CGFloat     energy;
+@property (nonatomic, readonly) CGFloat     health;
+@property (nonatomic, readonly) NSUInteger  deaths;
+@property (nonatomic, readonly) NSUInteger  kills;
+@property (nonatomic, readonly) CGPoint     position;
+@property (nonatomic, readonly) CGFloat     rotation;
+@property (nonatomic, readonly) CGPoint     velocity;
+@property (nonatomic, readonly) CGFloat     angularVelocity;
 
 @property (nonatomic, readonly) BOOL isAlive;
 @property (nonatomic, readonly) BOOL isDead;
 @property (nonatomic, readonly) BOOL isSpawning;
 
-@property (nonatomic, readonly) CGPoint position;
-@property (nonatomic, readonly) CGFloat rotation;
-@property (nonatomic, readonly) CGPoint velocity;
-@property (nonatomic, readonly) CGFloat angularVelocity;
-
-// The number of times the player has died.
-@property (nonatomic, readonly) NSUInteger deaths;
-
-// The number of times the player has killed another player.
-@property (nonatomic, readonly) NSUInteger kills;
-
-// The age of the entity in simulation iterations.
-@property (nonatomic, assign) NSUInteger age;
-
-// The energy of the entity. It costs the entity energy to perform actions.
-@property (nonatomic, assign) CGFloat energy;
-
-// The health of the entity. When health reaches zero, then the entity is dead.
-@property (nonatomic, assign) CGFloat health;
-
 // Initializes the player with the given UUID.
 - (Player *)initWithUUID:(NSUUID *)uuid;
 
 // Enqueues the given action for the player.
-- (void)enqueueAction:(PlayerAction *)action error:(GameError **)error;
+- (BOOL)enqueueAction:(PlayerAction *)action error:(GameError **)error;
 
 // Ticks the player.
 - (void)tick;
+
+// Idles the player.
+- (void)idle;
 
 // Spawns the player.
 - (void)spawn;
@@ -77,13 +68,16 @@ typedef enum : uint8_t {
 // Kills the playher.
 - (void)die;
 
+// Fires a bullet in the current direction.
+- (void)attack;
+
+// Moves the player by the X/Y offsets over the given duration.
+- (void)moveByX:(CGFloat)x y:(CGFloat)y duration:(NSTimeInterval)duration;
+
+// Rotates the player by the angle over the given duration.
+- (void)rotateByAngle:(CGFloat)angle duration:(NSTimeInterval)duration;
+
 // Called when the player was shot by another player.
 - (void)wasShotByPlayer:(Player *)player;
-
-// Called when the player kills another player.
-- (void)didKillPlayer:(Player *)player;
-
-// Called when the player was killed by another player.
-- (void)wasKilledByPlayer:(Player *)player;
 
 @end

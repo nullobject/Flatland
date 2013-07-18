@@ -12,13 +12,11 @@
 @implementation PlayerIdleAction
 
 - (CGFloat)cost {
-  return 10;
+  return -10;
 }
 
 - (void)applyToPlayer:(Player *)player {
-  NSAssert(player.isAlive, @"Player has not spawned");
-  NSLog(@"Idling player %@.", [player.uuid UUIDString]);
-  [super applyToPlayer:player];
+  [player idle];
 }
 
 @end
