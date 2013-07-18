@@ -8,15 +8,19 @@
 
 #import <XCTest/XCTest.h>
 
+#import "BulletNode.h"
 #import "OCMock.h"
 #import "Player.h"
+#import "PlayerIdleAction.h"
+#import "PlayerNode.h"
 #import "World.h"
 
 @interface Player (Test)
 
+@property (nonatomic) PlayerNode  *playerNode;
 @property (nonatomic) PlayerState state;
-@property (nonatomic) CGFloat health;
-@property (nonatomic) CGFloat energy;
+@property (nonatomic) CGFloat     health;
+@property (nonatomic) CGFloat     energy;
 
 - (void)didSpawn;
 
@@ -35,6 +39,7 @@
   _world = [OCMockObject mockForClass:World.class];
   _player = [[Player alloc] initWithUUID:[NSUUID UUID]];
   _player.world = _world;
+  _player.state = PlayerStateIdle;
 }
 
 - (void)tearDown {
@@ -44,11 +49,22 @@
   [super tearDown];
 }
 
+#pragma mark - Tick
+
 - (void)testTickIncrementsAge {
   XCTAssertEquals(_player.age, (NSUInteger)0);
   [_player tick];
   XCTAssertEquals(_player.age, (NSUInteger)1);
 }
+
+- (void)testTickDefaultsToIdleAction {
+  _player.state = PlayerStateIdle;
+  _player.energy = 90;
+  [_player tick];
+  XCTAssertEquals(_player.energy, (CGFloat)100);
+}
+
+#pragma mark - Spawn
 
 - (void)testSpawnThrowsErrorWhenNotDead {
   _player.state = PlayerStateIdle;
@@ -56,6 +72,7 @@
 }
 
 - (void)testSpawnSetsState {
+  _player.state = PlayerStateDead;
   [_player spawn];
   XCTAssertEquals(_player.state, PlayerStateSpawning);
 }
@@ -85,6 +102,8 @@
   XCTAssertNotNil(_player.playerNode);
 }
 
+#pragma mark - Die
+
 - (void)testDieSetsState {
   [[_world stub] playerDidDie:_player];
   _player.state = PlayerStateIdle;
@@ -100,13 +119,9 @@
   XCTAssertEquals(_player.deaths, (NSUInteger)1);
 }
 
-- (void)testDieRemovesPlayerNode {
-  [[_world stub] playerDidSpawn:_player];
+- (void)testDieCallsPlayerDidDie {
   [[_world expect] playerDidDie:_player];
-
-  [_player didSpawn];
-
-  XCTAssertNotNil(_player.playerNode);
+  _player.playerNode = [OCMockObject mockForClass:PlayerNode.class];
   [_player die];
   XCTAssertNil(_player.playerNode);
 }
@@ -116,6 +131,41 @@
   _player.state = PlayerStateDead;
   XCTAssertThrows([_player die]);
 }
+
+#pragma mark - Attack
+
+- (void)testAttackThrowsErrorWhenNotAlive {
+  _player.state = PlayerStateDead;
+  XCTAssertThrows([_player attack]);
+}
+
+- (void)testAttackSetsState {
+  [[_world stub] player:_player didShootBullet:[OCMArg any]];
+  [_player attack];
+  XCTAssertEquals(_player.state, PlayerStateAttacking);
+}
+
+- (void)testAttackCallsPlayerDidShootBullet {
+  [[_world expect] player:_player
+           didShootBullet:[OCMArg checkWithBlock:^BOOL(BulletNode *bullet) { return (bullet.player == _player); }]];
+  [_player attack];
+}
+
+#pragma mark - Move
+
+- (void)testMoveThrowsErrorWhenNotAlive {
+  _player.state = PlayerStateDead;
+  XCTAssertThrows([_player moveByX:1 y:2 duration:3]);
+}
+
+#pragma mark - Rotate
+
+- (void)testRotateThrowsErrorWhenNotAlive {
+  _player.state = PlayerStateDead;
+  XCTAssertThrows([_player rotateByAngle:1 duration:2]);
+}
+
+#pragma mark - PlayerDelegate
 
 - (void)testWasShotByPlayerDecrementsHealth {
   _player.health = 100;

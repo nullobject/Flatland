@@ -35,6 +35,9 @@ typedef enum : uint8_t {
 // The unique identifier for the player.
 @property (nonatomic, readonly) NSUUID *uuid;
 
+// The enqueued player action.
+@property (nonatomic, readonly) PlayerAction *action;
+
 @property (nonatomic, readonly) PlayerState state;
 @property (nonatomic, readonly) NSUInteger  age;
 @property (nonatomic, readonly) CGFloat     energy;

@@ -46,6 +46,10 @@
   [player.playerNode removeFromParent];
 }
 
+- (void)player:(Player *)player didShootBullet:(BulletNode *)bulletNode {
+  [_worldNode.scene addChild:bulletNode];
+}
+
 #pragma mark - Serializable
 
 - (NSDictionary *)asJSON {

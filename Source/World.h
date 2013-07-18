@@ -11,6 +11,8 @@
 #import "Serializable.h"
 #import "WorldNode.h"
 
+@class BulletNode, Player;
+
 @interface World : NSObject <Serializable>
 
 // The Sprite Kit node which represents the world.
@@ -31,7 +33,10 @@
 // Called when a player spawns.
 - (void)playerDidSpawn:(Player *)player;
 
-// Called when a plyer dies.
+// Called when a player dies.
 - (void)playerDidDie:(Player *)player;
+
+// Called when a player shoots a bullet.
+- (void)player:(Player *)player didShootBullet:(BulletNode *)bulletNode;
 
 @end

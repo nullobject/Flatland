@@ -18,6 +18,7 @@
 
 @interface Player ()
 
+@property (nonatomic) PlayerNode  *playerNode;
 @property (nonatomic) PlayerState state;
 @property (nonatomic) CGFloat     health;
 @property (nonatomic) CGFloat     energy;
@@ -25,10 +26,7 @@
 
 @end
 
-@implementation Player {
-  // The enqueued player action.
-  PlayerAction *_action;
-}
+@implementation Player
 
 - (Player *)initWithUUID:(NSUUID *)uuid {
   if (self = [super init]) {
@@ -134,7 +132,7 @@
   NSAssert(self.isAlive, @"Player is dead");
   _state = PlayerStateAttacking;
   BulletNode *bullet = [[BulletNode alloc] initWithPlayer:self];
-  [_playerNode.scene addChild:bullet];
+  [_world player:self didShootBullet:bullet];
   NSLog(@"Player attacking %@ .", [_uuid UUIDString]);
 }
 
