@@ -22,8 +22,6 @@
 @property (nonatomic) CGFloat     health;
 @property (nonatomic) CGFloat     energy;
 
-- (void)didSpawn;
-
 @end
 
 @interface PlayerTests : XCTestCase
@@ -92,35 +90,17 @@
   XCTAssertEquals(_player.state, PlayerStateSpawning);
 }
 
-- (void)testDidSpawnSetsState {
-  [[_world stub] playerDidSpawn:_player];
-  [_player didSpawn];
-  XCTAssertEquals(_player.state, PlayerStateIdle);
-}
-
-- (void)testDidSpawnSetsHealth {
-  [[_world stub] playerDidSpawn:_player];
-  [_player didSpawn];
-  XCTAssertEquals(_player.health, (CGFloat)100);
-}
-
-- (void)testDidSpawnSetsEnergy {
-  [[_world stub] playerDidSpawn:_player];
-  [_player didSpawn];
-  XCTAssertEquals(_player.energy, (CGFloat)100);
-}
-
-- (void)testDidSpawnAddsPlayerNode {
-  [[_world stub] playerDidSpawn:_player];
-  XCTAssertNil(_player.playerNode);
-  [_player didSpawn];
-  XCTAssertNotNil(_player.playerNode);
-}
-
 #pragma mark - Die
+
+- (void)testDieThrowsErrorWhenNotAlive {
+  [[_world stub] playerDidDie:_player];
+  _player.state = PlayerStateDead;
+  XCTAssertThrows([_player die]);
+}
 
 - (void)testDieSetsState {
   [[_world stub] playerDidDie:_player];
+  _player.state = PlayerStateIdle;
   [_player die];
   XCTAssertEquals(_player.state, PlayerStateDead);
 }
@@ -132,17 +112,16 @@
   XCTAssertEquals(_player.deaths, (NSUInteger)1);
 }
 
-- (void)testDieCallsPlayerDidDie {
-  [[_world expect] playerDidDie:_player];
+- (void)testDieUnsetsPlayerNode {
+  [[_world stub] playerDidDie:_player];
   _player.playerNode = [OCMockObject mockForClass:PlayerNode.class];
   [_player die];
   XCTAssertNil(_player.playerNode);
 }
 
-- (void)testDieThrowsErrorWhenNotAlive {
-  [[_world stub] playerDidDie:_player];
-  _player.state = PlayerStateDead;
-  XCTAssertThrows([_player die]);
+- (void)testDieCallsPlayerDidDie {
+  [[_world expect] playerDidDie:_player];
+  [_player die];
 }
 
 #pragma mark - Attack
@@ -154,6 +133,7 @@
 
 - (void)testAttackSetsState {
   [[_world stub] player:_player didShootBullet:[OCMArg any]];
+  _player.state = PlayerStateIdle;
   [_player attack];
   XCTAssertEquals(_player.state, PlayerStateAttacking);
 }
@@ -172,6 +152,7 @@
 }
 
 - (void)testMoveSetsState {
+  _player.state = PlayerStateIdle;
   [_player moveByX:1 y:2 duration:3];
   XCTAssertEquals(_player.state, PlayerStateMoving);
 }
@@ -192,6 +173,7 @@
 }
 
 - (void)testRotateSetsState {
+  _player.state = PlayerStateIdle;
   [_player rotateByAngle:1 duration:2];
   XCTAssertEquals(_player.state, PlayerStateTurning);
 }
@@ -205,6 +187,34 @@
 }
 
 #pragma mark - Callbacks
+
+- (void)testDidSpawnSetsState {
+  [[_world stub] playerDidSpawn:_player];
+  _player.state = PlayerStateSpawning;
+  [_player didSpawn];
+  XCTAssertEquals(_player.state, PlayerStateIdle);
+}
+
+- (void)testDidSpawnSetsHealth {
+  [[_world stub] playerDidSpawn:_player];
+  _player.health = 0;
+  [_player didSpawn];
+  XCTAssertEquals(_player.health, (CGFloat)100);
+}
+
+- (void)testDidSpawnSetsEnergy {
+  [[_world stub] playerDidSpawn:_player];
+  _player.energy = 0;
+  [_player didSpawn];
+  XCTAssertEquals(_player.energy, (CGFloat)100);
+}
+
+- (void)testDidSpawnSetsPlayerNode {
+  [[_world stub] playerDidSpawn:_player];
+  XCTAssertNil(_player.playerNode);
+  [_player didSpawn];
+  XCTAssertNotNil(_player.playerNode);
+}
 
 - (void)testWasShotByPlayerAppliesDamage {
   _player.health = 100;
@@ -226,7 +236,7 @@
 
 #pragma mark - Serializable
 
-- (void)testAsJSONIncludesId {
+- (void)testAsJSONIncludesID {
   id expected = @"910A0975-6EA9-4EA6-A40F-7D02FAC30F4F";
   XCTAssertEqualObjects([[_player asJSON] objectForKey:@"id"], expected);
 }

@@ -157,6 +157,20 @@
 
 #pragma mark - Callbacks
 
+- (void)didSpawn {
+  _playerNode = [[PlayerNode alloc] initWithPlayer:self];
+  _playerNode.position = CGPointMake(RANDOM() * 500, RANDOM() * 500);
+
+  _state  = PlayerStateIdle;
+  _health = 100.0f;
+  _energy = 100.0f;
+
+  // Notify the world that the player spawned.
+  [_world playerDidSpawn:self];
+
+  NSLog(@"Player %@ spawned at (%f, %f).", [self.uuid UUIDString], self.position.x, self.position.y);
+}
+
 - (void)wasShotByPlayer:(Player *)player {
   // An entity can't shoot themselves.
   if (player == self) return;
@@ -200,20 +214,6 @@
     case PlayerStateTurning:   return @"turning";
     default:                   return @"dead";
   }
-}
-
-- (void)didSpawn {
-  _playerNode = [[PlayerNode alloc] initWithPlayer:self];
-  _playerNode.position = CGPointMake(RANDOM() * 500, RANDOM() * 500);
-
-  _state  = PlayerStateIdle;
-  _health = 100.0f;
-  _energy = 100.0f;
-
-  // Notify the world that the player spawned.
-  [_world playerDidSpawn:self];
-
-  NSLog(@"Player %@ spawned at (%f, %f).", [self.uuid UUIDString], self.position.x, self.position.y);
 }
 
 @end

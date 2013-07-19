@@ -79,6 +79,9 @@ typedef enum : uint8_t {
 // Rotates the player by the angle over the given duration.
 - (void)rotateByAngle:(CGFloat)angle duration:(NSTimeInterval)duration;
 
+// Called when the player spawns.
+- (void)didSpawn;
+
 // Called when the player was shot by another player.
 - (void)wasShotByPlayer:(Player *)player;
 
