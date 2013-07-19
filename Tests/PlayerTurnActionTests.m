@@ -1,5 +1,5 @@
 //
-//  PlayerTurnActionTest.m
+//  PlayerTurnActionTests.m
 //  Flatland
 //
 //  Created by Josh Bassett on 19/07/2013.
@@ -13,10 +13,10 @@
 #import "Player.h"
 #import "PlayerTurnAction.h"
 
-@interface PlayerTurnActionTest : XCTestCase
+@interface PlayerTurnActionTests : XCTestCase
 @end
 
-@implementation PlayerTurnActionTest {
+@implementation PlayerTurnActionTests {
   PlayerAction *_playerAction;
   id _player;
 }

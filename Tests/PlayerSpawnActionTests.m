@@ -1,5 +1,5 @@
 //
-//  PlayerSpawnActionTest.m
+//  PlayerSpawnActionTests.m
 //  Flatland
 //
 //  Created by Josh Bassett on 19/07/2013.
@@ -13,10 +13,10 @@
 #import "Player.h"
 #import "PlayerSpawnAction.h"
 
-@interface PlayerSpawnActionTest : XCTestCase
+@interface PlayerSpawnActionTests : XCTestCase
 @end
 
-@implementation PlayerSpawnActionTest {
+@implementation PlayerSpawnActionTests {
   PlayerAction *_playerAction;
   id _player;
 }

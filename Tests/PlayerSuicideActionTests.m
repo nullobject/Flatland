@@ -1,5 +1,5 @@
 //
-//  PlayerMoveActionTest.m
+//  PlayerSuicideActionTests.m
 //  Flatland
 //
 //  Created by Josh Bassett on 19/07/2013.
@@ -8,23 +8,23 @@
 
 #import <XCTest/XCTest.h>
 
+#import "GameError.h"
 #import "OCMock.h"
 #import "Player.h"
-#import "PlayerMoveAction.h"
+#import "PlayerSuicideAction.h"
 
-@interface PlayerMoveActionTest : XCTestCase
+@interface PlayerSuicideActionTests : XCTestCase
 @end
 
-@implementation PlayerMoveActionTest {
+@implementation PlayerSuicideActionTests {
   PlayerAction *_playerAction;
   id _player;
 }
 
 - (void)setUp {
   [super setUp];
-  NSDictionary *options = @{@"amount": [NSNumber numberWithFloat:0.5]};
   _player = [OCMockObject mockForClass:Player.class];
-  _playerAction = [[PlayerMoveAction alloc] initWithOptions:options];
+  _playerAction = [[PlayerSuicideAction alloc] initWithOptions:@{}];
 }
 
 - (void)tearDown {
@@ -34,12 +34,11 @@
 }
 
 - (void)testCost {
-  XCTAssertEquals(_playerAction.cost, (CGFloat)10);
+  XCTAssertEquals(_playerAction.cost, (CGFloat)0);
 }
 
 - (void)testApplyToPlayer {
-  [(Player *)[[_player stub] andReturnValue:[NSNumber numberWithDouble:0]] rotation];
-  [[_player expect] moveByX:0 y:50 duration:0.25];
+  [[_player expect] die];
   [_playerAction applyToPlayer:_player];
 }
 
@@ -50,15 +49,6 @@
   GameError *error;
   XCTAssert([_playerAction validateForPlayer:_player error:&error]);
   XCTAssertNil(error);
-}
-
-- (void)testValidateReturnsErrorWhenPlayerHasInsufficientEnergy {
-  [[[_player stub] andReturnValue:[NSNumber numberWithBool:YES]] isAlive];
-  [[[_player stub] andReturnValue:[NSNumber numberWithDouble:0]] energy];
-
-  GameError *error;
-  XCTAssertFalse([_playerAction validateForPlayer:_player error:&error]);
-  XCTAssertEquals(error.code, (NSInteger)GameErrorPlayerInsufficientEnergy);
 }
 
 - (void)testValidateReturnsErrorWhenPlayerIsDead {

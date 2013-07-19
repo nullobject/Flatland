@@ -40,13 +40,13 @@
 		03990F5617785B8100995DE2 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 03990F5517785B8100995DE2 /* Game.m */; };
 		03990F5D1778F9E300995DE2 /* RouteResponse+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 03990F5C1778F9E300995DE2 /* RouteResponse+JSON.m */; };
 		03A7F00A1793558800BFBDC3 /* NSDictionary+Point.m in Sources */ = {isa = PBXBuildFile; fileRef = 03A7F0091793558800BFBDC3 /* NSDictionary+Point.m */; };
-		03AA9D551799301D0027D973 /* PlayerMoveActionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 03AA9D541799301D0027D973 /* PlayerMoveActionTest.m */; };
-		03AA9D57179961C50027D973 /* PlayerTurnActionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 03AA9D56179961C50027D973 /* PlayerTurnActionTest.m */; };
+		03AA9D551799301D0027D973 /* PlayerMoveActionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 03AA9D541799301D0027D973 /* PlayerMoveActionTests.m */; };
+		03AA9D57179961C50027D973 /* PlayerTurnActionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 03AA9D56179961C50027D973 /* PlayerTurnActionTests.m */; };
 		03B24C4B1776CD0A00CF4BC2 /* Server.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B24C4A1776CD0A00CF4BC2 /* Server.m */; };
 		03B2CA5B177E628E00B0647C /* GameError.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B2CA5A177E628E00B0647C /* GameError.m */; };
 		03BC5D5A1779BBB20082ED48 /* HTTPAsyncDataResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 03BC5D591779BBB20082ED48 /* HTTPAsyncDataResponse.m */; };
-		03C9F1C7179963D600D32445 /* PlayerSpawnActionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 03C9F1C6179963D600D32445 /* PlayerSpawnActionTest.m */; };
-		03C9F1C917996AD000D32445 /* PlayerSuicideActionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 03C9F1C817996AD000D32445 /* PlayerSuicideActionTest.m */; };
+		03C9F1C7179963D600D32445 /* PlayerSpawnActionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 03C9F1C6179963D600D32445 /* PlayerSpawnActionTests.m */; };
+		03C9F1C917996AD000D32445 /* PlayerSuicideActionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 03C9F1C817996AD000D32445 /* PlayerSuicideActionTests.m */; };
 		6959997C6B4D45D9A7DBAE9A /* libPods-FlatlandTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DE6A9B8AD9A42E89C47796E /* libPods-FlatlandTests.a */; };
 		B89260BBFFA4476EAD0BB91A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 10914B562211409E8AB7E324 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -123,8 +123,8 @@
 		03990F5C1778F9E300995DE2 /* RouteResponse+JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RouteResponse+JSON.m"; sourceTree = "<group>"; };
 		03A7F0081793558800BFBDC3 /* NSDictionary+Point.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Point.h"; sourceTree = "<group>"; };
 		03A7F0091793558800BFBDC3 /* NSDictionary+Point.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Point.m"; sourceTree = "<group>"; };
-		03AA9D541799301D0027D973 /* PlayerMoveActionTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerMoveActionTest.m; sourceTree = "<group>"; };
-		03AA9D56179961C50027D973 /* PlayerTurnActionTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerTurnActionTest.m; sourceTree = "<group>"; };
+		03AA9D541799301D0027D973 /* PlayerMoveActionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerMoveActionTests.m; sourceTree = "<group>"; };
+		03AA9D56179961C50027D973 /* PlayerTurnActionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerTurnActionTests.m; sourceTree = "<group>"; };
 		03B24C491776CD0A00CF4BC2 /* Server.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Server.h; sourceTree = "<group>"; };
 		03B24C4A1776CD0A00CF4BC2 /* Server.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Server.m; sourceTree = "<group>"; };
 		03B2CA59177E628E00B0647C /* GameError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameError.h; sourceTree = "<group>"; };
@@ -132,8 +132,8 @@
 		03BC5D581779BBB20082ED48 /* HTTPAsyncDataResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPAsyncDataResponse.h; sourceTree = "<group>"; };
 		03BC5D591779BBB20082ED48 /* HTTPAsyncDataResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPAsyncDataResponse.m; sourceTree = "<group>"; };
 		03C8AAE9178A2AC700BFE953 /* Collidable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Collidable.h; sourceTree = "<group>"; };
-		03C9F1C6179963D600D32445 /* PlayerSpawnActionTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerSpawnActionTest.m; sourceTree = "<group>"; };
-		03C9F1C817996AD000D32445 /* PlayerSuicideActionTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerSuicideActionTest.m; sourceTree = "<group>"; };
+		03C9F1C6179963D600D32445 /* PlayerSpawnActionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerSpawnActionTests.m; sourceTree = "<group>"; };
+		03C9F1C817996AD000D32445 /* PlayerSuicideActionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerSuicideActionTests.m; sourceTree = "<group>"; };
 		0FD58F96B82A403C9724C438 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		10914B562211409E8AB7E324 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DE6A9B8AD9A42E89C47796E /* libPods-FlatlandTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FlatlandTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -342,10 +342,10 @@
 		03C9F1CA17996C3300D32445 /* Actions */ = {
 			isa = PBXGroup;
 			children = (
-				03AA9D541799301D0027D973 /* PlayerMoveActionTest.m */,
-				03AA9D56179961C50027D973 /* PlayerTurnActionTest.m */,
-				03C9F1C6179963D600D32445 /* PlayerSpawnActionTest.m */,
-				03C9F1C817996AD000D32445 /* PlayerSuicideActionTest.m */,
+				03AA9D541799301D0027D973 /* PlayerMoveActionTests.m */,
+				03AA9D56179961C50027D973 /* PlayerTurnActionTests.m */,
+				03C9F1C6179963D600D32445 /* PlayerSpawnActionTests.m */,
+				03C9F1C817996AD000D32445 /* PlayerSuicideActionTests.m */,
 			);
 			name = Actions;
 			sourceTree = "<group>";
@@ -546,10 +546,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				0316D9F41775570600FF40CF /* PlayerTests.m in Sources */,
-				03AA9D551799301D0027D973 /* PlayerMoveActionTest.m in Sources */,
-				03C9F1C917996AD000D32445 /* PlayerSuicideActionTest.m in Sources */,
-				03C9F1C7179963D600D32445 /* PlayerSpawnActionTest.m in Sources */,
-				03AA9D57179961C50027D973 /* PlayerTurnActionTest.m in Sources */,
+				03AA9D551799301D0027D973 /* PlayerMoveActionTests.m in Sources */,
+				03C9F1C917996AD000D32445 /* PlayerSuicideActionTests.m in Sources */,
+				03C9F1C7179963D600D32445 /* PlayerSpawnActionTests.m in Sources */,
+				03AA9D57179961C50027D973 /* PlayerTurnActionTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
