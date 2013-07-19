@@ -1,5 +1,5 @@
 //
-//  PlayerMoveActionTest.m
+//  PlayerTurnActionTest.m
 //  Flatland
 //
 //  Created by Josh Bassett on 19/07/2013.
@@ -8,14 +8,15 @@
 
 #import <XCTest/XCTest.h>
 
+#import "Core.h"
 #import "OCMock.h"
 #import "Player.h"
-#import "PlayerMoveAction.h"
+#import "PlayerTurnAction.h"
 
-@interface PlayerMoveActionTest : XCTestCase
+@interface PlayerTurnActionTest : XCTestCase
 @end
 
-@implementation PlayerMoveActionTest {
+@implementation PlayerTurnActionTest {
   PlayerAction *_playerAction;
   id _player;
 }
@@ -24,7 +25,7 @@
   [super setUp];
   NSDictionary *options = @{@"amount": [NSNumber numberWithFloat:0.5]};
   _player = [OCMockObject mockForClass:Player.class];
-  _playerAction = [[PlayerMoveAction alloc] initWithOptions:options];
+  _playerAction = [[PlayerTurnAction alloc] initWithOptions:options];
 }
 
 - (void)tearDown {
@@ -39,7 +40,7 @@
 
 - (void)testApplyToPlayer {
   [(Player *)[[_player stub] andReturnValue:[NSNumber numberWithDouble:0]] rotation];
-  [[_player expect] moveByX:0 y:50 duration:0.25];
+  [[_player expect] rotateByAngle:(M_TAU / 2) duration:0.5];
   [_playerAction applyToPlayer:_player];
 }
 

@@ -41,6 +41,7 @@
 		03990F5D1778F9E300995DE2 /* RouteResponse+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 03990F5C1778F9E300995DE2 /* RouteResponse+JSON.m */; };
 		03A7F00A1793558800BFBDC3 /* NSDictionary+Point.m in Sources */ = {isa = PBXBuildFile; fileRef = 03A7F0091793558800BFBDC3 /* NSDictionary+Point.m */; };
 		03AA9D551799301D0027D973 /* PlayerMoveActionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 03AA9D541799301D0027D973 /* PlayerMoveActionTest.m */; };
+		03AA9D57179961C50027D973 /* PlayerTurnActionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 03AA9D56179961C50027D973 /* PlayerTurnActionTest.m */; };
 		03B24C4B1776CD0A00CF4BC2 /* Server.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B24C4A1776CD0A00CF4BC2 /* Server.m */; };
 		03B2CA5B177E628E00B0647C /* GameError.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B2CA5A177E628E00B0647C /* GameError.m */; };
 		03BC5D5A1779BBB20082ED48 /* HTTPAsyncDataResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 03BC5D591779BBB20082ED48 /* HTTPAsyncDataResponse.m */; };
@@ -121,6 +122,7 @@
 		03A7F0081793558800BFBDC3 /* NSDictionary+Point.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Point.h"; sourceTree = "<group>"; };
 		03A7F0091793558800BFBDC3 /* NSDictionary+Point.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Point.m"; sourceTree = "<group>"; };
 		03AA9D541799301D0027D973 /* PlayerMoveActionTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerMoveActionTest.m; sourceTree = "<group>"; };
+		03AA9D56179961C50027D973 /* PlayerTurnActionTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerTurnActionTest.m; sourceTree = "<group>"; };
 		03B24C491776CD0A00CF4BC2 /* Server.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Server.h; sourceTree = "<group>"; };
 		03B24C4A1776CD0A00CF4BC2 /* Server.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Server.m; sourceTree = "<group>"; };
 		03B2CA59177E628E00B0647C /* GameError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameError.h; sourceTree = "<group>"; };
@@ -248,6 +250,7 @@
 				0316D9EE1775570600FF40CF /* Supporting Files */,
 				0316D9F31775570600FF40CF /* PlayerTests.m */,
 				03AA9D541799301D0027D973 /* PlayerMoveActionTest.m */,
+				03AA9D56179961C50027D973 /* PlayerTurnActionTest.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -530,6 +533,7 @@
 			files = (
 				0316D9F41775570600FF40CF /* PlayerTests.m in Sources */,
 				03AA9D551799301D0027D973 /* PlayerMoveActionTest.m in Sources */,
+				03AA9D57179961C50027D973 /* PlayerTurnActionTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
