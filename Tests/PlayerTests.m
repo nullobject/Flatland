@@ -229,7 +229,7 @@
   XCTAssertEquals(shooter.kills, (NSUInteger)1);
 }
 
-#pragma mark - Callbacks
+#pragma mark - Serializable
 
 - (void)testAsJSONIncludesId {
   id expected = @"910A0975-6EA9-4EA6-A40F-7D02FAC30F4F";
