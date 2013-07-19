@@ -36,8 +36,12 @@
 
 - (void)setUp {
   [super setUp];
+
+  NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:@"910A0975-6EA9-4EA6-A40F-7D02FAC30F4F"];
+
   _world = [OCMockObject mockForClass:World.class];
-  _player = [[Player alloc] initWithUUID:[NSUUID UUID]];
+
+  _player = [[Player alloc] initWithUUID:uuid];
   _player.world = _world;
   _player.state = PlayerStateIdle;
 }
@@ -227,6 +231,61 @@
 
 #pragma mark - Callbacks
 
+- (void)testAsJSONIncludesId {
+  id expected = @"910A0975-6EA9-4EA6-A40F-7D02FAC30F4F";
+  XCTAssertEqualObjects([[_player asJSON] objectForKey:@"id"], expected);
+}
 
+- (void)testAsJSONIncludesState {
+  id expected = @"idle";
+  XCTAssertEqualObjects([[_player asJSON] objectForKey:@"state"], expected);
+}
+
+- (void)testAsJSONIncludesAge {
+  id expected = [NSNumber numberWithUnsignedInteger:0];
+  XCTAssertEqualObjects([[_player asJSON] objectForKey:@"age"], expected);
+}
+
+- (void)testAsJSONIncludesHealth {
+  id expected = [NSNumber numberWithFloat:0];
+  XCTAssertEqualObjects([[_player asJSON] objectForKey:@"health"], expected);
+}
+
+- (void)testAsJSONIncludesEnergy {
+  id expected = [NSNumber numberWithFloat:0];
+  XCTAssertEqualObjects([[_player asJSON] objectForKey:@"energy"], expected);
+}
+
+- (void)testAsJSONIncludesDeaths {
+  id expected = [NSNumber numberWithUnsignedInteger:0];
+  XCTAssertEqualObjects([[_player asJSON] objectForKey:@"deaths"], expected);
+}
+
+- (void)testAsJSONIncludesKills {
+  id expected = [NSNumber numberWithUnsignedInteger:0];
+  XCTAssertEqualObjects([[_player asJSON] objectForKey:@"kills"], expected);
+}
+
+- (void)testAsJSONIncludesPosition {
+  id expected = @{@"x": [NSNumber numberWithFloat:0],
+                  @"y": [NSNumber numberWithFloat:0]};
+  XCTAssertEqualObjects([[_player asJSON] objectForKey:@"position"], expected);
+}
+
+- (void)testAsJSONIncludesRotation {
+  id expected = [NSNumber numberWithFloat:0];
+  XCTAssertEqualObjects([[_player asJSON] objectForKey:@"rotation"], expected);
+}
+
+- (void)testAsJSONIncludesVelocity {
+  id expected = @{@"x": [NSNumber numberWithFloat:0],
+                  @"y": [NSNumber numberWithFloat:0]};
+  XCTAssertEqualObjects([[_player asJSON] objectForKey:@"velocity"], expected);
+}
+
+- (void)testAsJSONIncludesAngularVelocity {
+  id expected = [NSNumber numberWithFloat:0];
+  XCTAssertEqualObjects([[_player asJSON] objectForKey:@"angularVelocity"], expected);
+}
 
 @end

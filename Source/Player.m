@@ -181,11 +181,11 @@
 - (NSDictionary *)asJSON {
   return @{@"id":              [_uuid UUIDString],
            @"state":           [Player playerStateAsString:_state],
-           @"deaths":          [NSNumber numberWithUnsignedInteger:_deaths],
-           @"kills":           [NSNumber numberWithUnsignedInteger:_kills],
            @"age":             [NSNumber numberWithUnsignedInteger:_age],
            @"energy":          [NSNumber numberWithFloat:_energy],
            @"health":          [NSNumber numberWithFloat:_health],
+           @"deaths":          [NSNumber numberWithUnsignedInteger:_deaths],
+           @"kills":           [NSNumber numberWithUnsignedInteger:_kills],
            @"position":        [NSDictionary dictionaryWithPoint:self.position],
            @"rotation":        [NSNumber numberWithFloat:self.rotation],
            @"velocity":        [NSDictionary dictionaryWithPoint:self.velocity],
