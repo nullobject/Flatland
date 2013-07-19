@@ -29,7 +29,7 @@
 
 - (BOOL)validateForPlayer:(Player *)player error:(GameError **)error {
   // Ensure the player is alive (unless it's a spawn action).
-  if (player.isDead && ![self isMemberOfClass:PlayerSpawnAction.class]) {
+  if (!player.isAlive && ![self isMemberOfClass:PlayerSpawnAction.class]) {
     *error = [[GameError alloc] initWithDomain:GameErrorDomain
                                           code:GameErrorPlayerNotSpawned
                                       userInfo:nil];

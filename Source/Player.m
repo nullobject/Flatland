@@ -94,10 +94,6 @@
   return (_state != PlayerStateDead && _state != PlayerStateSpawning);
 }
 
-- (BOOL)isDead {
-  return (_state == PlayerStateDead);
-}
-
 - (BOOL)isSpawning {
   return (_state == PlayerStateSpawning);
 }
@@ -111,7 +107,8 @@
 }
 
 - (void)spawn {
-  NSAssert(self.isDead, @"Player is alive");
+  NSAssert(!self.isAlive, @"Player is alive");
+  NSAssert(!self.isSpawning, @"Player is spawning");
   _state = PlayerStateSpawning;
   [NSTimer scheduledTimerWithTimeInterval:kSpawnDelay
                                    target:self

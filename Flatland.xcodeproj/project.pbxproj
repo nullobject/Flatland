@@ -45,6 +45,7 @@
 		03B24C4B1776CD0A00CF4BC2 /* Server.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B24C4A1776CD0A00CF4BC2 /* Server.m */; };
 		03B2CA5B177E628E00B0647C /* GameError.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B2CA5A177E628E00B0647C /* GameError.m */; };
 		03BC5D5A1779BBB20082ED48 /* HTTPAsyncDataResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 03BC5D591779BBB20082ED48 /* HTTPAsyncDataResponse.m */; };
+		03C9F1C7179963D600D32445 /* PlayerSpawnActionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 03C9F1C6179963D600D32445 /* PlayerSpawnActionTest.m */; };
 		6959997C6B4D45D9A7DBAE9A /* libPods-FlatlandTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DE6A9B8AD9A42E89C47796E /* libPods-FlatlandTests.a */; };
 		B89260BBFFA4476EAD0BB91A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 10914B562211409E8AB7E324 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -130,6 +131,7 @@
 		03BC5D581779BBB20082ED48 /* HTTPAsyncDataResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPAsyncDataResponse.h; sourceTree = "<group>"; };
 		03BC5D591779BBB20082ED48 /* HTTPAsyncDataResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPAsyncDataResponse.m; sourceTree = "<group>"; };
 		03C8AAE9178A2AC700BFE953 /* Collidable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Collidable.h; sourceTree = "<group>"; };
+		03C9F1C6179963D600D32445 /* PlayerSpawnActionTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerSpawnActionTest.m; sourceTree = "<group>"; };
 		0FD58F96B82A403C9724C438 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		10914B562211409E8AB7E324 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DE6A9B8AD9A42E89C47796E /* libPods-FlatlandTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FlatlandTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -251,6 +253,7 @@
 				0316D9F31775570600FF40CF /* PlayerTests.m */,
 				03AA9D541799301D0027D973 /* PlayerMoveActionTest.m */,
 				03AA9D56179961C50027D973 /* PlayerTurnActionTest.m */,
+				03C9F1C6179963D600D32445 /* PlayerSpawnActionTest.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -533,6 +536,7 @@
 			files = (
 				0316D9F41775570600FF40CF /* PlayerTests.m in Sources */,
 				03AA9D551799301D0027D973 /* PlayerMoveActionTest.m in Sources */,
+				03C9F1C7179963D600D32445 /* PlayerSpawnActionTest.m in Sources */,
 				03AA9D57179961C50027D973 /* PlayerTurnActionTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

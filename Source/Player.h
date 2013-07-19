@@ -50,7 +50,6 @@ typedef enum : uint8_t {
 @property (nonatomic, readonly) CGFloat     angularVelocity;
 
 @property (nonatomic, readonly) BOOL isAlive;
-@property (nonatomic, readonly) BOOL isDead;
 @property (nonatomic, readonly) BOOL isSpawning;
 
 // Initializes the player with the given UUID.
