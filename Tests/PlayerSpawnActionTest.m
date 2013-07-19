@@ -56,7 +56,7 @@
 
   GameError *error;
   XCTAssertFalse([_playerAction validateForPlayer:_player error:&error]);
-  XCTAssertNotNil(error);
+  XCTAssertEquals(error.code, (NSInteger)GameErrorPlayerAlreadySpawned);
 }
 
 @end

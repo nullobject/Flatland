@@ -43,4 +43,30 @@
   [_playerAction applyToPlayer:_player];
 }
 
+- (void)testValidateReturnsNoErrorWhenPlayerIsAlive {
+  [[[_player stub] andReturnValue:[NSNumber numberWithBool:YES]] isAlive];
+  [[[_player stub] andReturnValue:[NSNumber numberWithDouble:100]] energy];
+
+  GameError *error;
+  XCTAssert([_playerAction validateForPlayer:_player error:&error]);
+  XCTAssertNil(error);
+}
+
+- (void)testValidateReturnsErrorWhenPlayerHasInsufficientEnergy {
+  [[[_player stub] andReturnValue:[NSNumber numberWithBool:YES]] isAlive];
+  [[[_player stub] andReturnValue:[NSNumber numberWithDouble:0]] energy];
+
+  GameError *error;
+  XCTAssertFalse([_playerAction validateForPlayer:_player error:&error]);
+  XCTAssertEquals(error.code, (NSInteger)GameErrorPlayerInsufficientEnergy);
+}
+
+- (void)testValidateReturnsErrorWhenPlayerIsDead {
+  [[[_player stub] andReturnValue:[NSNumber numberWithBool:NO]] isAlive];
+
+  GameError *error;
+  XCTAssertFalse([_playerAction validateForPlayer:_player error:&error]);
+  XCTAssertEquals(error.code, (NSInteger)GameErrorPlayerNotSpawned);
+}
+
 @end
