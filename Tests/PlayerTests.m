@@ -62,7 +62,6 @@
 }
 
 - (void)testTickDefaultsToIdleAction {
-  _player.state = PlayerStateIdle;
   _player.energy = 90;
   [_player tick];
   XCTAssertEquals(_player.energy, (CGFloat)100);
@@ -84,7 +83,6 @@
 #pragma mark - Spawn
 
 - (void)testSpawnThrowsErrorWhenNotDead {
-  _player.state = PlayerStateIdle;
   XCTAssertThrows([_player spawn]);
 }
 
@@ -123,14 +121,12 @@
 
 - (void)testDieSetsState {
   [[_world stub] playerDidDie:_player];
-  _player.state = PlayerStateIdle;
   [_player die];
   XCTAssertEquals(_player.state, PlayerStateDead);
 }
 
 - (void)testDieIncrementsDeaths {
   [[_world stub] playerDidDie:_player];
-  _player.state = PlayerStateIdle;
   XCTAssertEquals(_player.deaths, (NSUInteger)0);
   [_player die];
   XCTAssertEquals(_player.deaths, (NSUInteger)1);
@@ -220,7 +216,6 @@
 - (void)testWasShotByPlayerIncrementsKillsIfPlayerDies {
   [[_world stub] playerDidDie:_player];
 
-  _player.state = PlayerStateIdle;
   _player.health = 10;
 
   Player *shooter = [[Player alloc] initWithUUID:[NSUUID UUID]];
