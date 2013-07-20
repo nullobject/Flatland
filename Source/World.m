@@ -13,6 +13,12 @@
 #import "PlayerAction.h"
 #import "World.h"
 
+@interface World ()
+
+@property (nonatomic) WorldNode *worldNode;
+
+@end
+
 @implementation World {
   NSMutableDictionary *_players;
 }
@@ -26,11 +32,6 @@
   return self;
 }
 
-- (BOOL)enqueueAction:(PlayerAction *)action forPlayer:(NSUUID *)uuid error:(GameError **)error {
-  Player *player = [self playerWithUUID:uuid];
-  return [player enqueueAction:action error:error];
-}
-
 - (void)tick {
   [_players enumerateKeysAndObjectsUsingBlock:^(NSUUID *uuid, Player *player, BOOL *stop) {
     [player tick];
@@ -38,6 +39,14 @@
 
   _age += 1;
 }
+
+- (BOOL)enqueueAction:(PlayerAction *)action forPlayer:(NSUUID *)uuid error:(GameError **)error {
+  Player *player = [self playerWithUUID:uuid];
+  return [player enqueueAction:action error:error];
+}
+
+
+#pragma mark - Callbacks
 
 - (void)playerDidSpawn:(Player *)player {
   NSLog(@"Added player node %@", player.playerNode.name);
@@ -51,7 +60,7 @@
 
 - (void)player:(Player *)player didShootBullet:(BulletNode *)bulletNode {
   NSLog(@"Added bullet node %@", bulletNode.name);
-  [_worldNode.scene addChild:bulletNode];
+  [_worldNode addChild:bulletNode];
 }
 
 #pragma mark - Serializable

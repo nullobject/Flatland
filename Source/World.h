@@ -11,7 +11,7 @@
 #import "Serializable.h"
 #import "WorldNode.h"
 
-@class BulletNode, Player;
+@class BulletNode, GameError, Player, PlayerAction;
 
 @interface World : NSObject <Serializable>
 
@@ -24,11 +24,11 @@
 // The age of the world in simulation iterations.
 @property (nonatomic) NSUInteger age;
 
-// Enqueues the action for the player with the given UUID.
-- (BOOL)enqueueAction:(PlayerAction *)action forPlayer:(NSUUID *)uuid error:(GameError **)error;
-
 // Ticks the world.
 - (void)tick;
+
+// Enqueues the action for the player with the given UUID.
+- (BOOL)enqueueAction:(PlayerAction *)action forPlayer:(NSUUID *)uuid error:(GameError **)error;
 
 // Called when a player spawns.
 - (void)playerDidSpawn:(Player *)player;
