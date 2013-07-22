@@ -1,0 +1,12 @@
+//
+//  FlatlandTests-Prefix.pch
+//  Flatland
+//
+//  Created by Josh Bassett on 29/07/2013.
+//  Copyright (c) 2013 Gamedogs. All rights reserved.
+//
+
+#import <Cocoa/Cocoa.h>
+
+#define EXP_SHORTHAND
+#import "Expecta.h"

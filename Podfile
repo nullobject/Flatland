@@ -1,8 +1,12 @@
 inhibit_all_warnings!
 
-pod 'CocoaHTTPServer'
-pod 'RoutingHTTPServer'
+target 'Flatland' do
+  pod 'CocoaHTTPServer'
+  pod 'RoutingHTTPServer'
+end
 
-target 'FlatlandTests', exclusive: true do
+target 'FlatlandTests' do
+  pod 'AFNetworking'
+  pod 'Expecta'
   pod 'OCMock'
 end

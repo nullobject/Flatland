@@ -9,9 +9,7 @@
 #import "AppDelegate.h"
 #import "Game.h"
 
-@implementation AppDelegate {
-  Game *_game;
-}
+@implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
   _game = [[Game alloc] init];

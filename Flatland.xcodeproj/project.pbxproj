@@ -50,8 +50,9 @@
 		03C9F1CC17996F2800D32445 /* PlayerAttackActionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 03C9F1CB17996F2800D32445 /* PlayerAttackActionTests.m */; };
 		03C9F1CE17996F3600D32445 /* PlayerIdleActionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 03C9F1CD17996F3600D32445 /* PlayerIdleActionTests.m */; };
 		03C9F1D0179A5EAD00D32445 /* WorldTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 03C9F1CF179A5EAD00D32445 /* WorldTests.m */; };
+		03E69F4D179D364C006AD0B1 /* ServerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 03E69F4C179D364C006AD0B1 /* ServerTests.m */; };
+		4A9F5AAA129542C3B7F1F37B /* libPods-Flatland.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A129B57E39648798D06B5B4 /* libPods-Flatland.a */; };
 		6959997C6B4D45D9A7DBAE9A /* libPods-FlatlandTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DE6A9B8AD9A42E89C47796E /* libPods-FlatlandTests.a */; };
-		B89260BBFFA4476EAD0BB91A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 10914B562211409E8AB7E324 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		02BE33349C1248EFB847A04A /* Pods-Flatland.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flatland.xcconfig"; path = "Pods/Pods-Flatland.xcconfig"; sourceTree = SOURCE_ROOT; };
 		0316D9C01775570600FF40CF /* Flatland.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flatland.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0316D9C31775570600FF40CF /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		0316D9C51775570600FF40CF /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
@@ -140,8 +142,10 @@
 		03C9F1CB17996F2800D32445 /* PlayerAttackActionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerAttackActionTests.m; sourceTree = "<group>"; };
 		03C9F1CD17996F3600D32445 /* PlayerIdleActionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerIdleActionTests.m; sourceTree = "<group>"; };
 		03C9F1CF179A5EAD00D32445 /* WorldTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorldTests.m; sourceTree = "<group>"; };
-		0FD58F96B82A403C9724C438 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		03E156FE17A5FE5700CCA3ED /* FlatlandTests-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FlatlandTests-Prefix.pch"; sourceTree = "<group>"; };
+		03E69F4C179D364C006AD0B1 /* ServerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerTests.m; sourceTree = "<group>"; };
 		10914B562211409E8AB7E324 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A129B57E39648798D06B5B4 /* libPods-Flatland.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Flatland.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DE6A9B8AD9A42E89C47796E /* libPods-FlatlandTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FlatlandTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD07F0D6853F443791EC3D8D /* Pods-FlatlandTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlatlandTests.xcconfig"; path = "Pods/Pods-FlatlandTests.xcconfig"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -153,7 +157,7 @@
 			files = (
 				0316D9C61775570600FF40CF /* SpriteKit.framework in Frameworks */,
 				0316D9C41775570600FF40CF /* Cocoa.framework in Frameworks */,
-				B89260BBFFA4476EAD0BB91A /* libPods.a in Frameworks */,
+				4A9F5AAA129542C3B7F1F37B /* libPods-Flatland.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,7 +181,7 @@
 				0316D9ED1775570600FF40CF /* Tests */,
 				0316D9C21775570600FF40CF /* Frameworks */,
 				0316D9C11775570600FF40CF /* Products */,
-				0FD58F96B82A403C9724C438 /* Pods.xcconfig */,
+				02BE33349C1248EFB847A04A /* Pods-Flatland.xcconfig */,
 				FD07F0D6853F443791EC3D8D /* Pods-FlatlandTests.xcconfig */,
 			);
 			sourceTree = "<group>";
@@ -200,6 +204,7 @@
 				0316D9C71775570600FF40CF /* Other Frameworks */,
 				10914B562211409E8AB7E324 /* libPods.a */,
 				8DE6A9B8AD9A42E89C47796E /* libPods-FlatlandTests.a */,
+				6A129B57E39648798D06B5B4 /* libPods-Flatland.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -260,6 +265,7 @@
 				0316D9EE1775570600FF40CF /* Supporting Files */,
 				03C9F1CA17996C3300D32445 /* Actions */,
 				0316D9F31775570600FF40CF /* PlayerTests.m */,
+				03E69F4C179D364C006AD0B1 /* ServerTests.m */,
 				03C9F1CF179A5EAD00D32445 /* WorldTests.m */,
 			);
 			path = Tests;
@@ -269,6 +275,7 @@
 			isa = PBXGroup;
 			children = (
 				0316D9EF1775570600FF40CF /* FlatlandTests-Info.plist */,
+				03E156FE17A5FE5700CCA3ED /* FlatlandTests-Prefix.pch */,
 				0316D9F01775570600FF40CF /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -486,7 +493,8 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Pods-Flatland-resources.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		7809545AF59D4F87A576EC39 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -559,6 +567,7 @@
 				03C9F1D0179A5EAD00D32445 /* WorldTests.m in Sources */,
 				03AA9D551799301D0027D973 /* PlayerMoveActionTests.m in Sources */,
 				03C9F1CC17996F2800D32445 /* PlayerAttackActionTests.m in Sources */,
+				03E69F4D179D364C006AD0B1 /* ServerTests.m in Sources */,
 				03C9F1C917996AD000D32445 /* PlayerSuicideActionTests.m in Sources */,
 				03C9F1C7179963D600D32445 /* PlayerSpawnActionTests.m in Sources */,
 				03AA9D57179961C50027D973 /* PlayerTurnActionTests.m in Sources */,
@@ -683,7 +692,7 @@
 		};
 		0316D9F81775570600FF40CF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0FD58F96B82A403C9724C438 /* Pods.xcconfig */;
+			baseConfigurationReference = 02BE33349C1248EFB847A04A /* Pods-Flatland.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -699,7 +708,7 @@
 		};
 		0316D9F91775570600FF40CF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0FD58F96B82A403C9724C438 /* Pods.xcconfig */;
+			baseConfigurationReference = 02BE33349C1248EFB847A04A /* Pods-Flatland.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -724,7 +733,7 @@
 					"$(inherited)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Source/Flatland-Prefix.pch";
+				GCC_PREFIX_HEADER = "Tests/FlatlandTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -747,7 +756,7 @@
 					"$(inherited)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Source/Flatland-Prefix.pch";
+				GCC_PREFIX_HEADER = "Tests/FlatlandTests-Prefix.pch";
 				INFOPLIST_FILE = "Tests/FlatlandTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
