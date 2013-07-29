@@ -8,6 +8,7 @@
 
 #import "BulletNode.h"
 #import "Core.h"
+#import "GCDTimer.h"
 #import "NSDictionary+Point.h"
 #import "Player.h"
 #import "PlayerIdleAction.h"
@@ -109,12 +110,13 @@
 - (void)spawn {
   NSAssert(!self.isAlive, @"Player is alive");
   NSAssert(!self.isSpawning, @"Player is spawning");
+
   _state = PlayerStateSpawning;
-  [NSTimer scheduledTimerWithTimeInterval:kSpawnDelay
-                                   target:self
-                                 selector:@selector(didSpawn)
-                                 userInfo:nil
-                                  repeats:NO];
+
+  GCDTimer *timer = [GCDTimer timerOnMainQueue];
+  [timer scheduleBlock:^{
+    [self didSpawn];
+  } afterInterval:kSpawnDelay];
 }
 
 - (void)die {
