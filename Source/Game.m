@@ -12,6 +12,7 @@
 
 @implementation Game {
   Server *_server;
+  dispatch_source_t _timer;
 }
 
 - (id)init {
@@ -33,6 +34,8 @@
 }
 
 - (void)tick {
+  NSLog(@"Game#tick");
+
   [_world tick];
 
   [_world.players enumerateKeysAndObjectsUsingBlock:^(NSUUID *uuid, Player *player, BOOL *stop) {
@@ -70,12 +73,24 @@
   [_battleScene addChild:_world.worldNode];
 }
 
+dispatch_source_t CreateDispatchTimer(uint64_t interval,
+                                      uint64_t leeway,
+                                      dispatch_queue_t queue,
+                                      dispatch_block_t block) {
+  dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+
+  if (timer) {
+    dispatch_source_set_timer(timer, dispatch_walltime(NULL, 0), interval, leeway);
+    dispatch_source_set_event_handler(timer, block);
+    dispatch_resume(timer);
+  }
+
+  return timer;
+}
+
 - (void)startTimer {
-  [NSTimer scheduledTimerWithTimeInterval:1
-                                   target:self
-                                 selector:@selector(tick)
-                                 userInfo:nil
-                                  repeats:YES];
+  dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+  _timer = CreateDispatchTimer(1ull * NSEC_PER_SEC, 5000ull, queue, ^{ [self tick]; });
 }
 
 @end
