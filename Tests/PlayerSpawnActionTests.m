@@ -44,6 +44,7 @@
 
 - (void)testValidateReturnsNoErrorWhenPlayerIsDead {
   [[[_player stub] andReturnValue:[NSNumber numberWithBool:NO]] isAlive];
+  [[[_player stub] andReturnValue:[NSNumber numberWithBool:NO]] isSpawning];
 
   GameError *error;
   XCTAssert([_playerAction validateForPlayer:_player error:&error]);
@@ -52,10 +53,20 @@
 
 - (void)testValidateReturnsErrorWhenPlayerIsAlive {
   [[[_player stub] andReturnValue:[NSNumber numberWithBool:YES]] isAlive];
+  [[[_player stub] andReturnValue:[NSNumber numberWithBool:NO ]] isSpawning];
 
   GameError *error;
   XCTAssertFalse([_playerAction validateForPlayer:_player error:&error]);
   XCTAssertEquals(error.code, (NSInteger)GameErrorPlayerAlreadySpawned);
+}
+
+- (void)testValidateReturnsErrorWhenPlayerIsSpawning {
+  [[[_player stub] andReturnValue:[NSNumber numberWithBool:NO ]] isAlive];
+  [[[_player stub] andReturnValue:[NSNumber numberWithBool:YES]] isSpawning];
+
+  GameError *error;
+  XCTAssertFalse([_playerAction validateForPlayer:_player error:&error]);
+  XCTAssertEquals(error.code, (NSInteger)GameErrorPlayerAlreadySpawning);
 }
 
 @end

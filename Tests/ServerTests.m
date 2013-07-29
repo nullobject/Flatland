@@ -41,13 +41,11 @@ NSString * const kRootURL = @"http://localhost:8000";
   [operation start];
   [operation waitUntilFinished];
 
-  expect(operation.error).to.beNil();
-
   return operation.responseJSON;
 }
 
-- (void)testSpawningPlayer {
-  NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:@"910A0975-6EA9-4EA6-A40F-7D02FAC30F4F"];
+- (void)testSpawningADeadPlayer {
+  NSUUID *uuid = [NSUUID UUID];
   id response = [self doAction:@"/action/spawn" forPlayer:uuid];
   id players = [response objectForKey:@"players"];
 
@@ -56,16 +54,13 @@ NSString * const kRootURL = @"http://localhost:8000";
   expect([players[0] objectForKey:@"state"]).to.equal(@"spawning");
 }
 
-//- (void)testRespawningPlayer {
-//  NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:@"910A0975-6EA9-4EA6-A40F-7D02FAC30F4F"];
-//
-//  [self doAction:@"/action/spawn" forPlayer:uuid];
-//  id response = [self doAction:@"/action/spawn" forPlayer:uuid];
-//  id players = [response objectForKey:@"players"];
-//
-//  expect([response objectForKey:@"age"]).to.equal([NSNumber numberWithUnsignedInteger:1]);
-//  expect([players[0] objectForKey:@"id"]).to.equal([uuid UUIDString]);
-//  expect([players[0] objectForKey:@"state"]).to.equal(@"spawning");
-//}
+- (void)testSpawningASpawningPlayer {
+  NSUUID *uuid = [NSUUID UUID];
+  [self doAction:@"/action/spawn" forPlayer:uuid];
+  id response = [self doAction:@"/action/spawn" forPlayer:uuid];
+
+  expect([response objectForKey:@"code"]).to.equal(5);
+  expect([response objectForKey:@"error"]).to.equal(@"Player is already spawning");
+}
 
 @end

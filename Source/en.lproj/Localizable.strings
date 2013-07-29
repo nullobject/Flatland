@@ -12,4 +12,5 @@
 "GameErrorOptionsInvalid"           = "Invalid options";
 "GameErrorPlayerNotSpawned"         = "Player has not spawned";
 "GameErrorPlayerAlreadySpawned"     = "Player has already spawned";
+"GameErrorPlayerAlreadySpawning"    = "Player is already spawning";
 "GameErrorPlayerInsufficientEnergy" = "Player has insufficient energy";

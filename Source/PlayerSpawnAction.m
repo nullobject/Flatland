@@ -23,6 +23,13 @@
     return NO;
   }
 
+  if (player.isSpawning) {
+    *error = [[GameError alloc] initWithDomain:GameErrorDomain
+                                          code:GameErrorPlayerAlreadySpawning
+                                      userInfo:nil];
+    return NO;
+  }
+
   return [super validateForPlayer:player error:error];
 }
 
