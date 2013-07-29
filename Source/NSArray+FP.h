@@ -21,4 +21,7 @@ typedef id(^MapBlock)(id);
 // Returns the array with the first element removed.
 - (NSArray *)tail;
 
+// Returns the element matching the predicate.
+- (id)find:(BOOL (^)(id object, NSUInteger index, BOOL *stop))predicate;
+
 @end

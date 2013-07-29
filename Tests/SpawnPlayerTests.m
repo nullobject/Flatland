@@ -10,6 +10,7 @@
 
 #import "AppDelegate.h"
 #import "AFNetworking.h"
+#import "NSArray+FP.h"
 #import "Server.h"
 
 NSString * const kRootURL = @"http://localhost:8000";
@@ -31,7 +32,9 @@ NSString * const kRootURL = @"http://localhost:8000";
 - (void)testSpawnPlayer {
   NSUUID *uuid = [NSUUID UUID];
   NSDictionary *response = [self doAction:@"/action/spawn" forPlayer:uuid];
-  NSDictionary *player = [self playerWithUUID:uuid fromResponse:response];
+  NSDictionary *player = [[response objectForKey:@"players"] find:^BOOL(id player, NSUInteger index, BOOL *stop) {
+    return [[uuid UUIDString] isEqualToString:[player objectForKey:@"id"]];
+  }];
 
   expect([response objectForKey:@"age"]).to.beGreaterThan(0);
   expect(player).toNot.beNil;
@@ -41,7 +44,9 @@ NSString * const kRootURL = @"http://localhost:8000";
   [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:3]];
 
   response = [self doAction:@"/action/idle" forPlayer:uuid];
-  player = [self playerWithUUID:uuid fromResponse:response];
+  player = [[response objectForKey:@"players"] find:^BOOL(id player, NSUInteger index, BOOL *stop) {
+    return [[uuid UUIDString] isEqualToString:[player objectForKey:@"id"]];
+  }];
 
   expect([response objectForKey:@"age"]).to.beGreaterThan(0);
   expect(player).toNot.beNil;
@@ -72,19 +77,6 @@ NSString * const kRootURL = @"http://localhost:8000";
   [operation waitUntilFinished];
 
   return operation.responseJSON;
-}
-
-- (NSDictionary *)playerWithUUID:(NSUUID *)uuid fromResponse:(NSDictionary *)response {
-  NSArray *players = [response objectForKey:@"players"];
-
-  NSUInteger index = [players indexOfObjectPassingTest:^BOOL(id player, NSUInteger index, BOOL *stop) {
-    return [[uuid UUIDString] isEqualToString:[player objectForKey:@"id"]];
-  }];
-
-  if (index != NSNotFound)
-    return players[index];
-  else
-    return nil;
 }
 
 @end

@@ -29,4 +29,13 @@
   return [self subarrayWithRange:tailRange];
 }
 
+- (id)find:(BOOL (^)(id object, NSUInteger index, BOOL *stop))predicate {
+  NSUInteger index = [self indexOfObjectPassingTest:predicate];
+
+  if (index != NSNotFound)
+    return [self objectAtIndex:index];
+  else
+    return nil;
+}
+
 @end
