@@ -5,8 +5,15 @@ target 'Flatland' do
   pod 'RoutingHTTPServer'
 end
 
-target 'FlatlandTests' do
+target 'AcceptanceTests' do
   pod 'AFNetworking'
   pod 'Expecta'
   pod 'OCMock'
+end
+
+target 'UnitTests' do
+  pod 'CocoaHTTPServer'
+  pod 'Expecta'
+  pod 'OCMock'
+  pod 'RoutingHTTPServer'
 end

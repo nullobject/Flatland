@@ -7,6 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0302A9BC17A61CC5005F3198 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0316D9C31775570600FF40CF /* Cocoa.framework */; };
+		0302A9BD17A61CC5005F3198 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0316D9E81775570600FF40CF /* XCTest.framework */; };
+		0302A9C017A61CC5005F3198 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0316D9F01775570600FF40CF /* InfoPlist.strings */; };
+		0302A9C817A61E9E005F3198 /* ServerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 03E69F4C179D364C006AD0B1 /* ServerTests.m */; };
+		0302A9CB17A6257E005F3198 /* PlayerAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 036A136E1782EE9E00D3431F /* PlayerAction.m */; };
+		0302A9CC17A62583005F3198 /* World.m in Sources */ = {isa = PBXBuildFile; fileRef = 037F66811793F5CB00BB5661 /* World.m */; };
+		0302A9CD17A62592005F3198 /* PlayerAttackAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 0334F3DC17960BBB007EFCCF /* PlayerAttackAction.m */; };
+		0302A9CE17A62592005F3198 /* PlayerIdleAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 0334F3D317960B92007EFCCF /* PlayerIdleAction.m */; };
+		0302A9CF17A62592005F3198 /* PlayerMoveAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 0334F3D617960BA0007EFCCF /* PlayerMoveAction.m */; };
+		0302A9D017A62592005F3198 /* PlayerSpawnAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 0334F3CD17960B43007EFCCF /* PlayerSpawnAction.m */; };
+		0302A9D117A62592005F3198 /* PlayerSuicideAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 0334F3D017960B84007EFCCF /* PlayerSuicideAction.m */; };
+		0302A9D217A62592005F3198 /* PlayerTurnAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 0334F3D917960BAE007EFCCF /* PlayerTurnAction.m */; };
+		0302A9D317A625A5005F3198 /* GameError.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B2CA5A177E628E00B0647C /* GameError.m */; };
+		0302A9D417A625B9005F3198 /* BattleScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 0316D9D91775570600FF40CF /* BattleScene.m */; };
+		0302A9D517A625B9005F3198 /* BulletNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 03222AB91784D220007478AA /* BulletNode.m */; };
+		0302A9D617A625B9005F3198 /* PlayerNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0316DA0117767ED700FF40CF /* PlayerNode.m */; };
+		0302A9D717A625B9005F3198 /* WorldNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 037F66841793F64000BB5661 /* WorldNode.m */; };
+		0302A9D817A625C6005F3198 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 0316DA07177692E300FF40CF /* Player.m */; };
+		0302A9D917A625EA005F3198 /* NSArray+FP.m in Sources */ = {isa = PBXBuildFile; fileRef = 0316DA0417768A3100FF40CF /* NSArray+FP.m */; };
+		0302A9DA17A625EC005F3198 /* NSDictionary+Point.m in Sources */ = {isa = PBXBuildFile; fileRef = 03A7F0091793558800BFBDC3 /* NSDictionary+Point.m */; };
+		0302A9DB17A62633005F3198 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0302A9C917A62398005F3198 /* SystemConfiguration.framework */; };
+		0302A9DC17A62718005F3198 /* SKColor+Relative.m in Sources */ = {isa = PBXBuildFile; fileRef = 0316DA0C1776A43200FF40CF /* SKColor+Relative.m */; };
+		0302A9DD17A62728005F3198 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 03990F5517785B8100995DE2 /* Game.m */; };
+		0302A9DE17A62732005F3198 /* Server.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B24C4A1776CD0A00CF4BC2 /* Server.m */; };
+		0302A9DF17A6273C005F3198 /* RouteResponse+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 03990F5C1778F9E300995DE2 /* RouteResponse+JSON.m */; };
+		0302A9E017A62745005F3198 /* HTTPAsyncDataResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 03BC5D591779BBB20082ED48 /* HTTPAsyncDataResponse.m */; };
 		0316D9C41775570600FF40CF /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0316D9C31775570600FF40CF /* Cocoa.framework */; };
 		0316D9C61775570600FF40CF /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0316D9C51775570600FF40CF /* SpriteKit.framework */; };
 		0316D9D01775570600FF40CF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0316D9CE1775570600FF40CF /* InfoPlist.strings */; };
@@ -50,12 +76,19 @@
 		03C9F1CC17996F2800D32445 /* PlayerAttackActionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 03C9F1CB17996F2800D32445 /* PlayerAttackActionTests.m */; };
 		03C9F1CE17996F3600D32445 /* PlayerIdleActionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 03C9F1CD17996F3600D32445 /* PlayerIdleActionTests.m */; };
 		03C9F1D0179A5EAD00D32445 /* WorldTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 03C9F1CF179A5EAD00D32445 /* WorldTests.m */; };
-		03E69F4D179D364C006AD0B1 /* ServerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 03E69F4C179D364C006AD0B1 /* ServerTests.m */; };
 		4A9F5AAA129542C3B7F1F37B /* libPods-Flatland.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A129B57E39648798D06B5B4 /* libPods-Flatland.a */; };
-		6959997C6B4D45D9A7DBAE9A /* libPods-FlatlandTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DE6A9B8AD9A42E89C47796E /* libPods-FlatlandTests.a */; };
+		6150E03C62F848CBABE520B2 /* libPods-UnitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F584925851464A7B971A5D1D /* libPods-UnitTests.a */; };
+		65620AF760C1420EA1C4DE02 /* libPods-AcceptanceTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B871A57F81940729D49635C /* libPods-AcceptanceTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		0302A9AF17A61CC5005F3198 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0316D9B81775570600FF40CF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0316D9BF1775570600FF40CF;
+			remoteInfo = Flatland;
+		};
 		0316D9EB1775570600FF40CF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0316D9B81775570600FF40CF /* Project object */;
@@ -67,6 +100,9 @@
 
 /* Begin PBXFileReference section */
 		02BE33349C1248EFB847A04A /* Pods-Flatland.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flatland.xcconfig"; path = "Pods/Pods-Flatland.xcconfig"; sourceTree = SOURCE_ROOT; };
+		0302A9C517A61CC5005F3198 /* AcceptanceTests.xctest */ = {isa = PBXFileReference; explicitFileType = folder; includeInIndex = 0; path = AcceptanceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0302A9C717A61E27005F3198 /* AcceptanceTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AcceptanceTests-Info.plist"; sourceTree = "<group>"; };
+		0302A9C917A62398005F3198 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		0316D9C01775570600FF40CF /* Flatland.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flatland.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0316D9C31775570600FF40CF /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		0316D9C51775570600FF40CF /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
@@ -84,9 +120,9 @@
 		0316D9DC1775570600FF40CF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		0316D9DE1775570600FF40CF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0316D9E11775570600FF40CF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		0316D9E71775570600FF40CF /* FlatlandTests.xctest */ = {isa = PBXFileReference; explicitFileType = folder; includeInIndex = 0; path = FlatlandTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0316D9E71775570600FF40CF /* UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = folder; includeInIndex = 0; path = UnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0316D9E81775570600FF40CF /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		0316D9EF1775570600FF40CF /* FlatlandTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FlatlandTests-Info.plist"; sourceTree = "<group>"; };
+		0316D9EF1775570600FF40CF /* UnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
 		0316D9F11775570600FF40CF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0316D9F31775570600FF40CF /* PlayerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayerTests.m; sourceTree = "<group>"; };
 		0316DA0017767ED700FF40CF /* PlayerNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerNode.h; sourceTree = "<group>"; };
@@ -142,15 +178,29 @@
 		03C9F1CB17996F2800D32445 /* PlayerAttackActionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerAttackActionTests.m; sourceTree = "<group>"; };
 		03C9F1CD17996F3600D32445 /* PlayerIdleActionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerIdleActionTests.m; sourceTree = "<group>"; };
 		03C9F1CF179A5EAD00D32445 /* WorldTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorldTests.m; sourceTree = "<group>"; };
-		03E156FE17A5FE5700CCA3ED /* FlatlandTests-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FlatlandTests-Prefix.pch"; sourceTree = "<group>"; };
+		03E156FE17A5FE5700CCA3ED /* Tests-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		03E69F4C179D364C006AD0B1 /* ServerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerTests.m; sourceTree = "<group>"; };
 		10914B562211409E8AB7E324 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2B871A57F81940729D49635C /* libPods-AcceptanceTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AcceptanceTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3B1FFE0F6EE54488902F2FC4 /* Pods-UnitTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitTests.xcconfig"; path = "Pods/Pods-UnitTests.xcconfig"; sourceTree = SOURCE_ROOT; };
 		6A129B57E39648798D06B5B4 /* libPods-Flatland.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Flatland.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DE6A9B8AD9A42E89C47796E /* libPods-FlatlandTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FlatlandTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		FD07F0D6853F443791EC3D8D /* Pods-FlatlandTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlatlandTests.xcconfig"; path = "Pods/Pods-FlatlandTests.xcconfig"; sourceTree = SOURCE_ROOT; };
+		F30393ABFB40416688DAF10E /* Pods-AcceptanceTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AcceptanceTests.xcconfig"; path = "Pods/Pods-AcceptanceTests.xcconfig"; sourceTree = SOURCE_ROOT; };
+		F584925851464A7B971A5D1D /* libPods-UnitTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-UnitTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0302A9BB17A61CC5005F3198 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0302A9BC17A61CC5005F3198 /* Cocoa.framework in Frameworks */,
+				0302A9DB17A62633005F3198 /* SystemConfiguration.framework in Frameworks */,
+				0302A9BD17A61CC5005F3198 /* XCTest.framework in Frameworks */,
+				65620AF760C1420EA1C4DE02 /* libPods-AcceptanceTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0316D9BD1775570600FF40CF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -167,13 +217,31 @@
 			files = (
 				0316D9EA1775570600FF40CF /* Cocoa.framework in Frameworks */,
 				0316D9E91775570600FF40CF /* XCTest.framework in Frameworks */,
-				6959997C6B4D45D9A7DBAE9A /* libPods-FlatlandTests.a in Frameworks */,
+				6150E03C62F848CBABE520B2 /* libPods-UnitTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0302A9E117A62766005F3198 /* Acceptance Tests */ = {
+			isa = PBXGroup;
+			children = (
+				03E69F4C179D364C006AD0B1 /* ServerTests.m */,
+			);
+			name = "Acceptance Tests";
+			sourceTree = "<group>";
+		};
+		0302A9E217A6277B005F3198 /* Unit Tests */ = {
+			isa = PBXGroup;
+			children = (
+				03C9F1CA17996C3300D32445 /* Actions */,
+				0316D9F31775570600FF40CF /* PlayerTests.m */,
+				03C9F1CF179A5EAD00D32445 /* WorldTests.m */,
+			);
+			name = "Unit Tests";
+			sourceTree = "<group>";
+		};
 		0316D9B71775570600FF40CF = {
 			isa = PBXGroup;
 			children = (
@@ -182,7 +250,8 @@
 				0316D9C21775570600FF40CF /* Frameworks */,
 				0316D9C11775570600FF40CF /* Products */,
 				02BE33349C1248EFB847A04A /* Pods-Flatland.xcconfig */,
-				FD07F0D6853F443791EC3D8D /* Pods-FlatlandTests.xcconfig */,
+				3B1FFE0F6EE54488902F2FC4 /* Pods-UnitTests.xcconfig */,
+				F30393ABFB40416688DAF10E /* Pods-AcceptanceTests.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -190,7 +259,8 @@
 			isa = PBXGroup;
 			children = (
 				0316D9C01775570600FF40CF /* Flatland.app */,
-				0316D9E71775570600FF40CF /* FlatlandTests.xctest */,
+				0316D9E71775570600FF40CF /* UnitTests.xctest */,
+				0302A9C517A61CC5005F3198 /* AcceptanceTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -198,6 +268,7 @@
 		0316D9C21775570600FF40CF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0302A9C917A62398005F3198 /* SystemConfiguration.framework */,
 				0316D9C31775570600FF40CF /* Cocoa.framework */,
 				0316D9C51775570600FF40CF /* SpriteKit.framework */,
 				0316D9E81775570600FF40CF /* XCTest.framework */,
@@ -205,6 +276,8 @@
 				10914B562211409E8AB7E324 /* libPods.a */,
 				8DE6A9B8AD9A42E89C47796E /* libPods-FlatlandTests.a */,
 				6A129B57E39648798D06B5B4 /* libPods-Flatland.a */,
+				2B871A57F81940729D49635C /* libPods-AcceptanceTests.a */,
+				F584925851464A7B971A5D1D /* libPods-UnitTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -263,10 +336,8 @@
 			isa = PBXGroup;
 			children = (
 				0316D9EE1775570600FF40CF /* Supporting Files */,
-				03C9F1CA17996C3300D32445 /* Actions */,
-				0316D9F31775570600FF40CF /* PlayerTests.m */,
-				03E69F4C179D364C006AD0B1 /* ServerTests.m */,
-				03C9F1CF179A5EAD00D32445 /* WorldTests.m */,
+				0302A9E217A6277B005F3198 /* Unit Tests */,
+				0302A9E117A62766005F3198 /* Acceptance Tests */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -274,9 +345,10 @@
 		0316D9EE1775570600FF40CF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				0316D9EF1775570600FF40CF /* FlatlandTests-Info.plist */,
-				03E156FE17A5FE5700CCA3ED /* FlatlandTests-Prefix.pch */,
+				0302A9C717A61E27005F3198 /* AcceptanceTests-Info.plist */,
 				0316D9F01775570600FF40CF /* InfoPlist.strings */,
+				03E156FE17A5FE5700CCA3ED /* Tests-Prefix.pch */,
+				0316D9EF1775570600FF40CF /* UnitTests-Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -369,6 +441,26 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		0302A9AD17A61CC5005F3198 /* AcceptanceTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0302A9C217A61CC5005F3198 /* Build configuration list for PBXNativeTarget "AcceptanceTests" */;
+			buildPhases = (
+				0302A9B017A61CC5005F3198 /* Check Pods Manifest.lock */,
+				0302A9B117A61CC5005F3198 /* Sources */,
+				0302A9BB17A61CC5005F3198 /* Frameworks */,
+				0302A9BF17A61CC5005F3198 /* Resources */,
+				0302A9C117A61CC5005F3198 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0302A9AE17A61CC5005F3198 /* PBXTargetDependency */,
+			);
+			name = AcceptanceTests;
+			productName = FlatlandTests;
+			productReference = 0302A9C517A61CC5005F3198 /* AcceptanceTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		0316D9BF1775570600FF40CF /* Flatland */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0316D9F71775570600FF40CF /* Build configuration list for PBXNativeTarget "Flatland" */;
@@ -388,9 +480,9 @@
 			productReference = 0316D9C01775570600FF40CF /* Flatland.app */;
 			productType = "com.apple.product-type.application";
 		};
-		0316D9E61775570600FF40CF /* FlatlandTests */ = {
+		0316D9E61775570600FF40CF /* UnitTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0316D9FA1775570600FF40CF /* Build configuration list for PBXNativeTarget "FlatlandTests" */;
+			buildConfigurationList = 0316D9FA1775570600FF40CF /* Build configuration list for PBXNativeTarget "UnitTests" */;
 			buildPhases = (
 				7809545AF59D4F87A576EC39 /* Check Pods Manifest.lock */,
 				0316D9E31775570600FF40CF /* Sources */,
@@ -403,9 +495,9 @@
 			dependencies = (
 				0316D9EC1775570600FF40CF /* PBXTargetDependency */,
 			);
-			name = FlatlandTests;
+			name = UnitTests;
 			productName = FlatlandTests;
-			productReference = 0316D9E71775570600FF40CF /* FlatlandTests.xctest */;
+			productReference = 0316D9E71775570600FF40CF /* UnitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -435,12 +527,21 @@
 			projectRoot = "";
 			targets = (
 				0316D9BF1775570600FF40CF /* Flatland */,
-				0316D9E61775570600FF40CF /* FlatlandTests */,
+				0316D9E61775570600FF40CF /* UnitTests */,
+				0302A9AD17A61CC5005F3198 /* AcceptanceTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		0302A9BF17A61CC5005F3198 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0302A9C017A61CC5005F3198 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0316D9BE1775570600FF40CF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -466,6 +567,36 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0302A9B017A61CC5005F3198 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		0302A9C117A61CC5005F3198 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-AcceptanceTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		19485BB571984AB486DA4690 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -478,7 +609,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-FlatlandTests-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Pods-UnitTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		628F03F195664D0587AC7466 /* Copy Pods Resources */ = {
@@ -528,6 +659,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0302A9B117A61CC5005F3198 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0302A9C817A61E9E005F3198 /* ServerTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0316D9BC1775570600FF40CF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -562,21 +701,46 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0302A9D917A625EA005F3198 /* NSArray+FP.m in Sources */,
 				0316D9F41775570600FF40CF /* PlayerTests.m in Sources */,
+				0302A9D217A62592005F3198 /* PlayerTurnAction.m in Sources */,
+				0302A9DA17A625EC005F3198 /* NSDictionary+Point.m in Sources */,
 				03C9F1CE17996F3600D32445 /* PlayerIdleActionTests.m in Sources */,
+				0302A9CF17A62592005F3198 /* PlayerMoveAction.m in Sources */,
 				03C9F1D0179A5EAD00D32445 /* WorldTests.m in Sources */,
+				0302A9D017A62592005F3198 /* PlayerSpawnAction.m in Sources */,
+				0302A9D817A625C6005F3198 /* Player.m in Sources */,
+				0302A9DC17A62718005F3198 /* SKColor+Relative.m in Sources */,
+				0302A9D517A625B9005F3198 /* BulletNode.m in Sources */,
+				0302A9CB17A6257E005F3198 /* PlayerAction.m in Sources */,
 				03AA9D551799301D0027D973 /* PlayerMoveActionTests.m in Sources */,
+				0302A9DD17A62728005F3198 /* Game.m in Sources */,
 				03C9F1CC17996F2800D32445 /* PlayerAttackActionTests.m in Sources */,
-				03E69F4D179D364C006AD0B1 /* ServerTests.m in Sources */,
+				0302A9D117A62592005F3198 /* PlayerSuicideAction.m in Sources */,
+				0302A9DE17A62732005F3198 /* Server.m in Sources */,
+				0302A9CE17A62592005F3198 /* PlayerIdleAction.m in Sources */,
+				0302A9DF17A6273C005F3198 /* RouteResponse+JSON.m in Sources */,
+				0302A9D717A625B9005F3198 /* WorldNode.m in Sources */,
+				0302A9CC17A62583005F3198 /* World.m in Sources */,
+				0302A9D417A625B9005F3198 /* BattleScene.m in Sources */,
+				0302A9D617A625B9005F3198 /* PlayerNode.m in Sources */,
+				0302A9D317A625A5005F3198 /* GameError.m in Sources */,
 				03C9F1C917996AD000D32445 /* PlayerSuicideActionTests.m in Sources */,
+				0302A9CD17A62592005F3198 /* PlayerAttackAction.m in Sources */,
 				03C9F1C7179963D600D32445 /* PlayerSpawnActionTests.m in Sources */,
 				03AA9D57179961C50027D973 /* PlayerTurnActionTests.m in Sources */,
+				0302A9E017A62745005F3198 /* HTTPAsyncDataResponse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		0302A9AE17A61CC5005F3198 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0316D9BF1775570600FF40CF /* Flatland */;
+			targetProxy = 0302A9AF17A61CC5005F3198 /* PBXContainerItemProxy */;
+		};
 		0316D9EC1775570600FF40CF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 0316D9BF1775570600FF40CF /* Flatland */;
@@ -620,6 +784,50 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		0302A9C317A61CC5005F3198 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F30393ABFB40416688DAF10E /* Pods-AcceptanceTests.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Flatland.app/Contents/MacOS/Flatland";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Tests/Tests-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Tests/$(PRODUCT_NAME)-Info.plist";
+				PRODUCT_NAME = AcceptanceTests;
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		0302A9C417A61CC5005F3198 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F30393ABFB40416688DAF10E /* Pods-AcceptanceTests.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Flatland.app/Contents/MacOS/Flatland";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Tests/Tests-Prefix.pch";
+				INFOPLIST_FILE = "Tests/$(PRODUCT_NAME)-Info.plist";
+				PRODUCT_NAME = AcceptanceTests;
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
 		0316D9F51775570600FF40CF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -724,42 +932,40 @@
 		};
 		0316D9FB1775570600FF40CF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FD07F0D6853F443791EC3D8D /* Pods-FlatlandTests.xcconfig */;
+			baseConfigurationReference = 3B1FFE0F6EE54488902F2FC4 /* Pods-UnitTests.xcconfig */;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Flatland.app/Contents/MacOS/Flatland";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
 				);
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Tests/FlatlandTests-Prefix.pch";
+				GCC_PREFIX_HEADER = "Tests/Tests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "Tests/FlatlandTests-Info.plist";
+				INFOPLIST_FILE = "Tests/$(PRODUCT_NAME)-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
 		};
 		0316D9FC1775570600FF40CF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FD07F0D6853F443791EC3D8D /* Pods-FlatlandTests.xcconfig */;
+			baseConfigurationReference = 3B1FFE0F6EE54488902F2FC4 /* Pods-UnitTests.xcconfig */;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Flatland.app/Contents/MacOS/Flatland";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
 				);
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Tests/FlatlandTests-Prefix.pch";
-				INFOPLIST_FILE = "Tests/FlatlandTests-Info.plist";
+				GCC_PREFIX_HEADER = "Tests/Tests-Prefix.pch";
+				INFOPLIST_FILE = "Tests/$(PRODUCT_NAME)-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
@@ -767,6 +973,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0302A9C217A61CC5005F3198 /* Build configuration list for PBXNativeTarget "AcceptanceTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0302A9C317A61CC5005F3198 /* Debug */,
+				0302A9C417A61CC5005F3198 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		0316D9BB1775570600FF40CF /* Build configuration list for PBXProject "Flatland" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -785,7 +1000,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0316D9FA1775570600FF40CF /* Build configuration list for PBXNativeTarget "FlatlandTests" */ = {
+		0316D9FA1775570600FF40CF /* Build configuration list for PBXNativeTarget "UnitTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0316D9FB1775570600FF40CF /* Debug */,

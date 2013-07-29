@@ -33,8 +33,18 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0316D9E61775570600FF40CF"
-               BuildableName = "FlatlandTests.xctest"
-               BlueprintName = "FlatlandTests"
+               BuildableName = "UnitTests.xctest"
+               BlueprintName = "UnitTests"
+               ReferencedContainer = "container:Flatland.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "0302A9AD17A61CC5005F3198"
+               BuildableName = "AcceptanceTests.xctest"
+               BlueprintName = "AcceptanceTests"
                ReferencedContainer = "container:Flatland.xcodeproj">
             </BuildableReference>
          </TestableReference>
