@@ -62,6 +62,19 @@ NSString * const kRootURL = @"http://localhost:8000";
   expect([response objectForKey:@"error"]).to.equal(@"Player is already spawning");
 }
 
+- (void)testSpawnPlayerWhenAlreadyAlive {
+  NSUUID *uuid = [NSUUID UUID];
+  [self doAction:@"/action/spawn" forPlayer:uuid];
+
+  // Wait until player spawned.
+  [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:3]];
+
+  NSDictionary *response = [self doAction:@"/action/spawn" forPlayer:uuid];
+
+  expect([response objectForKey:@"code"]).to.equal(6);
+  expect([response objectForKey:@"error"]).to.equal(@"Player has already spawned");
+}
+
 #pragma mark - Private
 
 - (id)doAction:(NSString *)action forPlayer:(NSUUID *)uuid {
