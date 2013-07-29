@@ -9,6 +9,7 @@
 #import "Game.h"
 #import "GameError.h"
 #import "GCDTimer.h"
+#import "NSBundle+InfoDictionaryKeyPath.h"
 #import "Player.h"
 
 @implementation Game {
@@ -77,9 +78,13 @@
 - (void)startTimer {
   dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
   _timer = [GCDTimer timerOnQueue:queue];
+  NSNumber *interval = [[NSBundle mainBundle] objectForInfoDictionaryKeyPath:@"Interval"];
+
+  NSLog(@"Starting game timer with interval %@ seconds", interval);
+
   [_timer scheduleBlock:^{
     [self tick];
-  } afterInterval:1 repeat:YES];
+  } afterInterval:[interval doubleValue] repeat:YES];
 }
 
 @end

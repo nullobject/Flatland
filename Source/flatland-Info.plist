@@ -30,5 +30,7 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>Interval</key>
+	<integer>1</integer>
 </dict>
 </plist>
