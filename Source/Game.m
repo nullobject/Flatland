@@ -19,6 +19,13 @@
 
 - (id)init {
   if (self = [super init]) {
+    NSString *bundleName    = [[NSBundle mainBundle] objectForInfoDictionaryKeyPath:(NSString *)kCFBundleNameKey];
+    NSString *bundleVersion = [[NSBundle mainBundle] objectForInfoDictionaryKeyPath:(NSString *)kCFBundleVersionKey];
+    NSString *copyright     = [[NSBundle mainBundle] objectForInfoDictionaryKeyPath:@"NSHumanReadableCopyright"];
+
+    NSLog(@"%@ (%@)", bundleName, bundleVersion);
+    NSLog(@"%@", copyright);
+
     [self setupServer];
     [self setupWorld];
     [self setupBattleScene];
@@ -30,6 +37,7 @@
 
 - (void)startServer {
   NSError *error;
+
 	if (![_server start:&error]) {
 		NSLog(@"Error starting server: %@", error);
 	}
@@ -79,8 +87,6 @@
   dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
   _timer = [GCDTimer timerOnQueue:queue];
   NSNumber *interval = [[NSBundle mainBundle] objectForInfoDictionaryKeyPath:@"Interval"];
-
-  NSLog(@"Starting game timer with interval %@ seconds", interval);
 
   [_timer scheduleBlock:^{
     [self tick];
