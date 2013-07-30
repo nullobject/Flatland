@@ -8,6 +8,7 @@
 
 #import "AcceptanceTestCase.h"
 #import "AFNetworking.h"
+#import "NSBundle+InfoDictionaryKeyPath.h"
 
 NSString * const kRootURL = @"http://localhost:8000";
 
@@ -38,6 +39,12 @@ NSString * const kRootURL = @"http://localhost:8000";
   [operation waitUntilFinished];
 
   return operation.responseJSON;
+}
+
+- (void)waitForAction:(NSString *)action {
+  NSString *keyPath = [NSString stringWithFormat:@"Actions.%@.Duration", [action capitalizedString]];
+  NSTimeInterval duration = [[[NSBundle mainBundle] objectForInfoDictionaryKeyPath:keyPath] doubleValue];
+  [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:(duration + duration * 0.1)]];
 }
 
 @end
