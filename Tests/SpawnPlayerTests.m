@@ -8,14 +8,11 @@
 
 #import <XCTest/XCTest.h>
 
-#import "AFNetworking.h"
+#import "AcceptanceTestCase.h"
 #import "NSArray+FP.h"
 #import "NSBundle+InfoDictionaryKeyPath.h"
-#import "Server.h"
 
-NSString * const kRootURL = @"http://localhost:8000";
-
-@interface SpawnPlayerTests : XCTestCase
+@interface SpawnPlayerTests : AcceptanceTestCase
 @end
 
 @implementation SpawnPlayerTests
@@ -28,7 +25,6 @@ NSString * const kRootURL = @"http://localhost:8000";
   }];
 
   expect([response objectForKey:@"age"]).to.beGreaterThan(0);
-  expect(player).toNot.beNil;
   expect([player objectForKey:@"state"]).to.equal(@"spawning");
 
   // Wait until player spawned.
@@ -41,7 +37,6 @@ NSString * const kRootURL = @"http://localhost:8000";
   }];
 
   expect([response objectForKey:@"age"]).to.beGreaterThan(0);
-  expect(player).toNot.beNil;
   expect([player objectForKey:@"state"]).to.equal(@"idle");
 }
 
@@ -66,23 +61,6 @@ NSString * const kRootURL = @"http://localhost:8000";
 
   expect([response objectForKey:@"code"]).to.equal(6);
   expect([response objectForKey:@"error"]).to.equal(@"Player has already spawned");
-}
-
-#pragma mark - Private
-
-- (id)doAction:(NSString *)action forPlayer:(NSUUID *)uuid {
-  NSURL *url = [NSURL URLWithString:[kRootURL stringByAppendingString:action]];
-  NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-
-  [request setHTTPMethod:@"PUT"];
-  [request setValue:[uuid UUIDString] forHTTPHeaderField:@"X-Player"];
-
-  AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:nil failure:nil];
-
-  [operation start];
-  [operation waitUntilFinished];
-
-  return operation.responseJSON;
 }
 
 @end

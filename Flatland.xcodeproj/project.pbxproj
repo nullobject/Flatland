@@ -33,6 +33,7 @@
 		0302A9DE17A62732005F3198 /* Server.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B24C4A1776CD0A00CF4BC2 /* Server.m */; };
 		0302A9DF17A6273C005F3198 /* RouteResponse+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 03990F5C1778F9E300995DE2 /* RouteResponse+JSON.m */; };
 		0302A9E017A62745005F3198 /* HTTPAsyncDataResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 03BC5D591779BBB20082ED48 /* HTTPAsyncDataResponse.m */; };
+		030988C417A7C07300D02258 /* AcceptanceTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 030988C317A7C07300D02258 /* AcceptanceTestCase.m */; };
 		0316D9C41775570600FF40CF /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0316D9C31775570600FF40CF /* Cocoa.framework */; };
 		0316D9C61775570600FF40CF /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0316D9C51775570600FF40CF /* SpriteKit.framework */; };
 		0316D9D01775570600FF40CF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0316D9CE1775570600FF40CF /* InfoPlist.strings */; };
@@ -100,6 +101,8 @@
 		0302A9C517A61CC5005F3198 /* AcceptanceTests.xctest */ = {isa = PBXFileReference; explicitFileType = folder; includeInIndex = 0; path = AcceptanceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0302A9C717A61E27005F3198 /* AcceptanceTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AcceptanceTests-Info.plist"; sourceTree = "<group>"; };
 		0302A9C917A62398005F3198 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		030988C217A7C07300D02258 /* AcceptanceTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AcceptanceTestCase.h; sourceTree = "<group>"; };
+		030988C317A7C07300D02258 /* AcceptanceTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AcceptanceTestCase.m; sourceTree = "<group>"; };
 		0316D9C01775570600FF40CF /* Flatland.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flatland.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0316D9C31775570600FF40CF /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		0316D9C51775570600FF40CF /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
@@ -228,6 +231,8 @@
 		0302A9E117A62766005F3198 /* Acceptance Tests */ = {
 			isa = PBXGroup;
 			children = (
+				030988C217A7C07300D02258 /* AcceptanceTestCase.h */,
+				030988C317A7C07300D02258 /* AcceptanceTestCase.m */,
 				03E69F4C179D364C006AD0B1 /* SpawnPlayerTests.m */,
 			);
 			name = "Acceptance Tests";
@@ -668,6 +673,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0302A9C817A61E9E005F3198 /* SpawnPlayerTests.m in Sources */,
+				030988C417A7C07300D02258 /* AcceptanceTestCase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
