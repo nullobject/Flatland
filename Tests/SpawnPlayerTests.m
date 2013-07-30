@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 #import "AFNetworking.h"
 #import "NSArray+FP.h"
+#import "NSBundle+InfoDictionaryKeyPath.h"
 #import "Server.h"
 
 NSString * const kRootURL = @"http://localhost:8000";
@@ -41,7 +42,8 @@ NSString * const kRootURL = @"http://localhost:8000";
   expect([player objectForKey:@"state"]).to.equal(@"spawning");
 
   // Wait until player spawned.
-  [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:3]];
+  NSNumber *duration = [[NSBundle mainBundle] objectForInfoDictionaryKeyPath:@"Actions.Spawn.Duration"];
+  [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:[duration doubleValue]]];
 
   response = [self doAction:@"/action/idle" forPlayer:uuid];
   player = [[response objectForKey:@"players"] find:^BOOL(id player, NSUInteger index, BOOL *stop) {
@@ -67,7 +69,8 @@ NSString * const kRootURL = @"http://localhost:8000";
   [self doAction:@"/action/spawn" forPlayer:uuid];
 
   // Wait until player spawned.
-  [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:3]];
+  NSNumber *duration = [[NSBundle mainBundle] objectForInfoDictionaryKeyPath:@"Actions.Spawn.Duration"];
+  [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:[duration doubleValue]]];
 
   NSDictionary *response = [self doAction:@"/action/spawn" forPlayer:uuid];
 
