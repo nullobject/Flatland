@@ -18,7 +18,7 @@
 
 - (void)testSpawnPlayer {
   NSUUID *uuid = [NSUUID UUID];
-  NSDictionary *response = [self doAction:@"/action/spawn" forPlayer:uuid];
+  NSDictionary *response = [self doAction:@"spawn" forPlayer:uuid];
   NSDictionary *player = [[response objectForKey:@"players"] find:^BOOL(id player, NSUInteger index, BOOL *stop) {
     return [[uuid UUIDString] isEqualToString:[player objectForKey:@"id"]];
   }];
@@ -28,7 +28,7 @@
 
   [self waitForAction:@"spawn"];
 
-  response = [self doAction:@"/action/idle" forPlayer:uuid];
+  response = [self doAction:@"idle" forPlayer:uuid];
   player = [[response objectForKey:@"players"] find:^BOOL(id player, NSUInteger index, BOOL *stop) {
     return [[uuid UUIDString] isEqualToString:[player objectForKey:@"id"]];
   }];
@@ -39,8 +39,8 @@
 
 - (void)testSpawnPlayerWhenPlayerIsSpawning {
   NSUUID *uuid = [NSUUID UUID];
-  [self doAction:@"/action/spawn" forPlayer:uuid];
-  NSDictionary *response = [self doAction:@"/action/spawn" forPlayer:uuid];
+  [self doAction:@"spawn" forPlayer:uuid];
+  NSDictionary *response = [self doAction:@"spawn" forPlayer:uuid];
 
   expect([response objectForKey:@"code"]).to.equal(5);
   expect([response objectForKey:@"error"]).to.equal(@"Player is already spawning");
@@ -49,10 +49,10 @@
 - (void)testSpawnPlayerWhenPlayerIsAlive {
   NSUUID *uuid = [NSUUID UUID];
 
-  [self doAction:@"/action/spawn" forPlayer:uuid];
+  [self doAction:@"spawn" forPlayer:uuid];
   [self waitForAction:@"spawn"];
 
-  NSDictionary *response = [self doAction:@"/action/spawn" forPlayer:uuid];
+  NSDictionary *response = [self doAction:@"spawn" forPlayer:uuid];
 
   expect([response objectForKey:@"code"]).to.equal(6);
   expect([response objectForKey:@"error"]).to.equal(@"Player has already spawned");

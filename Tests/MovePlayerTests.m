@@ -19,10 +19,10 @@
 - (void)testMovePlayer {
   NSUUID *uuid = [NSUUID UUID];
 
-  [self doAction:@"/action/spawn" forPlayer:uuid];
+  [self doAction:@"spawn" forPlayer:uuid];
   [self waitForAction:@"spawn"];
 
-  NSDictionary *response = [self doAction:@"/action/move" forPlayer:uuid parameters:@{@"amount": @1}];
+  NSDictionary *response = [self doAction:@"move" forPlayer:uuid parameters:@{@"amount": @1}];
   NSDictionary *player = [[response objectForKey:@"players"] find:^BOOL(id player, NSUInteger index, BOOL *stop) {
     return [[uuid UUIDString] isEqualToString:[player objectForKey:@"id"]];
   }];
@@ -33,7 +33,7 @@
 
   [self waitForAction:@"move"];
 
-  response = [self doAction:@"/action/idle" forPlayer:uuid];
+  response = [self doAction:@"idle" forPlayer:uuid];
   player = [[response objectForKey:@"players"] find:^BOOL(id player, NSUInteger index, BOOL *stop) {
     return [[uuid UUIDString] isEqualToString:[player objectForKey:@"id"]];
   }];

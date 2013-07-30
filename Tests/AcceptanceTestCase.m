@@ -19,7 +19,9 @@ NSString * const kRootURL = @"http://localhost:8000";
 }
 
 - (id)doAction:(NSString *)action forPlayer:(NSUUID *)uuid parameters:(NSDictionary *)parameters {
-  AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kRootURL]];
+  NSURL *url = [NSURL URLWithString:kRootURL];
+  NSString *path = [NSString stringWithFormat:@"/action/%@", action];
+  AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
 
   // Set JSON parameter encoding.
   httpClient.parameterEncoding = AFJSONParameterEncoding;
@@ -28,7 +30,7 @@ NSString * const kRootURL = @"http://localhost:8000";
   [httpClient setDefaultHeader:@"X-Player" value:[uuid UUIDString]];
 
   NSMutableURLRequest *request = [httpClient requestWithMethod:@"PUT"
-                                                          path:action
+                                                          path:path
                                                     parameters:parameters];
 
   AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
