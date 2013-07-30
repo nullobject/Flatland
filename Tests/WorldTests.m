@@ -39,19 +39,19 @@
 }
 
 - (void)testSetsPlayers {
-  XCTAssertNotNil(_world.players);
+  expect(_world.players).toNot.beNil();
 }
 
 - (void)testSetsWorldNode {
-  XCTAssertNotNil(_world.worldNode);
+  expect(_world.worldNode).toNot.beNil();
 }
 
 #pragma mark - Tick
 
 - (void)testTickIncrementsAge {
-  XCTAssertEquals(_world.age, (NSUInteger)0);
+  expect(_world.age).to.equal(0);
   [_world tick];
-  XCTAssertEquals(_world.age, (NSUInteger)1);
+  expect(_world.age).to.equal(1);
 }
 
 - (void)testTickTicksPlayers {
@@ -121,14 +121,11 @@
 
 #pragma mark - Serializable
 
-- (void)testAsJSONIncludesAge {
-  id expected = [NSNumber numberWithUnsignedInteger:0];
-  XCTAssertEqualObjects([[_world asJSON] objectForKey:@"age"], expected);
-}
+- (void)testAsJSON {
+  id expected = @{@"age":     @0,
+                  @"players": @[]};
 
-- (void)testAsJSONIncludesPlayers {
-  id expected = @[];
-  XCTAssertEqualObjects([[_world asJSON] objectForKey:@"players"], expected);
+  expect([_world asJSON]).to.equal(expected);
 }
 
 @end
