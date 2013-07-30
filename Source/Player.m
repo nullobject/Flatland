@@ -107,7 +107,7 @@
   NSLog(@"Player idling %@.", [_uuid UUIDString]);
 }
 
-- (void)spawn {
+- (void)spawn:(NSTimeInterval)duration {
   NSAssert(!self.isAlive, @"Player is alive");
   NSAssert(!self.isSpawning, @"Player is spawning");
 

@@ -81,12 +81,12 @@
 #pragma mark - Spawn
 
 - (void)testSpawnThrowsErrorWhenNotDead {
-  XCTAssertThrows([_player spawn]);
+  XCTAssertThrows([_player spawn:1]);
 }
 
 - (void)testSpawnSetsState {
   _player.state = PlayerStateDead;
-  [_player spawn];
+  [_player spawn:1];
   XCTAssertEquals(_player.state, PlayerStateSpawning);
 }
 

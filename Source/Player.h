@@ -65,7 +65,7 @@ typedef enum : uint8_t {
 - (void)idle;
 
 // Spawns the player.
-- (void)spawn;
+- (void)spawn:(NSTimeInterval)duration;
 
 // Kills the playher.
 - (void)die;

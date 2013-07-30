@@ -38,7 +38,7 @@
 }
 
 - (void)testApplyToPlayer {
-  [[_player expect] spawn];
+  [[_player expect] spawn:0];
   [_playerAction applyToPlayer:_player];
 }
 

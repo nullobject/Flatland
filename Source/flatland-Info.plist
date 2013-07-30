@@ -32,5 +32,13 @@
 	<string>NSApplication</string>
 	<key>Interval</key>
 	<integer>1</integer>
+	<key>Actions</key>
+	<dict>
+		<key>Spawn</key>
+		<dict>
+			<key>Duration</key>
+			<integer>3</integer>
+		</dict>
+	</dict>
 </dict>
 </plist>
