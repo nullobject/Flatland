@@ -34,6 +34,11 @@
 	<integer>1</integer>
 	<key>Actions</key>
 	<dict>
+		<key>Move</key>
+		<dict>
+			<key>Duration</key>
+			<integer>1</integer>
+		</dict>
 		<key>Spawn</key>
 		<dict>
 			<key>Duration</key>
