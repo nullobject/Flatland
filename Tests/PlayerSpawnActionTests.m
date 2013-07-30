@@ -34,7 +34,7 @@
 }
 
 - (void)testCost {
-  XCTAssertEquals(_playerAction.cost, (CGFloat)0);
+  expect(_playerAction.cost).to.equal(0);
 }
 
 - (void)testApplyToPlayer {
@@ -47,8 +47,10 @@
   [[[_player stub] andReturnValue:[NSNumber numberWithBool:NO]] isSpawning];
 
   GameError *error;
-  XCTAssert([_playerAction validateForPlayer:_player error:&error]);
-  XCTAssertNil(error);
+  BOOL result = [_playerAction validateForPlayer:_player error:&error];
+
+  expect(result).to.beTruthy();
+  expect(error).to.beNil();
 }
 
 - (void)testValidateReturnsErrorWhenPlayerIsAlive {
@@ -56,8 +58,10 @@
   [[[_player stub] andReturnValue:[NSNumber numberWithBool:NO ]] isSpawning];
 
   GameError *error;
-  XCTAssertFalse([_playerAction validateForPlayer:_player error:&error]);
-  XCTAssertEquals(error.code, (NSInteger)GameErrorPlayerAlreadySpawned);
+  BOOL result = [_playerAction validateForPlayer:_player error:&error];
+
+  expect(result).to.beFalsy();
+  expect(error.code).to.equal(GameErrorPlayerAlreadySpawned);
 }
 
 - (void)testValidateReturnsErrorWhenPlayerIsSpawning {
@@ -65,8 +69,10 @@
   [[[_player stub] andReturnValue:[NSNumber numberWithBool:YES]] isSpawning];
 
   GameError *error;
-  XCTAssertFalse([_playerAction validateForPlayer:_player error:&error]);
-  XCTAssertEquals(error.code, (NSInteger)GameErrorPlayerAlreadySpawning);
+  BOOL result = [_playerAction validateForPlayer:_player error:&error];
+
+  expect(result).to.beFalsy();
+  expect(error.code).to.equal(GameErrorPlayerAlreadySpawning);
 }
 
 @end

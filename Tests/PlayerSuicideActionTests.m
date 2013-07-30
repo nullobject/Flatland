@@ -34,7 +34,7 @@
 }
 
 - (void)testCost {
-  XCTAssertEquals(_playerAction.cost, (CGFloat)0);
+  expect(_playerAction.cost).to.equal(0);
 }
 
 - (void)testApplyToPlayer {
@@ -47,16 +47,20 @@
   [[[_player stub] andReturnValue:[NSNumber numberWithDouble:100]] energy];
 
   GameError *error;
-  XCTAssert([_playerAction validateForPlayer:_player error:&error]);
-  XCTAssertNil(error);
+  BOOL result = [_playerAction validateForPlayer:_player error:&error];
+
+  expect(result).to.beTruthy();
+  expect(error).to.beNil();
 }
 
 - (void)testValidateReturnsErrorWhenPlayerIsDead {
   [[[_player stub] andReturnValue:[NSNumber numberWithBool:NO]] isAlive];
 
   GameError *error;
-  XCTAssertFalse([_playerAction validateForPlayer:_player error:&error]);
-  XCTAssertEquals(error.code, (NSInteger)GameErrorPlayerNotSpawned);
+  BOOL result = [_playerAction validateForPlayer:_player error:&error];
+
+  expect(result).to.beFalsy();
+  expect(error.code).to.equal(GameErrorPlayerNotSpawned);
 }
 
 @end
