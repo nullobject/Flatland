@@ -8,7 +8,6 @@
 
 #import <XCTest/XCTest.h>
 
-#import "AppDelegate.h"
 #import "AFNetworking.h"
 #import "NSArray+FP.h"
 #import "NSBundle+InfoDictionaryKeyPath.h"
@@ -19,16 +18,7 @@ NSString * const kRootURL = @"http://localhost:8000";
 @interface SpawnPlayerTests : XCTestCase
 @end
 
-@implementation SpawnPlayerTests {
-}
-
-- (void)setUp {
-  [super setUp];
-}
-
-- (void)tearDown {
-  [super tearDown];
-}
+@implementation SpawnPlayerTests
 
 - (void)testSpawnPlayer {
   NSUUID *uuid = [NSUUID UUID];
@@ -42,8 +32,8 @@ NSString * const kRootURL = @"http://localhost:8000";
   expect([player objectForKey:@"state"]).to.equal(@"spawning");
 
   // Wait until player spawned.
-  NSNumber *duration = [[NSBundle mainBundle] objectForInfoDictionaryKeyPath:@"Actions.Spawn.Duration"];
-  [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:[duration doubleValue]]];
+  NSTimeInterval duration = [[[NSBundle mainBundle] objectForInfoDictionaryKeyPath:@"Actions.Spawn.Duration"] doubleValue];
+  [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:(duration + duration * 0.1)]];
 
   response = [self doAction:@"/action/idle" forPlayer:uuid];
   player = [[response objectForKey:@"players"] find:^BOOL(id player, NSUInteger index, BOOL *stop) {
@@ -55,7 +45,7 @@ NSString * const kRootURL = @"http://localhost:8000";
   expect([player objectForKey:@"state"]).to.equal(@"idle");
 }
 
-- (void)testSpawnPlayerWhenAlreadySpawning {
+- (void)testSpawnPlayerWhenPlayerIsSpawning {
   NSUUID *uuid = [NSUUID UUID];
   [self doAction:@"/action/spawn" forPlayer:uuid];
   NSDictionary *response = [self doAction:@"/action/spawn" forPlayer:uuid];
@@ -64,13 +54,13 @@ NSString * const kRootURL = @"http://localhost:8000";
   expect([response objectForKey:@"error"]).to.equal(@"Player is already spawning");
 }
 
-- (void)testSpawnPlayerWhenAlreadyAlive {
+- (void)testSpawnPlayerWhenPlayerIsAlive {
   NSUUID *uuid = [NSUUID UUID];
   [self doAction:@"/action/spawn" forPlayer:uuid];
 
   // Wait until player spawned.
-  NSNumber *duration = [[NSBundle mainBundle] objectForInfoDictionaryKeyPath:@"Actions.Spawn.Duration"];
-  [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:[duration doubleValue]]];
+  NSTimeInterval duration = [[[NSBundle mainBundle] objectForInfoDictionaryKeyPath:@"Actions.Spawn.Duration"] doubleValue];
+  [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:(duration + duration * 0.1)]];
 
   NSDictionary *response = [self doAction:@"/action/spawn" forPlayer:uuid];
 
