@@ -54,40 +54,41 @@
 #pragma mark - Tick
 
 - (void)testTickIncrementsAge {
-  XCTAssertEquals(_player.age, (NSUInteger)0);
+  expect(_player.age).to.equal(0);
   [_player tick];
-  XCTAssertEquals(_player.age, (NSUInteger)1);
+  expect(_player.age).to.equal(1);
 }
 
 - (void)testTickDefaultsToIdleAction {
   _player.energy = 90;
   [_player tick];
-  XCTAssertEquals(_player.energy, (CGFloat)100);
+  expect(_player.energy).to.equal(100);
 }
 
 #pragma mark - Idle
 
 - (void)testIdleThrowsErrorWhenNotAlive {
   _player.state = PlayerStateDead;
-  XCTAssertThrows([_player idle]);
+  expect(^{ [_player idle]; }).to.raiseAny();
 }
 
 - (void)testIdleSetsState {
   _player.state = PlayerStateAttacking;
   [_player idle];
-  XCTAssertEquals(_player.state, PlayerStateIdle);
+  expect(_player.state).to.equal(PlayerStateIdle);
 }
 
 #pragma mark - Spawn
 
 - (void)testSpawnThrowsErrorWhenNotDead {
-  XCTAssertThrows([_player spawn:1]);
+  _player.state = PlayerStateIdle;
+  expect(^{ [_player spawn:0]; }).to.raiseAny();
 }
 
 - (void)testSpawnSetsState {
   _player.state = PlayerStateDead;
   [_player spawn:1];
-  XCTAssertEquals(_player.state, PlayerStateSpawning);
+  expect(_player.state).to.equal(PlayerStateSpawning);
 }
 
 #pragma mark - Die
@@ -95,28 +96,28 @@
 - (void)testDieThrowsErrorWhenNotAlive {
   [[_world stub] playerDidDie:_player];
   _player.state = PlayerStateDead;
-  XCTAssertThrows([_player die]);
+  expect(^{ [_player die]; }).to.raiseAny();
 }
 
 - (void)testDieSetsState {
   [[_world stub] playerDidDie:_player];
   _player.state = PlayerStateIdle;
   [_player die];
-  XCTAssertEquals(_player.state, PlayerStateDead);
+  expect(_player.state).to.equal(PlayerStateDead);
 }
 
 - (void)testDieIncrementsDeaths {
   [[_world stub] playerDidDie:_player];
-  XCTAssertEquals(_player.deaths, (NSUInteger)0);
+  expect(_player.deaths).to.equal(0);
   [_player die];
-  XCTAssertEquals(_player.deaths, (NSUInteger)1);
+  expect(_player.deaths).to.equal(1);
 }
 
 - (void)testDieUnsetsPlayerNode {
   [[_world stub] playerDidDie:_player];
   _player.playerNode = [OCMockObject mockForClass:PlayerNode.class];
   [_player die];
-  XCTAssertNil(_player.playerNode);
+  expect(_player.playerNode).to.beNil();
 }
 
 - (void)testDieCallsPlayerDidDie {
@@ -128,14 +129,14 @@
 
 - (void)testAttackThrowsErrorWhenNotAlive {
   _player.state = PlayerStateDead;
-  XCTAssertThrows([_player attack]);
+  expect(^{ [_player attack]; }).to.raiseAny();
 }
 
 - (void)testAttackSetsState {
   [[_world stub] player:_player didShootBullet:[OCMArg any]];
   _player.state = PlayerStateIdle;
   [_player attack];
-  XCTAssertEquals(_player.state, PlayerStateAttacking);
+  expect(_player.state).to.equal(PlayerStateAttacking);
 }
 
 - (void)testAttackCallsPlayerDidShootBullet {
@@ -148,13 +149,13 @@
 
 - (void)testMoveThrowsErrorWhenNotAlive {
   _player.state = PlayerStateDead;
-  XCTAssertThrows([_player moveByX:1 y:2 duration:3]);
+  expect(^{ [_player moveByX:1 y:2 duration:3]; }).to.raiseAny();
 }
 
 - (void)testMoveSetsState {
   _player.state = PlayerStateIdle;
   [_player moveByX:1 y:2 duration:3];
-  XCTAssertEquals(_player.state, PlayerStateMoving);
+  expect(_player.state).to.equal(PlayerStateMoving);
 }
 
 - (void)testMoveRunsActionOnPlayerNode {
@@ -169,13 +170,13 @@
 
 - (void)testRotateThrowsErrorWhenNotAlive {
   _player.state = PlayerStateDead;
-  XCTAssertThrows([_player rotateByAngle:1 duration:2]);
+  expect(^{ [_player rotateByAngle:1 duration:2]; }).to.raiseAny();
 }
 
 - (void)testRotateSetsState {
   _player.state = PlayerStateIdle;
   [_player rotateByAngle:1 duration:2];
-  XCTAssertEquals(_player.state, PlayerStateTurning);
+  expect(_player.state).to.equal(PlayerStateTurning);
 }
 
 - (void)testRotateRunsActionOnPlayerNode {
@@ -192,38 +193,38 @@
   [[_world stub] playerDidSpawn:_player];
   _player.state = PlayerStateSpawning;
   [_player didSpawn];
-  XCTAssertEquals(_player.state, PlayerStateIdle);
+  expect(_player.state).to.equal(PlayerStateIdle);
 }
 
 - (void)testDidSpawnSetsHealth {
   [[_world stub] playerDidSpawn:_player];
   _player.health = 0;
   [_player didSpawn];
-  XCTAssertEquals(_player.health, (CGFloat)100);
+  expect(_player.health).to.equal(100);
 }
 
 - (void)testDidSpawnSetsEnergy {
   [[_world stub] playerDidSpawn:_player];
   _player.energy = 0;
   [_player didSpawn];
-  XCTAssertEquals(_player.energy, (CGFloat)100);
+  expect(_player.energy).to.equal(100);
 }
 
 - (void)testDidSpawnSetsPlayerNode {
   [[_world stub] playerDidSpawn:_player];
-  XCTAssertNil(_player.playerNode);
+  expect(_player.playerNode).to.beNil();
   [_player didSpawn];
-  XCTAssertNotNil(_player.playerNode);
+  expect(_player.playerNode).toNot.beNil();
 }
 
 - (void)testWasShotByPlayerAppliesDamage {
   _player.health = 100;
   Player *shooter = [[Player alloc] initWithUUID:[NSUUID UUID]];
   [_player wasShotByPlayer:shooter];
-  XCTAssertEquals(_player.health, (CGFloat)90);
+  expect(_player.health).to.equal(90);
 }
 
-- (void)testWasShotByPlayerIncrementsKillsIfPlayerDies {
+- (void)testWasShotByPlayerIncrementsDeathsAndKillsIfPlayerDies {
   [[_world stub] playerDidDie:_player];
 
   _player.health = 10;
@@ -231,66 +232,26 @@
   Player *shooter = [[Player alloc] initWithUUID:[NSUUID UUID]];
   [_player wasShotByPlayer:shooter];
 
-  XCTAssertEquals(shooter.kills, (NSUInteger)1);
+  expect(_player.deaths).to.equal(1);
+  expect(shooter.kills).to.equal(1);
 }
 
 #pragma mark - Serializable
 
-- (void)testAsJSONIncludesID {
-  id expected = @"910A0975-6EA9-4EA6-A40F-7D02FAC30F4F";
-  XCTAssertEqualObjects([[_player asJSON] objectForKey:@"id"], expected);
-}
+- (void)testAsJSON {
+  id expected = @{@"id":              @"910A0975-6EA9-4EA6-A40F-7D02FAC30F4F",
+                  @"state":           @"idle",
+                  @"age":             @0,
+                  @"health":          @0,
+                  @"energy":          @0,
+                  @"deaths":          @0,
+                  @"kills":           @0,
+                  @"position":        @{@"x": @0, @"y": @0},
+                  @"rotation":        @0,
+                  @"velocity":        @{@"x": @0, @"y": @0},
+                  @"angularVelocity": @0};
 
-- (void)testAsJSONIncludesState {
-  id expected = @"idle";
-  XCTAssertEqualObjects([[_player asJSON] objectForKey:@"state"], expected);
-}
-
-- (void)testAsJSONIncludesAge {
-  id expected = [NSNumber numberWithUnsignedInteger:0];
-  XCTAssertEqualObjects([[_player asJSON] objectForKey:@"age"], expected);
-}
-
-- (void)testAsJSONIncludesHealth {
-  id expected = [NSNumber numberWithFloat:0];
-  XCTAssertEqualObjects([[_player asJSON] objectForKey:@"health"], expected);
-}
-
-- (void)testAsJSONIncludesEnergy {
-  id expected = [NSNumber numberWithFloat:0];
-  XCTAssertEqualObjects([[_player asJSON] objectForKey:@"energy"], expected);
-}
-
-- (void)testAsJSONIncludesDeaths {
-  id expected = [NSNumber numberWithUnsignedInteger:0];
-  XCTAssertEqualObjects([[_player asJSON] objectForKey:@"deaths"], expected);
-}
-
-- (void)testAsJSONIncludesKills {
-  id expected = [NSNumber numberWithUnsignedInteger:0];
-  XCTAssertEqualObjects([[_player asJSON] objectForKey:@"kills"], expected);
-}
-
-- (void)testAsJSONIncludesPosition {
-  id expected = @{@"x": [NSNumber numberWithFloat:0],
-                  @"y": [NSNumber numberWithFloat:0]};
-  XCTAssertEqualObjects([[_player asJSON] objectForKey:@"position"], expected);
-}
-
-- (void)testAsJSONIncludesRotation {
-  id expected = [NSNumber numberWithFloat:0];
-  XCTAssertEqualObjects([[_player asJSON] objectForKey:@"rotation"], expected);
-}
-
-- (void)testAsJSONIncludesVelocity {
-  id expected = @{@"x": [NSNumber numberWithFloat:0],
-                  @"y": [NSNumber numberWithFloat:0]};
-  XCTAssertEqualObjects([[_player asJSON] objectForKey:@"velocity"], expected);
-}
-
-- (void)testAsJSONIncludesAngularVelocity {
-  id expected = [NSNumber numberWithFloat:0];
-  XCTAssertEqualObjects([[_player asJSON] objectForKey:@"angularVelocity"], expected);
+  expect([_player asJSON]).to.equal(expected);
 }
 
 @end
