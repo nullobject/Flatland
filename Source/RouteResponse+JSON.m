@@ -40,6 +40,7 @@ NSString *kApplicationJSON = @"application/json";
 }
 
 - (NSData *)serialize:(NSObject <Serializable> *)object {
+  NSAssert(object, @"Can't serialize a nil object");
   NSError *error;
   return [NSJSONSerialization dataWithJSONObject:[object asJSON]
                                          options:kNilOptions
