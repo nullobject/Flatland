@@ -61,6 +61,8 @@
 		0334F3D717960BA0007EFCCF /* PlayerMoveAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 0334F3D617960BA0007EFCCF /* PlayerMoveAction.m */; };
 		0334F3DA17960BAE007EFCCF /* PlayerTurnAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 0334F3D917960BAE007EFCCF /* PlayerTurnAction.m */; };
 		0334F3DD17960BBB007EFCCF /* PlayerAttackAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 0334F3DC17960BBB007EFCCF /* PlayerAttackAction.m */; };
+		033ECFA117ACB76600C16D40 /* PlayerNoopAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 033ECFA017ACB76600C16D40 /* PlayerNoopAction.m */; };
+		033ECFA217ACB76600C16D40 /* PlayerNoopAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 033ECFA017ACB76600C16D40 /* PlayerNoopAction.m */; };
 		0341F55E17A66FC400F5EFFE /* GCDTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0341F55D17A66FC400F5EFFE /* GCDTimer.m */; };
 		0341F55F17A6711400F5EFFE /* GCDTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0341F55D17A66FC400F5EFFE /* GCDTimer.m */; };
 		0341F56217A70FB700F5EFFE /* NSBundle+InfoDictionaryKeyPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 0341F56117A70FB700F5EFFE /* NSBundle+InfoDictionaryKeyPath.m */; };
@@ -99,7 +101,7 @@
 
 /* Begin PBXFileReference section */
 		02BE33349C1248EFB847A04A /* Pods-Flatland.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flatland.xcconfig"; path = "Pods/Pods-Flatland.xcconfig"; sourceTree = SOURCE_ROOT; };
-		0302A9C517A61CC5005F3198 /* AcceptanceTests.xctest */ = {isa = PBXFileReference; explicitFileType = folder; includeInIndex = 0; path = AcceptanceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0302A9C517A61CC5005F3198 /* AcceptanceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AcceptanceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0302A9C717A61E27005F3198 /* AcceptanceTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AcceptanceTests-Info.plist"; sourceTree = "<group>"; };
 		0302A9C917A62398005F3198 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		030988C017A7BFD900D02258 /* MovePlayerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovePlayerTests.m; sourceTree = "<group>"; };
@@ -122,7 +124,7 @@
 		0316D9DC1775570600FF40CF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		0316D9DE1775570600FF40CF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0316D9E11775570600FF40CF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		0316D9E71775570600FF40CF /* UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = folder; includeInIndex = 0; path = UnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0316D9E71775570600FF40CF /* UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0316D9E81775570600FF40CF /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		0316D9EF1775570600FF40CF /* UnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
 		0316D9F11775570600FF40CF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -153,6 +155,8 @@
 		0334F3D917960BAE007EFCCF /* PlayerTurnAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerTurnAction.m; sourceTree = "<group>"; };
 		0334F3DB17960BBB007EFCCF /* PlayerAttackAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerAttackAction.h; sourceTree = "<group>"; };
 		0334F3DC17960BBB007EFCCF /* PlayerAttackAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerAttackAction.m; sourceTree = "<group>"; };
+		033ECF9F17ACB76600C16D40 /* PlayerNoopAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerNoopAction.h; sourceTree = "<group>"; };
+		033ECFA017ACB76600C16D40 /* PlayerNoopAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerNoopAction.m; sourceTree = "<group>"; };
 		0341F55C17A66FC400F5EFFE /* GCDTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDTimer.h; sourceTree = "<group>"; };
 		0341F55D17A66FC400F5EFFE /* GCDTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDTimer.m; sourceTree = "<group>"; };
 		0341F56017A70FB700F5EFFE /* NSBundle+InfoDictionaryKeyPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+InfoDictionaryKeyPath.h"; sourceTree = "<group>"; };
@@ -390,6 +394,8 @@
 				0334F3D317960B92007EFCCF /* PlayerIdleAction.m */,
 				0334F3D517960BA0007EFCCF /* PlayerMoveAction.h */,
 				0334F3D617960BA0007EFCCF /* PlayerMoveAction.m */,
+				033ECF9F17ACB76600C16D40 /* PlayerNoopAction.h */,
+				033ECFA017ACB76600C16D40 /* PlayerNoopAction.m */,
 				0334F3CC17960B43007EFCCF /* PlayerSpawnAction.h */,
 				0334F3CD17960B43007EFCCF /* PlayerSpawnAction.m */,
 				0334F3CF17960B84007EFCCF /* PlayerSuicideAction.h */,
@@ -685,6 +691,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				033ECFA117ACB76600C16D40 /* PlayerNoopAction.m in Sources */,
 				03990F5617785B8100995DE2 /* Game.m in Sources */,
 				0316DA0217767ED700FF40CF /* PlayerNode.m in Sources */,
 				0316DA0517768A3100FF40CF /* NSArray+FP.m in Sources */,
@@ -737,6 +744,7 @@
 				0302A9CE17A62592005F3198 /* PlayerIdleAction.m in Sources */,
 				0302A9DF17A6273C005F3198 /* RouteResponse+JSON.m in Sources */,
 				0302A9D717A625B9005F3198 /* WorldNode.m in Sources */,
+				033ECFA217ACB76600C16D40 /* PlayerNoopAction.m in Sources */,
 				0302A9CC17A62583005F3198 /* World.m in Sources */,
 				0302A9D417A625B9005F3198 /* BattleScene.m in Sources */,
 				0341F56317A70FB700F5EFFE /* NSBundle+InfoDictionaryKeyPath.m in Sources */,
