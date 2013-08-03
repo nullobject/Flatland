@@ -26,7 +26,10 @@
 @protocol ServerDelegate <NSObject>
 
 // Called when the server received an action for a player.
-- (void)server:(Server *)server didReceiveAction:(PlayerAction *)action forPlayer:(NSUUID *)uuid;
+- (id)server:(Server *)server didReceiveAction:(PlayerAction *)action forPlayer:(NSUUID *)uuid error:(GameError **)error;
+
+// Called when the server received an asynchronous action for a player.
+- (void)server:(Server *)server didReceiveAsyncAction:(PlayerAction *)action forPlayer:(NSUUID *)uuid;
 
 @end
 

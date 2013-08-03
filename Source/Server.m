@@ -6,12 +6,13 @@
 //  Copyright (c) 2013 Gamedogs. All rights reserved.
 //
 
-#import "PlayerSpawnAction.h"
-#import "PlayerSuicideAction.h"
+#import "PlayerAttackAction.h"
 #import "PlayerIdleAction.h"
 #import "PlayerMoveAction.h"
+#import "PlayerNoopAction.h"
+#import "PlayerSpawnAction.h"
+#import "PlayerSuicideAction.h"
 #import "PlayerTurnAction.h"
-#import "PlayerAttackAction.h"
 #import "RouteResponse+JSON.h"
 #import "Server.h"
 
@@ -98,7 +99,7 @@
   return options;
 }
 
-- (RequestHandler)requestHandlerForPlayerActionClass:(Class)class {
+- (RequestHandler)requestHandlerForAction:(Class)class async:(BOOL)async {
   return ^(RouteRequest *request, RouteResponse *response) {
     GameError *error;
 
@@ -110,19 +111,29 @@
 
     PlayerAction *playerAction = [(PlayerAction *)[class alloc] initWithOptions:options];
 
-    [response beginAsyncJSONResponse];
-    [self enqueueResponse:response forPlayer:uuid];
-    [_delegate server:self didReceiveAction:playerAction forPlayer:uuid];
+    if (async) {
+      [response beginAsyncJSONResponse];
+      [self enqueueResponse:response forPlayer:uuid];
+      [_delegate server:self didReceiveAsyncAction:playerAction forPlayer:uuid];
+    } else {
+      id object = [_delegate server:self didReceiveAction:playerAction forPlayer:uuid error:&error];
+      if (error) {
+        [response respondWithJSON:error];
+      } else {
+        [response respondWithJSON:object];
+      }
+    }
   };
 }
 
 - (void)setupRoutes {
-  [self put:@"/action/spawn"   withBlock:[self requestHandlerForPlayerActionClass:PlayerSpawnAction.class]];
-  [self put:@"/action/suicide" withBlock:[self requestHandlerForPlayerActionClass:PlayerSuicideAction.class]];
-  [self put:@"/action/idle"    withBlock:[self requestHandlerForPlayerActionClass:PlayerIdleAction.class]];
-  [self put:@"/action/move"    withBlock:[self requestHandlerForPlayerActionClass:PlayerMoveAction.class]];
-  [self put:@"/action/turn"    withBlock:[self requestHandlerForPlayerActionClass:PlayerTurnAction.class]];
-  [self put:@"/action/attack"  withBlock:[self requestHandlerForPlayerActionClass:PlayerAttackAction.class]];
+  [self get:@"/player"         withBlock:[self requestHandlerForAction:PlayerNoopAction.class    async:NO]];
+  [self put:@"/player/spawn"   withBlock:[self requestHandlerForAction:PlayerSpawnAction.class   async:YES]];
+  [self put:@"/player/suicide" withBlock:[self requestHandlerForAction:PlayerSuicideAction.class async:YES]];
+  [self put:@"/player/idle"    withBlock:[self requestHandlerForAction:PlayerIdleAction.class    async:YES]];
+  [self put:@"/player/move"    withBlock:[self requestHandlerForAction:PlayerMoveAction.class    async:YES]];
+  [self put:@"/player/turn"    withBlock:[self requestHandlerForAction:PlayerTurnAction.class    async:YES]];
+  [self put:@"/player/attack"  withBlock:[self requestHandlerForAction:PlayerAttackAction.class  async:YES]];
 }
 
 @end

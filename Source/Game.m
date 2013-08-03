@@ -55,7 +55,12 @@
 
 #pragma mark - ServerDelegate
 
-- (void)server:(Server *)server didReceiveAction:(PlayerAction *)action forPlayer:(NSUUID *)uuid {
+- (id)server:(Server *)server didReceiveAction:(PlayerAction *)action forPlayer:(NSUUID *)uuid error:(GameError **)error {
+  [_world applyAction:action toPlayer:uuid error:error];
+  return _world;
+}
+
+- (void)server:(Server *)server didReceiveAsyncAction:(PlayerAction *)action forPlayer:(NSUUID *)uuid {
   GameError *error;
   if (![_world enqueueAction:action forPlayer:uuid error:&error]) {
     [_server respondToPlayer:uuid withError:error];
