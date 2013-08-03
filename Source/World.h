@@ -27,6 +27,9 @@
 // Ticks the world.
 - (void)tick;
 
+// Applies the action to the player with the given UUID.
+- (BOOL)applyAction:(PlayerAction *)action toPlayer:(NSUUID *)uuid error:(GameError **)error;
+
 // Enqueues the action for the player with the given UUID.
 - (BOOL)enqueueAction:(PlayerAction *)action forPlayer:(NSUUID *)uuid error:(GameError **)error;
 
