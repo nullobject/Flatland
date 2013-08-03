@@ -32,7 +32,7 @@
     return NO;
   }
 
-  return [super validateForPlayer:player error:error];
+  return YES;
 }
 
 @end

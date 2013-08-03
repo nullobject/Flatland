@@ -28,8 +28,8 @@
 }
 
 - (BOOL)validateForPlayer:(Player *)player error:(GameError **)error {
-  // Ensure the player is alive (unless it's a spawn action).
-  if (!player.isAlive && ![self isMemberOfClass:PlayerSpawnAction.class]) {
+  // Ensure the player is alive.
+  if (!player.isAlive) {
     *error = [[GameError alloc] initWithDomain:GameErrorDomain
                                           code:GameErrorPlayerNotSpawned
                                       userInfo:nil];
@@ -37,7 +37,7 @@
   }
 
   // Ensure the player has enough energy to perform the action.
-  if (player.isAlive && player.energy < self.cost) {
+  if (player.energy < self.cost) {
     *error = [[GameError alloc] initWithDomain:GameErrorDomain
                                           code:GameErrorPlayerInsufficientEnergy
                                       userInfo:nil];
