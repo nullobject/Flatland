@@ -7,7 +7,7 @@
 //
 
 #import "PlayerAttackAction.h"
-#import "PlayerIdleAction.h"
+#import "PlayerRestAction.h"
 #import "PlayerMoveAction.h"
 #import "PlayerNoopAction.h"
 #import "PlayerSpawnAction.h"
@@ -130,7 +130,7 @@
   [self get:@"/player"         withBlock:[self requestHandlerForAction:PlayerNoopAction.class    async:NO]];
   [self put:@"/player/spawn"   withBlock:[self requestHandlerForAction:PlayerSpawnAction.class   async:YES]];
   [self put:@"/player/suicide" withBlock:[self requestHandlerForAction:PlayerSuicideAction.class async:YES]];
-  [self put:@"/player/idle"    withBlock:[self requestHandlerForAction:PlayerIdleAction.class    async:YES]];
+  [self put:@"/player/rest"    withBlock:[self requestHandlerForAction:PlayerRestAction.class    async:YES]];
   [self put:@"/player/move"    withBlock:[self requestHandlerForAction:PlayerMoveAction.class    async:YES]];
   [self put:@"/player/turn"    withBlock:[self requestHandlerForAction:PlayerTurnAction.class    async:YES]];
   [self put:@"/player/attack"  withBlock:[self requestHandlerForAction:PlayerAttackAction.class  async:YES]];

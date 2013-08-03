@@ -32,7 +32,7 @@
     return [[uuid UUIDString] isEqualToString:[player objectForKey:@"id"]];
   }];
 
-  expect([player objectForKey:@"state"]).to.equal(@"idle");
+  expect([player objectForKey:@"state"]).to.equal(@"resting");
 }
 
 - (void)testSpawnPlayerWhenPlayerIsSpawning {

@@ -1,5 +1,5 @@
 //
-//  PlayerIdleAction.m
+//  PlayerRestAction.m
 //  Flatland
 //
 //  Created by Josh Bassett on 17/07/2013.
@@ -7,16 +7,16 @@
 //
 
 #import "Player.h"
-#import "PlayerIdleAction.h"
+#import "PlayerRestAction.h"
 
-@implementation PlayerIdleAction
+@implementation PlayerRestAction
 
 - (CGFloat)cost {
   return -10;
 }
 
 - (void)applyToPlayer:(Player *)player {
-  [player idle];
+  [player rest];
 }
 
 @end

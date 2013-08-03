@@ -16,7 +16,7 @@
 typedef enum : uint8_t {
   PlayerStateDead,
   PlayerStateSpawning,
-  PlayerStateIdle,
+  PlayerStateResting,
   PlayerStateAttacking,
   PlayerStateMoving,
   PlayerStateTurning
@@ -61,8 +61,8 @@ typedef enum : uint8_t {
 // Ticks the player.
 - (void)tick;
 
-// Idles the player.
-- (void)idle;
+// Rests the player.
+- (void)rest;
 
 // Spawns the player.
 - (void)spawn:(NSTimeInterval)duration;

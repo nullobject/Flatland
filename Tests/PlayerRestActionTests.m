@@ -1,5 +1,5 @@
 //
-//  PlayerIdleActionTests.m
+//  PlayerRestActionTests.m
 //  Flatland
 //
 //  Created by Josh Bassett on 19/07/2013.
@@ -11,12 +11,12 @@
 #import "GameError.h"
 #import "OCMock.h"
 #import "Player.h"
-#import "PlayerIdleAction.h"
+#import "PlayerRestAction.h"
 
-@interface PlayerIdleActionTests : XCTestCase
+@interface PlayerRestActionTests : XCTestCase
 @end
 
-@implementation PlayerIdleActionTests {
+@implementation PlayerRestActionTests {
   PlayerAction *_playerAction;
   id _player;
 }
@@ -24,7 +24,7 @@
 - (void)setUp {
   [super setUp];
   _player = [OCMockObject mockForClass:Player.class];
-  _playerAction = [[PlayerIdleAction alloc] initWithOptions:@{}];
+  _playerAction = [[PlayerRestAction alloc] initWithOptions:@{}];
 }
 
 - (void)tearDown {
@@ -38,7 +38,7 @@
 }
 
 - (void)testApplyToPlayer {
-  [[_player expect] idle];
+  [[_player expect] rest];
   [_playerAction applyToPlayer:_player];
 }
 

@@ -11,7 +11,7 @@
 #import "GCDTimer.h"
 #import "NSDictionary+Point.h"
 #import "Player.h"
-#import "PlayerIdleAction.h"
+#import "PlayerRestAction.h"
 #import "World.h"
 
 // Player spawn delay in seconds.
@@ -57,9 +57,9 @@
 }
 
 - (void)tick {
-  // Default to the idle action (if the player is alive).
+  // Default to the rest action (if the player is alive).
   if (!_action && self.isAlive) {
-    _action = [[PlayerIdleAction alloc] init];
+    _action = [[PlayerRestAction alloc] init];
   }
 
   // Apply the action.
@@ -101,10 +101,10 @@
 
 #pragma mark - Actions
 
-- (void)idle {
+- (void)rest {
   NSAssert(self.isAlive, @"Player is dead");
-  _state = PlayerStateIdle;
-  NSLog(@"Player idling %@.", [_uuid UUIDString]);
+  _state = PlayerStateResting;
+  NSLog(@"Player resting %@.", [_uuid UUIDString]);
 }
 
 - (void)spawn:(NSTimeInterval)duration {
@@ -163,7 +163,7 @@
   _playerNode = [[PlayerNode alloc] initWithPlayer:self];
   _playerNode.position = CGPointMake(RANDOM() * 500, RANDOM() * 500);
 
-  _state  = PlayerStateIdle;
+  _state  = PlayerStateResting;
   _health = 100.0f;
   _energy = 100.0f;
 
@@ -210,7 +210,7 @@
 + (NSString *)playerStateAsString:(PlayerState) state {
   switch (state) {
     case PlayerStateSpawning:  return @"spawning";
-    case PlayerStateIdle:      return @"idle";
+    case PlayerStateResting:   return @"resting";
     case PlayerStateAttacking: return @"attacking";
     case PlayerStateMoving:    return @"moving";
     case PlayerStateTurning:   return @"turning";

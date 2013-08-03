@@ -11,7 +11,7 @@
 #import "BulletNode.h"
 #import "OCMock.h"
 #import "Player.h"
-#import "PlayerIdleAction.h"
+#import "PlayerRestAction.h"
 #import "PlayerNode.h"
 #import "World.h"
 
@@ -41,7 +41,7 @@
 
   _player = [[Player alloc] initWithUUID:uuid];
   _player.world = _world;
-  _player.state = PlayerStateIdle;
+  _player.state = PlayerStateResting;
 }
 
 - (void)tearDown {
@@ -59,29 +59,29 @@
   expect(_player.age).to.equal(1);
 }
 
-- (void)testTickDefaultsToIdleAction {
+- (void)testTickDefaultsToRestAction {
   _player.energy = 90;
   [_player tick];
   expect(_player.energy).to.equal(100);
 }
 
-#pragma mark - Idle
+#pragma mark - Rest
 
-- (void)testIdleThrowsErrorWhenNotAlive {
+- (void)testRestThrowsErrorWhenNotAlive {
   _player.state = PlayerStateDead;
-  expect(^{ [_player idle]; }).to.raiseAny();
+  expect(^{ [_player rest]; }).to.raiseAny();
 }
 
-- (void)testIdleSetsState {
+- (void)testRestSetsState {
   _player.state = PlayerStateAttacking;
-  [_player idle];
-  expect(_player.state).to.equal(PlayerStateIdle);
+  [_player rest];
+  expect(_player.state).to.equal(PlayerStateResting);
 }
 
 #pragma mark - Spawn
 
 - (void)testSpawnThrowsErrorWhenNotDead {
-  _player.state = PlayerStateIdle;
+  _player.state = PlayerStateResting;
   expect(^{ [_player spawn:0]; }).to.raiseAny();
 }
 
@@ -101,7 +101,7 @@
 
 - (void)testDieSetsState {
   [[_world stub] playerDidDie:_player];
-  _player.state = PlayerStateIdle;
+  _player.state = PlayerStateResting;
   [_player die];
   expect(_player.state).to.equal(PlayerStateDead);
 }
@@ -134,7 +134,7 @@
 
 - (void)testAttackSetsState {
   [[_world stub] player:_player didShootBullet:[OCMArg any]];
-  _player.state = PlayerStateIdle;
+  _player.state = PlayerStateResting;
   [_player attack];
   expect(_player.state).to.equal(PlayerStateAttacking);
 }
@@ -153,7 +153,7 @@
 }
 
 - (void)testMoveSetsState {
-  _player.state = PlayerStateIdle;
+  _player.state = PlayerStateResting;
   [_player moveByX:1 y:2 duration:3];
   expect(_player.state).to.equal(PlayerStateMoving);
 }
@@ -174,7 +174,7 @@
 }
 
 - (void)testRotateSetsState {
-  _player.state = PlayerStateIdle;
+  _player.state = PlayerStateResting;
   [_player rotateByAngle:1 duration:2];
   expect(_player.state).to.equal(PlayerStateTurning);
 }
@@ -193,7 +193,7 @@
   [[_world stub] playerDidSpawn:_player];
   _player.state = PlayerStateSpawning;
   [_player didSpawn];
-  expect(_player.state).to.equal(PlayerStateIdle);
+  expect(_player.state).to.equal(PlayerStateResting);
 }
 
 - (void)testDidSpawnSetsHealth {
@@ -240,7 +240,7 @@
 
 - (void)testAsJSON {
   id expected = @{@"id":              @"910A0975-6EA9-4EA6-A40F-7D02FAC30F4F",
-                  @"state":           @"idle",
+                  @"state":           @"resting",
                   @"age":             @0,
                   @"health":          @0,
                   @"energy":          @0,

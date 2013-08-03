@@ -1,5 +1,5 @@
 //
-//  PlayerIdleAction.h
+//  PlayerRestAction.h
 //  Flatland
 //
 //  Created by Josh Bassett on 17/07/2013.
@@ -8,5 +8,5 @@
 
 #import "PlayerAction.h"
 
-@interface PlayerIdleAction : PlayerAction
+@interface PlayerRestAction : PlayerAction
 @end
