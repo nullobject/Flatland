@@ -32,14 +32,6 @@
   return self;
 }
 
-- (void)tick {
-  [_players enumerateKeysAndObjectsUsingBlock:^(NSUUID *uuid, Player *player, BOOL *stop) {
-    [player tick];
-  }];
-
-  _age += 1;
-}
-
 - (BOOL)applyAction:(PlayerAction *)action toPlayer:(NSUUID *)uuid error:(GameError **)error {
   Player *player = [self playerWithUUID:uuid];
   BOOL result = ([action validateForPlayer:player error:error]);
@@ -56,6 +48,13 @@
   return [player enqueueAction:action error:error];
 }
 
+- (void)tick {
+  [_players enumerateKeysAndObjectsUsingBlock:^(NSUUID *uuid, Player *player, BOOL *stop) {
+    [player tick];
+  }];
+
+  _age += 1;
+}
 
 #pragma mark - Callbacks
 
