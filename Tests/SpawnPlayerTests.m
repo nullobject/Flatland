@@ -23,17 +23,15 @@
     return [[uuid UUIDString] isEqualToString:[player objectForKey:@"id"]];
   }];
 
-  expect([response objectForKey:@"age"]).to.beGreaterThan(0);
   expect([player objectForKey:@"state"]).to.equal(@"spawning");
 
   [self waitForAction:@"spawn"];
 
-  response = [self doAction:@"idle" forPlayer:uuid];
+  response = [self getPlayer:uuid];
   player = [[response objectForKey:@"players"] find:^BOOL(id player, NSUInteger index, BOOL *stop) {
     return [[uuid UUIDString] isEqualToString:[player objectForKey:@"id"]];
   }];
 
-  expect([response objectForKey:@"age"]).to.beGreaterThan(0);
   expect([player objectForKey:@"state"]).to.equal(@"idle");
 }
 

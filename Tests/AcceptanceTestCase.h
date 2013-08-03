@@ -10,11 +10,14 @@
 
 @interface AcceptanceTestCase : XCTestCase
 
-// Peforms the action for the given player.
+// Performs the action for the given player.
 - (id)doAction:(NSString *)action forPlayer:(NSUUID *)uuid;
 - (id)doAction:(NSString *)action forPlayer:(NSUUID *)uuid parameters:(NSDictionary *)parameters;
 
 // Waits for the duration taken to execute the given action.
 - (void)waitForAction:(NSString *)action;
+
+// Returns the state of the given player.
+- (id)getPlayer:(NSUUID *)uuid;
 
 @end
