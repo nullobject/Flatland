@@ -8,17 +8,12 @@
 
 #import "AcceptanceTestCase.h"
 #import "AFNetworking.h"
-#import "NSBundle+InfoDictionaryKeyPath.h"
 
 NSString * const kRootURL = @"http://localhost:8000";
 
 @implementation AcceptanceTestCase
 
-- (id)doAction:(NSString *)action forPlayer:(NSUUID *)uuid {
-  return [self doAction:action forPlayer:uuid parameters:nil];
-}
-
-- (id)doAction:(NSString *)action forPlayer:(NSUUID *)uuid parameters:(NSDictionary *)parameters {
+- (void)doAction:(NSString *)action forPlayer:(NSUUID *)uuid parameters:(NSDictionary *)parameters completion:(void (^)(NSDictionary *response))block {
   NSURL *url = [NSURL URLWithString:kRootURL];
   NSString *path = [NSString stringWithFormat:@"/player/%@", action];
   AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
@@ -29,45 +24,28 @@ NSString * const kRootURL = @"http://localhost:8000";
   // Set the X-Player header.
   [httpClient setDefaultHeader:@"X-Player" value:[uuid UUIDString]];
 
-  NSMutableURLRequest *request = [httpClient requestWithMethod:@"PUT"
-                                                          path:path
-                                                    parameters:parameters];
+  NSMutableURLRequest *request = [httpClient requestWithMethod:@"PUT" path:path parameters:parameters];
 
-  AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                                                      success:nil
-                                                                                      failure:nil];
+  AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+    block(JSON);
+  } failure:nil];
 
   [operation start];
-  [operation waitUntilFinished];
-
-  return operation.responseJSON;
 }
 
-- (id)getPlayer:(NSUUID *)uuid {
-  NSURL *url = [NSURL URLWithString:kRootURL];
-  AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
+- (void)performAsyncTestWithBlock:(void (^)(BOOL *stop))block timeout:(NSTimeInterval)timeout {
+  NSTimeInterval timeoutSeconds = [[NSDate dateWithTimeIntervalSinceNow:timeout] timeIntervalSinceReferenceDate];
+  __block BOOL stop = NO;
 
-  // Set the X-Player header.
-  [httpClient setDefaultHeader:@"X-Player" value:[uuid UUIDString]];
+  block(&stop);
 
-  NSMutableURLRequest *request = [httpClient requestWithMethod:@"GET"
-                                                          path:@"/player"
-                                                    parameters:nil];
-
-  AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                                                      success:nil
-                                                                                      failure:nil];
-
-  [operation start];
-  [operation waitUntilFinished];
-
-  return operation.responseJSON;
-}
-
-- (void)waitForAction:(NSString *)action {
-  NSString *keyPath = [NSString stringWithFormat:@"Actions.%@.Duration", [action capitalizedString]];
-  NSTimeInterval duration = [[[NSBundle mainBundle] objectForInfoDictionaryKeyPath:keyPath] doubleValue];
-  [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:(duration + duration * 0.1)]];
+  while (!stop) {
+    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+    if ([NSDate timeIntervalSinceReferenceDate] >= timeoutSeconds) {
+      XCTFail(@"Timeout");
+      stop = YES;
+		}
+  }
 }
 
 @end

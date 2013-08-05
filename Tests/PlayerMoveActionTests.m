@@ -39,8 +39,9 @@
 
 - (void)testApplyToPlayer {
   [(Player *)[[_player stub] andReturnValue:[NSNumber numberWithDouble:0]] rotation];
-  [[_player expect] moveByX:0 y:50 duration:0.25];
-  [_playerAction applyToPlayer:_player];
+  void (^block)(void) = ^{};
+  [[_player expect] moveByX:0 y:50 duration:0.25 completion:block];
+  [_playerAction applyToPlayer:_player completion:block];
 }
 
 - (void)testValidateReturnsNoErrorWhenPlayerIsAlive {

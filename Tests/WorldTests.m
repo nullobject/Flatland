@@ -74,8 +74,9 @@
   NSUUID *uuid = [NSUUID UUID];
   [(NSMutableDictionary *)_world.players setObject:player forKey:uuid];
 
-  [[player expect] enqueueAction:action error:nil];
-  [_world enqueueAction:action forPlayer:uuid error:nil];
+  void (^block)(void) = ^{};
+  [[player expect] applyAction:action completion:block error:nil];
+  [_world enqueueAction:action forPlayer:uuid completion:block error:nil];
   [player verify];
 }
 

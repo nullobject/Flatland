@@ -38,8 +38,9 @@
 }
 
 - (void)testApplyToPlayer {
-  [[_player expect] attack];
-  [_playerAction applyToPlayer:_player];
+  void (^block)(void) = ^{};
+  [[_player expect] attack:1 completion:block];
+  [_playerAction applyToPlayer:_player completion:block];
 }
 
 - (void)testValidateReturnsNoErrorWhenPlayerIsAlive {

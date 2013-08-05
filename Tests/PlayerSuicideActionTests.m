@@ -38,8 +38,9 @@
 }
 
 - (void)testApplyToPlayer {
-  [[_player expect] die];
-  [_playerAction applyToPlayer:_player];
+  void (^block)(void) = ^{};
+  [[_player expect] suicide:1 completion:block];
+  [_playerAction applyToPlayer:_player completion:block];
 }
 
 - (void)testValidateReturnsNoErrorWhenPlayerIsAlive {

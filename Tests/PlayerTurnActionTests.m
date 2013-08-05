@@ -40,8 +40,9 @@
 
 - (void)testApplyToPlayer {
   [(Player *)[[_player stub] andReturnValue:[NSNumber numberWithDouble:0]] rotation];
-  [[_player expect] rotateByAngle:(M_TAU / 2) duration:0.5];
-  [_playerAction applyToPlayer:_player];
+  void (^block)(void) = ^{};
+  [[_player expect] rotateByAngle:(M_TAU / 2) duration:0.5 completion:block];
+  [_playerAction applyToPlayer:_player completion:block];
 }
 
 - (void)testValidateReturnsNoErrorWhenPlayerIsAlive {

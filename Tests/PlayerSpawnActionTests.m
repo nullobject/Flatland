@@ -38,8 +38,9 @@
 }
 
 - (void)testApplyToPlayer {
-  [[_player expect] spawn:0];
-  [_playerAction applyToPlayer:_player];
+  void (^block)(void) = ^{};
+  [[_player expect] spawn:3 completion:block];
+  [_playerAction applyToPlayer:_player completion:block];
 }
 
 - (void)testValidateReturnsNoErrorWhenPlayerIsDead {

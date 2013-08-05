@@ -59,22 +59,16 @@
   expect(_player.age).to.equal(1);
 }
 
-- (void)testTickDefaultsToRestAction {
-  _player.energy = 90;
-  [_player tick];
-  expect(_player.energy).to.equal(100);
-}
-
 #pragma mark - Rest
 
 - (void)testRestThrowsErrorWhenNotAlive {
   _player.state = PlayerStateDead;
-  expect(^{ [_player rest]; }).to.raiseAny();
+  expect(^{ [_player rest:0 completion:^{}]; }).to.raiseAny();
 }
 
 - (void)testRestSetsState {
   _player.state = PlayerStateAttacking;
-  [_player rest];
+  [_player rest:0 completion:^{}];
   expect(_player.state).to.equal(PlayerStateResting);
 }
 
@@ -82,87 +76,88 @@
 
 - (void)testSpawnThrowsErrorWhenNotDead {
   _player.state = PlayerStateResting;
-  expect(^{ [_player spawn:0]; }).to.raiseAny();
+  expect(^{ [_player spawn:0 completion:^{}]; }).to.raiseAny();
 }
 
 - (void)testSpawnSetsState {
   _player.state = PlayerStateDead;
-  [_player spawn:1];
+  [_player spawn:1 completion:^{}];
   expect(_player.state).to.equal(PlayerStateSpawning);
 }
 
-#pragma mark - Die
+#pragma mark - Suicide
 
-- (void)testDieThrowsErrorWhenNotAlive {
+- (void)testSuicideThrowsErrorWhenNotAlive {
   [[_world stub] playerDidDie:_player];
   _player.state = PlayerStateDead;
-  expect(^{ [_player die]; }).to.raiseAny();
+  expect(^{ [_player suicide:0 completion:^{}]; }).to.raiseAny();
 }
 
-- (void)testDieSetsState {
+- (void)testSuicideSetsState {
   [[_world stub] playerDidDie:_player];
   _player.state = PlayerStateResting;
-  [_player die];
+  [_player suicide:0 completion:^{}];
   expect(_player.state).to.equal(PlayerStateDead);
 }
 
-- (void)testDieIncrementsDeaths {
+- (void)testSuicideIncrementsDeaths {
   [[_world stub] playerDidDie:_player];
   expect(_player.deaths).to.equal(0);
-  [_player die];
+  [_player suicide:0 completion:^{}];
   expect(_player.deaths).to.equal(1);
 }
 
-- (void)testDieUnsetsPlayerNode {
+- (void)testSuicideUnsetsPlayerNode {
   [[_world stub] playerDidDie:_player];
   _player.playerNode = [OCMockObject mockForClass:PlayerNode.class];
-  [_player die];
+  [_player suicide:0 completion:^{}];
   expect(_player.playerNode).to.beNil();
 }
 
-- (void)testDieCallsPlayerDidDie {
+- (void)testSuicideCallsPlayerDidDie {
   [[_world expect] playerDidDie:_player];
-  [_player die];
+  [_player suicide:0 completion:^{}];
 }
 
 #pragma mark - Attack
 
 - (void)testAttackThrowsErrorWhenNotAlive {
   _player.state = PlayerStateDead;
-  expect(^{ [_player attack]; }).to.raiseAny();
+  expect(^{ [_player attack:0 completion:^{}]; }).to.raiseAny();
 }
 
 - (void)testAttackSetsState {
   [[_world stub] player:_player didShootBullet:[OCMArg any]];
   _player.state = PlayerStateResting;
-  [_player attack];
+  [_player attack:0 completion:^{}];
   expect(_player.state).to.equal(PlayerStateAttacking);
 }
 
 - (void)testAttackCallsPlayerDidShootBullet {
   [[_world expect] player:_player
            didShootBullet:[OCMArg checkWithBlock:^BOOL(BulletNode *bullet) { return (bullet.player == _player); }]];
-  [_player attack];
+  [_player attack:0 completion:^{}];
 }
 
 #pragma mark - Move
 
 - (void)testMoveThrowsErrorWhenNotAlive {
   _player.state = PlayerStateDead;
-  expect(^{ [_player moveByX:1 y:2 duration:3]; }).to.raiseAny();
+  expect(^{ [_player moveByX:1 y:2 duration:3 completion:^{}]; }).to.raiseAny();
 }
 
 - (void)testMoveSetsState {
   _player.state = PlayerStateResting;
-  [_player moveByX:1 y:2 duration:3];
+  [_player moveByX:1 y:2 duration:3 completion:^{}];
   expect(_player.state).to.equal(PlayerStateMoving);
 }
 
 - (void)testMoveRunsActionOnPlayerNode {
   id playerNode = [OCMockObject mockForClass:PlayerNode.class];
-  [[playerNode expect] runAction:[OCMArg any]];
+  void (^block)(void) = ^{};
+  [[playerNode expect] runAction:[OCMArg any] completion:block];
   _player.playerNode = playerNode;
-  [_player moveByX:1 y:2 duration:3];
+  [_player moveByX:1 y:2 duration:3 completion:block];
   [playerNode verify];
 }
 
@@ -170,20 +165,21 @@
 
 - (void)testRotateThrowsErrorWhenNotAlive {
   _player.state = PlayerStateDead;
-  expect(^{ [_player rotateByAngle:1 duration:2]; }).to.raiseAny();
+  expect(^{ [_player rotateByAngle:1 duration:2 completion:^{}]; }).to.raiseAny();
 }
 
 - (void)testRotateSetsState {
   _player.state = PlayerStateResting;
-  [_player rotateByAngle:1 duration:2];
+  [_player rotateByAngle:1 duration:2 completion:^{}];
   expect(_player.state).to.equal(PlayerStateTurning);
 }
 
 - (void)testRotateRunsActionOnPlayerNode {
   id playerNode = [OCMockObject mockForClass:PlayerNode.class];
-  [[playerNode expect] runAction:[OCMArg any]];
+  void (^block)(void) = ^{};
+  [[playerNode expect] runAction:[OCMArg any] completion:block];
   _player.playerNode = playerNode;
-  [_player rotateByAngle:1 duration:2];
+  [_player rotateByAngle:1 duration:2 completion:block];
   [playerNode verify];
 }
 

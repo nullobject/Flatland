@@ -15,13 +15,16 @@
 
 @implementation PlayerMoveAction
 
-- (CGFloat)cost {
-  CGFloat amount = [(NSNumber *)[self.options objectForKey:@"amount"] floatValue];
-  CGFloat absAmount = ABS(NORMALIZE(amount));
-  return 20 * absAmount;
+- (NSString *)name {
+  return @"move";
 }
 
-- (void)applyToPlayer:(Player *)player {
+- (CGFloat)cost {
+  CGFloat amount = [(NSNumber *)[self.options objectForKey:@"amount"] floatValue];
+  return super.cost * ABS(NORMALIZE(amount));
+}
+
+- (void)applyToPlayer:(Player *)player completion:(void (^)(void))block {
   CGFloat amount = [(NSNumber *)[self.options objectForKey:@"amount"] floatValue];
 
   CGFloat clampedAmount = NORMALIZE(amount),
@@ -29,9 +32,9 @@
           y =  cosf(player.rotation) * clampedAmount * kMovementSpeed;
 
   // Calculate the time it takes to move the given amount.
-  NSTimeInterval duration = (DISTANCE(x, y) * ABS(clampedAmount)) / kMovementSpeed;
+  NSTimeInterval duration = self.duration * (DISTANCE(x, y) * ABS(clampedAmount)) / kMovementSpeed;
 
-  [player moveByX:x y:y duration:duration];
+  [player moveByX:x y:y duration:duration completion:block];
 }
 
 @end

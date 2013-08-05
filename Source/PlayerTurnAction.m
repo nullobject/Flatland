@@ -15,22 +15,25 @@
 
 @implementation PlayerTurnAction
 
-- (CGFloat)cost {
-  CGFloat amount = [(NSNumber *)[self.options objectForKey:@"amount"] floatValue];
-  CGFloat absAmount = ABS(NORMALIZE(amount));
-  return 20 * absAmount;
+- (NSString *)name {
+  return @"turn";
 }
 
-- (void)applyToPlayer:(Player *)player {
+- (CGFloat)cost {
+  CGFloat amount = [(NSNumber *)[self.options objectForKey:@"amount"] floatValue];
+  return super.cost * ABS(NORMALIZE(amount));
+}
+
+- (void)applyToPlayer:(Player *)player completion:(void (^)(void))block {
   CGFloat amount = [(NSNumber *)[self.options objectForKey:@"amount"] floatValue];
 
   CGFloat clampedAmount = NORMALIZE(amount),
           angle = clampedAmount * kRotationSpeed;
 
   // Calculate the time it takes to turn the given amount.
-  NSTimeInterval duration = (M_TAU * ABS(clampedAmount)) / kRotationSpeed;
+  NSTimeInterval duration = self.duration * (M_TAU * ABS(clampedAmount)) / kRotationSpeed;
 
-  [player rotateByAngle:angle duration:duration];
+  [player rotateByAngle:angle duration:duration completion:block];
 }
 
 @end

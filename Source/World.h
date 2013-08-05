@@ -24,11 +24,8 @@
 // The age of the world in simulation iterations.
 @property (nonatomic) NSUInteger age;
 
-// Applies the action to the player with the given UUID.
-- (BOOL)applyAction:(PlayerAction *)action toPlayer:(NSUUID *)uuid error:(GameError **)error;
-
-// Enqueues the action for the player with the given UUID.
-- (BOOL)enqueueAction:(PlayerAction *)action forPlayer:(NSUUID *)uuid error:(GameError **)error;
+// Enqueues the action for the given player.
+- (BOOL)enqueueAction:(PlayerAction *)action forPlayer:(NSUUID *)uuid completion:(void (^)(void))block error:(GameError **)error;
 
 // Ticks the world.
 - (void)tick;

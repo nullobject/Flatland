@@ -23,8 +23,9 @@
 
 - (void)setUp {
   [super setUp];
+  NSDictionary *options = @{@"amount": [NSNumber numberWithFloat:0.5]};
   _player = [OCMockObject mockForClass:Player.class];
-  _playerAction = [[PlayerRestAction alloc] initWithOptions:@{}];
+  _playerAction = [[PlayerRestAction alloc] initWithOptions:options];
 }
 
 - (void)tearDown {
@@ -34,12 +35,13 @@
 }
 
 - (void)testCost {
-  expect(_playerAction.cost).to.equal(-10);
+  expect(_playerAction.cost).to.equal(-5);
 }
 
 - (void)testApplyToPlayer {
-  [[_player expect] rest];
-  [_playerAction applyToPlayer:_player];
+  void (^block)(void) = ^{};
+  [[_player expect] rest:0.5 completion:block];
+  [_playerAction applyToPlayer:_player completion:block];
 }
 
 - (void)testValidateReturnsNoErrorWhenPlayerIsAlive {

@@ -11,11 +11,7 @@
 #import "GCDTimer.h"
 #import "NSDictionary+Point.h"
 #import "Player.h"
-#import "PlayerRestAction.h"
 #import "World.h"
-
-// Player spawn delay in seconds.
-#define kSpawnDelay 3.0
 
 // The damage applied when a player is shot (in energy units).
 #define kBulletDamage 10.0
@@ -46,31 +42,21 @@
   return self;
 }
 
-- (BOOL)enqueueAction:(PlayerAction *)action error:(GameError **)error {
+- (BOOL)applyAction:(PlayerAction *)action completion:(void (^)(void))block error:(GameError **)error {
   BOOL result = ([action validateForPlayer:self error:error]);
 
   if (result) {
-    _action = action;
+    // Apply the action.
+    [action applyToPlayer:self completion:block];
+
+    // Subtract the action cost.
+    _energy = CLAMP(_energy - action.cost, 0.0f, 100.0f);
   }
 
   return result;
 }
 
 - (void)tick {
-  // Default to the rest action (if the player is alive).
-  if (!_action && self.isAlive) {
-    _action = [[PlayerRestAction alloc] init];
-  }
-
-  // Apply the action.
-  [_action applyToPlayer:self];
-
-  // Subtract the action cost.
-  _energy = CLAMP(_energy - _action.cost, 0.0f, 100.0f);
-
-  // Clear the current action.
-  _action = nil;
-
   // Increment the entity age.
   _age += 1;
 }
@@ -101,13 +87,7 @@
 
 #pragma mark - Actions
 
-- (void)rest {
-  NSAssert(self.isAlive, @"Player is dead");
-  _state = PlayerStateResting;
-  NSLog(@"Player resting %@.", [_uuid UUIDString]);
-}
-
-- (void)spawn:(NSTimeInterval)duration {
+- (void)spawn:(NSTimeInterval)duration completion:(void (^)(void))block {
   NSAssert(!self.isAlive, @"Player is alive");
   NSAssert(!self.isSpawning, @"Player is spawning");
 
@@ -116,12 +96,69 @@
   GCDTimer *timer = [GCDTimer timerOnMainQueue];
   [timer scheduleBlock:^{
     [self didSpawn];
-  } afterInterval:kSpawnDelay];
+    block();
+  } afterInterval:duration];
 }
 
-- (void)die {
+- (void)rest:(NSTimeInterval)duration completion:(void (^)(void))block {
   NSAssert(self.isAlive, @"Player is dead");
 
+  _state = PlayerStateResting;
+
+  GCDTimer *timer = [GCDTimer timerOnMainQueue];
+  [timer scheduleBlock:block afterInterval:duration];
+
+  NSLog(@"Player resting %@.", [_uuid UUIDString]);
+}
+
+- (void)attack:(NSTimeInterval)duration completion:(void (^)(void))block {
+  NSAssert(self.isAlive, @"Player is dead");
+
+  _state = PlayerStateAttacking;
+
+  BulletNode *bullet = [[BulletNode alloc] initWithPlayer:self];
+  [_world player:self didShootBullet:bullet];
+
+  GCDTimer *timer = [GCDTimer timerOnMainQueue];
+  [timer scheduleBlock:block afterInterval:duration];
+
+  NSLog(@"Player attacking %@ .", [_uuid UUIDString]);
+}
+
+- (void)moveByX:(CGFloat)x y:(CGFloat)y duration:(NSTimeInterval)duration completion:(void (^)(void))block {
+  NSAssert(self.isAlive, @"Player is dead");
+
+  _state = PlayerStateMoving;
+
+  SKAction *action = [SKAction moveByX:x y:y duration:duration];
+  [_playerNode runAction:action completion:block];
+
+  NSLog(@"Player moving %@ to (%f, %f).", [_uuid UUIDString], x, y);
+}
+
+- (void)rotateByAngle:(CGFloat)angle duration:(NSTimeInterval)duration completion:(void (^)(void))block {
+  NSAssert(self.isAlive, @"Player is dead");
+
+  _state = PlayerStateTurning;
+
+  SKAction *action = [SKAction rotateByAngle:angle duration:duration];
+  [_playerNode runAction:action completion:block];
+
+  NSLog(@"Player turning %@ by %f.", [_uuid UUIDString], angle);
+}
+
+- (void)suicide:(NSTimeInterval)duration completion:(void (^)(void))block {
+  NSAssert(self.isAlive, @"Player is dead");
+
+  [self didDie];
+
+  GCDTimer *timer = [GCDTimer timerOnMainQueue];
+  [timer scheduleBlock:block afterInterval:duration];
+}
+
+#pragma mark - Callbacks
+
+- (void)didDie {
   _deaths += 1;
   _state = PlayerStateDead;
 
@@ -132,32 +169,6 @@
 
   NSLog(@"Player died %@.", [_uuid UUIDString]);
 }
-
-- (void)attack {
-  NSAssert(self.isAlive, @"Player is dead");
-  _state = PlayerStateAttacking;
-  BulletNode *bullet = [[BulletNode alloc] initWithPlayer:self];
-  [_world player:self didShootBullet:bullet];
-  NSLog(@"Player attacking %@ .", [_uuid UUIDString]);
-}
-
-- (void)moveByX:(CGFloat)x y:(CGFloat)y duration:(NSTimeInterval)duration {
-  NSAssert(self.isAlive, @"Player is dead");
-  _state = PlayerStateMoving;
-  SKAction *action = [SKAction moveByX:x y:y duration:duration];
-  [_playerNode runAction:action];
-  NSLog(@"Player moving %@ to (%f, %f).", [_uuid UUIDString], x, y);
-}
-
-- (void)rotateByAngle:(CGFloat)angle duration:(NSTimeInterval)duration {
-  NSAssert(self.isAlive, @"Player is dead");
-  _state = PlayerStateTurning;
-  SKAction *action = [SKAction rotateByAngle:angle duration:duration];
-  [_playerNode runAction:action];
-  NSLog(@"Player turning %@ by %f.", [_uuid UUIDString], angle);
-}
-
-#pragma mark - Callbacks
 
 - (void)didSpawn {
   _playerNode = [[PlayerNode alloc] initWithPlayer:self];
@@ -182,7 +193,7 @@
 
   // Check if the player died.
   if (_health == 0.0f) {
-    [self die];
+    [self didDie];
 
     // Increment the kills for the shooter.
     player.kills += 1;
@@ -209,10 +220,10 @@
 
 + (NSString *)playerStateAsString:(PlayerState) state {
   switch (state) {
-    case PlayerStateSpawning:  return @"spawning";
-    case PlayerStateResting:   return @"resting";
     case PlayerStateAttacking: return @"attacking";
     case PlayerStateMoving:    return @"moving";
+    case PlayerStateResting:   return @"resting";
+    case PlayerStateSpawning:  return @"spawning";
     case PlayerStateTurning:   return @"turning";
     default:                   return @"dead";
   }

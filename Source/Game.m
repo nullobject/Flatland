@@ -19,9 +19,9 @@
 
 - (id)init {
   if (self = [super init]) {
-    NSString *bundleName    = [[NSBundle mainBundle] objectForInfoDictionaryKeyPath:(NSString *)kCFBundleNameKey];
-    NSString *bundleVersion = [[NSBundle mainBundle] objectForInfoDictionaryKeyPath:(NSString *)kCFBundleVersionKey];
-    NSString *copyright     = [[NSBundle mainBundle] objectForInfoDictionaryKeyPath:@"NSHumanReadableCopyright"];
+    NSString *bundleName    = [[NSBundle bundleForClass:self.class] objectForInfoDictionaryKeyPath:(NSString *)kCFBundleNameKey];
+    NSString *bundleVersion = [[NSBundle bundleForClass:self.class] objectForInfoDictionaryKeyPath:(NSString *)kCFBundleVersionKey];
+    NSString *copyright     = [[NSBundle bundleForClass:self.class] objectForInfoDictionaryKeyPath:@"NSHumanReadableCopyright"];
 
     NSLog(@"%@ (%@)", bundleName, bundleVersion);
     NSLog(@"%@", copyright);
@@ -47,22 +47,17 @@
   NSLog(@"Game#tick");
 
   [_world tick];
-
-  [_world.players enumerateKeysAndObjectsUsingBlock:^(NSUUID *uuid, Player *player, BOOL *stop) {
-    [_server respondToPlayer:uuid withWorld:_world];
-  }];
 }
 
 #pragma mark - ServerDelegate
 
-- (id)server:(Server *)server didReceiveAction:(PlayerAction *)action forPlayer:(NSUUID *)uuid error:(GameError **)error {
-  [_world applyAction:action toPlayer:uuid error:error];
-  return _world;
-}
-
-- (void)server:(Server *)server didReceiveAsyncAction:(PlayerAction *)action forPlayer:(NSUUID *)uuid {
+- (void)server:(Server *)server didReceiveAction:(PlayerAction *)action forPlayer:(NSUUID *)uuid {
   GameError *error;
-  if (![_world enqueueAction:action forPlayer:uuid error:&error]) {
+  BOOL result = [_world enqueueAction:action
+                            forPlayer:uuid
+                           completion:^{ [_server respondToPlayer:uuid withWorld:_world]; }
+                                error:&error];
+  if (!result) {
     [_server respondToPlayer:uuid withError:error];
   }
 }
@@ -91,7 +86,7 @@
 - (void)startTimer {
   dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
   _timer = [GCDTimer timerOnQueue:queue];
-  NSNumber *interval = [[NSBundle mainBundle] objectForInfoDictionaryKeyPath:@"Interval"];
+  NSNumber *interval = [[NSBundle bundleForClass:self.class] objectForInfoDictionaryKeyPath:@"Interval"];
 
   [_timer scheduleBlock:^{
     [self tick];

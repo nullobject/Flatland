@@ -11,8 +11,12 @@
 
 @implementation PlayerSuicideAction
 
-- (void)applyToPlayer:(Player *)player {
-  [player die];
+- (NSString *)name {
+  return @"suicide";
+}
+
+- (void)applyToPlayer:(Player *)player completion:(void (^)(void))block {
+  [player suicide:self.duration completion:block];
 }
 
 @end

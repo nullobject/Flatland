@@ -6,15 +6,17 @@
 //  Copyright (c) 2013 Gamedogs. All rights reserved.
 //
 
-#import "NSBundle+InfoDictionaryKeyPath.h"
 #import "Player.h"
 #import "PlayerSpawnAction.h"
 
 @implementation PlayerSpawnAction
 
-- (void)applyToPlayer:(Player *)player {
-  NSNumber *duration = [[NSBundle mainBundle] objectForInfoDictionaryKeyPath:@"Actions.Spawn.Duration"];
-  [player spawn:[duration doubleValue]];
+- (NSString *)name {
+  return @"spawn";
+}
+
+- (void)applyToPlayer:(Player *)player completion:(void (^)(void))block {
+  [player spawn:self.duration completion:block];
 }
 
 - (BOOL)validateForPlayer:(Player *)player error:(GameError **)error {

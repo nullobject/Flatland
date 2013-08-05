@@ -47,6 +47,11 @@
                BlueprintName = "AcceptanceTests"
                ReferencedContainer = "container:Flatland.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "AcceptanceTestCase">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
       <MacroExpansion>

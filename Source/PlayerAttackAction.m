@@ -11,12 +11,12 @@
 
 @implementation PlayerAttackAction
 
-- (CGFloat)cost {
-  return 20;
+- (NSString *)name {
+  return @"attack";
 }
 
-- (void)applyToPlayer:(Player *)player {
-  [player attack];
+- (void)applyToPlayer:(Player *)player completion:(void (^)(void))block {
+  [player attack:self.duration completion:block];
 }
 
 @end

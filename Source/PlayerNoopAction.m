@@ -9,4 +9,9 @@
 #import "PlayerNoopAction.h"
 
 @implementation PlayerNoopAction
+
+- (NSString *)name {
+  return @"noop";
+}
+
 @end

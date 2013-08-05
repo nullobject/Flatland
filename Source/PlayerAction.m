@@ -6,25 +6,28 @@
 //  Copyright (c) 2013 Gamedogs. All rights reserved.
 //
 
+#import "NSBundle+InfoDictionaryKeyPath.h"
 #import "Player.h"
 #import "PlayerAction.h"
 #import "PlayerSpawnAction.h"
 
 @implementation PlayerAction
 
-- (CGFloat)cost {
-  return 0;
+- (NSString *)name {
+  return @"";
 }
 
 - (id)initWithOptions:(NSDictionary *)options {
   if (self = [super init]) {
-    _options = options;
+    _cost     = [self getCost];
+    _duration = [self getDuration];
+    _options  = options;
   }
 
   return self;
 }
 
-- (void)applyToPlayer:(Player *)player {
+- (void)applyToPlayer:(Player *)player completion:(void (^)(void))block {
 }
 
 - (BOOL)validateForPlayer:(Player *)player error:(GameError **)error {
@@ -45,6 +48,20 @@
   }
 
   return YES;
+}
+
+#pragma mark - Private
+
+- (CGFloat)getCost {
+  NSString *keyPath = [NSString stringWithFormat:@"Actions.%@.Cost", [self.name capitalizedString]];
+  NSNumber *cost = [[NSBundle bundleForClass:self.class] objectForInfoDictionaryKeyPath:keyPath];
+  return [cost doubleValue];
+}
+
+- (NSTimeInterval)getDuration {
+  NSString *keyPath = [NSString stringWithFormat:@"Actions.%@.Duration", [self.name capitalizedString]];
+  NSNumber *cost = [[NSBundle bundleForClass:self.class] objectForInfoDictionaryKeyPath:keyPath];
+  return [cost doubleValue];
 }
 
 @end

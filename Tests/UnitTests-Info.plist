@@ -18,5 +18,50 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>Actions</key>
+	<dict>
+		<key>Attack</key>
+		<dict>
+			<key>Cost</key>
+			<integer>20</integer>
+			<key>Duration</key>
+			<integer>1</integer>
+		</dict>
+		<key>Move</key>
+		<dict>
+			<key>Cost</key>
+			<integer>20</integer>
+			<key>Duration</key>
+			<integer>1</integer>
+		</dict>
+		<key>Rest</key>
+		<dict>
+			<key>Cost</key>
+			<integer>-10</integer>
+			<key>Duration</key>
+			<integer>1</integer>
+		</dict>
+		<key>Spawn</key>
+		<dict>
+			<key>Cost</key>
+			<integer>0</integer>
+			<key>Duration</key>
+			<integer>3</integer>
+		</dict>
+		<key>Suicide</key>
+		<dict>
+			<key>Cost</key>
+			<integer>0</integer>
+			<key>Duration</key>
+			<integer>1</integer>
+		</dict>
+		<key>Turn</key>
+		<dict>
+			<key>Cost</key>
+			<integer>20</integer>
+			<key>Duration</key>
+			<integer>1</integer>
+		</dict>
+	</dict>
 </dict>
 </plist>

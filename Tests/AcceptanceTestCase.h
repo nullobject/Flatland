@@ -11,13 +11,7 @@
 @interface AcceptanceTestCase : XCTestCase
 
 // Performs the action for the given player.
-- (id)doAction:(NSString *)action forPlayer:(NSUUID *)uuid;
-- (id)doAction:(NSString *)action forPlayer:(NSUUID *)uuid parameters:(NSDictionary *)parameters;
+- (void)doAction:(NSString *)action forPlayer:(NSUUID *)uuid parameters:(NSDictionary *)parameters completion:(void (^)(NSDictionary *response))block;
 
-// Waits for the duration taken to execute the given action.
-- (void)waitForAction:(NSString *)action;
-
-// Returns the state of the given player.
-- (id)getPlayer:(NSUUID *)uuid;
-
+- (void)performAsyncTestWithBlock:(void (^)(BOOL *stop))block timeout:(NSTimeInterval)timeout;
 @end

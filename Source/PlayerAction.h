@@ -15,15 +15,22 @@
 // Represents an action submitted by a player.
 @interface PlayerAction : NSObject
 
-@property (nonatomic, readonly) NSDictionary *options;
+// The name of the action.
+@property (nonatomic, readonly) NSString *name;
 
-// The cost to perform the action (in energy units).
+// The cost to perform the action in energy units.
 @property (nonatomic, readonly) CGFloat cost;
+
+// The duration of the action in seconds.
+@property (nonatomic, readonly) NSTimeInterval duration;
+
+// A dictionary of options supplied to the action.
+@property (nonatomic, readonly) NSDictionary *options;
 
 - (id)initWithOptions:(NSDictionary *)options;
 
 // Applies the action to the given player.
-- (void)applyToPlayer:(Player *)player;
+- (void)applyToPlayer:(Player *)player completion:(void (^)(void))block;
 
 // Validates the action for the given player.
 - (BOOL)validateForPlayer:(Player *)player error:(GameError **)error;

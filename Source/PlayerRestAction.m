@@ -6,17 +6,25 @@
 //  Copyright (c) 2013 Gamedogs. All rights reserved.
 //
 
+#import "Core.h"
 #import "Player.h"
 #import "PlayerRestAction.h"
 
 @implementation PlayerRestAction
 
-- (CGFloat)cost {
-  return -10;
+- (NSString *)name {
+  return @"rest";
 }
 
-- (void)applyToPlayer:(Player *)player {
-  [player rest];
+- (CGFloat)cost {
+  CGFloat amount = [(NSNumber *)[self.options objectForKey:@"amount"] floatValue];
+  return super.cost * ABS(NORMALIZE(amount));
+}
+
+- (void)applyToPlayer:(Player *)player completion:(void (^)(void))block {
+  CGFloat amount = [(NSNumber *)[self.options objectForKey:@"amount"] floatValue];
+  NSTimeInterval duration = self.duration * ABS(NORMALIZE(amount));
+  [player rest:duration completion:block];
 }
 
 @end

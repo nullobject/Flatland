@@ -14,11 +14,11 @@
 #import "Serializable.h"
 
 typedef enum : uint8_t {
-  PlayerStateDead,
-  PlayerStateSpawning,
-  PlayerStateResting,
   PlayerStateAttacking,
+  PlayerStateDead,
   PlayerStateMoving,
+  PlayerStateResting,
+  PlayerStateSpawning,
   PlayerStateTurning
 } PlayerState;
 
@@ -34,9 +34,6 @@ typedef enum : uint8_t {
 
 // The unique identifier for the player.
 @property (nonatomic, readonly) NSUUID *uuid;
-
-// The enqueued player action.
-@property (nonatomic, readonly) PlayerAction *action;
 
 @property (nonatomic, readonly) PlayerState state;
 @property (nonatomic, readonly) NSUInteger  age;
@@ -55,34 +52,37 @@ typedef enum : uint8_t {
 // Initializes the player with the given UUID.
 - (Player *)initWithUUID:(NSUUID *)uuid;
 
-// Enqueues the given action for the player.
-- (BOOL)enqueueAction:(PlayerAction *)action error:(GameError **)error;
+// Applies the given action to the player.
+- (BOOL)applyAction:(PlayerAction *)action completion:(void (^)(void))block error:(GameError **)error;
 
 // Ticks the player.
 - (void)tick;
 
-// Rests the player.
-- (void)rest;
-
 // Spawns the player.
-- (void)spawn:(NSTimeInterval)duration;
+- (void)spawn:(NSTimeInterval)duration completion:(void (^)(void))block;
 
-// Kills the playher.
-- (void)die;
+// Rests the player.
+- (void)rest:(NSTimeInterval)duration completion:(void (^)(void))block;
 
 // Fires a bullet in the current direction.
-- (void)attack;
+- (void)attack:(NSTimeInterval)duration completion:(void (^)(void))block;
 
 // Moves the player by the X/Y offsets over the given duration.
-- (void)moveByX:(CGFloat)x y:(CGFloat)y duration:(NSTimeInterval)duration;
+- (void)moveByX:(CGFloat)x y:(CGFloat)y duration:(NSTimeInterval)duration completion:(void (^)(void))block;
 
 // Rotates the player by the angle over the given duration.
-- (void)rotateByAngle:(CGFloat)angle duration:(NSTimeInterval)duration;
+- (void)rotateByAngle:(CGFloat)angle duration:(NSTimeInterval)duration completion:(void (^)(void))block;
+
+// Kills the player.
+- (void)suicide:(NSTimeInterval)duration completion:(void (^)(void))block;
 
 // Called when the player spawns.
 - (void)didSpawn;
 
 // Called when the player was shot by another player.
 - (void)wasShotByPlayer:(Player *)player;
+
+// Called when the player died.
+- (void)didDie;
 
 @end

@@ -32,20 +32,9 @@
   return self;
 }
 
-- (BOOL)applyAction:(PlayerAction *)action toPlayer:(NSUUID *)uuid error:(GameError **)error {
+- (BOOL)enqueueAction:(PlayerAction *)action forPlayer:(NSUUID *)uuid completion:(void (^)(void))block error:(GameError **)error {
   Player *player = [self playerWithUUID:uuid];
-  BOOL result = ([action validateForPlayer:player error:error]);
-
-  if (result) {
-    [action applyToPlayer:player];
-  }
-
-  return result;
-}
-
-- (BOOL)enqueueAction:(PlayerAction *)action forPlayer:(NSUUID *)uuid error:(GameError **)error {
-  Player *player = [self playerWithUUID:uuid];
-  return [player enqueueAction:action error:error];
+  return [player applyAction:action completion:block error:error];
 }
 
 - (void)tick {
