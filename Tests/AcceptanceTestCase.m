@@ -28,7 +28,9 @@ NSString * const kRootURL = @"http://localhost:8000";
 
   AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
     block(JSON);
-  } failure:nil];
+  } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+    block(JSON);
+  }];
 
   [operation start];
 }

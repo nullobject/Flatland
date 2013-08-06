@@ -35,4 +35,17 @@
   } timeout:5];
 }
 
+- (void)testMovePlayerWhenPlayerIsDead {
+  NSUUID *uuid = [NSUUID UUID];
+
+  [self performAsyncTestWithBlock:^(BOOL *stop) {
+    [self doAction:@"move" forPlayer:uuid parameters:@{@"amount": @1} completion:^(NSDictionary *response) {
+      expect([response objectForKey:@"code"]).to.equal(4);
+      expect([response objectForKey:@"error"]).to.equal(@"Player has not spawned");
+
+      *stop = YES;
+    }];
+  } timeout:5];
+}
+
 @end
