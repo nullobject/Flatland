@@ -79,11 +79,6 @@
   expect(^{ [_player spawn:0 completion:^{}]; }).to.raiseAny();
 }
 
-- (void)testSpawnSetsState {
-  _player.state = PlayerStateDead;
-  [_player spawn:1 completion:^{}];
-  expect(_player.state).to.equal(PlayerStateSpawning);
-}
 
 #pragma mark - Suicide
 
@@ -187,7 +182,7 @@
 
 - (void)testDidSpawnSetsState {
   [[_world stub] playerDidSpawn:_player];
-  _player.state = PlayerStateSpawning;
+  _player.state = PlayerStateDead;
   [_player didSpawn];
   expect(_player.state).to.equal(PlayerStateResting);
 }

@@ -78,20 +78,13 @@
 }
 
 - (BOOL)isAlive {
-  return (_state != PlayerStateDead && _state != PlayerStateSpawning);
-}
-
-- (BOOL)isSpawning {
-  return (_state == PlayerStateSpawning);
+  return (_state != PlayerStateDead);
 }
 
 #pragma mark - Actions
 
 - (void)spawn:(NSTimeInterval)duration completion:(void (^)(void))block {
   NSAssert(!self.isAlive, @"Player is alive");
-  NSAssert(!self.isSpawning, @"Player is spawning");
-
-  _state = PlayerStateSpawning;
 
   GCDTimer *timer = [GCDTimer timerOnMainQueue];
   [timer scheduleBlock:^{
@@ -223,7 +216,6 @@
     case PlayerStateAttacking: return @"attacking";
     case PlayerStateMoving:    return @"moving";
     case PlayerStateResting:   return @"resting";
-    case PlayerStateSpawning:  return @"spawning";
     case PlayerStateTurning:   return @"turning";
     default:                   return @"dead";
   }

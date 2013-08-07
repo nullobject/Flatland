@@ -38,7 +38,7 @@
   [self performAsyncTestWithBlock:^(BOOL *stop) {
     [self doAction:@"spawn" forPlayer:uuid parameters:nil completion:^(NSDictionary *response) {
       [self doAction:@"spawn" forPlayer:uuid parameters:nil completion:^(NSDictionary *response) {
-        expect([response objectForKey:@"code"]).to.equal(6);
+        expect([response objectForKey:@"code"]).to.equal(5);
         expect([response objectForKey:@"error"]).to.equal(@"Player has already spawned");
       }];
 

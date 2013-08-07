@@ -18,7 +18,6 @@ typedef enum : uint8_t {
   PlayerStateDead,
   PlayerStateMoving,
   PlayerStateResting,
-  PlayerStateSpawning,
   PlayerStateTurning
 } PlayerState;
 
@@ -47,7 +46,6 @@ typedef enum : uint8_t {
 @property (nonatomic, readonly) CGFloat     angularVelocity;
 
 @property (nonatomic, readonly) BOOL isAlive;
-@property (nonatomic, readonly) BOOL isSpawning;
 
 // Initializes the player with the given UUID.
 - (Player *)initWithUUID:(NSUUID *)uuid;

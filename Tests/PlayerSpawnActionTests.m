@@ -45,7 +45,6 @@
 
 - (void)testValidateReturnsNoErrorWhenPlayerIsDead {
   [[[_player stub] andReturnValue:[NSNumber numberWithBool:NO]] isAlive];
-  [[[_player stub] andReturnValue:[NSNumber numberWithBool:NO]] isSpawning];
 
   GameError *error;
   BOOL result = [_playerAction validateForPlayer:_player error:&error];
@@ -56,24 +55,12 @@
 
 - (void)testValidateReturnsErrorWhenPlayerIsAlive {
   [[[_player stub] andReturnValue:[NSNumber numberWithBool:YES]] isAlive];
-  [[[_player stub] andReturnValue:[NSNumber numberWithBool:NO ]] isSpawning];
 
   GameError *error;
   BOOL result = [_playerAction validateForPlayer:_player error:&error];
 
   expect(result).to.beFalsy();
   expect(error.code).to.equal(GameErrorPlayerAlreadySpawned);
-}
-
-- (void)testValidateReturnsErrorWhenPlayerIsSpawning {
-  [[[_player stub] andReturnValue:[NSNumber numberWithBool:NO ]] isAlive];
-  [[[_player stub] andReturnValue:[NSNumber numberWithBool:YES]] isSpawning];
-
-  GameError *error;
-  BOOL result = [_playerAction validateForPlayer:_player error:&error];
-
-  expect(result).to.beFalsy();
-  expect(error.code).to.equal(GameErrorPlayerAlreadySpawning);
 }
 
 @end
