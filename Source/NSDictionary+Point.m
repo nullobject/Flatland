@@ -15,4 +15,9 @@
            @"y": [NSNumber numberWithFloat:point.y]};
 }
 
++ (NSDictionary *)dictionaryWithVector:(CGVector)vector {
+  return @{@"x": [NSNumber numberWithFloat:vector.dx],
+           @"y": [NSNumber numberWithFloat:vector.dy]};
+}
+
 @end

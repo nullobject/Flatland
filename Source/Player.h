@@ -43,7 +43,7 @@ typedef enum : uint8_t {
 @property (nonatomic, readonly) NSUInteger  kills;
 @property (nonatomic, readonly) CGPoint     position;
 @property (nonatomic, readonly) CGFloat     rotation;
-@property (nonatomic, readonly) CGPoint     velocity;
+@property (nonatomic, readonly) CGVector    velocity;
 @property (nonatomic, readonly) CGFloat     angularVelocity;
 
 @property (nonatomic, readonly) BOOL isAlive;

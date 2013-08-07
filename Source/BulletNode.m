@@ -24,8 +24,8 @@
     self.position = CGPointMake(x, y);
     self.zRotation = player.playerNode.zRotation;
     self.physicsBody = [self setupPhysicsBody:self.size];
-    self.physicsBody.velocity = CGPointMake(-sinf(player.playerNode.zRotation) * kMovementSpeed,
-                                            cosf(player.playerNode.zRotation) * kMovementSpeed);
+    self.physicsBody.velocity = CGVectorMake(-sinf(player.playerNode.zRotation) * kMovementSpeed,
+                                              cosf(player.playerNode.zRotation) * kMovementSpeed);
   }
 
   return self;

@@ -69,7 +69,7 @@
   return _playerNode.zRotation;
 }
 
-- (CGPoint)velocity {
+- (CGVector)velocity {
   return _playerNode.physicsBody.velocity;
 }
 
@@ -212,7 +212,7 @@
            @"kills":           [NSNumber numberWithUnsignedInteger:_kills],
            @"position":        [NSDictionary dictionaryWithPoint:self.position],
            @"rotation":        [NSNumber numberWithFloat:self.rotation],
-           @"velocity":        [NSDictionary dictionaryWithPoint:self.velocity],
+           @"velocity":        [NSDictionary dictionaryWithVector:self.velocity],
            @"angularVelocity": [NSNumber numberWithFloat:self.angularVelocity]};
 }
 

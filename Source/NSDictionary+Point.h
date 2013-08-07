@@ -11,5 +11,6 @@
 @interface NSDictionary (Point)
 
 + (NSDictionary *)dictionaryWithPoint:(CGPoint)point;
++ (NSDictionary *)dictionaryWithVector:(CGVector)vector;
 
 @end
