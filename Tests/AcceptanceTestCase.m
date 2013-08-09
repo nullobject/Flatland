@@ -13,7 +13,10 @@ NSString * const kRootURL = @"http://localhost:8000";
 
 @implementation AcceptanceTestCase
 
-- (void)doAction:(NSString *)action forPlayer:(NSUUID *)uuid parameters:(NSDictionary *)parameters completion:(void (^)(NSDictionary *response))block {
+- (void)doAction:(NSString *)action
+       forPlayer:(NSUUID *)uuid
+      parameters:(NSDictionary *)parameters
+      completion:(void (^)(id JSON))block {
   NSURL *url = [NSURL URLWithString:kRootURL];
   NSString *path = [NSString stringWithFormat:@"/player/%@", action];
   AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
@@ -33,6 +36,30 @@ NSString * const kRootURL = @"http://localhost:8000";
   }];
 
   [operation start];
+}
+
+- (NSDictionary *)doSyncAction:(NSString *)action
+                     forPlayer:(NSUUID *)uuid
+                    parameters:(NSDictionary *)parameters
+                       timeout:(NSTimeInterval)timeout {
+  NSTimeInterval timeoutSeconds = [[NSDate dateWithTimeIntervalSinceNow:timeout] timeIntervalSinceReferenceDate];
+  __block NSDictionary *response;
+  __block BOOL stop = NO;
+
+  [self doAction:action forPlayer:uuid parameters:parameters completion:^(id JSON) {
+    response = JSON;
+    stop = YES;
+  }];
+
+  while (!stop) {
+    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+    if ([NSDate timeIntervalSinceReferenceDate] >= timeoutSeconds) {
+      XCTFail(@"Timeout");
+      stop = YES;
+		}
+  }
+
+  return response;
 }
 
 - (void)performAsyncTestWithBlock:(void (^)(BOOL *stop))block timeout:(NSTimeInterval)timeout {

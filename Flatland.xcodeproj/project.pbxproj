@@ -85,6 +85,7 @@
 		03B2CA5B177E628E00B0647C /* GameError.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B2CA5A177E628E00B0647C /* GameError.m */; };
 		03BC5D5A1779BBB20082ED48 /* HTTPAsyncDataResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 03BC5D591779BBB20082ED48 /* HTTPAsyncDataResponse.m */; };
 		03C9F1CC17996F2800D32445 /* PlayerAttackActionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 03C9F1CB17996F2800D32445 /* PlayerAttackActionTests.m */; };
+		03CACCC817B2647A007EC875 /* AttackPlayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 03CACCC717B2647A007EC875 /* AttackPlayerTests.m */; };
 		4A9F5AAA129542C3B7F1F37B /* libPods-Flatland.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A129B57E39648798D06B5B4 /* libPods-Flatland.a */; };
 		6150E03C62F848CBABE520B2 /* libPods-UnitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F584925851464A7B971A5D1D /* libPods-UnitTests.a */; };
 		65620AF760C1420EA1C4DE02 /* libPods-AcceptanceTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B871A57F81940729D49635C /* libPods-AcceptanceTests.a */; };
@@ -190,6 +191,7 @@
 		03C9F1CB17996F2800D32445 /* PlayerAttackActionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerAttackActionTests.m; sourceTree = "<group>"; };
 		03C9F1CD17996F3600D32445 /* PlayerRestActionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerRestActionTests.m; sourceTree = "<group>"; };
 		03C9F1CF179A5EAD00D32445 /* WorldTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorldTests.m; sourceTree = "<group>"; };
+		03CACCC717B2647A007EC875 /* AttackPlayerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttackPlayerTests.m; sourceTree = "<group>"; };
 		03E156FE17A5FE5700CCA3ED /* Tests-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		03E69F4C179D364C006AD0B1 /* SpawnPlayerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpawnPlayerTests.m; sourceTree = "<group>"; };
 		10914B562211409E8AB7E324 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -241,6 +243,7 @@
 			children = (
 				030988C217A7C07300D02258 /* AcceptanceTestCase.h */,
 				030988C317A7C07300D02258 /* AcceptanceTestCase.m */,
+				03CACCC717B2647A007EC875 /* AttackPlayerTests.m */,
 				030988C017A7BFD900D02258 /* MovePlayerTests.m */,
 				03E69F4C179D364C006AD0B1 /* SpawnPlayerTests.m */,
 				03ABE6C917B1EBBD008E0FF2 /* TurnPlayerTests.m */,
@@ -686,6 +689,7 @@
 			files = (
 				0302A9C817A61E9E005F3198 /* SpawnPlayerTests.m in Sources */,
 				03ABE6CA17B1EBBD008E0FF2 /* TurnPlayerTests.m in Sources */,
+				03CACCC817B2647A007EC875 /* AttackPlayerTests.m in Sources */,
 				030988C417A7C07300D02258 /* AcceptanceTestCase.m in Sources */,
 				030988C117A7BFD900D02258 /* MovePlayerTests.m in Sources */,
 			);
