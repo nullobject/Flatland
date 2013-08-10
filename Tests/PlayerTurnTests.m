@@ -35,4 +35,21 @@
   expect([response objectForKey:@"error"]).to.equal(@"Player has not spawned");
 }
 
+- (void)testTurnPlayerWhenPlayerHasInsufficientEnergy {
+  NSUUID *playerUUID = [NSUUID UUID];
+
+  [self runAction:@"spawn" forPlayer:playerUUID parameters:nil timeout:5];
+
+  [self runAction:@"turn" forPlayer:playerUUID parameters:@{@"amount": @1} timeout:3];
+  [self runAction:@"turn" forPlayer:playerUUID parameters:@{@"amount": @1} timeout:3];
+  [self runAction:@"turn" forPlayer:playerUUID parameters:@{@"amount": @1} timeout:3];
+  [self runAction:@"turn" forPlayer:playerUUID parameters:@{@"amount": @1} timeout:3];
+  [self runAction:@"turn" forPlayer:playerUUID parameters:@{@"amount": @1} timeout:3];
+
+  NSDictionary *response = [self runAction:@"turn" forPlayer:playerUUID parameters:@{@"amount": @1} timeout:3];
+
+  expect([response objectForKey:@"code"]).to.equal(6);
+  expect([response objectForKey:@"error"]).to.equal(@"Player has insufficient energy");
+}
+
 @end
