@@ -18,9 +18,9 @@
 - (void)testMovePlayer {
   NSUUID *playerUUID = [NSUUID UUID];
 
-  [self doAction:@"spawn" forPlayer:playerUUID parameters:nil timeout:5];
+  [self runAction:@"spawn" forPlayer:playerUUID parameters:nil timeout:5];
 
-  NSDictionary *response = [self doAction:@"move" forPlayer:playerUUID parameters:@{@"amount": @1} timeout:3];
+  NSDictionary *response = [self runAction:@"move" forPlayer:playerUUID parameters:@{@"amount": @1} timeout:3];
   NSDictionary *playerState = [self playerStateForPlayer:playerUUID withResponse:response];
 
   expect([playerState objectForKey:@"state"]).to.equal(@"moving");
@@ -29,7 +29,7 @@
 
 - (void)testMovePlayerWhenPlayerIsDead {
   NSUUID *playerUUID = [NSUUID UUID];
-  NSDictionary *response = [self doAction:@"move" forPlayer:playerUUID parameters:@{@"amount": @1} timeout:3];
+  NSDictionary *response = [self runAction:@"move" forPlayer:playerUUID parameters:@{@"amount": @1} timeout:3];
 
   expect([response objectForKey:@"code"]).to.equal(4);
   expect([response objectForKey:@"error"]).to.equal(@"Player has not spawned");

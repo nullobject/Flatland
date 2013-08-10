@@ -14,7 +14,7 @@ NSString * const kRootURL = @"http://localhost:8000";
 
 @implementation AcceptanceTestCase
 
-- (void)doAsynchronousAction:(NSString *)action
+- (void)runAsynchronousAction:(NSString *)action
        forPlayer:(NSUUID *)uuid
       parameters:(NSDictionary *)parameters
       completion:(void (^)(id JSON))block {
@@ -39,7 +39,7 @@ NSString * const kRootURL = @"http://localhost:8000";
   [operation start];
 }
 
-- (NSDictionary *)doAction:(NSString *)action
+- (NSDictionary *)runAction:(NSString *)action
                      forPlayer:(NSUUID *)uuid
                     parameters:(NSDictionary *)parameters
                        timeout:(NSTimeInterval)timeout {
@@ -47,7 +47,7 @@ NSString * const kRootURL = @"http://localhost:8000";
   __block NSDictionary *response;
   __block BOOL stop = NO;
 
-  [self doAsynchronousAction:action forPlayer:uuid parameters:parameters completion:^(id JSON) {
+  [self runAsynchronousAction:action forPlayer:uuid parameters:parameters completion:^(id JSON) {
     response = JSON;
     stop = YES;
   }];

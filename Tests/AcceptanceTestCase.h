@@ -10,12 +10,12 @@
 
 @interface AcceptanceTestCase : XCTestCase
 
-- (void)doAsynchronousAction:(NSString *)action
+- (void)runAsynchronousAction:(NSString *)action
        forPlayer:(NSUUID *)uuid
       parameters:(NSDictionary *)parameters
       completion:(void (^)(id JSON))block;
 
-- (NSDictionary *)doAction:(NSString *)action
+- (NSDictionary *)runAction:(NSString *)action
                      forPlayer:(NSUUID *)uuid
                     parameters:(NSDictionary *)parameters
                        timeout:(NSTimeInterval)timeout;
