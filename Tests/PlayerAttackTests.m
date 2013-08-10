@@ -28,7 +28,7 @@
   expect([playerState objectForKey:@"energy"]).to.equal(80);
 }
 
-- (void)testPlayerKillEnemy {
+- (void)testKillPlayer {
   NSUUID *playerUUID = [NSUUID UUID];
   NSUUID *enemyUUID = [NSUUID UUID];
 
@@ -80,6 +80,9 @@
 
   NSDictionary *playerState = [self playerStateForPlayer:playerUUID withResponse:response];
   expect([[playerState objectForKey:@"kills"] integerValue]).to.equal(1);
+
+  NSDictionary *enemyState = [self playerStateForPlayer:enemyUUID withResponse:response];
+  expect([[enemyState objectForKey:@"deaths"] integerValue]).to.equal(1);
 }
 
 @end
