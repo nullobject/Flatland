@@ -21,6 +21,7 @@
 @implementation PlayerNode {
   BarNode *_healthNode;
   BarNode *_energyNode;
+  SKLabelNode *_nameNode;
 }
 
 - (PlayerNode *)initWithPlayer:(Player *)player {
@@ -34,12 +35,16 @@
     self.physicsBody = [self setupPhysicsBody:self.size];
 
     _healthNode = [[BarNode alloc] initWithSize:CGSizeMake(20, 2) color:[SKColor greenColor]];
-    _healthNode.position = CGPointMake(0, -25);
+    _healthNode.position = CGPointMake(0.0f, -25.0f);
     [self addChild:_healthNode];
 
     _energyNode = [[BarNode alloc] initWithSize:CGSizeMake(20, 2) color:[SKColor redColor]];
-    _energyNode.position = CGPointMake(0, -30);
+    _energyNode.position = CGPointMake(0.0f, -30.0f);
     [self addChild:_energyNode];
+
+    _nameNode = [self labelNodeWithText:self.name];
+    _nameNode.position = CGPointMake(0.0f, 30.0f);
+    [self addChild:_nameNode];
   }
 
   return self;
@@ -81,6 +86,13 @@
   physicsBody.contactTestBitMask = ColliderTypeBullet;
 
   return physicsBody;
+}
+- (SKLabelNode *)labelNodeWithText:(NSString *)text {
+  SKLabelNode *node = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica"];
+  node.fontSize = 12.0f;
+  node.fontColor = [SKColor whiteColor];
+  node.text = text;
+  return node;
 }
 
 @end
