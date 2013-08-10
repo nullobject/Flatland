@@ -9,7 +9,6 @@
 #import <XCTest/XCTest.h>
 
 #import "AcceptanceTestCase.h"
-#import "NSArray+FP.h"
 
 @interface MovePlayerTests : AcceptanceTestCase
 @end
@@ -17,35 +16,23 @@
 @implementation MovePlayerTests
 
 - (void)testMovePlayer {
-  NSUUID *uuid = [NSUUID UUID];
+  NSUUID *playerUUID = [NSUUID UUID];
 
-  [self performAsyncTestWithBlock:^(BOOL *stop) {
-    [self doAction:@"spawn" forPlayer:uuid parameters:nil completion:^(NSDictionary *response) {
-      [self doAction:@"move" forPlayer:uuid parameters:@{@"amount": @1} completion:^(NSDictionary *response) {
-        NSDictionary *player = [[response objectForKey:@"players"] find:^BOOL(id player, NSUInteger index, BOOL *stop) {
-          return [[uuid UUIDString] isEqualToString:[player objectForKey:@"id"]];
-        }];
+  [self doAction:@"spawn" forPlayer:playerUUID parameters:nil timeout:5];
 
-        expect([player objectForKey:@"state"]).to.equal(@"moving");
-        expect([player objectForKey:@"energy"]).to.equal(80);
+  NSDictionary *response = [self doAction:@"move" forPlayer:playerUUID parameters:@{@"amount": @1} timeout:3];
+  NSDictionary *playerState = [self playerStateForPlayer:playerUUID withResponse:response];
 
-        *stop = YES;
-      }];
-    }];
-  } timeout:5];
+  expect([playerState objectForKey:@"state"]).to.equal(@"moving");
+  expect([playerState objectForKey:@"energy"]).to.equal(80);
 }
 
 - (void)testMovePlayerWhenPlayerIsDead {
-  NSUUID *uuid = [NSUUID UUID];
+  NSUUID *playerUUID = [NSUUID UUID];
+  NSDictionary *response = [self doAction:@"move" forPlayer:playerUUID parameters:@{@"amount": @1} timeout:3];
 
-  [self performAsyncTestWithBlock:^(BOOL *stop) {
-    [self doAction:@"move" forPlayer:uuid parameters:@{@"amount": @1} completion:^(NSDictionary *response) {
-      expect([response objectForKey:@"code"]).to.equal(4);
-      expect([response objectForKey:@"error"]).to.equal(@"Player has not spawned");
-
-      *stop = YES;
-    }];
-  } timeout:5];
+  expect([response objectForKey:@"code"]).to.equal(4);
+  expect([response objectForKey:@"error"]).to.equal(@"Player has not spawned");
 }
 
 @end

@@ -10,17 +10,16 @@
 
 @interface AcceptanceTestCase : XCTestCase
 
-// Performs the action for the given player.
-- (void)doAction:(NSString *)action
+- (void)doAsynchronousAction:(NSString *)action
        forPlayer:(NSUUID *)uuid
       parameters:(NSDictionary *)parameters
       completion:(void (^)(id JSON))block;
 
-- (NSDictionary *)doSyncAction:(NSString *)action
+- (NSDictionary *)doAction:(NSString *)action
                      forPlayer:(NSUUID *)uuid
                     parameters:(NSDictionary *)parameters
                        timeout:(NSTimeInterval)timeout;
 
-- (void)performAsyncTestWithBlock:(void (^)(BOOL *stop))block timeout:(NSTimeInterval)timeout;
+- (NSDictionary *)playerStateForPlayer:(NSUUID *)playerUUID withResponse:(NSDictionary *)response;
 
 @end

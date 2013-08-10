@@ -8,12 +8,13 @@
 
 #import "AcceptanceTestCase.h"
 #import "AFNetworking.h"
+#import "NSArray+FP.h"
 
 NSString * const kRootURL = @"http://localhost:8000";
 
 @implementation AcceptanceTestCase
 
-- (void)doAction:(NSString *)action
+- (void)doAsynchronousAction:(NSString *)action
        forPlayer:(NSUUID *)uuid
       parameters:(NSDictionary *)parameters
       completion:(void (^)(id JSON))block {
@@ -38,7 +39,7 @@ NSString * const kRootURL = @"http://localhost:8000";
   [operation start];
 }
 
-- (NSDictionary *)doSyncAction:(NSString *)action
+- (NSDictionary *)doAction:(NSString *)action
                      forPlayer:(NSUUID *)uuid
                     parameters:(NSDictionary *)parameters
                        timeout:(NSTimeInterval)timeout {
@@ -46,7 +47,7 @@ NSString * const kRootURL = @"http://localhost:8000";
   __block NSDictionary *response;
   __block BOOL stop = NO;
 
-  [self doAction:action forPlayer:uuid parameters:parameters completion:^(id JSON) {
+  [self doAsynchronousAction:action forPlayer:uuid parameters:parameters completion:^(id JSON) {
     response = JSON;
     stop = YES;
   }];
@@ -62,19 +63,10 @@ NSString * const kRootURL = @"http://localhost:8000";
   return response;
 }
 
-- (void)performAsyncTestWithBlock:(void (^)(BOOL *stop))block timeout:(NSTimeInterval)timeout {
-  NSTimeInterval timeoutSeconds = [[NSDate dateWithTimeIntervalSinceNow:timeout] timeIntervalSinceReferenceDate];
-  __block BOOL stop = NO;
-
-  block(&stop);
-
-  while (!stop) {
-    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-    if ([NSDate timeIntervalSinceReferenceDate] >= timeoutSeconds) {
-      XCTFail(@"Timeout");
-      stop = YES;
-		}
-  }
+- (NSDictionary *)playerStateForPlayer:(NSUUID *)playerUUID withResponse:(NSDictionary *)response {
+  return [[response objectForKey:@"players"] find:^BOOL(id player, NSUInteger index, BOOL *stop) {
+    return [[playerUUID UUIDString] isEqualToString:[player objectForKey:@"id"]];
+  }];
 }
 
 @end
