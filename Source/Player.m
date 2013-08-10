@@ -13,7 +13,7 @@
 #import "World.h"
 
 // The damage applied when a player is shot (in energy units).
-#define kBulletDamage 10.0
+#define kBulletDamage 20.0
 
 @interface Player ()
 

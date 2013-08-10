@@ -212,7 +212,7 @@
   _player.health = 100;
   Player *shooter = [[Player alloc] initWithUUID:[NSUUID UUID]];
   [_player wasShotByPlayer:shooter];
-  expect(_player.health).to.equal(90);
+  expect(_player.health).to.equal(80);
 }
 
 - (void)testWasShotByPlayerIncrementsDeathsAndKillsIfPlayerDies {
