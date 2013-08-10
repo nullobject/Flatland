@@ -10,7 +10,6 @@
 #import "Core.h"
 #import "Player.h"
 #import "PlayerNode.h"
-#import "NSDictionary+Point.h"
 
 // Movement speed in metres per second.
 #define kMovementSpeed 100.0

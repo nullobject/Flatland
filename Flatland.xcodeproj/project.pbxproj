@@ -26,7 +26,6 @@
 		0302A9D717A625B9005F3198 /* WorldNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 037F66841793F64000BB5661 /* WorldNode.m */; };
 		0302A9D817A625C6005F3198 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 0316DA07177692E300FF40CF /* Player.m */; };
 		0302A9D917A625EA005F3198 /* NSArray+FP.m in Sources */ = {isa = PBXBuildFile; fileRef = 0316DA0417768A3100FF40CF /* NSArray+FP.m */; };
-		0302A9DA17A625EC005F3198 /* NSDictionary+Point.m in Sources */ = {isa = PBXBuildFile; fileRef = 03A7F0091793558800BFBDC3 /* NSDictionary+Point.m */; };
 		0302A9DB17A62633005F3198 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0302A9C917A62398005F3198 /* SystemConfiguration.framework */; };
 		0302A9DC17A62718005F3198 /* SKColor+Relative.m in Sources */ = {isa = PBXBuildFile; fileRef = 0316DA0C1776A43200FF40CF /* SKColor+Relative.m */; };
 		0302A9DD17A62728005F3198 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 03990F5517785B8100995DE2 /* Game.m */; };
@@ -79,7 +78,6 @@
 		0396253D177F9C2800EC9912 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0396253F177F9C2800EC9912 /* Localizable.strings */; };
 		03990F5617785B8100995DE2 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 03990F5517785B8100995DE2 /* Game.m */; };
 		03990F5D1778F9E300995DE2 /* RouteResponse+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 03990F5C1778F9E300995DE2 /* RouteResponse+JSON.m */; };
-		03A7F00A1793558800BFBDC3 /* NSDictionary+Point.m in Sources */ = {isa = PBXBuildFile; fileRef = 03A7F0091793558800BFBDC3 /* NSDictionary+Point.m */; };
 		03A1E1F817B5B7430020AFB9 /* Core.m in Sources */ = {isa = PBXBuildFile; fileRef = 03A1E1F717B5B7430020AFB9 /* Core.m */; };
 		03A1E1F917B5B7430020AFB9 /* Core.m in Sources */ = {isa = PBXBuildFile; fileRef = 03A1E1F717B5B7430020AFB9 /* Core.m */; };
 		03ABE6CA17B1EBBD008E0FF2 /* TurnPlayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 03ABE6C917B1EBBD008E0FF2 /* TurnPlayerTests.m */; };
@@ -176,8 +174,6 @@
 		03990F5517785B8100995DE2 /* Game.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Game.m; sourceTree = "<group>"; };
 		03990F5B1778F9E300995DE2 /* RouteResponse+JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RouteResponse+JSON.h"; sourceTree = "<group>"; };
 		03990F5C1778F9E300995DE2 /* RouteResponse+JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RouteResponse+JSON.m"; sourceTree = "<group>"; };
-		03A7F0081793558800BFBDC3 /* NSDictionary+Point.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Point.h"; sourceTree = "<group>"; };
-		03A7F0091793558800BFBDC3 /* NSDictionary+Point.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Point.m"; sourceTree = "<group>"; };
 		03A1E1F717B5B7430020AFB9 /* Core.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Core.m; sourceTree = "<group>"; };
 		03AA9D541799301D0027D973 /* PlayerMoveActionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerMoveActionTests.m; sourceTree = "<group>"; };
 		03AA9D56179961C50027D973 /* PlayerTurnActionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerTurnActionTests.m; sourceTree = "<group>"; };
@@ -385,8 +381,6 @@
 				0316DA0417768A3100FF40CF /* NSArray+FP.m */,
 				0341F56017A70FB700F5EFFE /* NSBundle+InfoDictionaryKeyPath.h */,
 				0341F56117A70FB700F5EFFE /* NSBundle+InfoDictionaryKeyPath.m */,
-				03A7F0081793558800BFBDC3 /* NSDictionary+Point.h */,
-				03A7F0091793558800BFBDC3 /* NSDictionary+Point.m */,
 				03990F5B1778F9E300995DE2 /* RouteResponse+JSON.h */,
 				03990F5C1778F9E300995DE2 /* RouteResponse+JSON.m */,
 				0316DA0B1776A43200FF40CF /* SKColor+Relative.h */,
@@ -713,7 +707,6 @@
 				0316DA0D1776A43200FF40CF /* SKColor+Relative.m in Sources */,
 				037F66851793F64000BB5661 /* WorldNode.m in Sources */,
 				0334F3DA17960BAE007EFCCF /* PlayerTurnAction.m in Sources */,
-				03A7F00A1793558800BFBDC3 /* NSDictionary+Point.m in Sources */,
 				0316D9D21775570600FF40CF /* main.m in Sources */,
 				03A1E1F817B5B7430020AFB9 /* Core.m in Sources */,
 				03222ABA1784D220007478AA /* BulletNode.m in Sources */,
@@ -740,7 +733,6 @@
 				0302A9D917A625EA005F3198 /* NSArray+FP.m in Sources */,
 				0302A9D217A62592005F3198 /* PlayerTurnAction.m in Sources */,
 				03328D8017AFC0570040C713 /* PlayerSuicideActionTests.m in Sources */,
-				0302A9DA17A625EC005F3198 /* NSDictionary+Point.m in Sources */,
 				0302A9CF17A62592005F3198 /* PlayerMoveAction.m in Sources */,
 				0302A9D017A62592005F3198 /* PlayerSpawnAction.m in Sources */,
 				0302A9D817A625C6005F3198 /* Player.m in Sources */,

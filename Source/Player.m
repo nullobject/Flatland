@@ -9,7 +9,6 @@
 #import "BulletNode.h"
 #import "Core.h"
 #import "GCDTimer.h"
-#import "NSDictionary+Point.h"
 #import "Player.h"
 #import "World.h"
 
@@ -203,9 +202,9 @@
            @"health":          [NSNumber numberWithFloat:_health],
            @"deaths":          [NSNumber numberWithUnsignedInteger:_deaths],
            @"kills":           [NSNumber numberWithUnsignedInteger:_kills],
-           @"position":        [NSDictionary dictionaryWithPoint:self.position],
+           @"position":        (__bridge NSDictionary *)PointCreateDictionaryRepresentation(self.position),
            @"rotation":        [NSNumber numberWithFloat:self.rotation],
-           @"velocity":        [NSDictionary dictionaryWithVector:self.velocity],
+           @"velocity":        (__bridge NSDictionary *)VectorCreateDictionaryRepresentation(self.velocity),
            @"angularVelocity": [NSNumber numberWithFloat:self.angularVelocity]};
 }
 
