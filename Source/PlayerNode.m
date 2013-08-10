@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 Gamedogs. All rights reserved.
 //
 
+#import "BarNode.h"
 #import "BulletNode.h"
 #import "Core.h"
 #import "Player.h"
@@ -17,17 +18,41 @@
 // Rotation speed in radians per second.
 #define kRotationSpeed M_TAU
 
-@implementation PlayerNode
+@implementation PlayerNode {
+  BarNode *_healthNode;
+  BarNode *_energyNode;
+}
 
 - (PlayerNode *)initWithPlayer:(Player *)player {
   if (self = [super initWithImageNamed:@"player"]) {
     _player = player;
 
+    [_player addObserver:self forKeyPath:@"energy" options:NSKeyValueObservingOptionNew context:nil];
+    [_player addObserver:self forKeyPath:@"health" options:NSKeyValueObservingOptionNew context:nil];
+
     self.name = [player.uuid UUIDString];
     self.physicsBody = [self setupPhysicsBody:self.size];
+
+    _healthNode = [[BarNode alloc] initWithSize:CGSizeMake(20, 2) color:[SKColor greenColor]];
+    _healthNode.position = CGPointMake(0, -25);
+    [self addChild:_healthNode];
+
+    _energyNode = [[BarNode alloc] initWithSize:CGSizeMake(20, 2) color:[SKColor redColor]];
+    _energyNode.position = CGPointMake(0, -30);
+    [self addChild:_energyNode];
   }
 
   return self;
+}
+
+#pragma mark - KVO
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+  if ([keyPath isEqualToString:@"energy"]) {
+    _energyNode.value = [[change objectForKey:NSKeyValueChangeNewKey] floatValue];
+  } else if ([keyPath isEqualToString:@"health"]) {
+    _healthNode.value = [[change objectForKey:NSKeyValueChangeNewKey] floatValue];
+  }
 }
 
 #pragma mark - Collidable

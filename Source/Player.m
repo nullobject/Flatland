@@ -49,7 +49,7 @@
     [action applyToPlayer:self completion:block];
 
     // Subtract the action cost.
-    _energy = CLAMP(_energy - action.cost, 0.0f, 100.0f);
+    self.energy = CLAMP(_energy - action.cost, 0.0f, 100.0f);
   }
 
   return result;
@@ -167,8 +167,8 @@
   _playerNode.position = CGPointMake(RANDOM() * 500, RANDOM() * 500);
 
   _state  = PlayerStateResting;
-  _health = 100.0f;
-  _energy = 100.0f;
+  self.health = 100.0f;
+  self.energy = 100.0f;
 
   // Notify the world that the player spawned.
   [_world playerDidSpawn:self];
@@ -181,7 +181,7 @@
   if (player == self) return;
 
   // Apply damage.
-  _health = MAX(_health - kBulletDamage, 0.0f);
+  self.health = MAX(_health - kBulletDamage, 0.0f);
 
   // Check if the player died.
   if (_health == 0.0f) {
