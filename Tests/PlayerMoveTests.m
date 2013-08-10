@@ -10,10 +10,10 @@
 
 #import "AcceptanceTestCase.h"
 
-@interface MovePlayerTests : AcceptanceTestCase
+@interface PlayerMoveTests : AcceptanceTestCase
 @end
 
-@implementation MovePlayerTests
+@implementation PlayerMoveTests
 
 - (void)testMovePlayer {
   NSUUID *playerUUID = [NSUUID UUID];

@@ -11,10 +11,10 @@
 #import "AcceptanceTestCase.h"
 #import "Core.h"
 
-@interface AttackPlayerTests : AcceptanceTestCase
+@interface PlayerAttackTests : AcceptanceTestCase
 @end
 
-@implementation AttackPlayerTests
+@implementation PlayerAttackTests
 
 - (void)testAttackPlayer {
   NSUUID *playerUUID = [NSUUID UUID];

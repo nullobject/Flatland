@@ -10,7 +10,7 @@
 		0302A9BC17A61CC5005F3198 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0316D9C31775570600FF40CF /* Cocoa.framework */; };
 		0302A9BD17A61CC5005F3198 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0316D9E81775570600FF40CF /* XCTest.framework */; };
 		0302A9C017A61CC5005F3198 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0316D9F01775570600FF40CF /* InfoPlist.strings */; };
-		0302A9C817A61E9E005F3198 /* SpawnPlayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 03E69F4C179D364C006AD0B1 /* SpawnPlayerTests.m */; };
+		0302A9C817A61E9E005F3198 /* PlayerSpawnTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 03E69F4C179D364C006AD0B1 /* PlayerSpawnTests.m */; };
 		0302A9CB17A6257E005F3198 /* PlayerAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 036A136E1782EE9E00D3431F /* PlayerAction.m */; };
 		0302A9CC17A62583005F3198 /* World.m in Sources */ = {isa = PBXBuildFile; fileRef = 037F66811793F5CB00BB5661 /* World.m */; };
 		0302A9CD17A62592005F3198 /* PlayerAttackAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 0334F3DC17960BBB007EFCCF /* PlayerAttackAction.m */; };
@@ -32,7 +32,7 @@
 		0302A9DE17A62732005F3198 /* Server.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B24C4A1776CD0A00CF4BC2 /* Server.m */; };
 		0302A9DF17A6273C005F3198 /* RouteResponse+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 03990F5C1778F9E300995DE2 /* RouteResponse+JSON.m */; };
 		0302A9E017A62745005F3198 /* HTTPAsyncDataResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 03BC5D591779BBB20082ED48 /* HTTPAsyncDataResponse.m */; };
-		030988C117A7BFD900D02258 /* MovePlayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 030988C017A7BFD900D02258 /* MovePlayerTests.m */; };
+		030988C117A7BFD900D02258 /* PlayerMoveTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 030988C017A7BFD900D02258 /* PlayerMoveTests.m */; };
 		030988C417A7C07300D02258 /* AcceptanceTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 030988C317A7C07300D02258 /* AcceptanceTestCase.m */; };
 		0316D9C41775570600FF40CF /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0316D9C31775570600FF40CF /* Cocoa.framework */; };
 		0316D9C61775570600FF40CF /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0316D9C51775570600FF40CF /* SpriteKit.framework */; };
@@ -80,12 +80,12 @@
 		03990F5D1778F9E300995DE2 /* RouteResponse+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 03990F5C1778F9E300995DE2 /* RouteResponse+JSON.m */; };
 		03A1E1F817B5B7430020AFB9 /* Core.m in Sources */ = {isa = PBXBuildFile; fileRef = 03A1E1F717B5B7430020AFB9 /* Core.m */; };
 		03A1E1F917B5B7430020AFB9 /* Core.m in Sources */ = {isa = PBXBuildFile; fileRef = 03A1E1F717B5B7430020AFB9 /* Core.m */; };
-		03ABE6CA17B1EBBD008E0FF2 /* TurnPlayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 03ABE6C917B1EBBD008E0FF2 /* TurnPlayerTests.m */; };
+		03ABE6CA17B1EBBD008E0FF2 /* PlayerTurnTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 03ABE6C917B1EBBD008E0FF2 /* PlayerTurnTests.m */; };
 		03B24C4B1776CD0A00CF4BC2 /* Server.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B24C4A1776CD0A00CF4BC2 /* Server.m */; };
 		03B2CA5B177E628E00B0647C /* GameError.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B2CA5A177E628E00B0647C /* GameError.m */; };
 		03BC5D5A1779BBB20082ED48 /* HTTPAsyncDataResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 03BC5D591779BBB20082ED48 /* HTTPAsyncDataResponse.m */; };
 		03C9F1CC17996F2800D32445 /* PlayerAttackActionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 03C9F1CB17996F2800D32445 /* PlayerAttackActionTests.m */; };
-		03CACCC817B2647A007EC875 /* AttackPlayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 03CACCC717B2647A007EC875 /* AttackPlayerTests.m */; };
+		03CACCC817B2647A007EC875 /* PlayerAttackTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 03CACCC717B2647A007EC875 /* PlayerAttackTests.m */; };
 		4A9F5AAA129542C3B7F1F37B /* libPods-Flatland.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A129B57E39648798D06B5B4 /* libPods-Flatland.a */; };
 		6150E03C62F848CBABE520B2 /* libPods-UnitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F584925851464A7B971A5D1D /* libPods-UnitTests.a */; };
 		65620AF760C1420EA1C4DE02 /* libPods-AcceptanceTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B871A57F81940729D49635C /* libPods-AcceptanceTests.a */; };
@@ -106,7 +106,7 @@
 		0302A9C517A61CC5005F3198 /* AcceptanceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AcceptanceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0302A9C717A61E27005F3198 /* AcceptanceTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AcceptanceTests-Info.plist"; sourceTree = "<group>"; };
 		0302A9C917A62398005F3198 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		030988C017A7BFD900D02258 /* MovePlayerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovePlayerTests.m; sourceTree = "<group>"; };
+		030988C017A7BFD900D02258 /* PlayerMoveTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerMoveTests.m; sourceTree = "<group>"; };
 		030988C217A7C07300D02258 /* AcceptanceTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AcceptanceTestCase.h; sourceTree = "<group>"; };
 		030988C317A7C07300D02258 /* AcceptanceTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AcceptanceTestCase.m; sourceTree = "<group>"; };
 		0316D9C01775570600FF40CF /* Flatland.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flatland.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -177,7 +177,7 @@
 		03A1E1F717B5B7430020AFB9 /* Core.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Core.m; sourceTree = "<group>"; };
 		03AA9D541799301D0027D973 /* PlayerMoveActionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerMoveActionTests.m; sourceTree = "<group>"; };
 		03AA9D56179961C50027D973 /* PlayerTurnActionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerTurnActionTests.m; sourceTree = "<group>"; };
-		03ABE6C917B1EBBD008E0FF2 /* TurnPlayerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TurnPlayerTests.m; sourceTree = "<group>"; };
+		03ABE6C917B1EBBD008E0FF2 /* PlayerTurnTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerTurnTests.m; sourceTree = "<group>"; };
 		03B24C491776CD0A00CF4BC2 /* Server.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Server.h; sourceTree = "<group>"; };
 		03B24C4A1776CD0A00CF4BC2 /* Server.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Server.m; sourceTree = "<group>"; };
 		03B2CA59177E628E00B0647C /* GameError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameError.h; sourceTree = "<group>"; };
@@ -190,9 +190,9 @@
 		03C9F1CB17996F2800D32445 /* PlayerAttackActionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerAttackActionTests.m; sourceTree = "<group>"; };
 		03C9F1CD17996F3600D32445 /* PlayerRestActionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerRestActionTests.m; sourceTree = "<group>"; };
 		03C9F1CF179A5EAD00D32445 /* WorldTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorldTests.m; sourceTree = "<group>"; };
-		03CACCC717B2647A007EC875 /* AttackPlayerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttackPlayerTests.m; sourceTree = "<group>"; };
+		03CACCC717B2647A007EC875 /* PlayerAttackTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerAttackTests.m; sourceTree = "<group>"; };
 		03E156FE17A5FE5700CCA3ED /* Tests-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
-		03E69F4C179D364C006AD0B1 /* SpawnPlayerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpawnPlayerTests.m; sourceTree = "<group>"; };
+		03E69F4C179D364C006AD0B1 /* PlayerSpawnTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerSpawnTests.m; sourceTree = "<group>"; };
 		10914B562211409E8AB7E324 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B871A57F81940729D49635C /* libPods-AcceptanceTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AcceptanceTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B1FFE0F6EE54488902F2FC4 /* Pods-UnitTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitTests.xcconfig"; path = "Pods/Pods-UnitTests.xcconfig"; sourceTree = SOURCE_ROOT; };
@@ -242,10 +242,10 @@
 			children = (
 				030988C217A7C07300D02258 /* AcceptanceTestCase.h */,
 				030988C317A7C07300D02258 /* AcceptanceTestCase.m */,
-				03CACCC717B2647A007EC875 /* AttackPlayerTests.m */,
-				030988C017A7BFD900D02258 /* MovePlayerTests.m */,
-				03E69F4C179D364C006AD0B1 /* SpawnPlayerTests.m */,
-				03ABE6C917B1EBBD008E0FF2 /* TurnPlayerTests.m */,
+				03CACCC717B2647A007EC875 /* PlayerAttackTests.m */,
+				030988C017A7BFD900D02258 /* PlayerMoveTests.m */,
+				03E69F4C179D364C006AD0B1 /* PlayerSpawnTests.m */,
+				03ABE6C917B1EBBD008E0FF2 /* PlayerTurnTests.m */,
 			);
 			name = "Acceptance Tests";
 			sourceTree = "<group>";
@@ -685,11 +685,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0302A9C817A61E9E005F3198 /* SpawnPlayerTests.m in Sources */,
-				03ABE6CA17B1EBBD008E0FF2 /* TurnPlayerTests.m in Sources */,
-				03CACCC817B2647A007EC875 /* AttackPlayerTests.m in Sources */,
+				0302A9C817A61E9E005F3198 /* PlayerSpawnTests.m in Sources */,
+				03ABE6CA17B1EBBD008E0FF2 /* PlayerTurnTests.m in Sources */,
+				03CACCC817B2647A007EC875 /* PlayerAttackTests.m in Sources */,
 				030988C417A7C07300D02258 /* AcceptanceTestCase.m in Sources */,
-				030988C117A7BFD900D02258 /* MovePlayerTests.m in Sources */,
+				030988C117A7BFD900D02258 /* PlayerMoveTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,10 +10,10 @@
 
 #import "AcceptanceTestCase.h"
 
-@interface SpawnPlayerTests : AcceptanceTestCase
+@interface PlayerSpawnTests : AcceptanceTestCase
 @end
 
-@implementation SpawnPlayerTests
+@implementation PlayerSpawnTests
 
 - (void)testSpawnPlayer {
   NSUUID *playerUUID = [NSUUID UUID];
