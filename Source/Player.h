@@ -9,8 +9,6 @@
 #import <Foundation/Foundation.h>
 
 #import "GameError.h"
-#import "PlayerAction.h"
-#import "PlayerNode.h"
 #import "Serializable.h"
 
 typedef enum : uint8_t {
@@ -21,7 +19,7 @@ typedef enum : uint8_t {
   PlayerStateTurning
 } PlayerState;
 
-@class World;
+@class PlayerAction, PlayerNode, PlayerOverlayNode, World;
 
 @interface Player : NSObject <Serializable>
 
@@ -30,6 +28,9 @@ typedef enum : uint8_t {
 
 // The Sprite Kit node which represents the player.
 @property (nonatomic, readonly) PlayerNode *playerNode;
+
+// The Sprite Kit node which represents the player overlay.
+@property (nonatomic, readonly) PlayerOverlayNode *playerOverlayNode;
 
 // The unique identifier for the player.
 @property (nonatomic, readonly) NSUUID *uuid;

@@ -74,6 +74,8 @@
 		0341F56317A70FB700F5EFFE /* NSBundle+InfoDictionaryKeyPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 0341F56117A70FB700F5EFFE /* NSBundle+InfoDictionaryKeyPath.m */; };
 		0357D7DF17B6E6E6001F50CB /* BarNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0357D7DE17B6E6E6001F50CB /* BarNode.m */; };
 		0357D7E017B6E6E6001F50CB /* BarNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0357D7DE17B6E6E6001F50CB /* BarNode.m */; };
+		0357D7E317B6F877001F50CB /* PlayerOverlayNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0357D7E217B6F877001F50CB /* PlayerOverlayNode.m */; };
+		0357D7E417B6F877001F50CB /* PlayerOverlayNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0357D7E217B6F877001F50CB /* PlayerOverlayNode.m */; };
 		036A136F1782EE9E00D3431F /* PlayerAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 036A136E1782EE9E00D3431F /* PlayerAction.m */; };
 		037F66821793F5CB00BB5661 /* World.m in Sources */ = {isa = PBXBuildFile; fileRef = 037F66811793F5CB00BB5661 /* World.m */; };
 		037F66851793F64000BB5661 /* WorldNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 037F66841793F64000BB5661 /* WorldNode.m */; };
@@ -167,6 +169,8 @@
 		0341F56117A70FB700F5EFFE /* NSBundle+InfoDictionaryKeyPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+InfoDictionaryKeyPath.m"; sourceTree = "<group>"; };
 		0357D7DD17B6E6E6001F50CB /* BarNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BarNode.h; sourceTree = "<group>"; };
 		0357D7DE17B6E6E6001F50CB /* BarNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BarNode.m; sourceTree = "<group>"; };
+		0357D7E117B6F877001F50CB /* PlayerOverlayNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerOverlayNode.h; sourceTree = "<group>"; };
+		0357D7E217B6F877001F50CB /* PlayerOverlayNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerOverlayNode.m; sourceTree = "<group>"; };
 		036A136D1782EE9E00D3431F /* PlayerAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerAction.h; sourceTree = "<group>"; };
 		036A136E1782EE9E00D3431F /* PlayerAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerAction.m; sourceTree = "<group>"; };
 		037F66801793F5CB00BB5661 /* World.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = World.h; sourceTree = "<group>"; };
@@ -425,6 +429,8 @@
 				03222AB91784D220007478AA /* BulletNode.m */,
 				0316DA0017767ED700FF40CF /* PlayerNode.h */,
 				0316DA0117767ED700FF40CF /* PlayerNode.m */,
+				0357D7E117B6F877001F50CB /* PlayerOverlayNode.h */,
+				0357D7E217B6F877001F50CB /* PlayerOverlayNode.m */,
 				037F66831793F64000BB5661 /* WorldNode.h */,
 				037F66841793F64000BB5661 /* WorldNode.m */,
 			);
@@ -730,6 +736,7 @@
 				0341F56217A70FB700F5EFFE /* NSBundle+InfoDictionaryKeyPath.m in Sources */,
 				0357D7DF17B6E6E6001F50CB /* BarNode.m in Sources */,
 				03B2CA5B177E628E00B0647C /* GameError.m in Sources */,
+				0357D7E317B6F877001F50CB /* PlayerOverlayNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -762,6 +769,7 @@
 				03328D7D17AFBF110040C713 /* PlayerMoveActionTests.m in Sources */,
 				0302A9CC17A62583005F3198 /* World.m in Sources */,
 				0302A9D417A625B9005F3198 /* BattleScene.m in Sources */,
+				0357D7E417B6F877001F50CB /* PlayerOverlayNode.m in Sources */,
 				0341F56317A70FB700F5EFFE /* NSBundle+InfoDictionaryKeyPath.m in Sources */,
 				03A1E1F917B5B7430020AFB9 /* Core.m in Sources */,
 				0302A9D617A625B9005F3198 /* PlayerNode.m in Sources */,

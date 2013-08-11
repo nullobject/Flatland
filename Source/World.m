@@ -11,6 +11,8 @@
 #import "NSArray+FP.h"
 #import "Player.h"
 #import "PlayerAction.h"
+#import "PlayerNode.h"
+#import "PlayerOverlayNode.h"
 #import "World.h"
 
 @interface World ()
@@ -48,18 +50,20 @@
 #pragma mark - Callbacks
 
 - (void)playerDidSpawn:(Player *)player {
-  NSLog(@"Added player node %@", player.playerNode.name);
   [_worldNode addChild:player.playerNode];
+  [_worldNode addChild:player.playerOverlayNode];
+  NSLog(@"Added player node %@", player.playerNode.name);
 }
 
 - (void)playerDidDie:(Player *)player {
-  NSLog(@"Remove player node %@", player.playerNode.name);
+  [player.playerOverlayNode removeFromParent];
   [player.playerNode removeFromParent];
+  NSLog(@"Removed player node %@", player.playerNode.name);
 }
 
 - (void)player:(Player *)player didShootBullet:(BulletNode *)bulletNode {
-  NSLog(@"Added bullet node %@", bulletNode.name);
   [_worldNode addChild:bulletNode];
+  NSLog(@"Added bullet node %@", bulletNode.name);
 }
 
 #pragma mark - Serializable

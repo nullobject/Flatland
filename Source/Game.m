@@ -45,7 +45,6 @@
 
 - (void)tick {
   NSLog(@"Game#tick");
-
   [_world tick];
 }
 
@@ -74,7 +73,7 @@
 }
 
 - (void)setupBattleScene {
-  _battleScene = [BattleScene sceneWithSize:CGSizeMake(1024, 768)];
+  _battleScene = [[BattleScene alloc] initWithWorld:_world size:CGSizeMake(1024, 768)];
 
   // Set the scale mode to scale to fit the window.
   _battleScene.scaleMode = SKSceneScaleModeAspectFit;

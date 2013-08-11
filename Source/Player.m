@@ -10,6 +10,9 @@
 #import "Core.h"
 #import "GCDTimer.h"
 #import "Player.h"
+#import "PlayerAction.h"
+#import "PlayerNode.h"
+#import "PlayerOverlayNode.h"
 #import "World.h"
 
 // The damage applied when a player is shot (in energy units).
@@ -17,11 +20,12 @@
 
 @interface Player ()
 
-@property (nonatomic) PlayerNode  *playerNode;
-@property (nonatomic) PlayerState state;
-@property (nonatomic) CGFloat     health;
-@property (nonatomic) CGFloat     energy;
-@property (nonatomic) NSUInteger  kills;
+@property (nonatomic) PlayerNode        *playerNode;
+@property (nonatomic) PlayerOverlayNode *playerOverlayNode;
+@property (nonatomic) PlayerState       state;
+@property (nonatomic) CGFloat           health;
+@property (nonatomic) CGFloat           energy;
+@property (nonatomic) NSUInteger        kills;
 
 @end
 
@@ -41,6 +45,10 @@
   return self;
 }
 
+- (void)dealloc {
+  [self removeObservers];
+}
+
 - (BOOL)applyAction:(PlayerAction *)action completion:(void (^)(void))block error:(GameError **)error {
   BOOL result = ([action validateForPlayer:self error:error]);
 
@@ -56,7 +64,6 @@
 }
 
 - (void)tick {
-  // Increment the entity age.
   _age += 1;
 }
 
@@ -157,16 +164,22 @@
   // Notify the world that the player died.
   [_world playerDidDie:self];
 
+  [self removeObservers];
+
   _playerNode = nil;
+  _playerOverlayNode = nil;
 
   NSLog(@"Player died %@.", [_uuid UUIDString]);
 }
 
 - (void)didSpawn {
   _playerNode = [[PlayerNode alloc] initWithPlayer:self];
-  _playerNode.position = CGPointMake(RANDOM() * 500, RANDOM() * 500);
+  _playerOverlayNode = [[PlayerOverlayNode alloc] initWithPlayer:self];
 
-  _state  = PlayerStateResting;
+  [self addObservers];
+
+  _state = PlayerStateResting;
+
   self.health = 100.0f;
   self.energy = 100.0f;
 
@@ -217,6 +230,25 @@
     case PlayerStateResting:   return @"resting";
     case PlayerStateTurning:   return @"turning";
     default:                   return @"dead";
+  }
+}
+
+- (void)addObservers {
+  [self addObserver:_playerOverlayNode
+         forKeyPath:@"energy"
+            options:NSKeyValueObservingOptionNew
+            context:nil];
+
+  [self addObserver:_playerOverlayNode
+         forKeyPath:@"health"
+            options:NSKeyValueObservingOptionNew
+            context:nil];
+}
+
+- (void)removeObservers {
+  if (_playerOverlayNode) {
+    [self removeObserver:_playerOverlayNode forKeyPath:@"health"];
+    [self removeObserver:_playerOverlayNode forKeyPath:@"energy"];
   }
 }
 

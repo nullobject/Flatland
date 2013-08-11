@@ -9,12 +9,18 @@
 #import "BattleScene.h"
 #import "Collidable.h"
 #import "Core.h"
+#import "NSArray+FP.h"
+#import "Player.h"
+#import "PlayerOverlayNode.h"
 #import "SKColor+Relative.h"
+#import "World.h"
 
 @implementation BattleScene
 
-- (id)initWithSize:(CGSize)size {
+- (id)initWithWorld:(World *)world size:(CGSize)size {
   if (self = [super initWithSize:size]) {
+    _world = world;
+
     self.backgroundColor = [SKColor colorWithRGB:0x123456];
     self.physicsWorld.contactDelegate = self;
     self.physicsWorld.gravity = CGPointZero;
@@ -25,8 +31,11 @@
   return self;
 }
 
-- (void)update:(CFTimeInterval)currentTime {
-  /* Called before each frame is rendered */
+- (void)didSimulatePhysics {
+  // Update the player overlay positions.
+  [_world.players enumerateKeysAndObjectsUsingBlock:^(NSUUID *uuid, Player *player, BOOL *stop) {
+    player.playerOverlayNode.position = player.position;
+  }];
 }
 
 #pragma mark - SKPhysicsContactDelegate

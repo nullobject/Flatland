@@ -13,6 +13,8 @@
 #import "OCMock.h"
 #import "Player.h"
 #import "PlayerAction.h"
+#import "PlayerNode.h"
+#import "PlayerOverlayNode.h"
 #import "World.h"
 
 @interface World (Tests)
@@ -83,25 +85,32 @@
 #pragma mark - Callbacks
 
 - (void)testPlayerDidSpawn {
-  id worldNode  = [OCMockObject mockForClass:WorldNode.class];
-  id player     = [OCMockObject mockForClass:Player.class];
-  id playerNode = [OCMockObject niceMockForClass:PlayerNode.class];
+  id worldNode         = [OCMockObject mockForClass:WorldNode.class];
+  id player            = [OCMockObject mockForClass:Player.class];
+  id playerNode        = [OCMockObject niceMockForClass:PlayerNode.class];
+  id playerOverlayNode = [OCMockObject niceMockForClass:PlayerOverlayNode.class];
 
   _world.worldNode = worldNode;
+  
   [[[player stub] andReturn:playerNode] playerNode];
+  [[[player stub] andReturn:playerOverlayNode] playerOverlayNode];
 
   [[worldNode expect] addChild:playerNode];
+  [[worldNode expect] addChild:playerOverlayNode];
   [_world playerDidSpawn:player];
   [worldNode verify];
 }
 
 - (void)testPlayerDidDie {
-  id player     = [OCMockObject mockForClass:Player.class];
-  id playerNode = [OCMockObject niceMockForClass:PlayerNode.class];
+  id player            = [OCMockObject mockForClass:Player.class];
+  id playerNode        = [OCMockObject niceMockForClass:PlayerNode.class];
+  id playerOverlayNode = [OCMockObject niceMockForClass:PlayerOverlayNode.class];
 
   [[[player stub] andReturn:playerNode] playerNode];
+  [[[player stub] andReturn:playerOverlayNode] playerOverlayNode];
 
   [[playerNode expect] removeFromParent];
+  [[playerOverlayNode expect] removeFromParent];
   [_world playerDidDie:player];
   [playerNode verify];
 }

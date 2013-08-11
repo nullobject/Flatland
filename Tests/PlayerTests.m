@@ -46,8 +46,8 @@
 
 - (void)tearDown {
   [_world verify];
-  _world = nil;
   _player = nil;
+  _world = nil;
   [super tearDown];
 }
 

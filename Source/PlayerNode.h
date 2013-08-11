@@ -18,7 +18,7 @@
 // The player who owns the player node.
 @property (nonatomic, weak) Player *player;
 
-// Initializes a new player node.
+// Initializes a new player node for the given player.
 - (PlayerNode *)initWithPlayer:(Player *)player;
 
 @end
