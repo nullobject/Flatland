@@ -1,29 +1,29 @@
 PODS:
-  - AFNetworking (1.3.1)
+  - AFNetworking (1.3.2)
   - CocoaAsyncSocket (7.3.1)
   - CocoaHTTPServer (2.3):
     - CocoaAsyncSocket
     - CocoaLumberjack
   - CocoaLumberjack (1.6.2)
   - Expecta (0.2.2)
-  - OCMock (2.2)
+  - OCMock (2.2.1)
   - RoutingHTTPServer (1.0.0):
     - CocoaHTTPServer (~> 2.3)
 
 DEPENDENCIES:
-  - AFNetworking
+  - AFNetworking (~> 1.3)
   - CocoaHTTPServer
   - Expecta
   - OCMock
   - RoutingHTTPServer
 
 SPEC CHECKSUMS:
-  AFNetworking: 9ec8aafb9269236a7630bd8d9838ce2ba30fa2a0
+  AFNetworking: 7f9bcd7c287a75476cd5c61e82fd3380e93e4c54
   CocoaAsyncSocket: 6e59036ecae1e93d6c78f5766149983ceac558ba
   CocoaHTTPServer: eaa3f57a0670c0d779ec0f118466c6ec3b901d6d
   CocoaLumberjack: d73e1e317ced14ab930797dda6c17156ff17aaa1
   Expecta: 99adbb2e366a02796477523bfd426143350d9caf
-  OCMock: 5300ae6b75398fc3ae6cbf9102191333d35f6852
+  OCMock: 80e4cfbc71a0e1bd28caf10a9fda27da7c4c8402
   RoutingHTTPServer: 7436429cb81c560b55557a830d51367f3107d9cc
 
-COCOAPODS: 0.22.3
+COCOAPODS: 0.23.0

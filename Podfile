@@ -6,7 +6,7 @@ target 'Flatland' do
 end
 
 target 'AcceptanceTests' do
-  pod 'AFNetworking'
+  pod 'AFNetworking', '~> 1.3'
   pod 'Expecta'
   pod 'OCMock'
 end
