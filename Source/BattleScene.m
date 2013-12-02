@@ -23,7 +23,7 @@
 
     self.backgroundColor = [SKColor colorWithRGB:0x123456];
     self.physicsWorld.contactDelegate = self;
-    self.physicsWorld.gravity = CGPointZero;
+    self.physicsWorld.gravity = CGVectorMake(0, 0);
 
     [self addWalls];
   }
