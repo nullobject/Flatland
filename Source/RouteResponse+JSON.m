@@ -23,7 +23,7 @@ NSString *kApplicationJSON = @"application/json";
 
 - (void)beginAsyncJSONResponse {
   [self setHeader:kContentType value:kApplicationJSON];
-  self.response = [[HTTPAsyncDataResponse alloc] init];;
+  self.response = [HTTPAsyncDataResponse new];
 }
 
 - (void)endAsyncJSONResponse:(NSObject <Serializable> *)object {

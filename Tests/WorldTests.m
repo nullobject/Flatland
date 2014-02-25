@@ -32,7 +32,7 @@
 
 - (void)setUp {
   [super setUp];
-  _world = [[World alloc] init];
+  _world = [World new];
 }
 
 - (void)tearDown {

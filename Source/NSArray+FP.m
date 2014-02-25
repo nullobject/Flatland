@@ -11,7 +11,7 @@
 @implementation NSArray (FP)
 
 - (NSArray *)map:(MapBlock)block {
-  NSMutableArray *resultArray = [[NSMutableArray alloc] init];
+  NSMutableArray *resultArray = [NSMutableArray new];
   for (id object in self) {
     [resultArray addObject:block(object)];
   }

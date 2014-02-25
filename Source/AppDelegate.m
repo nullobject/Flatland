@@ -12,7 +12,7 @@
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-  _game = [[Game alloc] init];
+  _game = [Game new];
 
   _skView.showsFPS       = YES;
   _skView.showsNodeCount = YES;

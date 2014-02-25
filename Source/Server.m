@@ -22,7 +22,7 @@
 
 - (Server *)init {
   if (self = [super init]) {
-    _playerResponses = [[NSMutableDictionary alloc] init];
+    _playerResponses = [NSMutableDictionary new];
     [self setPort:kDefaultPort];
     [self setDefaultHeader:kServer value:kFlatland];
     [self setupRoutes];

@@ -64,12 +64,12 @@
 #pragma mark - Private
 
 - (void)setupServer {
-  _server = [[Server alloc] init];
+  _server = [Server new];
   _server.delegate = self;
 }
 
 - (void)setupWorld {
-  _world = [[World alloc] init];
+  _world = [World new];
 }
 
 - (void)setupBattleScene {

@@ -27,7 +27,7 @@
 
 - (id)init {
   if (self = [super init]) {
-    _players = [[NSMutableDictionary alloc] init];
+    _players = [NSMutableDictionary new];
     _worldNode = [[WorldNode alloc] initWithWorld:self];
   }
 
