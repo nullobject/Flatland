@@ -10,6 +10,8 @@
 #import "AFNetworking.h"
 #import "NSArray+FP.h"
 
+NSTimeInterval const kTimeout = 5;
+
 NSString * const kRootURL = @"http://localhost:8000";
 
 @implementation AcceptanceTestCase

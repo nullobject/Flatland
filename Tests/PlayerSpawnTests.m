@@ -23,21 +23,21 @@
 }
 
 - (void)tearDown {
-  [self runAction:@"suicide" forPlayer:_playerUUID parameters:nil timeout:5];
+  [self runAction:@"suicide" forPlayer:_playerUUID parameters:nil timeout:kTimeout];
   [super tearDown];
 }
 
 - (void)testSpawnPlayer {
-  NSDictionary *response = [self runAction:@"spawn" forPlayer:_playerUUID parameters:nil timeout:5];
+  NSDictionary *response = [self runAction:@"spawn" forPlayer:_playerUUID parameters:nil timeout:kTimeout];
   NSDictionary *playerState = [self playerStateForPlayer:_playerUUID withResponse:response];
 
   expect([playerState objectForKey:@"state"]).to.equal(@"resting");
 }
 
 - (void)testSpawnPlayerWhenPlayerIsAlive {
-  [self runAction:@"spawn" forPlayer:_playerUUID parameters:nil timeout:5];
+  [self runAction:@"spawn" forPlayer:_playerUUID parameters:nil timeout:kTimeout];
 
-  NSDictionary *response = [self runAction:@"spawn" forPlayer:_playerUUID parameters:nil timeout:5];
+  NSDictionary *response = [self runAction:@"spawn" forPlayer:_playerUUID parameters:nil timeout:kTimeout];
 
   expect([response objectForKey:@"code"]).to.equal(5);
   expect([response objectForKey:@"error"]).to.equal(@"Player has already spawned");

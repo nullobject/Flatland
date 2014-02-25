@@ -24,14 +24,14 @@
 }
 
 - (void)tearDown {
-  [self runAction:@"suicide" forPlayer:_playerUUID parameters:nil timeout:5];
+  [self runAction:@"suicide" forPlayer:_playerUUID parameters:nil timeout:kTimeout];
   [super tearDown];
 }
 
 - (void)testAttackPlayer {
-  [self runAction:@"spawn" forPlayer:_playerUUID parameters:nil timeout:5];
+  [self runAction:@"spawn" forPlayer:_playerUUID parameters:nil timeout:kTimeout];
 
-  NSDictionary *response = [self runAction:@"attack" forPlayer:_playerUUID parameters:@{@"amount": @1} timeout:3];
+  NSDictionary *response = [self runAction:@"attack" forPlayer:_playerUUID parameters:@{@"amount": @1} timeout:kTimeout];
   NSDictionary *playerState = [self playerStateForPlayer:_playerUUID withResponse:response];
 
   expect([playerState objectForKey:@"state"]).to.equal(@"attacking");
@@ -46,22 +46,22 @@
 }
 
 - (void)testAttackPlayerWhenPlayerIsDead {
-  NSDictionary *response = [self runAction:@"attack" forPlayer:_playerUUID parameters:@{@"amount": @1} timeout:3];
+  NSDictionary *response = [self runAction:@"attack" forPlayer:_playerUUID parameters:@{@"amount": @1} timeout:kTimeout];
 
   expect([response objectForKey:@"code"]).to.equal(4);
   expect([response objectForKey:@"error"]).to.equal(@"Player has not spawned");
 }
 
 - (void)testAttackPlayerWhenPlayerHasInsufficientEnergy {
-  [self runAction:@"spawn" forPlayer:_playerUUID parameters:nil timeout:5];
+  [self runAction:@"spawn" forPlayer:_playerUUID parameters:nil timeout:kTimeout];
 
-  [self runAction:@"attack" forPlayer:_playerUUID parameters:@{@"amount": @1} timeout:3];
-  [self runAction:@"attack" forPlayer:_playerUUID parameters:@{@"amount": @1} timeout:3];
-  [self runAction:@"attack" forPlayer:_playerUUID parameters:@{@"amount": @1} timeout:3];
-  [self runAction:@"attack" forPlayer:_playerUUID parameters:@{@"amount": @1} timeout:3];
-  [self runAction:@"attack" forPlayer:_playerUUID parameters:@{@"amount": @1} timeout:3];
+  [self runAction:@"attack" forPlayer:_playerUUID parameters:@{@"amount": @1} timeout:kTimeout];
+  [self runAction:@"attack" forPlayer:_playerUUID parameters:@{@"amount": @1} timeout:kTimeout];
+  [self runAction:@"attack" forPlayer:_playerUUID parameters:@{@"amount": @1} timeout:kTimeout];
+  [self runAction:@"attack" forPlayer:_playerUUID parameters:@{@"amount": @1} timeout:kTimeout];
+  [self runAction:@"attack" forPlayer:_playerUUID parameters:@{@"amount": @1} timeout:kTimeout];
 
-  NSDictionary *response = [self runAction:@"attack" forPlayer:_playerUUID parameters:@{@"amount": @1} timeout:3];
+  NSDictionary *response = [self runAction:@"attack" forPlayer:_playerUUID parameters:@{@"amount": @1} timeout:kTimeout];
 
   expect([response objectForKey:@"code"]).to.equal(6);
   expect([response objectForKey:@"error"]).to.equal(@"Player has insufficient energy");
@@ -73,10 +73,10 @@
   NSDictionary *response;
   CGPoint a, b;
 
-  response = [self runAction:@"spawn" forPlayer:playerUUID parameters:nil timeout:5];
+  response = [self runAction:@"spawn" forPlayer:playerUUID parameters:nil timeout:kTimeout];
   NSDictionary *playerState = [self playerStateForPlayer:playerUUID withResponse:response];
 
-  response = [self runAction:@"spawn" forPlayer:enemyUUID parameters:nil timeout:5];
+  response = [self runAction:@"spawn" forPlayer:enemyUUID parameters:nil timeout:kTimeout];
   NSDictionary *enemyState = [self playerStateForPlayer:enemyUUID withResponse:response];
 
   PointMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)[enemyState objectForKey:@"position"], &a);
@@ -85,7 +85,7 @@
   CGFloat angle = POLAR_ADJUST(AngleBetweenPoints(a, b));
   CGFloat amount = NORMALIZE_ANGLE(angle);
 
-  [self runAction:@"turn" forPlayer:playerUUID parameters:@{@"amount": [NSNumber numberWithFloat:amount]} timeout:3];
+  [self runAction:@"turn" forPlayer:playerUUID parameters:@{@"amount": [NSNumber numberWithFloat:amount]} timeout:kTimeout];
 }
 
 - (void)player:(NSUUID *)playerUUID killEnemy:(NSUUID *)enemyUUID {
@@ -93,10 +93,10 @@
   BOOL alive = YES;
 
   while (alive) {
-    response = [self runAction:@"attack" forPlayer:playerUUID parameters:@{@"amount": @1} timeout:3];
+    response = [self runAction:@"attack" forPlayer:playerUUID parameters:@{@"amount": @1} timeout:kTimeout];
 
     if ([response objectForKey:@"error"]) {
-      [self runAction:@"rest" forPlayer:playerUUID parameters:@{@"amount": @1} timeout:3];
+      [self runAction:@"rest" forPlayer:playerUUID parameters:@{@"amount": @1} timeout:kTimeout];
     } else {
       NSDictionary *enemyState = [self playerStateForPlayer:enemyUUID withResponse:response];
       alive = [[enemyState objectForKey:@"health"] floatValue] > 0;
