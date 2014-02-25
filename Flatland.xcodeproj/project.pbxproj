@@ -321,14 +321,9 @@
 		0316D9CB1775570600FF40CF /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				0316D9CC1775570600FF40CF /* Supporting Files */,
-				0316DA09177692ED00FF40CF /* Categories */,
-				03990F5317785A5300995DE2 /* Protocols */,
-				037F66871793F6FD00BB5661 /* Models */,
-				037F66861793F65600BB5661 /* Views */,
-				0316D9E11775570600FF40CF /* Images.xcassets */,
 				0316D9DE1775570600FF40CF /* AppDelegate.h */,
 				0316D9DC1775570600FF40CF /* AppDelegate.m */,
+				0316DA09177692ED00FF40CF /* Categories */,
 				032531E0177BAD9F00420D3D /* Core.h */,
 				03A1E1F717B5B7430020AFB9 /* Core.m */,
 				03990F5417785B8100995DE2 /* Game.h */,
@@ -339,9 +334,14 @@
 				0341F55D17A66FC400F5EFFE /* GCDTimer.m */,
 				03BC5D581779BBB20082ED48 /* HTTPAsyncDataResponse.h */,
 				03BC5D591779BBB20082ED48 /* HTTPAsyncDataResponse.m */,
+				0316D9E11775570600FF40CF /* Images.xcassets */,
 				0316D9D71775570600FF40CF /* MainMenu.xib */,
+				037F66871793F6FD00BB5661 /* Models */,
+				03990F5317785A5300995DE2 /* Protocols */,
 				03B24C491776CD0A00CF4BC2 /* Server.h */,
 				03B24C4A1776CD0A00CF4BC2 /* Server.m */,
+				0316D9CC1775570600FF40CF /* Supporting Files */,
+				037F66861793F65600BB5661 /* Views */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -364,9 +364,9 @@
 		0316D9ED1775570600FF40CF /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				0302A9E117A62766005F3198 /* Acceptance Tests */,
 				0316D9EE1775570600FF40CF /* Supporting Files */,
 				0302A9E217A6277B005F3198 /* Unit Tests */,
-				0302A9E117A62766005F3198 /* Acceptance Tests */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
