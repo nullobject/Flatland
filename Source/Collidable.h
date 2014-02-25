@@ -6,8 +6,6 @@
 //  Copyright (c) 2013 Gamedogs. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 @protocol Collidable <NSObject>
 
 - (void)didCollideWith:(SKPhysicsBody *)body;

@@ -16,8 +16,6 @@
 //  CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 //
 
-#import <Foundation/Foundation.h>
-
 #define GCDTimerException @"GCDTimerException"
 #define GCDTimerNameKey @"GCDTimerNameKey"
 

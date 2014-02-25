@@ -6,8 +6,6 @@
 //  Copyright (c) 2013 Gamedogs. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 typedef id(^MapBlock)(id);
 
 @interface NSArray (FP)

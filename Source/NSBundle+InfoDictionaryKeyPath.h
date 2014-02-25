@@ -6,8 +6,6 @@
 //  Copyright (c) 2013 Ferocia. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 @interface NSBundle (InfoDictionaryKeyPath)
 
 - (id)objectForInfoDictionaryKeyPath:(NSString *)keyPath;

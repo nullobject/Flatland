@@ -6,8 +6,6 @@
 //  Copyright (c) 2013 Gamedogs. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 #import "BattleScene.h"
 #import "Server.h"
 #import "World.h"

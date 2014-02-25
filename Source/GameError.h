@@ -6,8 +6,6 @@
 //  Copyright (c) 2013 Gamedogs. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 #import "Serializable.h"
 
 extern NSString * const GameErrorDomain;
