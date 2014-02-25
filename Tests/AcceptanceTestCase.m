@@ -15,9 +15,9 @@ NSString * const kRootURL = @"http://localhost:8000";
 @implementation AcceptanceTestCase
 
 - (void)runAsynchronousAction:(NSString *)action
-       forPlayer:(NSUUID *)uuid
-      parameters:(NSDictionary *)parameters
-      completion:(void (^)(id JSON))block {
+                    forPlayer:(NSUUID *)uuid
+                   parameters:(NSDictionary *)parameters
+                   completion:(void (^)(id JSON))block {
   NSURL *url = [NSURL URLWithString:kRootURL];
   NSString *path = [NSString stringWithFormat:@"/player/%@", action];
   AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
@@ -40,9 +40,9 @@ NSString * const kRootURL = @"http://localhost:8000";
 }
 
 - (NSDictionary *)runAction:(NSString *)action
-                     forPlayer:(NSUUID *)uuid
-                    parameters:(NSDictionary *)parameters
-                       timeout:(NSTimeInterval)timeout {
+                  forPlayer:(NSUUID *)uuid
+                 parameters:(NSDictionary *)parameters
+                    timeout:(NSTimeInterval)timeout {
   NSTimeInterval timeoutSeconds = [[NSDate dateWithTimeIntervalSinceNow:timeout] timeIntervalSinceReferenceDate];
   __block NSDictionary *response;
   __block BOOL stop = NO;

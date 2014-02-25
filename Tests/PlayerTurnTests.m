@@ -13,40 +13,47 @@
 @interface PlayerTurnTests : AcceptanceTestCase
 @end
 
-@implementation PlayerTurnTests
+@implementation PlayerTurnTests {
+  NSUUID *_playerUUID;
+}
+
+- (void)setUp {
+  [super setUp];
+  _playerUUID = [NSUUID UUID];
+}
+
+- (void)tearDown {
+  [self runAction:@"suicide" forPlayer:_playerUUID parameters:nil timeout:5];
+  [super tearDown];
+}
 
 - (void)testTurnPlayer {
-  NSUUID *playerUUID = [NSUUID UUID];
+  [self runAction:@"spawn" forPlayer:_playerUUID parameters:nil timeout:5];
 
-  [self runAction:@"spawn" forPlayer:playerUUID parameters:nil timeout:5];
-
-  NSDictionary *response = [self runAction:@"turn" forPlayer:playerUUID parameters:@{@"amount": @1} timeout:3];
-  NSDictionary *playerState = [self playerStateForPlayer:playerUUID withResponse:response];
+  NSDictionary *response = [self runAction:@"turn" forPlayer:_playerUUID parameters:@{@"amount": @1} timeout:3];
+  NSDictionary *playerState = [self playerStateForPlayer:_playerUUID withResponse:response];
 
   expect([playerState objectForKey:@"state"]).to.equal(@"turning");
   expect([playerState objectForKey:@"energy"]).to.equal(80);
 }
 
 - (void)testTurnPlayerWhenPlayerIsDead {
-  NSUUID *playerUUID = [NSUUID UUID];
-  NSDictionary *response = [self runAction:@"turn" forPlayer:playerUUID parameters:@{@"amount": @1} timeout:3];
+  NSDictionary *response = [self runAction:@"turn" forPlayer:_playerUUID parameters:@{@"amount": @1} timeout:3];
 
   expect([response objectForKey:@"code"]).to.equal(4);
   expect([response objectForKey:@"error"]).to.equal(@"Player has not spawned");
 }
 
 - (void)testTurnPlayerWhenPlayerHasInsufficientEnergy {
-  NSUUID *playerUUID = [NSUUID UUID];
+  [self runAction:@"spawn" forPlayer:_playerUUID parameters:nil timeout:5];
 
-  [self runAction:@"spawn" forPlayer:playerUUID parameters:nil timeout:5];
+  [self runAction:@"turn" forPlayer:_playerUUID parameters:@{@"amount": @1} timeout:3];
+  [self runAction:@"turn" forPlayer:_playerUUID parameters:@{@"amount": @1} timeout:3];
+  [self runAction:@"turn" forPlayer:_playerUUID parameters:@{@"amount": @1} timeout:3];
+  [self runAction:@"turn" forPlayer:_playerUUID parameters:@{@"amount": @1} timeout:3];
+  [self runAction:@"turn" forPlayer:_playerUUID parameters:@{@"amount": @1} timeout:3];
 
-  [self runAction:@"turn" forPlayer:playerUUID parameters:@{@"amount": @1} timeout:3];
-  [self runAction:@"turn" forPlayer:playerUUID parameters:@{@"amount": @1} timeout:3];
-  [self runAction:@"turn" forPlayer:playerUUID parameters:@{@"amount": @1} timeout:3];
-  [self runAction:@"turn" forPlayer:playerUUID parameters:@{@"amount": @1} timeout:3];
-  [self runAction:@"turn" forPlayer:playerUUID parameters:@{@"amount": @1} timeout:3];
-
-  NSDictionary *response = [self runAction:@"turn" forPlayer:playerUUID parameters:@{@"amount": @1} timeout:3];
+  NSDictionary *response = [self runAction:@"turn" forPlayer:_playerUUID parameters:@{@"amount": @1} timeout:3];
 
   expect([response objectForKey:@"code"]).to.equal(6);
   expect([response objectForKey:@"error"]).to.equal(@"Player has insufficient energy");
